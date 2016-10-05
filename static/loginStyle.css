@@ -1,0 +1,56 @@
+body {
+    background-color: #CCC
+}
+
+.contentWrapper {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.loginForm {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #035703;
+    padding: 10px 10px;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.loginForm .formItem {
+    clear: both;
+    padding: 10px 10px;
+}
+
+.loginForm label {
+    float: left;
+    padding: 4px 4px;
+    color: #CCC;
+    border: none;
+}
+
+.loginForm input {
+    float: right;
+    padding: 2px 2px;
+}
+
+.loginForm .loginButton {
+    float: right;
+    background-color: #187A18;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.loginForm .loginButton:hover {
+    background-color: #157015;
+}

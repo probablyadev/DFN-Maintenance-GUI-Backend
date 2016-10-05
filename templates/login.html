@@ -2,23 +2,27 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Camera Mainenance Login</title>
+        <title>Camera Maintenance Login</title>
+        <link rel="stylesheet" type="text/css" href="/static/loginStyle.css">
     </head>
     <body>
-        <form id="loginform">
-            <div id="usernameInputArea">
-                <label for="userName">Username: </label>
-                <input type="text" name="userName" id="userName">
+        <div class="contentWrapper">
+            <div class="loginHeading">
+                <h1 class="heading">User Login</h1>
             </div>
-            <div id="passwordInputArea">
-                <label for="passWord">Password: </label>
-                <input type="text" name="passWord" id="passWord">
+            <div class="loginForm">
+                <div class="formItem">
+                    <label for="userInput">Username:</label>
+                    <input type="text" id="userInput">
+                </div>
+                <div class="formItem">
+                    <label for="passInput">Password:</label>
+                    <input type="password" id="passInput">
+                </div>
+                <div class="formItem">
+                    <button type="button" class="loginButton">Login</button>
+                </div>
             </div>
-            <div>
-                <input type="submit" value="Log In">
-            </div>
-        </form>
-
-        </form>
+        </div>
     </body>
 </html>
