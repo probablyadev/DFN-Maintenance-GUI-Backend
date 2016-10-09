@@ -1,18 +1,27 @@
 import web
+from web import form
 
-urls = ('/(.*)', 'Index')
-web.config.debug = True
+render = web.template.render('templates/')
+
+urls = ('/', 'Index')
+app = web.application(urls, globals())
+
+loginForm = form.Form(
+    form.Textbox("username", description='Username:'),
+    form.Password("password", description='Password:'),
+    form.Button('Login'))
 
 class Index:
-    def __init__(self):
-        self.render = web.template.render('templates/')
+    def GET(self):
+        f = loginForm()
+        return render.login(f)
 
-    def GET(self, name=None):
-        return self.render.login()
+    def POST(self):
+        f = loginForm()
+        if not f.validates():
+            return render.login(f)
+        else:
+            return "Great success! Username: %s, Password: %s" % (f.d.username, f.d.password)
 
-    def POST(self, name):
-        return None
-
-if __name__ == '__main__' :
-    app = web.application(urls, globals())
+if __name__=="__main__":
     app.run()

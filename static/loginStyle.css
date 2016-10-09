@@ -3,7 +3,7 @@ body {
 }
 
 .contentWrapper {
-    height: 100vh;
+    height: 90vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,6 +13,8 @@ body {
 
 h1 {
     font-family: Arial, Helvetica, sans-serif;
+    -webkit-margin-before: 5px;
+    -webkit-margin-after: 5px;
 }
 
 .loginForm {
@@ -23,11 +25,6 @@ h1 {
     padding: 10px 10px;
     font-size: 16px;
     font-family: Arial, Helvetica, sans-serif;
-}
-
-.loginForm .formItem {
-    clear: both;
-    padding: 10px 10px;
 }
 
 .loginForm label {
@@ -42,15 +39,16 @@ h1 {
     padding: 2px 2px;
 }
 
-.loginForm .loginButton {
+.loginForm button {
     float: right;
     background-color: #187A18;
     border: none;
     color: white;
-    padding: 10px 20px;
+    padding: 5px 10px;
     text-align: center;
+    font-size: 15px;
 }
 
-.loginForm .loginButton:hover {
+.loginForm button:hover {
     background-color: #157015;
 }
