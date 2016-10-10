@@ -1,11 +1,11 @@
-$def with (form)
+$def with (form, error)
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>Camera Maintenance Login</title>
-        <link rel="stylesheet" type="text/css" href="/static/loginStyle.css">
+        <link rel="stylesheet" type="text/css" href="static/loginStyle.css">
     </head>
     <body>
         <div class="contentWrapper">
@@ -17,6 +17,7 @@ $def with (form)
                     $:form.render()
                 </form>
             </div>
+            <h4>$error</h4>
         </div>
     </body>
 </html>

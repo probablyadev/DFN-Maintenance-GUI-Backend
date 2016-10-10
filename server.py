@@ -1,4 +1,5 @@
 import web
+import sqlite3
 from web import form
 
 web.config.debug = False
@@ -25,15 +26,22 @@ loginForm = form.Form(
 class Index:
     def GET(self):
         f = loginForm()
-        return render.login(f)
+        return render.login(f, '')
 
     def POST(self):
         f = loginForm()
-        if not f.validates():
-            return render.login(f)
+
+        if f.validates(): #If form lambdas are valid
+            authdb = sqlite3.connect('auth.db')
+            curs = authdb.cursor()
+            check = curs.execute("SELECT * FROM Authdata WHERE username=\"{0}\" AND password=\"{1}\"".format(f.d.username, f.d.password))
+            if check.fetchone():
+                raise web.seeother('/login')
+            else:
+                return render.login(f, 'ERROR: Incorrect credentials.')
         else:
-            session.logged_in = True
-            raise web.seeother('/maintain')
+            return render.login(f, 'ERROR: Form entry invalid.')
+
 
 #Class for Maintenance GUI
 class UI:
@@ -45,7 +53,7 @@ class UI:
             raise web.seeother('/')
 
     def POST(self):
-        return 0
+        raise web.seeother('/')
 
 #Classes for login and logout with sessions
 class Login:
