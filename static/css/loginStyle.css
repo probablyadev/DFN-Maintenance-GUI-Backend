@@ -1,6 +1,6 @@
 body {
     height: 100vh;
-    background-image: url("meteor.jpg");
+    background-image: url("/static/img/fireball.jpg");
     background-size: cover;
 }
 

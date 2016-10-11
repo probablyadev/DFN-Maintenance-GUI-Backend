@@ -1,5 +1,5 @@
 import web
-import sqlite3
+import model
 from web import form
 
 web.config.debug = False
@@ -32,10 +32,7 @@ class Index:
         f = loginForm()
 
         if f.validates(): #If form lambdas are valid
-            authdb = sqlite3.connect('auth.db')
-            curs = authdb.cursor()
-            check = curs.execute("SELECT * FROM Authdata WHERE username=\"{0}\" AND password=\"{1}\"".format(f.d.username, f.d.password))
-            if check.fetchone():
+            if model.loginAuth(f.d.username, f.d.password):
                 raise web.seeother('/login')
             else:
                 return render.login(f, 'ERROR: Incorrect credentials.')
