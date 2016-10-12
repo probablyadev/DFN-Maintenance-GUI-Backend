@@ -1,7 +1,18 @@
 body {
-    height: 100vh;
+    height: 92vh;
     background-image: url("/static/img/fireball.jpg");
     background-size: cover;
+    margin: 0px;
+
+}
+
+.header {
+    height: 8vh;
+}
+
+.header img {
+    height: 100%;
+    float: right;
 }
 
 .contentWrapper {
@@ -9,7 +20,6 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 10px 20px;
     height: 100%;
 
 }
