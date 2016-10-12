@@ -4,25 +4,25 @@ from web import form
 
 web.config.debug = False
 
-#Initialising web.py app object
+# Initialising web.py app object
 urls = ('/', 'Index',
         '/app', 'UI',
         '/login', 'Login',
         '/logout', 'Logout',)
 app = web.application(urls, globals())
 
-#Initialising useful web.py framework variables
+# Initialising useful web.py framework variables
 render = web.template.render('templates/')
 session = web.session.Session(app, web.session.DiskStore('sessions/'))
 
-#Variable for the login form.
+# Variable for the login form.
 loginForm = form.Form(
     form.Textbox("username", description='Username:'),
     form.Password("password", description='Password:'),
     form.Button('Login'))
 
 
-#Class for login page
+# Class for login page
 class Index:
     def GET(self):
         f = loginForm()
@@ -31,7 +31,7 @@ class Index:
     def POST(self):
         f = loginForm()
 
-        if f.validates(): #If form lambdas are valid
+        if f.validates():  # If form lambdas are valid
             if model.loginAuth(f.d.username, f.d.password):
                 raise web.seeother('/login')
             else:
@@ -40,7 +40,7 @@ class Index:
             return render.login(f, 'ERROR: Form entry invalid.')
 
 
-#Class for Maintenance GUI
+# Class for Maintenance GUI
 class UI:
     def GET(self):
         if session.get('logged_in', False):
@@ -52,17 +52,20 @@ class UI:
     def POST(self):
         raise web.seeother('/')
 
-#Classes for login and logout with sessions
+
+# Classes for login and logout with sessions
 class Login:
     def GET(self):
         session.logged_in = True
         raise web.seeother('/app')
+
 
 class Logout:
     def GET(self):
         session.logged_in = False
         raise web.seeother('/')
 
-#Start of execution
-if __name__=="__main__":
+
+# Start of execution
+if __name__ == "__main__":
     app.run()

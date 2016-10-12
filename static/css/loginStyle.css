@@ -42,7 +42,6 @@ h4 {
     border-radius: 5px;
     background-color: #95000C;
     padding: 5px 10px;
-    font-size: 16px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -65,7 +64,7 @@ h4 {
     color: white;
     padding: 5px 10px;
     text-align: center;
-    font-size: 15px;
+    font-size: 1em;
 }
 
 .loginForm button:hover {
