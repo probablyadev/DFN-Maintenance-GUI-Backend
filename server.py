@@ -64,7 +64,8 @@ class Logout:
         session.logged_in = False
         raise web.seeother('/')
 
-# Class is where command requests are sent
+# Class is where command requests are sent.
+# Input is the #id of the button clicked.
 class Commands:
     def GET(self):
         return commandSender.doCommand(web.input().buttonID)
