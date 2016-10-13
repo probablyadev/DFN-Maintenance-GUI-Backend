@@ -1,5 +1,6 @@
 import web
 import model
+import commandSender
 from web import form
 
 web.config.debug = False
@@ -8,7 +9,8 @@ web.config.debug = False
 urls = ('/', 'Index',
         '/app', 'UI',
         '/login', 'Login',
-        '/logout', 'Logout',)
+        '/logout', 'Logout',
+        '/runcommand', 'Commands')
 app = web.application(urls, globals())
 
 # Initialising useful web.py framework variables
@@ -41,17 +43,14 @@ class Index:
 
 
 # Class for Maintenance GUI
-class UI:
-    def GET(self):
-        if session.get('logged_in', False):
-            f = loginForm()
-            return '<a href="/logout">Logout</a>'
-        else:
-            raise web.seeother('/')
-
-    def POST(self):
-        raise web.seeother('/')
-
+if __name__ == '__main__':
+    class UI:
+        def GET(self):
+            if session.get('logged_in', False):
+                f = loginForm()
+                return render.app()
+            else:
+                raise web.seeother('/')
 
 # Classes for login and logout with sessions
 class Login:
@@ -65,6 +64,10 @@ class Logout:
         session.logged_in = False
         raise web.seeother('/')
 
+# Class is where command requests are sent
+class Commands:
+    def GET(self):
+        return commandSender.doCommand(web.input().buttonID)
 
 # Start of execution
 if __name__ == "__main__":

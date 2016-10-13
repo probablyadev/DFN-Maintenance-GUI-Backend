@@ -11,3 +11,4 @@ New things learnt (and included in this project):
 * Database queries using sqlite3, and SQL Injection defence
 * More HTML/CSS stuff
 * jQuery and incidentally, Javascript.
+* AJAX with jQuery.

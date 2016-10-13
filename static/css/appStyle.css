@@ -1,0 +1,12 @@
+.commandbutton {
+    background-color: #CC4600;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    font-size: 1em;
+}
+
+.commandbutton:hover {
+    background-color: #FF4100;
+}

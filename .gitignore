@@ -49,3 +49,4 @@ __pycache__/
 *.pyc
 sessions/
 intoDB.py
+*.db
