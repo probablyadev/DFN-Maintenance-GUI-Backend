@@ -12,9 +12,18 @@
 
     </head>
     <body>
-        <button type="button" class="commandbutton" id="memes">Do a thing!</button>
-        <button type="button" class="commandbutton" id="NO-MEMES">Do a less cool thing!</button>
-        <input type = "text" id = "feedbackText" />
-        <a href="/logout">Logout</a>
+        <div class="header">
+            <a href="/logout">Logout</a>
+            <img src="/static/img/fireballLogo.png">
+        </div>
+        <div class="moduleWrapper">
+            <div class="commandModule">
+                <button type="button" class="commandbutton" id="thing">Do a thing!</button>
+                <button type="button" class="commandbutton" id="coolthing">Do a more cool thing!</button>
+            </div>
+        </div>
+        <div class="feedbackTextWrapper">
+            <textarea id="feedbackText">Console output:&#13;</textarea>
+        </div>
     </body>
 </html>

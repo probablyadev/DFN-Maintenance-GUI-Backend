@@ -28,3 +28,4 @@ def loginAuth(username, password):
     if check.fetchone():
         auth = True
     return auth
+

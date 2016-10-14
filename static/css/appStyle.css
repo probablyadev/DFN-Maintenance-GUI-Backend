@@ -1,3 +1,27 @@
+body {
+    height: 100vh;
+    background-image: url("/static/img/fireball.jpg");
+    background-size: cover;
+    margin: 0px;
+}
+
+.header {
+    height: 8%;
+}
+
+.header img {
+    height: 100%;
+    float: right;
+}
+
+.moduleWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50%;
+}
+
 .commandbutton {
     background-color: #CC4600;
     border: none;
@@ -9,4 +33,25 @@
 
 .commandbutton:hover {
     background-color: #FF4100;
+}
+
+.feedbackTextWrapper {
+    height: 42%;
+}
+
+#feedbackText {
+    background-color: #2B2B2B;
+    border-color: #1B1B1B;
+    color: #00FF00;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 20px;
+    vertical-align: top;
+    margin: 5px;
+    width: -webkit-calc(100% - 40px);
+    width: -moz-calc(100% - 40px);
+    height: -webkit-calc(100% - 40px);
+    height: -moz-calc(100% - 40px);
+    -webkit-box-sizing: border-box; // Safari/Chrome, other WebKit
+    -moz-box-sizing: border-box;    // Firefox, other Gecko
+    box-sizing: border-box;         // Opera/IE 8+
 }
