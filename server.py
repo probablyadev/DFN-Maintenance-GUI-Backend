@@ -8,7 +8,6 @@ web.config.debug = False
 # Initialising web.py app object
 urls = ('/', 'Index',
         '/app', 'UI',
-        '/login', 'Login',
         '/logout', 'Logout',
         '/runcommand', 'Commands')
 app = web.application(urls, globals())
@@ -35,7 +34,7 @@ class Index:
 
         if f.validates():  # If form lambdas are valid
             if model.loginAuth(f.d.username, f.d.password):
-                raise web.seeother('/login')
+                Login.login()
             else:
                 return render.login(f, 'ERROR: Incorrect credentials.')
         else:
@@ -52,12 +51,11 @@ if __name__ == '__main__':
             else:
                 raise web.seeother('/')
 
-# Classes for login and logout with sessions
 class Login:
-    def GET(self):
+    @staticmethod
+    def login():
         session.logged_in = True
         raise web.seeother('/app')
-
 
 class Logout:
     def GET(self):
@@ -68,7 +66,7 @@ class Logout:
 # Input is the #id of the button clicked.
 class Commands:
     def GET(self):
-        return commandSender.doCommand(web.input().buttonID)
+            return commandSender.doCommand(web.input().buttonID)
 
 # Start of execution
 if __name__ == "__main__":

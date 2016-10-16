@@ -4,4 +4,5 @@ jQuery(document).ready(function(){
         jQuery.get("/runcommand", { buttonID : $(this).attr('id') }, function(result){
             jQuery("#feedbackText").append(result);
           });
-        });});
+        });
+    });

@@ -1,9 +1,14 @@
 # Placeholder for now, this is where we send data to die.
 import constants
-import subprocess
+import commands
 
 def doCommand(commandID):
+    command = ""
     if commandID == "thing":
-        return constants.thing
+        command = constants.thing
     elif commandID == "coolthing":
-        return constants.coolthing
+        command = constants.coolthing
+    else:
+        return "ERROR: No command for this button exists."
+    return commands.getstatusoutput(command)[1]
+
