@@ -18,12 +18,25 @@
         </div>
         <div class="moduleWrapper">
             <div class="commandModule">
-                <button type="button" class="commandbutton" id="thing">Do a thing!</button>
-                <button type="button" class="commandbutton" id="coolthing">Do a more cool thing!</button>
+                <h3 class="moduleHeader">Camera Stats</h3>
+                <button type="button" class="commandbutton" id="StatusCheck">Check General Status</button>
+                <button type="button" class="commandbutton" id="GPSCheck">Check GPS</button>
+            </div>
+            <div class="commandModule">
+                <h3 class="moduleHeader">Camera Controls</h3>
+                <button type="button" class="commandbutton" id="CameraOn">Enable camera</button>
+                <button type="button" class="commandbutton" id="CameraOff">Disable camera</button>
+            </div>
+            <div class="commandModule">
+                <h3 class="moduleHeader">Hard Drive Controls</h3>
+                <button type="button" class="commandbutton" id="HDDOn">Enable external HDD</button>
+                <button type="button" class="commandbutton" id="HDDOff">Disable external HDD</button>
+                <button type="button" class="commandbutton" id="UnmountHDD">Unmount external HDD</button>
+                <button type="button" class="commandbutton" id="CheckSpace">Check HDD space</button>
             </div>
         </div>
         <div class="feedbackTextWrapper">
-            <textarea id="feedbackText">Console output:&#13;</textarea>
+            <textarea id="feedbackText" readonly></textarea>
         </div>
     </body>
 </html>

@@ -3,12 +3,18 @@ import constants
 import commands
 
 def doCommand(commandID):
-    command = ""
-    if commandID == "thing":
-        command = constants.thing
-    elif commandID == "coolthing":
-        command = constants.coolthing
-    else:
-        return "ERROR: No command for this button exists."
-    return commands.getstatusoutput(command)[1]
+    command = commandFactory(commandID)
+    outputText = "Command done: " + command + "\n" + commands.getstatusoutput(command)[1] + "\n\n"
+    return outputText
 
+def commandFactory(commandID):
+    return {
+        "StatusCheck" : constants.statuscheck,
+        "GPSCheck" : constants.gpscheck,
+        "CameraOn" : constants.cameraon,
+        "CameraOff" : constants.cameraoff,
+        "HDDOn" : constants.enableharddrive,
+        "HDDOff" : constants.disableharddrive,
+        "UnmountHDD" : constants.unmountharddrive,
+        "CheckSpace" : constants.checkspace
+    }.get(commandID, "No command found")
