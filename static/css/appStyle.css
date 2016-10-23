@@ -16,6 +16,11 @@ body {
     float: right;
 }
 
+.logoutText {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #FFF;
+}
+
 .moduleWrapper {
     display: flex;
     align-items: center;
@@ -56,8 +61,62 @@ body {
     background-color: #FF4100;
 }
 
-.feedbackTextWrapper {
+.feedbackWrapper {
     height: 42%;
+}
+
+.feedbackWrapper > * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 20px 15px 20px 15px;
+}
+
+.statusGUI {
+    float: left;
+    width: -webkit-calc(20% - 20px);
+    width: -moz-calc(20% - 20px);
+    height: -webkit-calc(100% - 40px);
+    height: -moz-calc(100% - 40px);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #95000C;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.statusGUI h3 {
+    margin: 15px;
+    font-size: 3vh;
+}
+
+.statusGUI .statusElement {
+    width: -webkit-calc(100% - 20px);
+    width: -moz-calc(100% - 20px);
+    max-width: 180px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    margin: 3px 5px 3px 5px;
+    background-color: #610008;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.statusLight {
+    background-color: #00FF00;
+    height: 0.75vh;
+    width: 0.75vh;
+    margin: 3px;
+}
+
+.statusElement label {
+    margin: 2px 5px 2px 5px;
+    font-size: 2.2vh;
 }
 
 #feedbackText {
@@ -67,12 +126,8 @@ body {
     font-family: "Courier New", Courier, monospace;
     font-size: 2vh;
     vertical-align: top;
-    margin: 20px;
-    width: -webkit-calc(100% - 40px);
-    width: -moz-calc(100% - 40px);
+    width: -webkit-calc(80% - 40px);
+    width: -moz-calc(80% - 40px);
     height: -webkit-calc(100% - 40px);
     height: -moz-calc(100% - 40px);
-    -webkit-box-sizing: border-box; // Safari/Chrome, other WebKit
-    -moz-box-sizing: border-box;    // Firefox, other Gecko
-    box-sizing: border-box;         // Opera/IE 8+
 }

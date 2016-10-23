@@ -13,7 +13,7 @@
     </head>
     <body>
         <div class="header">
-            <a href="/logout">Logout</a>
+            <a href="/logout" class="logoutText">Logout</a>
             <img src="/static/img/fireballLogo.png">
         </div>
         <div class="moduleWrapper">
@@ -35,7 +35,42 @@
                 <button type="button" class="commandbutton" id="CheckSpace">Check HDD space</button>
             </div>
         </div>
-        <div class="feedbackTextWrapper">
+        <div class="feedbackWrapper">
+            <div class="statusGUI">
+                <h3 class="statusHeader">
+                    System Status
+                </h3>
+                <div class="statusElement">
+                    <label for="cameraLight">Camera</label>
+                    <div id="cameraLight" class="statusLight">
+                    </div>
+                </div>
+                <div class="statusElement">
+                    <label for="GPSLight">GPS</label>
+                    <div id="GPSLight" class="statusLight">
+                    </div>
+                </div>
+                <div class="statusElement">
+                    <label for="InternetLight">Internet</label>
+                    <div id="InternetLight" class="statusLight">
+                    </div>
+                </div>
+                <div class="statusElement">
+                    <label for="IntervalLight">Interval Control</label>
+                    <div id="IntervalLight" class="statusLight">
+                    </div>
+                </div>
+                <div class="statusElement">
+                    <label for="HDD1Light">/data1</label>
+                    <div id="HDD1Light" class="statusLight">
+                    </div>
+                </div>
+                <div class="statusElement">
+                    <label for="HDD2Light">/data2</label>
+                    <div id="HDD2Light" class="statusLight">
+                    </div>
+                </div>
+            </div>
             <textarea id="feedbackText" readonly></textarea>
         </div>
     </body>
