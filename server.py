@@ -10,7 +10,10 @@ urls = ('/', 'Index',
         '/app', 'UI',
         '/logout', 'Logout',
         '/cameraon', 'CameraOn',
-        '/cameraoff', 'CameraOff')
+        '/cameraoff', 'CameraOff',
+        '/camerastatus', 'CameraStatus',
+        '/internetstatus', 'InternetStatus',
+        '/gpscheck', 'GPSCheck')
 app = web.application(urls, globals())
 
 # Initialising useful web.py framework variables
@@ -66,11 +69,23 @@ class Logout:
 # Classes for different functions
 class CameraOn:
     def GET(self):
-            return commandSender.cameraOn();
+            return commandSender.cameraOn()
 
 class CameraOff:
     def GET(self):
-        return commandSender.cameraOn();
+        return commandSender.cameraOn()
+
+class CameraStatus:
+    def GET(self):
+        return commandSender.cameraStatus()
+
+class GPSCheck:
+    def GET(self):
+        return commandSender.gpsCheck()
+
+class InternetStatus:
+    def GET(self):
+        return commandSender.internetCheck()
 
 # Start of execution
 if __name__ == "__main__":

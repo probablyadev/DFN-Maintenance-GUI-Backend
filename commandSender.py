@@ -9,29 +9,67 @@ def doConsoleCommand(command):
     return outputText
 
 def cameraOn():
-    #Do command
+    # Do command
     consoleOutput = doConsoleCommand(constants.cameraOn)
 
-    #Parse output for results
-    status = bool(random.getrandbits(1))
+    #TODO: Parse output for results
 
-    #Encode to JSON
+    # Encode to JSON
     data = {}
-    data['feedbacktext'] = consoleOutput
-    data['status'] = status
+    data['feedbackText'] = consoleOutput
     outJSON = json.dumps(data)
     return outJSON
 
 def cameraOff():
-    #Do command
+    # Do command
     consoleOutput = doConsoleCommand(constants.cameraOff)
 
-    #Parse output for results
+    # TODO: Parse output for results
+
+    # Encode to JSON
+    data = {}
+    data['feedbackText'] = consoleOutput
+    outJSON = json.dumps(data)
+    return outJSON
+
+def cameraStatus():
+    # Do command
+    consoleOutput = doConsoleCommand(constants.cameraCheck)
+
+    # TODO: Parse output for results
     status = bool(random.getrandbits(1))
 
-    #Encode to JSON
+    # Encode to JSON
     data = {}
-    data['feedbacktext'] = consoleOutput
+    data['feedbackText'] = consoleOutput
+    data['status'] = status
+    outJSON = json.dumps(data)
+    return outJSON
+
+def gpsCheck():
+    # Do command
+    consoleOutput = doConsoleCommand(constants.gpsCheck)
+
+    # Parse output for results
+    status = bool(random.getrandbits(1))
+
+    # Encode to JSON
+    data = {}
+    data['feedbackText'] = consoleOutput
+    data['status'] = status
+    outJSON = json.dumps(data)
+    return outJSON
+
+def internetCheck():
+    # Do command
+    consoleOutput = doConsoleCommand(constants.internetCheck)
+
+    # Parse output for results
+    status = bool(random.getrandbits(1))
+
+    # Encode to JSON
+    data = {}
+    data['feedbackText'] = consoleOutput
     data['status'] = status
     outJSON = json.dumps(data)
     return outJSON
