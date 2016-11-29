@@ -1,13 +1,46 @@
-jQuery(document).ready(function(){
-    // Function makes an AJAX request to the server, with the clicked button's ID as input.
-    jQuery(".commandbutton").click(function(){
-        var psconsole = $('#feedbackText');
-        jQuery(psconsole).append("Doing command: " + $(this).attr('id') + "\n");
-        jQuery.get("/runcommand", { buttonID : $(this).attr('id') }, function(result){
-                var psconsole = $('#feedbackText');
-                jQuery(psconsole).append(result);
-                if(psconsole.length)
-                    psconsole.scrollTop(psconsole[0].scrollHeight - psconsole.height());
-          });
+$(document).ready(function () {
+
+    //Function for Camera On functionality
+    $("#CameraOn").click(function () {
+        var webConsole = $('#feedbackText');
+        var statusLight = $('#cameraLight');
+        var lightColor = "#FF0000"
+
+        $(webConsole).append("Doing command: " + $(this).attr('id') + "\n");
+        //AJAX Request for console output + camera status
+        $.getJSON("/cameraon", function (result) {
+            //Decide status light based on camera status
+            if (result.status)
+            {
+                lightColor = "#00FF00"
+            }
+            statusLight.css("background-color", lightColor);
+            //Set feedback text
+            $(webConsole).append(result.feedbacktext);
+            if (webConsole.length)
+                webConsole.scrollTop(webConsole[0].scrollHeight - webConsole.height());
         });
     });
+
+    //Function for Camera Off functionality
+    $("#CameraOff").click(function () {
+        var webConsole = $('#feedbackText');
+        var statusLight = $('#cameraLight');
+        var lightColor = "#FF0000"
+
+        $(webConsole).append("Doing command: " + $(this).attr('id') + "\n");
+        //AJAX Request for console output + camera status
+        $.getJSON("/cameraoff", function (result) {
+            //Decide status light based on camera status
+            if (result.status)
+            {
+                lightColor = "#00FF00"
+            }
+            statusLight.css("background-color", lightColor);
+            //Set feedback text
+            $(webConsole).append(result.feedbacktext);
+            if (webConsole.length)
+                webConsole.scrollTop(webConsole[0].scrollHeight - webConsole.height());
+        });
+    });
+});

@@ -109,8 +109,11 @@ body {
 
 .statusLight {
     background-color: #00FF00;
-    height: 0.75vh;
-    width: 0.75vh;
+    -webkit-border-radius: 1vmin;
+    -moz-border-radius: 1vmin;
+    border-radius: 1vmin;
+    height: 1vmin;
+    width: 1vmin;
     margin: 3px;
 }
 

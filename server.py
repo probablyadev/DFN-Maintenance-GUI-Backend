@@ -9,7 +9,8 @@ web.config.debug = False
 urls = ('/', 'Index',
         '/app', 'UI',
         '/logout', 'Logout',
-        '/runcommand', 'Commands')
+        '/cameraon', 'CameraOn',
+        '/cameraoff', 'CameraOff')
 app = web.application(urls, globals())
 
 # Initialising useful web.py framework variables
@@ -62,11 +63,14 @@ class Logout:
         session.logged_in = False
         raise web.seeother('/')
 
-# Class is where command requests are sent.
-# Input is the #id of the button clicked.
-class Commands:
+# Classes for different functions
+class CameraOn:
     def GET(self):
-            return commandSender.doCommand(web.input().buttonID)
+            return commandSender.cameraOn();
+
+class CameraOff:
+    def GET(self):
+        return commandSender.cameraOn();
 
 # Start of execution
 if __name__ == "__main__":
