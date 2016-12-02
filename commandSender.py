@@ -4,7 +4,7 @@ import commands
 import random
 
 def doConsoleCommand(command):
-    outputText = "Command done: " + command + "\n" + commands.getstatusoutput(command)[1] + "\n"
+    outputText = commands.getstatusoutput(command)[1] + "\n"
     return outputText
 
 def cameraOn():
@@ -33,20 +33,20 @@ def cameraStatus():
     # Encode to JSON
     return constants.cameraCheckResult, status
 
-def gpsCheck():
+def gpsStatus():
     # Do command
     consoleOutput = doConsoleCommand(constants.gpsCheck)
 
-    # Parse output for results
+    # TODO: Parse output for results
     status = bool(random.getrandbits(1))
 
     return consoleOutput, status
 
-def internetCheck():
+def internetStatus():
     # Do command
     consoleOutput = doConsoleCommand(constants.internetCheck)
 
-    # Parse output for results
+    # TODO: Parse output for results
     status = bool(random.getrandbits(1))
 
     return consoleOutput, status

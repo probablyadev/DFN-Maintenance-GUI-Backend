@@ -49,11 +49,9 @@ class Index:
 if __name__ == '__main__':
     class UI:
         def GET(self):
-            if session.get('logged_in', False):
+            if LoginChecker.loggedIn():
                 f = loginForm()
                 return render.app()
-            else:
-                raise web.seeother('/')
 
 class Login:
     @staticmethod
@@ -66,37 +64,64 @@ class Logout:
         session.logged_in = False
         raise web.seeother('/')
 
+class LoginChecker:
+    @staticmethod
+    def loggedIn():
+        if session.get('logged_in', False):
+            return True
+        else:
+            raise web.seeother('/')
+
 # Classes for different functions
 class CameraOn:
     def GET(self):
-        data = {}
-        data['consoleFeedback'] = commandSender.cameraOn()
-        statusFeedback, statusBoolean = commandSender.cameraStatus()
-        data['consoleFeedback'] += statusFeedback
-        data['cameraStatus'] = statusBoolean
-        outJSON = json.dumps(data)
-        return outJSON
+        if LoginChecker.loggedIn():
+            data = {}
+            data['consoleFeedback'] = commandSender.cameraOn()
+            statusFeedback, statusBoolean = commandSender.cameraStatus()
+            data['consoleFeedback'] += statusFeedback
+            data['cameraStatus'] = statusBoolean
+            outJSON = json.dumps(data)
+            return outJSON
+
 
 class CameraOff:
     def GET(self):
-        data = {}
-        data['consoleFeedback'] = commandSender.cameraOff()
-        statusFeedback, statusBoolean = commandSender.cameraStatus()
-        data['consoleFeedback'] += statusFeedback
-        data['cameraStatus'] = statusBoolean
-        outJSON = json.dumps(data)
-        return outJSON
+        if LoginChecker.loggedIn():
+            data = {}
+            data['consoleFeedback'] = commandSender.cameraOff()
+            statusFeedback, statusBoolean = commandSender.cameraStatus()
+            data['consoleFeedback'] += statusFeedback
+            data['cameraStatus'] = statusBoolean
+            outJSON = json.dumps(data)
+            return outJSON
+
 
 class GPSCheck:
     def GET(self):
-        data = {}
-        data['consoleFeedback'], data['gpsStatus'] = commandSender.gpsStatus()
-        outJSON = json.dumps(data)
-        return outJSON
+        if LoginChecker.loggedIn():
+            data = {}
+            data['consoleFeedback'], data['gpsStatus'] = commandSender.gpsStatus()
+            outJSON = json.dumps(data)
+            return outJSON
+
 
 class SystemStatus:
     def GET(self):
-        return 0
+        if LoginChecker.loggedIn():
+            # Check status of system
+            cameraFeedback, cameraBoolean = commandSender.cameraStatus()
+            gpsFeedback, gpsBoolean = commandSender.gpsStatus()
+            internetFeedback, internetBoolean = commandSender.internetStatus()
+
+            # Encode to JSON
+            data = {}
+            data['consoleFeedback'] = cameraFeedback + gpsFeedback + internetFeedback
+            data['cameraStatus'] = cameraBoolean
+            data['gpsStatus'] = gpsBoolean
+            data['internetStatus'] = internetBoolean
+            outJSON = json.dumps(data)
+            return outJSON
 
 # Start of execution
 if __name__ == "__main__":
