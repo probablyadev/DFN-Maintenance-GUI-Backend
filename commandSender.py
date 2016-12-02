@@ -2,23 +2,18 @@
 import constants
 import commands
 import random
-import json
 
 def doConsoleCommand(command):
-    outputText = "Command done: " + command + "\n" + commands.getstatusoutput(command)[1] + "\n\n"
+    outputText = "Command done: " + command + "\n" + commands.getstatusoutput(command)[1] + "\n"
     return outputText
 
 def cameraOn():
     # Do command
     consoleOutput = doConsoleCommand(constants.cameraOn)
 
-    #TODO: Parse output for results
+    #TODO: Parse output and present nicely
 
-    # Encode to JSON
-    data = {}
-    data['feedbackText'] = consoleOutput
-    outJSON = json.dumps(data)
-    return outJSON
+    return consoleOutput
 
 def cameraOff():
     # Do command
@@ -26,11 +21,7 @@ def cameraOff():
 
     # TODO: Parse output for results
 
-    # Encode to JSON
-    data = {}
-    data['feedbackText'] = consoleOutput
-    outJSON = json.dumps(data)
-    return outJSON
+    return consoleOutput
 
 def cameraStatus():
     # Do command
@@ -40,11 +31,7 @@ def cameraStatus():
     status = bool(random.getrandbits(1))
 
     # Encode to JSON
-    data = {}
-    data['feedbackText'] = consoleOutput
-    data['status'] = status
-    outJSON = json.dumps(data)
-    return outJSON
+    return constants.cameraCheckResult, status
 
 def gpsCheck():
     # Do command
@@ -53,12 +40,7 @@ def gpsCheck():
     # Parse output for results
     status = bool(random.getrandbits(1))
 
-    # Encode to JSON
-    data = {}
-    data['feedbackText'] = consoleOutput
-    data['status'] = status
-    outJSON = json.dumps(data)
-    return outJSON
+    return consoleOutput, status
 
 def internetCheck():
     # Do command
@@ -67,9 +49,4 @@ def internetCheck():
     # Parse output for results
     status = bool(random.getrandbits(1))
 
-    # Encode to JSON
-    data = {}
-    data['feedbackText'] = consoleOutput
-    data['status'] = status
-    outJSON = json.dumps(data)
-    return outJSON
+    return consoleOutput, status

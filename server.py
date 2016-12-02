@@ -2,6 +2,7 @@ import web
 import model
 import commandSender
 from web import form
+import json
 
 web.config.debug = False
 
@@ -11,9 +12,8 @@ urls = ('/', 'Index',
         '/logout', 'Logout',
         '/cameraon', 'CameraOn',
         '/cameraoff', 'CameraOff',
-        '/camerastatus', 'CameraStatus',
-        '/internetstatus', 'InternetStatus',
-        '/gpscheck', 'GPSCheck')
+        '/gpscheck', 'GPSCheck',
+        '/systemstatus', 'SystemStatus')
 app = web.application(urls, globals())
 
 # Initialising useful web.py framework variables
@@ -69,23 +69,34 @@ class Logout:
 # Classes for different functions
 class CameraOn:
     def GET(self):
-            return commandSender.cameraOn()
+        data = {}
+        data['consoleFeedback'] = commandSender.cameraOn()
+        statusFeedback, statusBoolean = commandSender.cameraStatus()
+        data['consoleFeedback'] += statusFeedback
+        data['cameraStatus'] = statusBoolean
+        outJSON = json.dumps(data)
+        return outJSON
 
 class CameraOff:
     def GET(self):
-        return commandSender.cameraOn()
-
-class CameraStatus:
-    def GET(self):
-        return commandSender.cameraStatus()
+        data = {}
+        data['consoleFeedback'] = commandSender.cameraOff()
+        statusFeedback, statusBoolean = commandSender.cameraStatus()
+        data['consoleFeedback'] += statusFeedback
+        data['cameraStatus'] = statusBoolean
+        outJSON = json.dumps(data)
+        return outJSON
 
 class GPSCheck:
     def GET(self):
-        return commandSender.gpsCheck()
+        data = {}
+        data['consoleFeedback'], data['gpsStatus'] = commandSender.gpsStatus()
+        outJSON = json.dumps(data)
+        return outJSON
 
-class InternetStatus:
+class SystemStatus:
     def GET(self):
-        return commandSender.internetCheck()
+        return 0
 
 # Start of execution
 if __name__ == "__main__":
