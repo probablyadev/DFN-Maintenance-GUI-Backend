@@ -4,13 +4,35 @@ $(document).ready(function () {
     var cameraLight = $('#cameraLight');
     var gpsLight = $('#GPSLight');
     var internetLight = $('#internetLight');
-    var invervalLight = $('#intervalLight');
+    var intervalLight = $('#intervalLight');
+    var hdd0Light = $('#HDD0Light');
     var hdd1Light = $('#HDD1Light');
     var hdd2Light = $('#HDD2Light');
 
     //Useful globals + constants
     var doingCommand = false;
     var colorMapping = {true : "#00FF00", false: "#FF0000"};
+
+    //Button click events
+    $("#CameraOn").click(cameraOnHandler);
+    $("#CameraOff").click(cameraOffHandler);
+    $("#HDDOn").click(hddOnHandler);
+    $("#HDDOff").click(hddOffHandler);
+    $("#UnmountHDD").click(hddUnmountHandler);
+    $("#CheckSpace").click(hddSpaceCheckHandler);
+    $("#GPSCheck").click(gpsCheckHandler);
+    $("#IntervalCheck").click(intervalTestHandler);
+    $("#StatusCheck").click(systemStatusHandler);
+
+    //Get system status
+    systemStatusHandler();
+
+    //Code for adding to web console
+    function addToWebConsole(inputText) {
+        $(webConsole).append(inputText);
+        if (webConsole.length)
+            webConsole.scrollTop(webConsole[0].scrollHeight - webConsole.height());
+    }
 
     /***************************************************/
     /* CODE FOR BUTTON PRESS HANDLERS, AJAX REQUESTERS */
@@ -21,7 +43,7 @@ $(document).ready(function () {
         if(!doingCommand) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("Doing command: " + $(this).attr('id') + "\n");
+            $(webConsole).append("Switching camera on...\n");
             //Request to turn camera on
             $.getJSON("/cameraon", function (result) {
                 //Set feedback text
@@ -39,7 +61,7 @@ $(document).ready(function () {
         if(!doingCommand) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("Doing command: " + $(this).attr('id') + "\n");
+            $(webConsole).append("Switching camera off...\n");
             //Request to turn camera off
             $.getJSON("/cameraoff", function (result) {
                 //Set feedback text
@@ -52,12 +74,85 @@ $(document).ready(function () {
         }
     }
 
+    function hddOnHandler() {
+        if (!doingCommand) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Enabling External HDDs...\n");
+            //Request to enable HDDs
+            $.getJSON("/enablehdd", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n");
+                //Set light colours
+                hdd1Light.css("background-color", colorMapping[result.HDD1Status]);
+                hdd2Light.css("background-color", colorMapping[result.HDD2Status]);
+                //Open up for other commands to be run
+                doingCommand = false;
+            });
+        }
+    }
+
+    function hddOffHandler() {
+        if (!doingCommand) {
+            doingCommand = true;
+                        //Feedback on button press
+            $(webConsole).append("Enabling External HDDs...\n");
+            //Request to enable HDDs
+            $.getJSON("/disablehdd", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n");
+                //Set light colours
+                hdd1Light.css("background-color", colorMapping[result.HDD1Status]);
+                hdd2Light.css("background-color", colorMapping[result.HDD2Status]);
+                //Open up for other commands to be run
+                doingCommand = false;
+            });
+        }
+    }
+
+    function hddUnmountHandler() {
+        if (!doingCommand) {
+            doingCommand = true;
+                        //Feedback on button press
+            $(webConsole).append("Checking external HDDs...\n");
+            //Request to enable HDDs
+            $.getJSON("/unmounthdd", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n");
+                //Set light colours
+                hdd1Light.css("background-color", colorMapping[result.HDD1Status]);
+                hdd2Light.css("background-color", colorMapping[result.HDD2Status]);
+                //Open up for other commands to be run
+                doingCommand = false;
+            });
+        }
+    }
+
+    function hddSpaceCheckHandler()
+    {
+        if (!doingCommand) {
+            doingCommand = true;
+                        //Feedback on button press
+            $(webConsole).append("Checking external HDDs...\n");
+            //Request to enable HDDs
+            $.getJSON("/hddcheck", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n");
+                //Set light colours
+                hdd1Light.css("background-color", colorMapping[result.HDD1Status]);
+                hdd2Light.css("background-color", colorMapping[result.HDD2Status]);
+                //Open up for other commands to be run
+                doingCommand = false;
+            });
+        }
+    }
+
     // Handler for turning camera off
     function gpsCheckHandler() {
         if(!doingCommand) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("Doing command: " + $(this).attr('id') + "\n");
+            $(webConsole).append("Checking GPS status...\n");
             //Request to check GPS status
             $.getJSON("/gpscheck", function (result) {
                 //Set feedback text
@@ -70,12 +165,28 @@ $(document).ready(function () {
         }
     }
 
+    //Handler for performing an interval test
+    function intervalTestHandler() {
+        if(!doingCommand) {
+            $(webConsole).append("Performing interval test...\n");
+            //Request to perform interval test
+            $.getJSON("/intervaltest", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n");
+                //Set light colours
+                intervalLight.css("background-color", colorMapping[result.intervalTestResult])
+                //Open up for other commands to be run
+                doingCommand = false;
+            });
+        }
+    }
+
     //Handler for general status check
     function systemStatusHandler() {
         if(!doingCommand) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("Doing command: " + $(this).attr('id') + "\n");
+            $(webConsole).append("Checking system status...\n");
             //Request for system status to be checked
             $.getJSON("/systemstatus", function (result) {
                 //Set feedback text
@@ -84,22 +195,12 @@ $(document).ready(function () {
                 cameraLight.css("background-color", colorMapping[result.cameraStatus]);
                 gpsLight.css("background-color", colorMapping[result.gpsStatus]);
                 internetLight.css("background-color", colorMapping[result.internetStatus]);
+                intervalLight.css("background-color", colorMapping[result.intervalTestResult]);
+                hdd1Light.css("background-color", colorMapping[result.HDD1Status]);
+                hdd2Light.css("background-color", colorMapping[result.HDD2Status]);
                 //Open up for other commands to be run
                 doingCommand = false;
             });
         }
-    }
-
-    //Button click events
-    $("#CameraOn").click(cameraOnHandler);
-    $("#CameraOff").click(cameraOffHandler);
-    $("#GPSCheck").click(gpsCheckHandler);
-    $("#StatusCheck").click(systemStatusHandler);
-
-    //Code for adding to web console
-    function addToWebConsole(inputText) {
-        $(webConsole).append(inputText);
-        if (webConsole.length)
-            webConsole.scrollTop(webConsole[0].scrollHeight - webConsole.height());
     }
 });

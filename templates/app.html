@@ -18,21 +18,22 @@
         </div>
         <div class="moduleWrapper">
             <div class="commandModule">
-                <h3 class="moduleHeader">Camera Stats</h3>
+                <h3 class="moduleHeader">Status Checks</h3>
                 <button type="button" class="commandbutton" id="StatusCheck">Check General Status</button>
+                <button type="button" class="commandbutton" id="IntervalCheck">Interval Test</button>
                 <button type="button" class="commandbutton" id="GPSCheck">Check GPS</button>
             </div>
             <div class="commandModule">
                 <h3 class="moduleHeader">Camera Controls</h3>
-                <button type="button" class="commandbutton" id="CameraOn">Enable camera</button>
-                <button type="button" class="commandbutton" id="CameraOff">Disable camera</button>
+                <button type="button" class="commandbutton" id="CameraOn">Enable Camera</button>
+                <button type="button" class="commandbutton" id="CameraOff">Disable Camera</button>
             </div>
             <div class="commandModule">
                 <h3 class="moduleHeader">Hard Drive Controls</h3>
-                <button type="button" class="commandbutton" id="HDDOn">Enable external HDD</button>
-                <button type="button" class="commandbutton" id="HDDOff">Disable external HDD</button>
-                <button type="button" class="commandbutton" id="UnmountHDD">Unmount external HDD</button>
-                <button type="button" class="commandbutton" id="CheckSpace">Check HDD space</button>
+                <button type="button" class="commandbutton" id="HDDOn">Enable Ext. HDD</button>
+                <button type="button" class="commandbutton" id="HDDOff">Disable Ext. HDD</button>
+                <button type="button" class="commandbutton" id="UnmountHDD">Unmount Ext. HDD</button>
+                <button type="button" class="commandbutton" id="CheckSpace">Check Ext. HDD Status</button>
             </div>
         </div>
         <div class="feedbackWrapper">
@@ -58,6 +59,11 @@
                 <div class="statusElement">
                     <label for="IntervalLight">Interval Control</label>
                     <div id="intervalLight" class="statusLight">
+                    </div>
+                </div>
+                <div class="statusElement">
+                    <label for="HDD0Light">/data0</label>
+                    <div id="HDD0Light" class="statusLight">
                     </div>
                 </div>
                 <div class="statusElement">

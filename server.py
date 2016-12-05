@@ -13,6 +13,13 @@ urls = ('/', 'Index',
         '/cameraon', 'CameraOn',
         '/cameraoff', 'CameraOff',
         '/gpscheck', 'GPSCheck',
+        '/intervaltest', 'IntervalTest',
+        '/enablehdd', 'EnableHDD',
+        '/disablehdd', 'DisableHDD',
+        '/unmounthdd', 'UnmountHDD',
+        '/hddcheck', 'CheckHDD',
+        # TODO
+        '/data0check', 'Data0Check',
         '/systemstatus', 'SystemStatus')
 app = web.application(urls, globals())
 
@@ -72,7 +79,7 @@ class LoginChecker:
         else:
             raise web.seeother('/')
 
-# Classes for different functions
+# Classes for different functions of the GUI
 class CameraOn:
     def GET(self):
         if LoginChecker.loggedIn():
@@ -96,6 +103,49 @@ class CameraOff:
             outJSON = json.dumps(data)
             return outJSON
 
+class EnableHDD:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            data['consoleFeedback'] = commandSender.hddOn()
+            statusFeedback, hdd1Boolean, hdd2Boolean = commandSender.hddStatus()
+            data['consoleFeedback'] += statusFeedback
+            data['HDD1Status'] = hdd1Boolean
+            data['HDD2Status'] = hdd2Boolean
+            outJSON = json.dumps(data)
+            return outJSON
+
+class DisableHDD:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            data['consoleFeedback'] = commandSender.hddOff()
+            statusFeedback, hdd1Boolean, hdd2Boolean = commandSender.hddStatus()
+            data['consoleFeedback'] += statusFeedback
+            data['HDD1Status'] = hdd1Boolean
+            data['HDD2Status'] = hdd2Boolean
+            outJSON = json.dumps(data)
+            return outJSON
+
+class UnmountHDD:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            data['consoleFeedback'] = commandSender.unmountHDD()
+            statusFeedback, hdd1Boolean, hdd2Boolean = commandSender.hddStatus()
+            data['consoleFeedback'] += statusFeedback
+            data['HDD1Status'] = hdd1Boolean
+            data['HDD2Status'] = hdd2Boolean
+            outJSON = json.dumps(data)
+            return outJSON
+
+class CheckHDD:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            data['consoleFeedback'], data['HDD1Status'], data['HDD2Status'] = commandSender.hddStatus()
+            outJSON = json.dumps(data)
+            return outJSON
 
 class GPSCheck:
     def GET(self):
@@ -105,6 +155,13 @@ class GPSCheck:
             outJSON = json.dumps(data)
             return outJSON
 
+class IntervalTest:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            data['consoleFeedback'], data['intervalTestResult'] = commandSender.intervalTest()
+            outJSON = json.dumps(data)
+            return outJSON
 
 class SystemStatus:
     def GET(self):
@@ -113,13 +170,18 @@ class SystemStatus:
             cameraFeedback, cameraBoolean = commandSender.cameraStatus()
             gpsFeedback, gpsBoolean = commandSender.gpsStatus()
             internetFeedback, internetBoolean = commandSender.internetStatus()
+            intervalFeedback, intervalBoolean = commandSender.intervalTest()
+            extHDDFeedback, hdd1Boolean, hdd2Boolean = commandSender.hddStatus()
 
             # Encode to JSON
             data = {}
-            data['consoleFeedback'] = cameraFeedback + gpsFeedback + internetFeedback
+            data['consoleFeedback'] = cameraFeedback + gpsFeedback + internetFeedback + intervalFeedback + extHDDFeedback
             data['cameraStatus'] = cameraBoolean
             data['gpsStatus'] = gpsBoolean
             data['internetStatus'] = internetBoolean
+            data['intervalTestResult'] = intervalBoolean
+            data['HDD1Status'] = hdd1Boolean
+            data['HDD2Status'] = hdd2Boolean
             outJSON = json.dumps(data)
             return outJSON
 
