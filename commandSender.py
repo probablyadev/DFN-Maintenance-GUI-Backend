@@ -78,6 +78,17 @@ def hddStatus():
 
     return consoleOutput, hdd1Status, hdd2Status
 
+def data0Check():
+    # Do command
+    # consoleOutput = doConsoleCommand(constants.hddStatus)
+    consoleOutput = "DATA0 CHECK OUTPUT HERE\n"
+
+    #TODO: Parse output for results
+    data0Status = bool(random.getrandbits(1))
+
+    return consoleOutput, data0Status
+
+
 # GPS Utilities
 def gpsStatus():
     # Do command

@@ -18,7 +18,6 @@ urls = ('/', 'Index',
         '/disablehdd', 'DisableHDD',
         '/unmounthdd', 'UnmountHDD',
         '/hddcheck', 'CheckHDD',
-        # TODO
         '/data0check', 'Data0Check',
         '/systemstatus', 'SystemStatus')
 app = web.application(urls, globals())
@@ -147,6 +146,14 @@ class CheckHDD:
             outJSON = json.dumps(data)
             return outJSON
 
+class Data0Check:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            data['consoleFeedback'], data['data0Boolean'] = commandSender.data0Check()
+            outJSON = json.dumps(data)
+            return outJSON
+
 class GPSCheck:
     def GET(self):
         if LoginChecker.loggedIn():
@@ -172,14 +179,16 @@ class SystemStatus:
             internetFeedback, internetBoolean = commandSender.internetStatus()
             intervalFeedback, intervalBoolean = commandSender.intervalTest()
             extHDDFeedback, hdd1Boolean, hdd2Boolean = commandSender.hddStatus()
+            hdd0Feedback, hdd0Boolean = commandSender.data0Check()
 
             # Encode to JSON
             data = {}
-            data['consoleFeedback'] = cameraFeedback + gpsFeedback + internetFeedback + intervalFeedback + extHDDFeedback
+            data['consoleFeedback'] = cameraFeedback + gpsFeedback + internetFeedback + intervalFeedback + hdd0Feedback + extHDDFeedback
             data['cameraStatus'] = cameraBoolean
             data['gpsStatus'] = gpsBoolean
             data['internetStatus'] = internetBoolean
             data['intervalTestResult'] = intervalBoolean
+            data['HDD0Status'] = hdd0Boolean
             data['HDD1Status'] = hdd1Boolean
             data['HDD2Status'] = hdd2Boolean
             outJSON = json.dumps(data)

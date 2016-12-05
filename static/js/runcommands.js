@@ -11,7 +11,7 @@ $(document).ready(function () {
 
     //Useful globals + constants
     var doingCommand = false;
-    var colorMapping = {true : "#00FF00", false: "#FF0000"};
+    var colorMapping = {true: "#00FF00", false: "#FF0000"};
 
     //Button click events
     $("#CameraOn").click(cameraOnHandler);
@@ -20,6 +20,7 @@ $(document).ready(function () {
     $("#HDDOff").click(hddOffHandler);
     $("#UnmountHDD").click(hddUnmountHandler);
     $("#CheckSpace").click(hddSpaceCheckHandler);
+    $("#Data0Check").click(data0CheckHandler);
     $("#GPSCheck").click(gpsCheckHandler);
     $("#IntervalCheck").click(intervalTestHandler);
     $("#StatusCheck").click(systemStatusHandler);
@@ -40,7 +41,7 @@ $(document).ready(function () {
 
     //Handler for turning camera on
     function cameraOnHandler() {
-        if(!doingCommand) {
+        if (!doingCommand) {
             doingCommand = true;
             //Feedback on button press
             $(webConsole).append("Switching camera on...\n");
@@ -56,9 +57,9 @@ $(document).ready(function () {
         }
     }
 
-    // Handler for turning camera off
+    //Handler for turning camera off
     function cameraOffHandler() {
-        if(!doingCommand) {
+        if (!doingCommand) {
             doingCommand = true;
             //Feedback on button press
             $(webConsole).append("Switching camera off...\n");
@@ -74,6 +75,7 @@ $(document).ready(function () {
         }
     }
 
+    // Handler
     function hddOnHandler() {
         if (!doingCommand) {
             doingCommand = true;
@@ -95,8 +97,8 @@ $(document).ready(function () {
     function hddOffHandler() {
         if (!doingCommand) {
             doingCommand = true;
-                        //Feedback on button press
-            $(webConsole).append("Enabling External HDDs...\n");
+            //Feedback on button press
+            $(webConsole).append("Disabling External HDDs...\n");
             //Request to enable HDDs
             $.getJSON("/disablehdd", function (result) {
                 //Set feedback text
@@ -113,8 +115,8 @@ $(document).ready(function () {
     function hddUnmountHandler() {
         if (!doingCommand) {
             doingCommand = true;
-                        //Feedback on button press
-            $(webConsole).append("Checking external HDDs...\n");
+            //Feedback on button press
+            $(webConsole).append("Unmounting external HDDs...\n");
             //Request to enable HDDs
             $.getJSON("/unmounthdd", function (result) {
                 //Set feedback text
@@ -128,11 +130,10 @@ $(document).ready(function () {
         }
     }
 
-    function hddSpaceCheckHandler()
-    {
+    function hddSpaceCheckHandler() {
         if (!doingCommand) {
             doingCommand = true;
-                        //Feedback on button press
+            //Feedback on button press
             $(webConsole).append("Checking external HDDs...\n");
             //Request to enable HDDs
             $.getJSON("/hddcheck", function (result) {
@@ -147,9 +148,28 @@ $(document).ready(function () {
         }
     }
 
-    // Handler for turning camera off
+    function data0CheckHandler() {
+        if (!doingCommand) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Fetching /data0 data...\n");
+            //Request to enable HDDs
+            $.getJSON("/data0check", function (result) {
+                //TODO: Decide on how to do the data0 output
+                addToWebConsole(result.consoleFeedback + "\n");
+
+                //Set light colours
+                hdd0Light.css("background-color", colorMapping[result.data0Boolean]);
+
+                //Open up for other commands to be run
+                doingCommand = false;
+            });
+        }
+    }
+
+    //Handler for outputting GPS status
     function gpsCheckHandler() {
-        if(!doingCommand) {
+        if (!doingCommand) {
             doingCommand = true;
             //Feedback on button press
             $(webConsole).append("Checking GPS status...\n");
@@ -167,7 +187,7 @@ $(document).ready(function () {
 
     //Handler for performing an interval test
     function intervalTestHandler() {
-        if(!doingCommand) {
+        if (!doingCommand) {
             $(webConsole).append("Performing interval test...\n");
             //Request to perform interval test
             $.getJSON("/intervaltest", function (result) {
@@ -183,7 +203,7 @@ $(document).ready(function () {
 
     //Handler for general status check
     function systemStatusHandler() {
-        if(!doingCommand) {
+        if (!doingCommand) {
             doingCommand = true;
             //Feedback on button press
             $(webConsole).append("Checking system status...\n");
@@ -196,6 +216,7 @@ $(document).ready(function () {
                 gpsLight.css("background-color", colorMapping[result.gpsStatus]);
                 internetLight.css("background-color", colorMapping[result.internetStatus]);
                 intervalLight.css("background-color", colorMapping[result.intervalTestResult]);
+                hdd0Light.css("background-color", colorMapping[result.HDD0Status]);
                 hdd1Light.css("background-color", colorMapping[result.HDD1Status]);
                 hdd2Light.css("background-color", colorMapping[result.HDD2Status]);
                 //Open up for other commands to be run
