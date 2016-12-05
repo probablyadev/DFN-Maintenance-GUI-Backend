@@ -75,8 +75,10 @@ def hddStatus():
     # TODO: Parse output for results
     hdd1Status = bool(random.getrandbits(1))
     hdd2Status = bool(random.getrandbits(1))
+    hdd1Space = str(random.randint(0, 100)) + "%"
+    hdd2Space = str(random.randint(0, 100)) + "%"
 
-    return consoleOutput, hdd1Status, hdd2Status
+    return consoleOutput, hdd1Status, hdd2Status, hdd1Space, hdd2Space
 
 def data0Check():
     # Do command

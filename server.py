@@ -107,7 +107,7 @@ class EnableHDD:
         if LoginChecker.loggedIn():
             data = {}
             data['consoleFeedback'] = commandSender.hddOn()
-            statusFeedback, hdd1Boolean, hdd2Boolean = commandSender.hddStatus()
+            statusFeedback, hdd1Boolean, hdd2Boolean, data['HDD1Space'], data['HDD2Space'] = commandSender.hddStatus()
             data['consoleFeedback'] += statusFeedback
             data['HDD1Status'] = hdd1Boolean
             data['HDD2Status'] = hdd2Boolean
@@ -119,7 +119,7 @@ class DisableHDD:
         if LoginChecker.loggedIn():
             data = {}
             data['consoleFeedback'] = commandSender.hddOff()
-            statusFeedback, hdd1Boolean, hdd2Boolean = commandSender.hddStatus()
+            statusFeedback, hdd1Boolean, hdd2Boolean, data['HDD1Space'], data['HDD2Space'] = commandSender.hddStatus()
             data['consoleFeedback'] += statusFeedback
             data['HDD1Status'] = hdd1Boolean
             data['HDD2Status'] = hdd2Boolean
@@ -131,7 +131,7 @@ class UnmountHDD:
         if LoginChecker.loggedIn():
             data = {}
             data['consoleFeedback'] = commandSender.unmountHDD()
-            statusFeedback, hdd1Boolean, hdd2Boolean = commandSender.hddStatus()
+            statusFeedback, hdd1Boolean, hdd2Boolean, data['HDD1Space'], data['HDD2Space'] = commandSender.hddStatus()
             data['consoleFeedback'] += statusFeedback
             data['HDD1Status'] = hdd1Boolean
             data['HDD2Status'] = hdd2Boolean
@@ -142,7 +142,7 @@ class CheckHDD:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
-            data['consoleFeedback'], data['HDD1Status'], data['HDD2Status'] = commandSender.hddStatus()
+            data['consoleFeedback'], data['HDD1Status'], data['HDD2Status'], data['HDD1Space'], data['HDD2Space'] = commandSender.hddStatus()
             outJSON = json.dumps(data)
             return outJSON
 
@@ -178,7 +178,7 @@ class SystemStatus:
             gpsFeedback, gpsBoolean = commandSender.gpsStatus()
             internetFeedback, internetBoolean = commandSender.internetStatus()
             intervalFeedback, intervalBoolean = commandSender.intervalTest()
-            extHDDFeedback, hdd1Boolean, hdd2Boolean = commandSender.hddStatus()
+            extHDDFeedback, hdd1Boolean, hdd2Boolean, hdd1Space, hdd2Space = commandSender.hddStatus()
             hdd0Feedback, hdd0Boolean = commandSender.data0Check()
 
             # Encode to JSON
@@ -191,6 +191,8 @@ class SystemStatus:
             data['HDD0Status'] = hdd0Boolean
             data['HDD1Status'] = hdd1Boolean
             data['HDD2Status'] = hdd2Boolean
+            data['HDD1Space'] = hdd1Space
+            data['HDD2Space'] = hdd2Space
             outJSON = json.dumps(data)
             return outJSON
 

@@ -74,8 +74,8 @@ body {
 
 .statusGUI {
     float: left;
-    width: -webkit-calc(20% - 20px);
-    width: -moz-calc(20% - 20px);
+    width: -webkit-calc(25% - 20px);
+    width: -moz-calc(25% - 20px);
     height: -webkit-calc(100% - 40px);
     height: -moz-calc(100% - 40px);
     -webkit-border-radius: 5px;
@@ -96,7 +96,6 @@ body {
 .statusGUI .statusElement {
     width: -webkit-calc(100% - 20px);
     width: -moz-calc(100% - 20px);
-    max-width: 180px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
@@ -122,6 +121,11 @@ body {
     font-size: 2.2vh;
 }
 
+.statusElement span {
+    margin: 2px 5px 2px 5px;
+    font-size: 2.2vh;
+}
+
 #feedbackText {
     background-color: #2B2B2B;
     border-color: #1B1B1B;
@@ -129,8 +133,8 @@ body {
     font-family: "Courier New", Courier, monospace;
     font-size: 2vh;
     vertical-align: top;
-    width: -webkit-calc(80% - 40px);
-    width: -moz-calc(80% - 40px);
+    width: -webkit-calc(75% - 40px);
+    width: -moz-calc(75% - 40px);
     height: -webkit-calc(100% - 40px);
     height: -moz-calc(100% - 40px);
 }

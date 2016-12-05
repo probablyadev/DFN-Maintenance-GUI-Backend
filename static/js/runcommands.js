@@ -8,6 +8,8 @@ $(document).ready(function () {
     var hdd0Light = $('#HDD0Light');
     var hdd1Light = $('#HDD1Light');
     var hdd2Light = $('#HDD2Light');
+    var hdd1Space = $('#HDD1Space');
+    var hdd2Space = $('#HDD2Space');
 
     //Useful globals + constants
     var doingCommand = false;
@@ -88,6 +90,8 @@ $(document).ready(function () {
                 //Set light colours
                 hdd1Light.css("background-color", colorMapping[result.HDD1Status]);
                 hdd2Light.css("background-color", colorMapping[result.HDD2Status]);
+                hdd1Space.text(result.HDD1Space);
+                hdd2Space.text(result.HDD2Space);
                 //Open up for other commands to be run
                 doingCommand = false;
             });
@@ -106,6 +110,8 @@ $(document).ready(function () {
                 //Set light colours
                 hdd1Light.css("background-color", colorMapping[result.HDD1Status]);
                 hdd2Light.css("background-color", colorMapping[result.HDD2Status]);
+                hdd1Space.text(result.HDD1Space);
+                hdd2Space.text(result.HDD2Space);
                 //Open up for other commands to be run
                 doingCommand = false;
             });
@@ -124,6 +130,8 @@ $(document).ready(function () {
                 //Set light colours
                 hdd1Light.css("background-color", colorMapping[result.HDD1Status]);
                 hdd2Light.css("background-color", colorMapping[result.HDD2Status]);
+                hdd1Space.text(result.HDD1Space);
+                hdd2Space.text(result.HDD2Space);
                 //Open up for other commands to be run
                 doingCommand = false;
             });
@@ -142,6 +150,8 @@ $(document).ready(function () {
                 //Set light colours
                 hdd1Light.css("background-color", colorMapping[result.HDD1Status]);
                 hdd2Light.css("background-color", colorMapping[result.HDD2Status]);
+                hdd1Space.text(result.HDD1Space);
+                hdd2Space.text(result.HDD2Space);
                 //Open up for other commands to be run
                 doingCommand = false;
             });
@@ -219,6 +229,8 @@ $(document).ready(function () {
                 hdd0Light.css("background-color", colorMapping[result.HDD0Status]);
                 hdd1Light.css("background-color", colorMapping[result.HDD1Status]);
                 hdd2Light.css("background-color", colorMapping[result.HDD2Status]);
+                hdd1Space.text(result.HDD1Space);
+                hdd2Space.text(result.HDD2Space);
                 //Open up for other commands to be run
                 doingCommand = false;
             });
