@@ -16,6 +16,9 @@ $(document).ready(function () {
     var doingCommand = false;
     var colorMapping = {true: "#00FF00", false: "#FF0000"};
 
+    //Useful strings
+    var line = "------------------------------------\n"
+
     //Button click events
     $("#CameraOn").click(cameraOnHandler);
     $("#CameraOff").click(cameraOffHandler);
@@ -53,7 +56,7 @@ $(document).ready(function () {
             //Request to turn camera on
             $.getJSON("/cameraon", function (result) {
                 //Set feedback text
-                addToWebConsole(result.consoleFeedback + "\n");
+                addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colour
                 cameraLight.css("background-color", colorMapping[result.cameraStatus]);
                 //Open up for other commands to be run
@@ -71,7 +74,7 @@ $(document).ready(function () {
             //Request to turn camera off
             $.getJSON("/cameraoff", function (result) {
                 //Set feedback text
-                addToWebConsole(result.consoleFeedback + "\n");
+                addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colour
                 cameraLight.css("background-color", colorMapping[result.cameraStatus]);
                 //Open up for other commands to be run
@@ -89,7 +92,7 @@ $(document).ready(function () {
             //Request to enable HDDs
             $.getJSON("/enablehdd", function (result) {
                 //Set feedback text
-                addToWebConsole(result.consoleFeedback + "\n");
+                addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colours
                 hdd1Light.css("background-color", colorMapping[result.HDD1Status]);
                 hdd2Light.css("background-color", colorMapping[result.HDD2Status]);
@@ -109,7 +112,7 @@ $(document).ready(function () {
             //Request to enable HDDs
             $.getJSON("/disablehdd", function (result) {
                 //Set feedback text
-                addToWebConsole(result.consoleFeedback + "\n");
+                addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colours
                 hdd1Light.css("background-color", colorMapping[result.HDD1Status]);
                 hdd2Light.css("background-color", colorMapping[result.HDD2Status]);
@@ -129,7 +132,7 @@ $(document).ready(function () {
             //Request to enable HDDs
             $.getJSON("/unmounthdd", function (result) {
                 //Set feedback text
-                addToWebConsole(result.consoleFeedback + "\n");
+                addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colours
                 hdd1Light.css("background-color", colorMapping[result.HDD1Status]);
                 hdd2Light.css("background-color", colorMapping[result.HDD2Status]);
@@ -149,7 +152,7 @@ $(document).ready(function () {
             //Request to enable HDDs
             $.getJSON("/hddcheck", function (result) {
                 //Set feedback text
-                addToWebConsole(result.consoleFeedback + "\n");
+                addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colours
                 hdd1Light.css("background-color", colorMapping[result.HDD1Status]);
                 hdd2Light.css("background-color", colorMapping[result.HDD2Status]);
@@ -169,7 +172,7 @@ $(document).ready(function () {
             //Request to enable HDDs
             $.getJSON("/data0check", function (result) {
                 //TODO: Decide on how to do the data0 output
-                addToWebConsole(result.consoleFeedback + "\n");
+                addToWebConsole(result.consoleFeedback + "\n" + line);
 
                 //Set light colours
                 hdd0Light.css("background-color", colorMapping[result.data0Boolean]);
@@ -189,7 +192,7 @@ $(document).ready(function () {
             //Request to check GPS status
             $.getJSON("/gpscheck", function (result) {
                 //Set feedback text
-                addToWebConsole(result.consoleFeedback + "\n");
+                addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colour
                 gpsLight.css("background-color", colorMapping[result.gpsStatus]);
                 //Open up for other commands to be run
@@ -207,7 +210,7 @@ $(document).ready(function () {
             //Request to check GPS status
             $.getJSON("/internetcheck", function (result) {
                 //Set feedback text
-                addToWebConsole(result.consoleFeedback + "\n");
+                addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colour
                 internetLight.css("background-color", colorMapping[result.internetStatus]);
                 //Open up for other commands to be run
@@ -224,7 +227,7 @@ $(document).ready(function () {
             //Request to check GPS status
             $.getJSON("/vpncheck", function (result) {
                 //Set feedback text
-                addToWebConsole(result.consoleFeedback + "\n");
+                addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colour
                 vpnLight.css("background-color", colorMapping[result.vpnStatus]);
                 //Open up for other commands to be run
@@ -240,7 +243,7 @@ $(document).ready(function () {
             //Request to perform interval test
             $.getJSON("/intervaltest", function (result) {
                 //Set feedback text
-                addToWebConsole(result.consoleFeedback + "\n");
+                addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colours
                 intervalLight.css("background-color", colorMapping[result.intervalTestResult])
                 //Open up for other commands to be run
@@ -258,7 +261,7 @@ $(document).ready(function () {
             //Request for system status to be checked
             $.getJSON("/systemstatus", function (result) {
                 //Set feedback text
-                addToWebConsole(result.consoleFeedback + "\n");
+                addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colours
                 cameraLight.css("background-color", colorMapping[result.cameraStatus]);
                 gpsLight.css("background-color", colorMapping[result.gpsStatus]);

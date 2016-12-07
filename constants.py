@@ -1,5 +1,5 @@
 # This file stores all constants used in this GUI.
-# The major constant here are different bash commands, executed server-side.
+# The major constants here are different bash commands, executed server-side.
 gpsCheck = "echo gG > /dev/leostick && cat /dev/leostick"
 cameraOn = "python /opt/dfn-software/enable_camera.py"
 cameraOff = "python /opt/dfn-software/disable_camera.py"
