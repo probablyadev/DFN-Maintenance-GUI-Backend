@@ -9,6 +9,9 @@ def doConsoleCommand(command):
     outputText = commands.getstatusoutput(command)[1]
     return outputText
 
+# NB: Most functionality that requires a true/false return, the default is set to false
+# and then changed if the exit status for that operation is true.
+
 # Camera utilities
 def cameraOn():
     # Do command
@@ -75,7 +78,7 @@ def unmountHDD():
 def hddStatus():
     # Do command
     # consoleOutput = doConsoleCommand(constants.hddStatus)
-    consoleOutput = "HDD STATUS OUTPUT HERE\n"
+    consoleOutput = "\nHDD STATUS OUTPUT HERE\n"
 
     # TODO: Parse output for results
     hdd1Status = bool(random.getrandbits(1))
@@ -88,7 +91,7 @@ def hddStatus():
 def data0Check():
     # Do command
     # consoleOutput = doConsoleCommand(constants.hddStatus)
-    consoleOutput = "DATA0 CHECK OUTPUT HERE\n"
+    consoleOutput = "\nDATA0 CHECK OUTPUT HERE\n"
 
     #TODO: Parse output for results
     data0Status = bool(random.getrandbits(1))
@@ -115,26 +118,44 @@ def gpsStatus():
 
 # Internet Utilities
 def internetStatus():
-    # Do command
-    # consoleOutput = doConsoleCommand(constants.internetCheck)
-    consoleOutput = "INTERNET STATUS OUTPUT HERE\n"
+    #Do command
+    consoleOutput = doConsoleCommand(constants.internetCheck)
 
-    # TODO: Parse output for results
-    status = bool(random.getrandbits(1))
+    # Parse output for results
+    status = False
+    feedbackOutput = constants.internetCheckFailed
 
-    return consoleOutput, status
+    if "0" not in re.split(",", consoleOutput)[1]:
+        status = True
+        feedbackOutput = constants.internetCheckPassed
+
+    return feedbackOutput, status
+
+def vpnStatus():
+    #Do command
+    consoleOutput = doConsoleCommand(constants.vpnCheck)
+
+    # Parse output for results
+    status = False
+    feedbackOutput = constants.vpnCheckFailed
+
+    if "0" not in re.split(",", consoleOutput)[1]:
+        status = True
+        feedbackOutput = constants.vpnCheckPassed
+
+    return feedbackOutput, status
 
 # Interval test
 def intervalTest():
-    # Do command
+    # Do interval test command
     doConsoleCommand(constants.intervalTest)
 
-    # Parse output for results
+    # Check /data0/latest_prev for correct number of NEF files
     status = False
     feedbackOutput = constants.intervalTestFailed
 
     consoleOutput = doConsoleCommand(constants.checkIntervalResults)
-    if consoleOutput in ["6", "7", "8"]:
+    if consoleOutput in ["6", "7", "8"]: # NOTE: 7 +/- 1 is the required margin of error.
         status = True
         feedbackOutput = constants.intervalTestPassed
 

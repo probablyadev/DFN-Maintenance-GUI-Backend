@@ -19,6 +19,8 @@ urls = ('/', 'Index',
         '/unmounthdd', 'UnmountHDD',
         '/hddcheck', 'CheckHDD',
         '/data0check', 'Data0Check',
+        '/internetcheck', 'InternetCheck',
+        '/vpncheck', 'VPNCheck',
         '/systemstatus', 'SystemStatus')
 app = web.application(urls, globals())
 
@@ -170,6 +172,21 @@ class IntervalTest:
             outJSON = json.dumps(data)
             return outJSON
 
+class InternetCheck:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            data['consoleFeedback'], data['internetStatus'] = commandSender.internetStatus()
+            outJSON = json.dumps(data)
+            return outJSON
+class VPNCheck:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            data['consoleFeedback'], data['vpnStatus'] = commandSender.vpnStatus()
+            outJSON = json.dumps(data)
+            return outJSON
+
 class SystemStatus:
     def GET(self):
         if LoginChecker.loggedIn():
@@ -179,13 +196,15 @@ class SystemStatus:
             internetFeedback, internetBoolean = commandSender.internetStatus()
             extHDDFeedback, hdd1Boolean, hdd2Boolean, hdd1Space, hdd2Space = commandSender.hddStatus()
             hdd0Feedback, hdd0Boolean = commandSender.data0Check()
+            vpnFeedback, vpnBoolean = commandSender.vpnStatus()
 
             # Encode to JSON
             data = {}
-            data['consoleFeedback'] = cameraFeedback + gpsFeedback + internetFeedback + hdd0Feedback + extHDDFeedback
+            data['consoleFeedback'] = cameraFeedback + gpsFeedback + internetFeedback + vpnFeedback + hdd0Feedback + extHDDFeedback
             data['cameraStatus'] = cameraBoolean
             data['gpsStatus'] = gpsBoolean
             data['internetStatus'] = internetBoolean
+            data['vpnStatus'] = vpnBoolean
             data['HDD0Status'] = hdd0Boolean
             data['HDD1Status'] = hdd1Boolean
             data['HDD2Status'] = hdd2Boolean

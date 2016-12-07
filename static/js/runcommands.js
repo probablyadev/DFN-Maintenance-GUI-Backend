@@ -4,6 +4,7 @@ $(document).ready(function () {
     var cameraLight = $('#cameraLight');
     var gpsLight = $('#GPSLight');
     var internetLight = $('#internetLight');
+    var vpnLight = $('#vpnLight');
     var intervalLight = $('#intervalLight');
     var hdd0Light = $('#HDD0Light');
     var hdd1Light = $('#HDD1Light');
@@ -25,6 +26,8 @@ $(document).ready(function () {
     $("#Data0Check").click(data0CheckHandler);
     $("#GPSCheck").click(gpsCheckHandler);
     $("#IntervalCheck").click(intervalTestHandler);
+    $("#InternetCheck").click(internetCheckHandler);
+    $("#VPNCheck").click(vpnCheckHandler);
     $("#StatusCheck").click(systemStatusHandler);
 
     //Get system status
@@ -195,6 +198,41 @@ $(document).ready(function () {
         }
     }
 
+    //Handler for internet check
+    function internetCheckHandler() {
+        if (!doingCommand) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Checking internet connectivity...\n");
+            //Request to check GPS status
+            $.getJSON("/internetcheck", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n");
+                //Set light colour
+                internetLight.css("background-color", colorMapping[result.internetStatus]);
+                //Open up for other commands to be run
+                doingCommand = false;
+            });
+        }
+    }
+
+    function vpnCheckHandler() {
+        if (!doingCommand) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Checking vpn connectivity...\n");
+            //Request to check GPS status
+            $.getJSON("/vpncheck", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n");
+                //Set light colour
+                vpnLight.css("background-color", colorMapping[result.vpnStatus]);
+                //Open up for other commands to be run
+                doingCommand = false;
+            });
+        }
+    }
+
     //Handler for performing an interval test
     function intervalTestHandler() {
         if (!doingCommand) {
@@ -225,6 +263,7 @@ $(document).ready(function () {
                 cameraLight.css("background-color", colorMapping[result.cameraStatus]);
                 gpsLight.css("background-color", colorMapping[result.gpsStatus]);
                 internetLight.css("background-color", colorMapping[result.internetStatus]);
+                vpnLight.css("background-color", colorMapping[result.vpnStatus]);
                 hdd0Light.css("background-color", colorMapping[result.HDD0Status]);
                 hdd1Light.css("background-color", colorMapping[result.HDD1Status]);
                 hdd2Light.css("background-color", colorMapping[result.HDD2Status]);
