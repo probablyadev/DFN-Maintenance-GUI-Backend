@@ -177,17 +177,15 @@ class SystemStatus:
             cameraFeedback, cameraBoolean = commandSender.cameraStatus()
             gpsFeedback, gpsBoolean = commandSender.gpsStatus()
             internetFeedback, internetBoolean = commandSender.internetStatus()
-            intervalFeedback, intervalBoolean = commandSender.intervalTest()
             extHDDFeedback, hdd1Boolean, hdd2Boolean, hdd1Space, hdd2Space = commandSender.hddStatus()
             hdd0Feedback, hdd0Boolean = commandSender.data0Check()
 
             # Encode to JSON
             data = {}
-            data['consoleFeedback'] = cameraFeedback + gpsFeedback + internetFeedback + intervalFeedback + hdd0Feedback + extHDDFeedback
+            data['consoleFeedback'] = cameraFeedback + gpsFeedback + internetFeedback + hdd0Feedback + extHDDFeedback
             data['cameraStatus'] = cameraBoolean
             data['gpsStatus'] = gpsBoolean
             data['internetStatus'] = internetBoolean
-            data['intervalTestResult'] = intervalBoolean
             data['HDD0Status'] = hdd0Boolean
             data['HDD1Status'] = hdd1Boolean
             data['HDD2Status'] = hdd2Boolean

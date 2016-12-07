@@ -2,6 +2,7 @@
 import constants
 import commands
 import random
+import re
 
 # Code for executing a command line command
 def doConsoleCommand(command):
@@ -11,32 +12,36 @@ def doConsoleCommand(command):
 # Camera utilities
 def cameraOn():
     # Do command
-    # consoleOutput = doConsoleCommand(constants.cameraOn)
-    consoleOutput = "CAMERA ON PYTHON COMMAND OUTPUT HERE\n"
+    doConsoleCommand(constants.cameraOn)
 
-    #TODO: Parse output and present nicely
+    # Parse output
+    feedbackOutput = constants.cameraSwitchedOn
 
-    return consoleOutput
+    return feedbackOutput
 
 def cameraOff():
     # Do command
-    # consoleOutput = doConsoleCommand(constants.cameraOff)
-    consoleOutput = "CAMERA OFF PYTHON COMMAND OUTPUT HERE\n"
+    doConsoleCommand(constants.cameraOff)
 
-    # TODO: Parse output for results
+    # Parse output
+    feedbackOutput = constants.cameraSwitchedOff
 
-    return consoleOutput
+    return feedbackOutput
 
 def cameraStatus():
     # Do command
-    # consoleOutput = doConsoleCommand(constants.cameraCheck)
-    consoleOutput = "CAMERA STATUS OUTPUT HERE\n"
+    consoleOutput = doConsoleCommand(constants.cameraCheck)
 
-    # TODO: Parse output for results
-    status = bool(random.getrandbits(1))
+    # Parse output for results
+    status = False
+    feedbackOutput = constants.cameraCheckOff
+
+    if "Nikon Corp." in consoleOutput:
+        status = True
+        feedbackOutput = constants.cameraCheckOn
 
     # Encode to JSON
-    return consoleOutput, status
+    return feedbackOutput, status
 
 # HDD Utilities
 def hddOn():
@@ -93,14 +98,20 @@ def data0Check():
 
 # GPS Utilities
 def gpsStatus():
+    gpsStatusDict = {"A": "Locked", "V": "No lock"}
+
     # Do command
-    # consoleOutput = doConsoleCommand(constants.gpsCheck)
-    consoleOutput = "GPS STATUS OUTPUT HERE\n"
+    consoleOutput = doConsoleCommand(constants.gpsCheck)
 
-    # TODO: Parse output for results
-    status = bool(random.getrandbits(1))
+    # Parse output for results
+    status = False
+    feedbackOutput = constants.gpsCheckFailed
 
-    return consoleOutput, status
+    splitOutput = re.split(',|\n', consoleOutput)
+    if len(splitOutput) == 27:
+        feedbackOutput = constants.gpsOnline.format(gpsStatusDict[splitOutput[2]], splitOutput[19])
+
+    return feedbackOutput, status
 
 # Internet Utilities
 def internetStatus():

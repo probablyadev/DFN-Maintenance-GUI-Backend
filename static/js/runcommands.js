@@ -225,7 +225,6 @@ $(document).ready(function () {
                 cameraLight.css("background-color", colorMapping[result.cameraStatus]);
                 gpsLight.css("background-color", colorMapping[result.gpsStatus]);
                 internetLight.css("background-color", colorMapping[result.internetStatus]);
-                intervalLight.css("background-color", colorMapping[result.intervalTestResult]);
                 hdd0Light.css("background-color", colorMapping[result.HDD0Status]);
                 hdd1Light.css("background-color", colorMapping[result.HDD1Status]);
                 hdd2Light.css("background-color", colorMapping[result.HDD2Status]);
