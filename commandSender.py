@@ -127,10 +127,15 @@ def internetStatus():
 # Interval test
 def intervalTest():
     # Do command
-    # consoleOutput = doConsoleCommand(constants.intervalTest)
-    consoleOutput = "INTERVAL TEST OUTPUT HERE\n"
+    doConsoleCommand(constants.intervalTest)
 
-    #TODO: Parse output for results
-    status = bool(random.getrandbits(1))
+    # Parse output for results
+    status = False
+    feedbackOutput = constants.intervalTestFailed
 
-    return consoleOutput, status
+    consoleOutput = doConsoleCommand(constants.checkIntervalResults)
+    if consoleOutput in ["6", "7", "8"]:
+        status = True
+        feedbackOutput = constants.intervalTestPassed
+
+    return feedbackOutput, status

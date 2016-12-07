@@ -11,6 +11,7 @@ hddStatus = "du /data1 && du /data2"
 internetCheck = "ping -c 1 www.google.com"
 vpnCheck = "ping -c 1 10.1.16.1"
 intervalTest = "/opt/dfn-software/interval_control_test.sh"
+checkIntervalResults = "ls -lR /data0/latest_prev*.NEF | wc -l"
 
 # TODO: DOWNLOAD TO USB COMMAND
 
@@ -21,3 +22,5 @@ cameraCheckOn = "Camera online.\n"
 cameraCheckOff = "Camera not found.\n"
 gpsCheckFailed = "GPS offline.\n"
 gpsOnline = "Lock: {0}\nSatellites: {1}\n"
+intervalTestPassed = "Interval test passed.\n"
+intervalTestFailed = "Interval test failed.\n"
