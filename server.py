@@ -179,6 +179,7 @@ class InternetCheck:
             data['consoleFeedback'], data['internetStatus'] = commandSender.internetStatus()
             outJSON = json.dumps(data)
             return outJSON
+
 class VPNCheck:
     def GET(self):
         if LoginChecker.loggedIn():

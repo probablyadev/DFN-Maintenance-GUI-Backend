@@ -101,7 +101,7 @@ def data0Check():
 
 # GPS Utilities
 def gpsStatus():
-    gpsStatusDict = {"A": "Locked", "V": "No lock"}
+    gpsStatusDict = {"1": "Locked", "0": "No lock"}
 
     # Do command
     consoleOutput = doConsoleCommand(constants.gpsCheck)
@@ -111,8 +111,9 @@ def gpsStatus():
     feedbackOutput = constants.gpsCheckFailed
 
     splitOutput = re.split(',|\n', consoleOutput)
-    if len(splitOutput) == 27:
-        feedbackOutput = constants.gpsOnline.format(gpsStatusDict[splitOutput[2]], splitOutput[19])
+    print len(splitOutput)
+    if len(splitOutput) == 15:
+        feedbackOutput = constants.gpsOnline.format(gpsStatusDict[splitOutput[6]], splitOutput[7])
 
     return feedbackOutput, status
 

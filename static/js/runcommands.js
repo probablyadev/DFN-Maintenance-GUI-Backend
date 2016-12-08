@@ -239,6 +239,7 @@ $(document).ready(function () {
     //Handler for performing an interval test
     function intervalTestHandler() {
         if (!doingCommand) {
+            doingCommand = true;
             $(webConsole).append("Performing interval test...\n");
             //Request to perform interval test
             $.getJSON("/intervaltest", function (result) {

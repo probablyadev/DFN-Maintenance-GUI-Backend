@@ -1,6 +1,6 @@
 # This file stores all constants used in this GUI.
 # The major constants here are different bash commands, executed server-side.
-gpsCheck = "echo gG > /dev/leostick && cat /dev/leostick"
+gpsCheck = "echo G > /dev/leostick && cat /dev/leostick"
 cameraOn = "python /opt/dfn-software/enable_camera.py"
 cameraOff = "python /opt/dfn-software/disable_camera.py"
 cameraCheck = "lsusb"
@@ -8,10 +8,10 @@ enableHardDrive = "python /opt/dfn-software/enable_ext-hd.py"
 disableHardDrive = "python /opt/dfn-software/disable_ext-hd.py"
 unmountHardDrive = "umount /data1 && umount /data2"
 hddStatus = "du /data1 && du /data2"
-internetCheck = "ping -c 1 -t 1 www.google.com"
-vpnCheck = "ping -c 1 -t 1 10.1.16.1"
+internetCheck = "ping -c 1 www.google.com"
+vpnCheck = "ping -c 1 10.1.16.1"
 intervalTest = "/opt/dfn-software/interval_control_test.sh"
-checkIntervalResults = "ls -lR /data0/latest_prev*.NEF | wc -l"
+checkIntervalResults = "ls -lR /data0/latest_prev/*.NEF | wc -l"
 
 # TODO: DOWNLOAD TO USB COMMAND
 
