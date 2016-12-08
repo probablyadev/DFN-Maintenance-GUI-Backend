@@ -15,15 +15,17 @@ $(document).ready(function () {
     //Useful globals + constants
     var doingCommand = false;
     var colorMapping = {true: "#00FF00", false: "#FF0000"};
+    var hddColorMapping = {0: "#FF0000", 1: "#FF9900", 2: "#00FF00"}
 
     //Useful strings
-    var line = "------------------------------------\n"
+    var line = "-------------------------------\n"
 
     //Button click events
     $("#CameraOn").click(cameraOnHandler);
     $("#CameraOff").click(cameraOffHandler);
     $("#HDDOn").click(hddOnHandler);
     $("#HDDOff").click(hddOffHandler);
+    $("#MountHDD").click(hddMountHandler);
     $("#UnmountHDD").click(hddUnmountHandler);
     $("#CheckSpace").click(hddSpaceCheckHandler);
     $("#Data0Check").click(data0CheckHandler);
@@ -114,8 +116,28 @@ $(document).ready(function () {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colours
-                hdd1Light.css("background-color", colorMapping[result.HDD1Status]);
-                hdd2Light.css("background-color", colorMapping[result.HDD2Status]);
+                hdd1Light.css("background-color", hddColorMapping[result.HDD1Status]);
+                hdd2Light.css("background-color", hddColorMapping[result.HDD2Status]);
+                hdd1Space.text(result.HDD1Space);
+                hdd2Space.text(result.HDD2Space);
+                //Open up for other commands to be run
+                doingCommand = false;
+            });
+        }
+    }
+
+    function hddMountHandler() {
+        if (!doingCommand) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Mounting external HDDs...\n");
+            //Request to enable HDDs
+            $.getJSON("/mounthdd", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Set light colours
+                hdd1Light.css("background-color", hddColorMapping[result.HDD1Status]);
+                hdd2Light.css("background-color", hddColorMapping[result.HDD2Status]);
                 hdd1Space.text(result.HDD1Space);
                 hdd2Space.text(result.HDD2Space);
                 //Open up for other commands to be run
@@ -134,8 +156,8 @@ $(document).ready(function () {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colours
-                hdd1Light.css("background-color", colorMapping[result.HDD1Status]);
-                hdd2Light.css("background-color", colorMapping[result.HDD2Status]);
+                hdd1Light.css("background-color", hddColorMapping[result.HDD1Status]);
+                hdd2Light.css("background-color", hddColorMapping[result.HDD2Status]);
                 hdd1Space.text(result.HDD1Space);
                 hdd2Space.text(result.HDD2Space);
                 //Open up for other commands to be run
@@ -154,8 +176,8 @@ $(document).ready(function () {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colours
-                hdd1Light.css("background-color", colorMapping[result.HDD1Status]);
-                hdd2Light.css("background-color", colorMapping[result.HDD2Status]);
+                hdd1Light.css("background-color", hddColorMapping[result.HDD1Status]);
+                hdd2Light.css("background-color", hddColorMapping[result.HDD2Status]);
                 hdd1Space.text(result.HDD1Space);
                 hdd2Space.text(result.HDD2Space);
                 //Open up for other commands to be run
@@ -269,8 +291,8 @@ $(document).ready(function () {
                 internetLight.css("background-color", colorMapping[result.internetStatus]);
                 vpnLight.css("background-color", colorMapping[result.vpnStatus]);
                 hdd0Light.css("background-color", colorMapping[result.HDD0Status]);
-                hdd1Light.css("background-color", colorMapping[result.HDD1Status]);
-                hdd2Light.css("background-color", colorMapping[result.HDD2Status]);
+                hdd1Light.css("background-color", hddColorMapping[result.HDD1Status]);
+                hdd2Light.css("background-color", hddColorMapping[result.HDD2Status]);
                 hdd1Space.text(result.HDD1Space);
                 hdd2Space.text(result.HDD2Space);
                 //Open up for other commands to be run

@@ -21,6 +21,9 @@
                 <h3 class="moduleHeader">Status Checks</h3>
                 <button type="button" class="commandbutton" id="StatusCheck">Check General Status</button>
                 <button type="button" class="commandbutton" id="IntervalCheck">Interval Test</button>
+            </div>
+            <div class="commandModule">
+                <h3 class="moduleHeader">Network Controls</h3>
                 <button type="button" class="commandbutton" id="GPSCheck">Check GPS</button>
                 <button type="button" class="commandbutton" id="InternetCheck">Check Internet</button>
                 <button type="button" class="commandbutton" id="VPNCheck">Check VPN</button>
@@ -34,6 +37,7 @@
                 <h3 class="moduleHeader">Hard Drive Controls</h3>
                 <button type="button" class="commandbutton" id="HDDOn">Enable Ext. HDD</button>
                 <button type="button" class="commandbutton" id="HDDOff">Disable Ext. HDD</button>
+                <button type="button" class="commandbutton" id="MountHDD">Mount Ext. HDD</button>
                 <button type="button" class="commandbutton" id="UnmountHDD">Unmount Ext. HDD</button>
                 <button type="button" class="commandbutton" id="CheckSpace">Check Ext. HDD Status</button>
                 <button type="button" class="commandbutton" id="Data0Check">Get /data0 contents</button>
@@ -67,12 +71,12 @@
                 <div class="statusElement">
                     <div id="HDD1Light" class="statusLight"></div>
                     <label for="HDD1Light">/data1: </label>
-                    <span id="HDD1Space">100%</span>
+                    <span id="HDD1Space">-</span>
                 </div>
                 <div class="statusElement">
                     <div id="HDD2Light" class="statusLight"></div>
                     <label for="HDD2Light">/data2: </label>
-                    <span id="HDD2Space">100%</span>
+                    <span id="HDD2Space">-</span>
                 </div>
                 <div class="statusElement">
                     <div id="intervalLight" class="statusLight"></div>

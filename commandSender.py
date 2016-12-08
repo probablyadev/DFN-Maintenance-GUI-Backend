@@ -76,17 +76,34 @@ def unmountHDD():
 
 
 def hddStatus():
+    hddStatusDict = {0: constants.hddStatusOff, 1: constants.hddStatusPowered, 2: constants.hddStatusMounted}
+
     # Do command
-    # consoleOutput = doConsoleCommand(constants.hddStatus)
-    consoleOutput = "\nHDD STATUS OUTPUT HERE\n"
+    poweredStatus = doConsoleCommand(constants.hddPoweredStatus)
+    data1MountedStatus = doConsoleCommand(constants.data1MountedStatus)
+    data2MountedStatus = doConsoleCommand(constants.data2MountedStatus)
+    print data1MountedStatus
+    print data2MountedStatus
 
-    # TODO: Parse output for results
-    hdd1Status = bool(random.getrandbits(1))
-    hdd2Status = bool(random.getrandbits(1))
-    hdd1Space = str(random.randint(0, 100)) + "%"
-    hdd2Space = str(random.randint(0, 100)) + "%"
+    # Parse output for results
+    # NB: Status 0 = Unpowered, Status 1 = Powered, but not mounted, Status 2 = Powered + Mounted
+    hdd1Status = 0
+    hdd2Status = 0
+    hdd1Space = "0"
+    hdd2Space = "0"
 
-    return consoleOutput, hdd1Status, hdd2Status, hdd1Space, hdd2Space
+    if "JMicron Technology Corp." in poweredStatus:
+        hdd1Status = 1
+        hdd2Status = 1
+
+        if data1MountedStatus == "1":
+            hdd1Status = 2
+        if data2MountedStatus == "1":
+            hdd2Status = 2
+
+    feedbackOutput = constants.hddStatusString.format(hddStatusDict[hdd1Status], hdd1Space, hddStatusDict[hdd2Status], hdd2Space)
+
+    return feedbackOutput, hdd1Status, hdd2Status, hdd1Space, hdd2Space
 
 def data0Check():
     # Do command
@@ -111,8 +128,9 @@ def gpsStatus():
     feedbackOutput = constants.gpsCheckFailed
 
     splitOutput = re.split(',|\n', consoleOutput)
-    print len(splitOutput)
     if len(splitOutput) == 15:
+        if splitOutput[6] == 1:
+            status = True
         feedbackOutput = constants.gpsOnline.format(gpsStatusDict[splitOutput[6]], splitOutput[7])
 
     return feedbackOutput, status

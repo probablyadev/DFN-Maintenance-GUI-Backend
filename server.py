@@ -16,6 +16,7 @@ urls = ('/', 'Index',
         '/intervaltest', 'IntervalTest',
         '/enablehdd', 'EnableHDD',
         '/disablehdd', 'DisableHDD',
+        '/mounthdd', 'MountHDD',
         '/unmounthdd', 'UnmountHDD',
         '/hddcheck', 'CheckHDD',
         '/data0check', 'Data0Check',
@@ -121,6 +122,18 @@ class DisableHDD:
         if LoginChecker.loggedIn():
             data = {}
             data['consoleFeedback'] = commandSender.hddOff()
+            statusFeedback, hdd1Boolean, hdd2Boolean, data['HDD1Space'], data['HDD2Space'] = commandSender.hddStatus()
+            data['consoleFeedback'] += statusFeedback
+            data['HDD1Status'] = hdd1Boolean
+            data['HDD2Status'] = hdd2Boolean
+            outJSON = json.dumps(data)
+            return outJSON
+
+class MountHDD:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            data['consoleFeedback'] = commandSender.mountHDD()
             statusFeedback, hdd1Boolean, hdd2Boolean, data['HDD1Space'], data['HDD2Space'] = commandSender.hddStatus()
             data['consoleFeedback'] += statusFeedback
             data['HDD1Status'] = hdd1Boolean
