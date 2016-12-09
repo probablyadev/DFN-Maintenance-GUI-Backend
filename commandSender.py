@@ -3,6 +3,7 @@ import constants
 import commands
 import random
 import re
+import time
 
 # Code for executing a command line command
 def doConsoleCommand(command):
@@ -49,30 +50,38 @@ def cameraStatus():
 # HDD Utilities
 def hddOn():
     # Do command
-    # consoleOutput = doConsoleCommand(constants.enableHardDrive)
-    consoleOutput = "HDD ON PYTHON COMMAND OUTPUT HERE\n"
-
-    #TODO: Parse output for results
-
-    return consoleOutput
+    doConsoleCommand(constants.enableHardDrive)
+    time.sleep(25)
+    return constants.hddCommandedOn
 
 def hddOff():
     # Do command
-    # consoleOutput = doConsoleCommand(constants.disableHardDrive)
-    consoleOutput = "HDD OFF PYTHON COMMAND OUTPUT HERE\n"
+    doConsoleCommand(constants.disableHardDrive)
 
-    # TODO: Parse output for results
+    feedbackOutput = constants.hddCommandedOff
 
-    return consoleOutput
+    return feedbackOutput
+
+def mountHDD():
+    # Do command
+    consoleOutput = doConsoleCommand(constants.mountHardDrive)
+
+    feedbackOutput = constants.hddMountFailed
+    if "SUCCESS" in consoleOutput:
+        feedbackOutput = constants.hddMountPassed
+
+    return feedbackOutput
+
 
 def unmountHDD():
     # Do command
-    # consoleOutput = doConsoleCommand(constants.unmountHardDrive)
-    consoleOutput = "HDD UNMOUNT PYTHON COMMAND OUTPUT HERE\n"
+    consoleOutput = doConsoleCommand(constants.unmountHardDrive)
 
-    # TODO: Parse output for results
+    feedbackOutput = constants.hddUnmountFailed
+    if "SUCCESS" in consoleOutput:
+        feedbackOutput = constants.hddUnmountFailed
 
-    return consoleOutput
+    return feedbackOutput
 
 
 def hddStatus():
@@ -82,15 +91,13 @@ def hddStatus():
     poweredStatus = doConsoleCommand(constants.hddPoweredStatus)
     data1MountedStatus = doConsoleCommand(constants.data1MountedStatus)
     data2MountedStatus = doConsoleCommand(constants.data2MountedStatus)
-    print data1MountedStatus
-    print data2MountedStatus
 
     # Parse output for results
     # NB: Status 0 = Unpowered, Status 1 = Powered, but not mounted, Status 2 = Powered + Mounted
     hdd1Status = 0
     hdd2Status = 0
-    hdd1Space = "0"
-    hdd2Space = "0"
+    hdd1Space = "-"
+    hdd2Space = "-"
 
     if "JMicron Technology Corp." in poweredStatus:
         hdd1Status = 1
@@ -100,6 +107,21 @@ def hddStatus():
             hdd1Status = 2
         if data2MountedStatus == "1":
             hdd2Status = 2
+
+    # Finding remaining space in HDDs according to /tmp/dfn_disk_usage
+    with open("/tmp/dfn_disk_usage") as f:
+        lines = f.readlines()
+        for line in lines: # For each line in the file
+            fixedLine = re.sub(" +", ",", line) # Reduce whitespace down to 1
+            if line[0] == "/": # If the line is the title line, ignore it
+                splitLine = re.split(",", fixedLine) # Split into terms
+                device = splitLine[5] # Get mounted name
+                spaceAvail = splitLine[4] # Get space for that mount
+                # Check if the data applies, if so assign to variable
+                if device == "/data1\n":
+                    hdd1Space = spaceAvail
+                if device == "/data2\n":
+                    hdd2Space = spaceAvail
 
     feedbackOutput = constants.hddStatusString.format(hddStatusDict[hdd1Status], hdd1Space, hddStatusDict[hdd2Status], hdd2Space)
 

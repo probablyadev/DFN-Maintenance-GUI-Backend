@@ -96,8 +96,8 @@ $(document).ready(function () {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colours
-                hdd1Light.css("background-color", colorMapping[result.HDD1Status]);
-                hdd2Light.css("background-color", colorMapping[result.HDD2Status]);
+                hdd1Light.css("background-color", hddColorMapping[result.HDD1Status]);
+                hdd2Light.css("background-color", hddColorMapping[result.HDD2Status]);
                 hdd1Space.text(result.HDD1Space);
                 hdd2Space.text(result.HDD2Space);
                 //Open up for other commands to be run

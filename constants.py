@@ -1,13 +1,13 @@
 # This file stores all constants used in this GUI.
 # The major constants here are different bash commands, executed server-side.
-gpsCheck = "echo G > /dev/leostick && cat /dev/leostick"
+gpsCheck = "echo G d> /dev/leostick && cat /dev/leostick"
 cameraOn = "python /opt/dfn-software/enable_camera.py"
 cameraOff = "python /opt/dfn-software/disable_camera.py"
 cameraCheck = "lsusb"
 enableHardDrive = "python /opt/dfn-software/enable_ext-hd.py"
 disableHardDrive = "python /opt/dfn-software/disable_ext-hd.py"
-mountHardDrive = "mount /data1 && mount /data2"
-unmountHardDrive = "umount /data1 && umount /data2"
+mountHardDrive = "mount /data1 && mount /data2 && echo SUCCESS"
+unmountHardDrive = "umount /data1 && umount /data2 && echo SUCCESS"
 hddPoweredStatus = "lsusb"
 data1MountedStatus = "mount | grep /data1 > /dev/null && echo 1"
 data2MountedStatus = "mount | grep /data2 > /dev/null && echo 1"
@@ -41,3 +41,10 @@ hddStatusString = "\nEXT. HDD STATUS:\n/data1: {0}, {1} full.\n/data2: {2}, {3} 
 hddStatusOff = "Not detected"
 hddStatusPowered = "Powered"
 hddStatusMounted = "Mounted"
+
+hddCommandedOn = "Enable ext. HDD command executed.\n"
+hddCommandedOff = "Disable ext. HDD command executed.\n"
+hddMountPassed = "HDD mount successful.\n"
+hddMountFailed = "HDD mount error: HDDs may have already been mounted. See status for confirmation.\n"
+hddUnmountPassed = "HDD unmount successful.\n"
+hddUnmountFailed = "HDD unmount error: HDDs may have already been unmounted. See status for confirmation.\n"
