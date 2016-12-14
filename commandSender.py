@@ -65,10 +65,17 @@ def hddOff():
 def mountHDD():
     # Do command
     consoleOutput = doConsoleCommand(constants.mountHardDrive)
+    poweredStatus = doConsoleCommand(constants.hddPoweredStatus)
+    feedbackOutput = ""
 
-    feedbackOutput = constants.hddMountFailed
     if "SUCCESS" in consoleOutput:
-        feedbackOutput = constants.hddMountPassed
+        if "JMicron Technology Corp." not in poweredStatus:
+            feedbackOutput = constants.hddMountFailed.format(constants.hddNotPoweredError)
+        else:
+            feedbackOutput = constants.hddMountPassed
+    else:
+        feedbackOutput = constants.hddMountFailed.format(constants.hddAlreadyMountedError)
+
 
     return feedbackOutput
 
@@ -76,11 +83,12 @@ def mountHDD():
 def unmountHDD():
     # Do command
     consoleOutput = doConsoleCommand(constants.unmountHardDrive)
+    poweredStatus = doConsoleCommand(constants.hddPoweredStatus)
 
-    feedbackOutput = constants.hddUnmountFailed
+    feedbackOutput = feedbackOutput = constants.hddUnmountFailed.format(constants.hddAlreadyUnmountedError)
+
     if "SUCCESS" in consoleOutput:
-        feedbackOutput = constants.hddUnmountFailed
-
+        feedbackOutput = constants.hddUnmountPassed
     return feedbackOutput
 
 
@@ -168,12 +176,25 @@ def internetStatus():
 
     if "0" not in re.split(",", consoleOutput)[1]:
         status = True
-        feedbackOutput = constants.internetCheckPassed
+        ipAddress = doConsoleCommand(constants.getInternetIP)
+        feedbackOutput = constants.internetCheckPassed.format(ipAddress)
 
     return feedbackOutput, status
 
+def restartModem():
+    # Do command
+    consoleOutput = doConsoleCommand(constants.restartModem)
+    # Parse output for results
+    feedbackOutput = constants.modemRestartFailed
+
+    if "SUCCESS" in consoleOutput:
+        feedbackOutput = constants.modemRestartSuccess
+
+    time.sleep(4)
+    return feedbackOutput
+
 def vpnStatus():
-    #Do command
+    # Do command
     consoleOutput = doConsoleCommand(constants.vpnCheck)
 
     # Parse output for results
@@ -182,9 +203,23 @@ def vpnStatus():
 
     if "0" not in re.split(",", consoleOutput)[1]:
         status = True
-        feedbackOutput = constants.vpnCheckPassed
+        ipAddress = doConsoleCommand(constants.getVpnIP)
+        feedbackOutput = constants.vpnCheckPassed.format(ipAddress)
 
     return feedbackOutput, status
+
+def restartVPN():
+    # Do command
+    consoleOutput = doConsoleCommand(constants.restartVPN)
+    # Parse output for results
+    feedbackOutput = constants.vpnRestartFailed
+
+    if "SUCCESS" in consoleOutput:
+        feedbackOutput = constants.vpnRestartPassed
+
+    time.sleep(4)
+    return feedbackOutput
+
 
 # Interval test
 def intervalTest():

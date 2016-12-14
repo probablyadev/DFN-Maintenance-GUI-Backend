@@ -1,9 +1,11 @@
 # This file stores all constants used in this GUI.
 # The major constants here are different bash commands, executed server-side.
-gpsCheck = "echo G d> /dev/leostick && cat /dev/leostick"
+gpsCheck = "echo G > /dev/leostick && cat /dev/leostick"
+
 cameraOn = "python /opt/dfn-software/enable_camera.py"
 cameraOff = "python /opt/dfn-software/disable_camera.py"
 cameraCheck = "lsusb"
+
 enableHardDrive = "python /opt/dfn-software/enable_ext-hd.py"
 disableHardDrive = "python /opt/dfn-software/disable_ext-hd.py"
 mountHardDrive = "mount /data1 && mount /data2 && echo SUCCESS"
@@ -12,8 +14,15 @@ hddPoweredStatus = "lsusb"
 data1MountedStatus = "mount | grep /data1 > /dev/null && echo 1"
 data2MountedStatus = "mount | grep /data2 > /dev/null && echo 1"
 hddSpace = "cat /tmp/dfn_disk_usage"
+
 internetCheck = "ping -c 1 www.google.com"
+getInternetIP = "ifconfig | grep eth1 -A 1 | grep -o 'addr:[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' | cut -c6-"
+restartModem = "service network-manager restart; ifdown -a; ifup -a && echo SUCCESS"
+
 vpnCheck = "ping -c 1 10.1.16.1"
+getVpnIP = "ifconfig | grep tun0 -A 1 | grep -o 'addr:[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'| cut -c6-"
+restartVPN = "service openvpn restart && echo SUCCESS"
+
 intervalTest = "/opt/dfn-software/interval_control_test.sh"
 checkIntervalResults = "ls -lR /data0/latest_prev/*.NEF | wc -l"
 
@@ -28,11 +37,15 @@ cameraCheckOff = "\nCAMERA STATUS:\nCamera not found.\n"
 gpsCheckFailed = "\nGPS STATUS:\nGPS offline.\n"
 gpsOnline = "\nGPS STATUS:\nLock: {0}\nSatellites: {1}\n"
 
-internetCheckPassed = "\nINTERNET STATUS:\nInternet access available.\n"
+internetCheckPassed = "\nINTERNET STATUS:\nInternet access available at {0}.\n"
 internetCheckFailed = "\nINTERNET STATUS:\nNo internet access.\n"
+modemRestartPassed = "\nModem restarted successfully.\n"
+modemRestartFailed = "\nERROR: modem unable to restart successfully.\n"
 
-vpnCheckPassed = "\nVPN STATUS:\nVPN connection available.\n"
+vpnCheckPassed = "\nVPN STATUS:\nVPN connection available at {0}.\n"
 vpnCheckFailed = "\nVPN STATUS:\nNo VPN connection available.\n"
+vpnRestartPassed = "\nVPN restarted successfully.\n"
+vpnRestartFailed = "\nERROR: VPN unable to restart successfully.\n"
 
 intervalTestPassed = "\nINTERVAL TEST RESULTS:\nInterval test passed.\n"
 intervalTestFailed = "\nINTERVAL TEST RESULTS:\nInterval test failed.\n"
@@ -45,6 +58,10 @@ hddStatusMounted = "Mounted"
 hddCommandedOn = "Enable ext. HDD command executed.\n"
 hddCommandedOff = "Disable ext. HDD command executed.\n"
 hddMountPassed = "HDD mount successful.\n"
-hddMountFailed = "HDD mount error: HDDs may have already been mounted. See status for confirmation.\n"
+hddMountFailed = "HDD mount error: {0}\n"
+hddNotPoweredError = "HDDs need to be powered."
+hddAlreadyMountedError = "HDDs may have already been mounted. See status for confirmation."
+
 hddUnmountPassed = "HDD unmount successful.\n"
-hddUnmountFailed = "HDD unmount error: HDDs may have already been unmounted. See status for confirmation.\n"
+hddUnmountFailed = "HDD unmount error: {0}\n"
+hddAlreadyUnmountedError = "HDDs may have already been unmounted. See status for confirmation."

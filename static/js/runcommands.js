@@ -32,7 +32,9 @@ $(document).ready(function () {
     $("#GPSCheck").click(gpsCheckHandler);
     $("#IntervalCheck").click(intervalTestHandler);
     $("#InternetCheck").click(internetCheckHandler);
+    $("#RestartModem").click(restartModemHandler);
     $("#VPNCheck").click(vpnCheckHandler);
+    $("#RestartVPN").click(restartVPNHandler);
     $("#StatusCheck").click(systemStatusHandler);
 
     //Get system status
@@ -49,7 +51,6 @@ $(document).ready(function () {
     /* CODE FOR BUTTON PRESS HANDLERS, AJAX REQUESTERS */
     /***************************************************/
 
-    //Handler for turning camera on
     function cameraOnHandler() {
         if (!doingCommand) {
             doingCommand = true;
@@ -67,7 +68,6 @@ $(document).ready(function () {
         }
     }
 
-    //Handler for turning camera off
     function cameraOffHandler() {
         if (!doingCommand) {
             doingCommand = true;
@@ -85,7 +85,6 @@ $(document).ready(function () {
         }
     }
 
-    // Handler
     function hddOnHandler() {
         if (!doingCommand) {
             doingCommand = true;
@@ -241,6 +240,23 @@ $(document).ready(function () {
         }
     }
 
+    function restartModemHandler() {
+        if (!doingCommand) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Restarting modem...\n");
+            //Request to check GPS status
+            $.getJSON("/restartmodem", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Set light colour
+                vpnLight.css("background-color", colorMapping[result.internetStatus]);
+                //Open up for other commands to be run
+                doingCommand = false;
+            });
+        }
+    }
+
     function vpnCheckHandler() {
         if (!doingCommand) {
             doingCommand = true;
@@ -248,6 +264,23 @@ $(document).ready(function () {
             $(webConsole).append("Checking vpn connectivity...\n");
             //Request to check GPS status
             $.getJSON("/vpncheck", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Set light colour
+                vpnLight.css("background-color", colorMapping[result.vpnStatus]);
+                //Open up for other commands to be run
+                doingCommand = false;
+            });
+        }
+    }
+
+    function restartVPNHandler() {
+        if (!doingCommand) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Restarting VPN...\n");
+            //Request to check GPS status
+            $.getJSON("/restartvpn", function (result) {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colour

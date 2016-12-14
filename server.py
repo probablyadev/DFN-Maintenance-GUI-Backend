@@ -21,7 +21,9 @@ urls = ('/', 'Index',
         '/hddcheck', 'CheckHDD',
         '/data0check', 'Data0Check',
         '/internetcheck', 'InternetCheck',
+        '/restartmodem', 'RestartModem',
         '/vpncheck', 'VPNCheck',
+        '/restartvpn', 'RestartVPN',
         '/systemstatus', 'SystemStatus')
 app = web.application(urls, globals())
 
@@ -193,11 +195,32 @@ class InternetCheck:
             outJSON = json.dumps(data)
             return outJSON
 
+class RestartModem:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            restartFeedback = commandSender.restartModem()
+            statusFeedback, data['internetStatus'] = commandSender.internetStatus()
+            data['consoleFeedback'] = restartFeedback + statusFeedback
+            outJSON = json.dumps(data)
+            return outJSON
+
+
 class VPNCheck:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
             data['consoleFeedback'], data['vpnStatus'] = commandSender.vpnStatus()
+            outJSON = json.dumps(data)
+            return outJSON
+
+class RestartVPN:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            restartFeedback = commandSender.restartVPN()
+            statusFeedback, data['vpnStatus'] =  commandSender.vpnStatus()
+            data['consoleFeedback'] = restartFeedback + statusFeedback
             outJSON = json.dumps(data)
             return outJSON
 
