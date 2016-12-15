@@ -38,7 +38,7 @@ $(document).ready(function () {
     $("#StatusCheck").click(systemStatusHandler);
 
     //Get system status
-    systemStatusHandler();
+    //systemStatusHandler();
 
     //Code for adding to web console
     function addToWebConsole(inputText) {

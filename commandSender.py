@@ -68,7 +68,7 @@ def mountHDD():
     poweredStatus = doConsoleCommand(constants.hddPoweredStatus)
     feedbackOutput = ""
 
-    if "SUCCESS" in consoleOutput:
+    if "SUCCESS\nSUCCESS" in consoleOutput:
         if "JMicron Technology Corp." not in poweredStatus:
             feedbackOutput = constants.hddMountFailed.format(constants.hddNotPoweredError)
         else:
@@ -87,7 +87,7 @@ def unmountHDD():
 
     feedbackOutput = feedbackOutput = constants.hddUnmountFailed.format(constants.hddAlreadyUnmountedError)
 
-    if "SUCCESS" in consoleOutput:
+    if "SUCCESS\nSUCCESS" in consoleOutput:
         feedbackOutput = constants.hddUnmountPassed
     return feedbackOutput
 

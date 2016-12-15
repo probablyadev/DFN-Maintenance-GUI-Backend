@@ -12,3 +12,4 @@ New things learnt (and included in this project):
 * More HTML/CSS stuff
 * jQuery and incidentally, Javascript.
 * AJAX with jQuery.
+* Bash commands + Linux stuff
