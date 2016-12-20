@@ -188,7 +188,7 @@ def restartModem():
     feedbackOutput = constants.modemRestartFailed
 
     if "SUCCESS" in consoleOutput:
-        feedbackOutput = constants.modemRestartSuccess
+        feedbackOutput = constants.modemRestartPassed
 
     time.sleep(4)
     return feedbackOutput
@@ -211,6 +211,8 @@ def vpnStatus():
 def restartVPN():
     # Do command
     consoleOutput = doConsoleCommand(constants.restartVPN)
+    time.sleep(25)
+
     # Parse output for results
     feedbackOutput = constants.vpnRestartFailed
 
