@@ -36,6 +36,7 @@ $(document).ready(function () {
     $("#VPNCheck").click(vpnCheckHandler);
     $("#RestartVPN").click(restartVPNHandler);
     $("#StatusCheck").click(systemStatusHandler);
+    $("#StatusConfig").click(statusConfigHandler);
 
     //Get system status
     systemStatusHandler();
@@ -304,6 +305,23 @@ $(document).ready(function () {
                 intervalLight.css("background-color", colorMapping[result.intervalTestResult])
                 //Open up for other commands to be run
                 doingCommand = false;
+            });
+        }
+    }
+
+    function statusConfigHandler() {
+        if (!doingCommand) {
+            doingCommand = true;
+            //Request file
+            $.get("/statusconfig", function (result) {
+                var decoded = decode64(result)
+                  var element = document.createElement('a');
+                  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(decoded));
+                  element.setAttribute('download', 'dfnstation.cfg');
+                  element.style.display = 'none';
+                  document.body.appendChild(element);
+                  element.click();
+                  document.body.removeChild(element);
             });
         }
     }

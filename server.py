@@ -2,7 +2,7 @@
 
 import web
 from web import form
-import sys, model, commandSender, json
+import os, model, commandSender, json, base64
 
 web.config.debug = False
 
@@ -24,7 +24,8 @@ urls = ('/', 'Index',
         '/restartmodem', 'RestartModem',
         '/vpncheck', 'VPNCheck',
         '/restartvpn', 'RestartVPN',
-        '/systemstatus', 'SystemStatus')
+        '/systemstatus', 'SystemStatus',
+        '/statusconfig', 'StatusConfig')
 app = web.application(urls, globals())
 
 # Initialising useful web.py framework variables
@@ -223,6 +224,18 @@ class RestartVPN:
             data['consoleFeedback'] = restartFeedback + statusFeedback
             outJSON = json.dumps(data)
             return outJSON
+
+class StatusConfig:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            path = "/opt/dfn-software/dfnstation.cfg"
+            if os.path.exists(path):
+                getFile = file(path, 'rb')
+                web.header('Content-type', 'application/octet-stream')
+                web.header('Content-transfer-encoding', 'base64')
+                return base64.standard_b64encode(getFile.read())
+            else:
+                raise web.notfound()
 
 class SystemStatus:
     def GET(self):
