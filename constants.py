@@ -25,6 +25,7 @@ restartVPN = "service openvpn restart && echo SUCCESS"
 
 intervalTest = "/opt/dfn-software/interval_control_test.sh"
 checkIntervalResults = "ls -lR /data0/latest_prev/*.NEF | wc -l"
+checkPrevIntervalStatus = "ls /data0/DFNSMALL*/{0}/{1}/{2}*/*.NEF | head -n 1 | xargs stat -c %y"
 
 # TODO: DOWNLOAD TO USB COMMAND
 

@@ -14,6 +14,7 @@ urls = ('/', 'Index',
         '/cameraoff', 'CameraOff',
         '/gpscheck', 'GPSCheck',
         '/intervaltest', 'IntervalTest',
+        '/previntervaltest', 'PrevIntervalTest',
         '/enablehdd', 'EnableHDD',
         '/disablehdd', 'DisableHDD',
         '/mounthdd', 'MountHDD',
@@ -185,6 +186,14 @@ class IntervalTest:
         if LoginChecker.loggedIn():
             data = {}
             data['consoleFeedback'], data['intervalTestResult'] = commandSender.intervalTest()
+            outJSON = json.dumps(data)
+            return outJSON
+
+class PrevIntervalTest:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            data['consoleFeedback'], = commandSender.prevIntervalTest()
             outJSON = json.dumps(data)
             return outJSON
 

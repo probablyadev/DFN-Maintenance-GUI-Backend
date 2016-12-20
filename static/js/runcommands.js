@@ -14,8 +14,8 @@ $(document).ready(function () {
 
     //Useful globals + constants
     var doingCommand = false;
-    var colorMapping = {true: "#00FF00", false: "#FF0000"};
-    var hddColorMapping = {0: "#FF0000", 1: "#FF9900", 2: "#00FF00"}
+    var simpleColorMapping = {true: "#00FF00", false: "#FF0000"};
+    var complexColorMapping = {0: "#FF0000", 1: "#FF9900", 2: "#00FF00"}
 
     //Useful strings
     var line = "-------------------------------\n"
@@ -31,6 +31,7 @@ $(document).ready(function () {
     $("#Data0Check").click(data0CheckHandler);
     $("#GPSCheck").click(gpsCheckHandler);
     $("#IntervalCheck").click(intervalTestHandler);
+    /*$("#PrevIntervalCheck").click(checkPrevIntervalHandler);*/
     $("#InternetCheck").click(internetCheckHandler);
     $("#RestartModem").click(restartModemHandler);
     $("#VPNCheck").click(vpnCheckHandler);
@@ -62,7 +63,7 @@ $(document).ready(function () {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colour
-                cameraLight.css("background-color", colorMapping[result.cameraStatus]);
+                cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
                 //Open up for other commands to be run
                 doingCommand = false;
             });
@@ -79,7 +80,7 @@ $(document).ready(function () {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colour
-                cameraLight.css("background-color", colorMapping[result.cameraStatus]);
+                cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
                 //Open up for other commands to be run
                 doingCommand = false;
             });
@@ -96,8 +97,8 @@ $(document).ready(function () {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colours
-                hdd1Light.css("background-color", hddColorMapping[result.HDD1Status]);
-                hdd2Light.css("background-color", hddColorMapping[result.HDD2Status]);
+                hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
+                hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
                 hdd1Space.text(result.HDD1Space);
                 hdd2Space.text(result.HDD2Space);
                 //Open up for other commands to be run
@@ -116,8 +117,8 @@ $(document).ready(function () {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colours
-                hdd1Light.css("background-color", hddColorMapping[result.HDD1Status]);
-                hdd2Light.css("background-color", hddColorMapping[result.HDD2Status]);
+                hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
+                hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
                 hdd1Space.text(result.HDD1Space);
                 hdd2Space.text(result.HDD2Space);
                 //Open up for other commands to be run
@@ -136,8 +137,8 @@ $(document).ready(function () {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colours
-                hdd1Light.css("background-color", hddColorMapping[result.HDD1Status]);
-                hdd2Light.css("background-color", hddColorMapping[result.HDD2Status]);
+                hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
+                hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
                 hdd1Space.text(result.HDD1Space);
                 hdd2Space.text(result.HDD2Space);
                 //Open up for other commands to be run
@@ -156,8 +157,8 @@ $(document).ready(function () {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colours
-                hdd1Light.css("background-color", hddColorMapping[result.HDD1Status]);
-                hdd2Light.css("background-color", hddColorMapping[result.HDD2Status]);
+                hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
+                hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
                 hdd1Space.text(result.HDD1Space);
                 hdd2Space.text(result.HDD2Space);
                 //Open up for other commands to be run
@@ -176,8 +177,8 @@ $(document).ready(function () {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colours
-                hdd1Light.css("background-color", hddColorMapping[result.HDD1Status]);
-                hdd2Light.css("background-color", hddColorMapping[result.HDD2Status]);
+                hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
+                hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
                 hdd1Space.text(result.HDD1Space);
                 hdd2Space.text(result.HDD2Space);
                 //Open up for other commands to be run
@@ -197,7 +198,7 @@ $(document).ready(function () {
                 addToWebConsole(result.consoleFeedback + "\n" + line);
 
                 //Set light colours
-                hdd0Light.css("background-color", colorMapping[result.data0Boolean]);
+                hdd0Light.css("background-color", simpleColorMapping[result.data0Boolean]);
 
                 //Open up for other commands to be run
                 doingCommand = false;
@@ -205,7 +206,6 @@ $(document).ready(function () {
         }
     }
 
-    //Handler for outputting GPS status
     function gpsCheckHandler() {
         if (!doingCommand) {
             doingCommand = true;
@@ -216,14 +216,13 @@ $(document).ready(function () {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colour
-                gpsLight.css("background-color", colorMapping[result.gpsStatus]);
+                gpsLight.css("background-color", simpleColorMapping[result.gpsStatus]);
                 //Open up for other commands to be run
                 doingCommand = false;
             });
         }
     }
 
-    //Handler for internet check
     function internetCheckHandler() {
         if (!doingCommand) {
             doingCommand = true;
@@ -234,7 +233,7 @@ $(document).ready(function () {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colour
-                internetLight.css("background-color", colorMapping[result.internetStatus]);
+                internetLight.css("background-color", simpleColorMapping[result.internetStatus]);
                 //Open up for other commands to be run
                 doingCommand = false;
             });
@@ -251,7 +250,7 @@ $(document).ready(function () {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colour
-                vpnLight.css("background-color", colorMapping[result.internetStatus]);
+                vpnLight.css("background-color", simpleColorMapping[result.internetStatus]);
                 //Open up for other commands to be run
                 doingCommand = false;
             });
@@ -268,7 +267,7 @@ $(document).ready(function () {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colour
-                vpnLight.css("background-color", colorMapping[result.vpnStatus]);
+                vpnLight.css("background-color", simpleColorMapping[result.vpnStatus]);
                 //Open up for other commands to be run
                 doingCommand = false;
             });
@@ -285,14 +284,13 @@ $(document).ready(function () {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colour
-                vpnLight.css("background-color", colorMapping[result.vpnStatus]);
+                vpnLight.css("background-color", simpleColorMapping[result.vpnStatus]);
                 //Open up for other commands to be run
                 doingCommand = false;
             });
         }
     }
 
-    //Handler for performing an interval test
     function intervalTestHandler() {
         if (!doingCommand) {
             doingCommand = true;
@@ -302,12 +300,26 @@ $(document).ready(function () {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colours
-                intervalLight.css("background-color", colorMapping[result.intervalTestResult])
+                intervalLight.css("background-color", simpleColorMapping[result.intervalTestResult])
                 //Open up for other commands to be run
                 doingCommand = false;
             });
         }
     }
+
+    /*function checkPrevIntervalHandler() {
+        if (!doingCommand) {
+            doingCommand = true;
+            $(webConsole).append("Retrieving previous interval test...\n");
+            //Request to perform interval test
+            $.getJSON("/previntervaltest", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Open up for other commands to be run
+                doingCommand = false;
+            });
+        }
+    }*/
 
     function statusConfigHandler() {
         if (!doingCommand) {
@@ -326,7 +338,6 @@ $(document).ready(function () {
         }
     }
 
-    //Handler for general status check
     function systemStatusHandler() {
         if (!doingCommand) {
             doingCommand = true;
@@ -337,13 +348,13 @@ $(document).ready(function () {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colours
-                cameraLight.css("background-color", colorMapping[result.cameraStatus]);
-                gpsLight.css("background-color", colorMapping[result.gpsStatus]);
-                internetLight.css("background-color", colorMapping[result.internetStatus]);
-                vpnLight.css("background-color", colorMapping[result.vpnStatus]);
-                hdd0Light.css("background-color", colorMapping[result.HDD0Status]);
-                hdd1Light.css("background-color", hddColorMapping[result.HDD1Status]);
-                hdd2Light.css("background-color", hddColorMapping[result.HDD2Status]);
+                cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
+                gpsLight.css("background-color", simpleColorMapping[result.gpsStatus]);
+                internetLight.css("background-color", simpleColorMapping[result.internetStatus]);
+                vpnLight.css("background-color", simpleColorMapping[result.vpnStatus]);
+                hdd0Light.css("background-color", simpleColorMapping[result.HDD0Status]);
+                hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
+                hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
                 hdd1Space.text(result.HDD1Space);
                 hdd2Space.text(result.HDD2Space);
                 //Open up for other commands to be run
