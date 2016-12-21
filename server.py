@@ -39,6 +39,12 @@ loginForm = form.Form(
     form.Password("password", description='Password:'),
     form.Button('Login'))
 
+# Variable for the HDD formatting form
+formatForm = form.Form(
+    form.Checkbox("installPartedCheck", description='Install Parteds', value="none"),
+    form.Checkbox("formatData1Check", description='Format /data1', value="none"),
+    form.Checkbox("formatData2Check", description='Format /data2', value="none"),
+    form.Button("Format Drives", class_='commandbutton'))
 
 # Class for login page
 class Index:
@@ -64,7 +70,18 @@ if __name__ == '__main__':
         def GET(self):
             if LoginChecker.loggedIn():
                 f = loginForm()
-                return render.app()
+                r = formatForm
+                return render.app(r)
+
+        def POST(self):
+            r = formatForm()
+
+            if r.validates():  # If form lambdas are valid
+                print r.d.installPartedCheck
+                print r.d.formatData1Check
+                print r.d.formatData2Check
+
+            return render.app(r)
 
 class Login:
     @staticmethod

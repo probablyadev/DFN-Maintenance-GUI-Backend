@@ -1,3 +1,5 @@
+$def with (formatForm)
+
 <!DOCTYPE html>
     <head>
         <meta charset="UTF-8">
@@ -24,13 +26,15 @@
                 <h3 class="moduleHeader">System Status</h3>
                 <button type="button" class="commandbutton" id="StatusCheck">Check General Status</button>
                 <button type="button" class="commandbutton" id="StatusConfig">Download Status Config</button>
-                <button type="button" class="commandbutton" id="GPSCheck">Check GPS</button>
-                <button type="button" class="commandbutton" id="InternetCheck">Check Internet</button>
-                <button type="button" class="commandbutton" id="VPNCheck">Check VPN</button>
+                <button type="button" class="commandbutton" id="CheckSpace">Check Ext. HDD Status</button>
+                <button type="button" class="commandbutton" id="Data0Check">Get /data0 contents</button>
+                <button type="button" class="commandbutton" id="GPSCheck">Check GPS Status</button>
+                <button type="button" class="commandbutton" id="InternetCheck">Check Internet Status</button>
+                <button type="button" class="commandbutton" id="VPNCheck">Check VPN Status</button>
             </div>
             <div class="commandModule">
                 <h3 class="moduleHeader">Interval Control</h3>
-                <button type="button" class="commandbutton" id="PrevIntervalCheck">Check Interval Control SW</button>
+                <button type="button" class="commandbutton" id="PrevIntervalCheck">Verify SW Results</button>
                 <button type="button" class="commandbutton" id="IntervalCheck">Run Interval Test</button>
             </div>
             <div class="commandModule">
@@ -44,8 +48,12 @@
                 <button type="button" class="commandbutton" id="HDDOff">Disable Ext. HDD</button>
                 <button type="button" class="commandbutton" id="MountHDD">Mount Ext. HDD</button>
                 <button type="button" class="commandbutton" id="UnmountHDD">Unmount Ext. HDD</button>
-                <button type="button" class="commandbutton" id="CheckSpace">Check Ext. HDD Status</button>
-                <button type="button" class="commandbutton" id="Data0Check">Get /data0 contents</button>
+                <div class="formatForm">
+                    <h4 class="moduleHeader">Format Hard Drive</h4>
+                    <form method="POST">
+                        $:formatForm.render()
+                    </form>
+            </div>
             </div>
             <div class="commandModule">
                 <h3 class="moduleHeader">Network Controls</h3>
