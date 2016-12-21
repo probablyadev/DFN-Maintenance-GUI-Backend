@@ -159,7 +159,7 @@ def gpsStatus():
 
     splitOutput = re.split(',|\n', consoleOutput)
     if len(splitOutput) == 15:
-        if splitOutput[6] == 1:
+        if splitOutput[6] == "1":
             status = True
         feedbackOutput = constants.gpsOnline.format(gpsStatusDict[splitOutput[6]], splitOutput[7])
 
