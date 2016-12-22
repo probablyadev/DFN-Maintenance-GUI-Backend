@@ -35,7 +35,7 @@ $(document).ready(function () {
     $("#Data0Check").click(data0CheckHandler);
     $("#GPSCheck").click(gpsCheckHandler);
     $("#IntervalCheck").click(intervalTestHandler);
-    /*$("#PrevIntervalCheck").click(checkPrevIntervalHandler);*/
+    $("#PrevIntervalCheck").click(checkPrevIntervalHandler);
     $("#InternetCheck").click(internetCheckHandler);
     $("#RestartModem").click(restartModemHandler);
     $("#VPNCheck").click(vpnCheckHandler);
@@ -337,7 +337,7 @@ $(document).ready(function () {
         }
     }
 
-    /*function checkPrevIntervalHandler() {
+    function checkPrevIntervalHandler() {
         if (!doingCommand) {
             doingCommand = true;
             $(webConsole).append("Retrieving previous interval test...\n");
@@ -349,7 +349,7 @@ $(document).ready(function () {
                 doingCommand = false;
             });
         }
-    }*/
+    }
 
     function statusConfigHandler() {
         if (!doingCommand) {

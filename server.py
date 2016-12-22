@@ -206,7 +206,7 @@ class PrevIntervalTest:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
-            data['consoleFeedback'], = commandSender.prevIntervalTest()
+            data['consoleFeedback'] = commandSender.prevIntervalTest()
             outJSON = json.dumps(data)
             return outJSON
 

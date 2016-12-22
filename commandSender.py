@@ -4,6 +4,7 @@ import commands
 import random
 import re
 import time
+import datetime
 
 # Code for executing a command line command
 def doConsoleCommand(command):
@@ -90,6 +91,7 @@ def unmountHDD():
         feedbackOutput = constants.hddUnmountPassed
     return feedbackOutput
 
+# TODO: FINISH THIS!
 def formatHDD(checkData):
     checkDictionary = {"true": "y", "false": "N"}
     i=0
@@ -249,3 +251,17 @@ def intervalTest():
         feedbackOutput = constants.intervalTestPassed
 
     return feedbackOutput, status
+
+def prevIntervalTest():
+    # Get current date
+    currDate = datetime.datetime.now()
+
+    # Do console command to find mod date of latest
+    consoleFeedback = constants.prevIntervalNotRun
+    latestDateUnparsed = doConsoleCommand(constants.checkPrevIntervalStatus)
+    latestDateParsed = re.search('\d{4}-\d{2}-\d{2}', latestDateUnparsed).group(0)
+    latestDateSplit = re.split("-", latestDateParsed)
+    if str(currDate.day) == latestDateSplit[2] and str(currDate.month) == latestDateSplit[1] and str(currDate.year) == latestDateSplit[0]:
+        consoleFeedback = constants.prevIntervalDidRun
+
+    return consoleFeedback

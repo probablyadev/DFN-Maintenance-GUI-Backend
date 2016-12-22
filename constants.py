@@ -26,7 +26,7 @@ restartVPN = "service openvpn restart && echo SUCCESS"
 
 intervalTest = "/opt/dfn-software/interval_control_test.sh"
 checkIntervalResults = "ls -lR /data0/latest_prev/*.NEF | wc -l"
-checkPrevIntervalStatus = "ls /data0/DFNSMALL*/{0}/{1}/{2}*/*.NEF | head -n 1 | xargs stat -c %y"
+checkPrevIntervalStatus = "find /data0/latest -exec stat -c%y {} \; | sort -n -r | head -n 1" # Actual, for now
 
 # TODO: DOWNLOAD TO USB COMMAND
 
@@ -51,6 +51,8 @@ vpnRestartFailed = "\nERROR: VPN unable to restart successfully.\n"
 
 intervalTestPassed = "\nINTERVAL TEST RESULTS:\nInterval test passed.\n"
 intervalTestFailed = "\nINTERVAL TEST RESULTS:\nInterval test failed.\n"
+prevIntervalDidRun = "\nINTERVAL CONTROL SW RAN SUCCESSFULLY LAST NIGHT.\n"
+prevIntervalNotRun ="\nINTERVAL CONTROL SW DID NOT RUN SUCCESSFULLY LAST NIGHT.\n"
 
 hddStatusString = "\nEXT. HDD STATUS:\n/data1: {0}, {1} full.\n/data2: {2}, {3} full.\n"
 hddStatusOff = "Not detected"
