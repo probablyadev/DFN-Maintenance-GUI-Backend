@@ -19,6 +19,7 @@ urls = ('/', 'Index',
         '/disablehdd', 'DisableHDD',
         '/mounthdd', 'MountHDD',
         '/unmounthdd', 'UnmountHDD',
+        '/formathdd', 'FormatHDD',
         '/hddcheck', 'CheckHDD',
         '/data0check', 'Data0Check',
         '/internetcheck', 'InternetCheck',
@@ -38,13 +39,6 @@ loginForm = form.Form(
     form.Textbox("username", description='Username:'),
     form.Password("password", description='Password:'),
     form.Button('Login'))
-
-# Variable for the HDD formatting form
-formatForm = form.Form(
-    form.Checkbox("installPartedCheck", description='Install Parteds', value="none"),
-    form.Checkbox("formatData1Check", description='Format /data1', value="none"),
-    form.Checkbox("formatData2Check", description='Format /data2', value="none"),
-    form.Button("Format Drives", class_='commandbutton'))
 
 # Class for login page
 class Index:
@@ -70,18 +64,7 @@ if __name__ == '__main__':
         def GET(self):
             if LoginChecker.loggedIn():
                 f = loginForm()
-                r = formatForm
-                return render.app(r)
-
-        def POST(self):
-            r = formatForm()
-
-            if r.validates():  # If form lambdas are valid
-                print r.d.installPartedCheck
-                print r.d.formatData1Check
-                print r.d.formatData2Check
-
-            return render.app(r)
+                return render.app()
 
 class Login:
     @staticmethod
@@ -167,6 +150,19 @@ class UnmountHDD:
         if LoginChecker.loggedIn():
             data = {}
             data['consoleFeedback'] = commandSender.unmountHDD()
+            statusFeedback, hdd1Boolean, hdd2Boolean, data['HDD1Space'], data['HDD2Space'] = commandSender.hddStatus()
+            data['consoleFeedback'] += statusFeedback
+            data['HDD1Status'] = hdd1Boolean
+            data['HDD2Status'] = hdd2Boolean
+            outJSON = json.dumps(data)
+            return outJSON
+
+class FormatHDD:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            checkData = [web.input().installChecked, web.input().data1Checked, web.input().data2Checked]
+            data['consoleFeedback'] = commandSender.formatHDD(checkData)
             statusFeedback, hdd1Boolean, hdd2Boolean, data['HDD1Space'], data['HDD2Space'] = commandSender.hddStatus()
             data['consoleFeedback'] += statusFeedback
             data['HDD1Status'] = hdd1Boolean

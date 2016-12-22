@@ -79,7 +79,6 @@ def mountHDD():
 
     return feedbackOutput
 
-
 def unmountHDD():
     # Do command
     consoleOutput = doConsoleCommand(constants.unmountHardDrive)
@@ -91,6 +90,18 @@ def unmountHDD():
         feedbackOutput = constants.hddUnmountPassed
     return feedbackOutput
 
+def formatHDD(checkData):
+    checkDictionary = {"true": "y", "false": "N"}
+    i=0
+    arg = ["N", "N", "N"]
+
+    for checked in checkData:
+        arg[i] = checkDictionary[checked]
+        i += 1
+
+    consoleOutput = doConsoleCommand(constants.formatHardDrive.format(arg[0], arg[1], arg[2]))
+    print consoleOutput
+    return "0\n"
 
 def hddStatus():
     hddStatusDict = {0: constants.hddStatusOff, 1: constants.hddStatusPowered, 2: constants.hddStatusMounted}

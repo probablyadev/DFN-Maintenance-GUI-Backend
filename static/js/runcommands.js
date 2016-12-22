@@ -11,6 +11,9 @@ $(document).ready(function () {
     var hdd2Light = $('#HDD2Light');
     var hdd1Space = $('#HDD1Space');
     var hdd2Space = $('#HDD2Space');
+    var installCheck = $('#installPartedCheck');
+    var formatData1Check = $('#formatData1Check');
+    var formatData2Check = $('#formatData2Check');
 
     //Useful globals + constants
     var doingCommand = false;
@@ -27,6 +30,7 @@ $(document).ready(function () {
     $("#HDDOff").click(hddOffHandler);
     $("#MountHDD").click(hddMountHandler);
     $("#UnmountHDD").click(hddUnmountHandler);
+    $("#FormatDrives").click(hddFormatHandler);
     $("#CheckSpace").click(hddSpaceCheckHandler);
     $("#Data0Check").click(data0CheckHandler);
     $("#GPSCheck").click(gpsCheckHandler);
@@ -154,6 +158,32 @@ $(document).ready(function () {
             $(webConsole).append("Unmounting external HDDs...\n");
             //Request to enable HDDs
             $.getJSON("/unmounthdd", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Set light colours
+                hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
+                hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
+                hdd1Space.text(result.HDD1Space);
+                hdd2Space.text(result.HDD2Space);
+                //Open up for other commands to be run
+                doingCommand = false;
+            });
+        }
+    }
+
+    function hddFormatHandler() {
+        if (!doingCommand) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Formatting HDDs...\n");
+            //Pack checkbox data into JSON
+            var checkData = {
+                installChecked: installCheck.is(':checked'),
+                data1Checked: formatData1Check.is(':checked'),
+                data2Checked: formatData2Check.is(':checked')
+            };
+            //Request to enable HDDs
+            $.getJSON("/formathdd", checkData, function (result) {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colours

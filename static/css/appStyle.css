@@ -56,6 +56,28 @@ body {
     justify-content: space-around;
 }
 
+.formatForm {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #660000;
+    padding: 5px 10px;
+    margin: 10px;
+}
+
+.formatForm .checkboxWrapper {
+    margin: 2px;
+    padding: 2px;
+    font-size: 2vh;
+    display: flex;
+    align-items: center
+}
+
+.formatForm input {
+    float: left;
+    margin: 0px 3px 0px 0px;
+}
+
 .moduleHeader {
     -webkit-margin-before: 0.5em;
     -webkit-margin-after: 0.5em;
