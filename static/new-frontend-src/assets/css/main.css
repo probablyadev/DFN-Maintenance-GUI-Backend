@@ -195,7 +195,7 @@ a {
 
 .gigantic, .huge, .large, .bigger, .big,
 h1, h2, h3, h4, h5, h6 {
-  color: #222;
+  color: #FFF;
   font-weight: bold; }
 
 .gigantic {
@@ -240,11 +240,37 @@ hr {
   margin: 10px 0 30px;
   height: 0; }
 
+a {
+  color: #FFF; }
+
 .controlModule {
-  background-color: green;
+  background-color: #95000C;
   width: 95vw;
   height: 50vh;
   margin: 2vh auto 2vh auto; }
+  .controlModule .tabControl {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; }
+    .controlModule .tabControl li {
+      float: left;
+      width: 16.66667%;
+      background-color: #660000; }
+      .controlModule .tabControl li .tabIcon {
+        display: inline; }
+      .controlModule .tabControl li a {
+        display: inline-block;
+        padding: 2vh;
+        transition: 0.2s;
+        font-size: 2.5vh;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden; }
+    .controlModule .tabControl li:hover, .controlModule .tabControl .active, .controlModule .tabControl :focus {
+      background-color: #95000C; }
+  .controlModule .tabContent {
+    display: none; }
 
 .statusModule {
   background-color: pink;
