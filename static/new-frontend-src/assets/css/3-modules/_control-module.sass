@@ -21,13 +21,25 @@
 
       a
         display: block
-        padding: 2vh
+        padding: 2vh 0
         transition: 0.2s
 
-        font-size: 2.5vh
         text-align: center
-        white-space: nowrap;
-        overflow: hidden;
+        white-space: nowrap
+        overflow: hidden
+
+        svg
+          +size(1.1em)
+          margin-right: 0.2em
+          vertical-align: middle
+          stroke: #FFF
+
+          path
+            fill: #FFF !important
+
+        span
+          vertical-align: middle
+          font-size: 1em
 
     li:hover, .active, :focus
       background-color: #95000C
