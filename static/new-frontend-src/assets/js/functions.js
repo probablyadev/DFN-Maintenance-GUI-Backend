@@ -25,4 +25,5 @@ $(document).ready(function() {
   $("#networkTab").click({tabName: "networkTab", contentName: "networkControl"}, changeTab);
   $("#gpsTab").click({tabName: "gpsTab", contentName: "gpsControl"}, changeTab);
   $("#advancedTab").click({tabName: "advancedTab", contentName: "advancedControl"}, changeTab);
+  $("#statusTab").trigger("click");
 });

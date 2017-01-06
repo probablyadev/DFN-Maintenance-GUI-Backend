@@ -245,8 +245,9 @@ a {
 
 .controlModule {
   background-color: #95000C;
-  width: 95vw;
+  width: 72vw;
   height: 50vh;
+  min-width: 750px;
   margin: 2vh auto 2vh auto; }
   .controlModule .tabControl {
     list-style-type: none;
@@ -256,11 +257,11 @@ a {
     .controlModule .tabControl li {
       float: left;
       width: 16.66667%;
-      background-color: #660000; }
+      background-color: #66000C; }
       .controlModule .tabControl li .tabIcon {
         display: inline; }
       .controlModule .tabControl li a {
-        display: inline-block;
+        display: block;
         padding: 2vh;
         transition: 0.2s;
         font-size: 2.5vh;
@@ -274,21 +275,30 @@ a {
 
 .statusModule {
   background-color: pink;
-  width: 20vw;
-  height: 38vh;
-  margin: 1vh 2vw;
-  float: left; }
+  width: 20%;
+  height: 100%;
+  display: inline-block;
+  padding: 5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
 
-.webConsole {
-  background-color: yellow;
-  width: 70vw;
-  height: 37vh;
-  padding: 0.5vh 0.5vw;
-  margin: 1vh 1.5vw;
-  border: 0;
-  background-color: #2B2B2B;
-  border-color: #1B1B1B;
-  color: #00FF00; }
+.consoleModule {
+  width: 75%;
+  height: 100%;
+  display: inline-block;
+  margin-left: 5%; }
+  .consoleModule .webConsole {
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 0;
+    background-color: #2B2B2B;
+    border-color: #1B1B1B;
+    color: #00FF00; }
 
 .pageHeader {
   height: 6vh; }
@@ -299,3 +309,18 @@ a {
   .pageHeader img {
     height: 100%;
     float: right; }
+
+.contentWrapper {
+  height: 100vh;
+  width: 100vw; }
+
+.feedbackWrapper {
+  width: 72vw;
+  height: 38vh;
+  min-width: 750px;
+  margin: 2vh auto 2vh auto;
+  padding: 2vh 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 0; }
