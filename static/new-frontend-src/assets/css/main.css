@@ -199,7 +199,8 @@ a {
 .gigantic, .huge, .large, .bigger, .big,
 h1, h2, h3, h4, h5, h6 {
   color: #FFF;
-  font-weight: bold; }
+  font-weight: bold;
+  margin: 0; }
 
 .gigantic {
   font-size: 110px;
@@ -243,67 +244,112 @@ hr {
   margin: 10px 0 30px;
   height: 0; }
 
-a {
-  color: #FFF; }
-
-span {
-  font-size: 1.2em; }
+.tab a {
+  color: #330006; }
 
 .controlModule {
   background-color: #95000C;
   width: 72vw;
-  height: 50vh;
+  height: 48vh;
   min-width: 750px;
   margin: 2vh auto 2vh auto; }
   .controlModule .tabControl {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: hidden; }
+    overflow: hidden;
+    height: 13%; }
     .controlModule .tabControl li {
+      height: 100%;
       float: left;
       width: 16.66667%;
       background-color: #66000C; }
       .controlModule .tabControl li .tabIcon {
         display: inline; }
       .controlModule .tabControl li a {
+        height: 100%;
         display: block;
         padding: 2vh 0;
         transition: 0.2s;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
         text-align: center;
         white-space: nowrap;
         overflow: hidden; }
         .controlModule .tabControl li a svg {
-          height: 1.1em;
-          width: 1.1em;
-          margin-right: 0.2em;
-          vertical-align: middle;
-          stroke: #FFF; }
+          height: 2.2vh;
+          width: 2.2vh;
+          margin-right: 0.1em;
+          vertical-align: middle; }
           .controlModule .tabControl li a svg path {
-            fill: #FFF !important; }
+            fill: #330006 !important; }
         .controlModule .tabControl li a span {
           vertical-align: middle;
-          font-size: 1em; }
+          font-size: 2.2vh; }
     .controlModule .tabControl li:hover, .controlModule .tabControl .active, .controlModule .tabControl :focus {
       background-color: #95000C; }
+      .controlModule .tabControl li:hover span, .controlModule .tabControl .active span, .controlModule .tabControl :focus span {
+        color: #FFF; }
+      .controlModule .tabControl li:hover svg path, .controlModule .tabControl .active svg path, .controlModule .tabControl :focus svg path {
+        fill: #FFF !important; }
   .controlModule .tabContent {
-    display: none; }
+    display: none;
+    padding: 2vh;
+    width: 100%;
+    height: 87%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
 
 .statusModule {
-  background-color: pink;
+  background-color: #95000C;
   width: 25%;
   height: 100%;
-  display: inline-block;
-  padding: 5px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box; }
+  margin-right: 5%;
+  float: left;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
+  justify-content: space-around; }
+  .statusModule .statusElement {
+    width: 85%;
+    background-color: #610008;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center; }
+    .statusModule .statusElement .statusLight {
+      background-color: #888888;
+      -webkit-border-radius: 1vmin;
+      -moz-border-radius: 1vmin;
+      border-radius: 1vmin;
+      height: 1vmin;
+      width: 1vmin;
+      margin: 3px; }
+    .statusModule .statusElement label {
+      margin: 2px 5px 2px 5px;
+      font-size: 2.2vh; }
+    .statusModule .statusElement span {
+      font-size: 2.2vh; }
 
 .consoleModule {
   width: 70%;
   height: 100%;
-  display: inline-block;
-  margin-left: 5%; }
+  display: inline-block; }
   .consoleModule .webConsole {
     width: 100%;
     height: 100%;
@@ -332,7 +378,7 @@ span {
 
 .feedbackWrapper {
   width: 72vw;
-  height: 38vh;
+  height: 40vh;
   min-width: 750px;
   margin: 2vh auto 2vh auto;
   padding: 2vh 0;

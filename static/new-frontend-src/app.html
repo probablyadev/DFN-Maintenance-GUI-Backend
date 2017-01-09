@@ -79,10 +79,48 @@
       </div>
 
     </div>
+
     <div class="feedbackWrapper">
 
       <div class="statusModule">
-      </div>
+        <h4 class="statusHeader">
+          System Status
+        </h4>
+        <div class="statusElement">
+          <div id="cameraLight" class="statusLight"></div>
+          <label for="cameraLight">Camera</label>
+        </div>
+        <div class="statusElement">
+          <div id="GPSLight" class="statusLight"></div>
+          <label for="GPSLight">GPS</label>
+        </div>
+        <div class="statusElement">
+          <div id="internetLight" class="statusLight"></div>
+          <label for="internetLight">Internet</label>
+        </div>
+        <div class="statusElement">
+          <div id="vpnLight" class="statusLight"></div>
+          <label for="vpnLight">VPN</label>
+        </div>
+        <div class="statusElement">
+          <div id="HDD0Light" class="statusLight"></div>
+          <label for="HDD0Light">/data0</label>
+        </div>
+        <div class="statusElement">
+          <div id="HDD1Light" class="statusLight"></div>
+          <label for="HDD1Light">/data1: </label>
+          <span id="HDD1Space">-</span>
+        </div>
+        <div class="statusElement">
+          <div id="HDD2Light" class="statusLight"></div>
+            <label for="HDD2Light">/data2: </label>
+            <span id="HDD2Space">-</span>
+          </div>
+          <div class="statusElement">
+            <div id="intervalLight" class="statusLight"></div>
+            <label for="IntervalLight">Interval Test</label>
+          </div>
+        </div>
 
       <div class="consoleModule">
         <textarea class="webConsole" readonly></textarea>
@@ -90,6 +128,7 @@
 
     </div>
   </div>
+</body>
 <script src="assets/js/jquery-2.1.4.min.js"></script>
 <script src="assets/js/functions.js" type="text/javascript"></script>
 </body>

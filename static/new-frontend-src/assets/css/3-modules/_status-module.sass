@@ -1,7 +1,33 @@
 .statusModule
-  background-color: pink
+  background-color: #95000C
   width: 25%
   height: 100%
-  display: inline-block
-  padding: 5px
-  +box-sizing(border-box)
+  margin-right: 5%
+  float: left
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: space-around
+
+  .statusElement
+    width: 85%
+    background-color: #610008
+    display: flex
+    align-items: center
+    justify-content: center
+
+    .statusLight
+      background-color: #888888
+      -webkit-border-radius: 1vmin
+      -moz-border-radius: 1vmin
+      border-radius: 1vmin
+      height: 1vmin
+      width: 1vmin
+      margin: 3px
+
+    label
+      margin: 2px 5px 2px 5px
+      font-size: 2.2vh
+
+    span
+      font-size: 2.2vh
