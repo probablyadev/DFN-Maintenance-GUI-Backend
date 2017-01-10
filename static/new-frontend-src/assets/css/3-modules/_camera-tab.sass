@@ -1,0 +1,38 @@
+.cameraControl
+  flex-direction: row
+  align-items: center
+  justify-content: space-between
+
+  .cameraBasicFunctions
+    height: 100%
+    display: flex
+    flex-wrap: wrap
+    align-content: center
+    justify-content: center
+    width: 50%
+    border-right: 3px solid #80000b
+
+  .cameraAdvancedFunctions
+    height: 100%
+    display: flex
+    flex-wrap: wrap
+    align-content: center
+    justify-content: center
+    width: 50%
+
+    .pictureDownloadWidget
+      display: flex
+      flex-direction: column
+      align-items: center
+      justify-content: center
+      margin-top: 3%
+      padding: 3%
+      background-color: #660000
+      +border-radius(3%)
+
+      h4
+        white-space: nowrap
+        text-align: center
+
+      input
+        color: #000

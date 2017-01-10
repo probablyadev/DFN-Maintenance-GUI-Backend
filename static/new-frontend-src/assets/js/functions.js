@@ -49,7 +49,7 @@ $(document).ready(function() {
       $(this).removeClass("active");
     })
 
-    $("." + contentName).css("display", "block");
+    $("." + contentName).css("display", "flex");
     $("#" + tabName).addClass("active");
   }
 

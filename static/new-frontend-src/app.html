@@ -13,8 +13,11 @@
       <a href="/logout" class="logoutText">Logout</a>
       <img src="/assets/img/fireballLogo.png">
     </div>
+
+    <!--##Controls Module##-->
     <div class="controlModule">
 
+      <!--Tab Controls-->
       <ul class="tabControl">
         <li id="statusTab" class="tab">
           <a href="javascript:void(0)">
@@ -54,34 +57,68 @@
         </li>
       </ul>
 
+      <!--Status Tab-->
       <div class="tabContent statusControl">
-        <h1>THIS IS THE STATUS TAB</h1>
+        <button type="button" class="commandButton" id="StatusCheck">Update Overall Status</button>
+        <button type="button" class="commandButton" id="StatusConfig">Download Camera Config</button>
+        <button type="button" class="commandButton" id="IntervalCheck">Run Interval Control Test</button>
+        <button type="button" class="commandButton" id="PrevIntervalCheck">Check Prev. Interval SW</button>
       </div>
 
+      <!--Camera Tab-->
       <div class="tabContent cameraControl">
-        <h1>THIS IS THE CAMERA TAB</h1>
+        <div class="cameraBasicFunctions">
+          <button type="button" class="commandButton" id="CameraOn">Enable Camera</button>
+          <button type="button" class="commandButton" id="CameraOff">Disable Camera</button>
+          <div class="linebreak"></div>
+          <button type="button" class="commandButton" id="VideoCameraOn">Enable Video</button>
+          <button type="button" class="commandButton" id="VideoCameraOff">Disable Video</button>
+          <div class="linebreak"></div>
+          <button type="button" class="commandButton" id="CameraStatus">Update Camera Status</button>
+        </div>
+        <div class="cameraAdvancedFunctions">
+          <button type="button" class="commandButton" id="TakeCameraShot">Shoot Picture</button>
+          <button type="button" class="commandButton" id="TakeVideoShot">Shoot Video</button>
+          <div class="linebreak"></div>
+          <button type="button" class="commandButton" id="TestLCShutter">Test LC Shutter</button>
+          <div class="linebreak"></div>
+          <div class="pictureDownloadWidget">
+            <h4>Download Pictures</h4>
+            <div class="formWrapper">
+              <label for="downloadDateSelector">Date: </label>
+              <input type="date">
+            </div>
+            <button type="button" class="commandButton" id="DownloadPictures">Download</button>
+          </div>
+        </div>
       </div>
 
+      <!--HDD Tab-->
       <div class="tabContent hddControl">
         <h1>THIS IS THE HDD TAB</h1>
       </div>
 
+      <!--Network Tab-->
       <div class="tabContent networkControl">
         <h1>THIS IS THE NETWORK TAB</h1>
       </div>
 
+      <!--GPS Tab-->
       <div class="tabContent gpsControl">
         <h1>THIS IS THE GPS/CLOCK TAB</h1>
       </div>
 
+      <!--Advanced Tab-->
       <div class="tabContent advancedControl">
         <h1>THIS IS THE ADVANCED TAB</h1>
       </div>
 
     </div>
 
+    <!--User Feedback Modules-->
     <div class="feedbackWrapper">
 
+      <!--##Status Module##-->
       <div class="statusModule">
         <h4 class="statusHeader">
           System Status
@@ -122,13 +159,13 @@
           </div>
         </div>
 
+      <!--Web Console-->
       <div class="consoleModule">
         <textarea class="webConsole" readonly></textarea>
       </div>
 
     </div>
   </div>
-</body>
 <script src="assets/js/jquery-2.1.4.min.js"></script>
 <script src="assets/js/functions.js" type="text/javascript"></script>
 </body>

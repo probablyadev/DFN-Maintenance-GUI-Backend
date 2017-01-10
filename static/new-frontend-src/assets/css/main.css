@@ -247,6 +247,21 @@ hr {
 .tab a {
   color: #330006; }
 
+.commandButton {
+  background-color: #CC4600;
+  border: none;
+  color: #FFF;
+  padding: 5px 10px;
+  text-align: center;
+  font-size: 2.5vh;
+  margin: 5px; }
+  .commandButton:hover, .commandButton:focus, .commandButton:active {
+    background-color: #FF4100; }
+
+.linebreak {
+  width: 100%;
+  content: ""; }
+
 .controlModule {
   background-color: #95000C;
   width: 72vw;
@@ -371,6 +386,86 @@ hr {
   .pageHeader img {
     height: 100%;
     float: right; }
+
+.statusControl {
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+  .statusControl #StatusCheck {
+    font-size: 3.5vh; }
+
+.cameraControl {
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between; }
+  .cameraControl .cameraBasicFunctions {
+    height: 100%;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 50%;
+    border-right: 3px solid #80000b; }
+  .cameraControl .cameraAdvancedFunctions {
+    height: 100%;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 50%; }
+    .cameraControl .cameraAdvancedFunctions .pictureDownloadWidget {
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      margin-top: 3%;
+      padding: 3%;
+      background-color: #660000;
+      -webkit-border-radius: 3%;
+      -moz-border-radius: 3%;
+      -ms-border-radius: 3%;
+      border-radius: 3%; }
+      .cameraControl .cameraAdvancedFunctions .pictureDownloadWidget h4 {
+        white-space: nowrap;
+        text-align: center; }
+      .cameraControl .cameraAdvancedFunctions .pictureDownloadWidget input {
+        color: #000; }
 
 .contentWrapper {
   height: 100vh;
