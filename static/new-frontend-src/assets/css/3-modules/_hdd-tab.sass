@@ -1,9 +1,9 @@
-.cameraControl
+.hddControl
   flex-direction: row
   align-items: center
   justify-content: space-between
 
-  .cameraBasicFunctions
+  .hddBasicFunctions
     height: 100%
     display: flex
     flex-wrap: wrap
@@ -12,7 +12,7 @@
     width: 50%
     border-right: 3px solid $lightred
 
-  .cameraAdvancedFunctions
+  .hddAdvancedFunctions
     height: 100%
     display: flex
     flex-wrap: wrap
@@ -20,28 +20,16 @@
     justify-content: center
     width: 50%
 
-    .pictureDownloadWidget
+    .formatForm
       display: flex
       flex-direction: column
       align-items: center
-      justify-content: space-between
-      padding: 3%
-      margin-bottom: 3%
+      justify-content: center
+      margin-top: 3%
       background-color: $darkred
       +border-radius(3%)
 
       h4
         white-space: nowrap
         text-align: center
-
-      .downloadFormWrapper
-        display: flex
-        align-items: center
-        justify-content: center
-
-        label
-          margin-right: 5px
-
-        input
-          color: #000
-          width: 70%
+        margin: 3% 10px

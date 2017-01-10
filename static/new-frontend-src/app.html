@@ -77,25 +77,54 @@
           <button type="button" class="commandButton" id="CameraStatus">Update Camera Status</button>
         </div>
         <div class="cameraAdvancedFunctions">
+          <div class="pictureDownloadWidget">
+            <h4>Download Pictures</h4>
+            <div class="downloadFormWrapper">
+              <label for="downloadDateSelector">Date: </label>
+              <input type="text" id="downloadDateSelector">
+            </div>
+            <button type="button" class="commandButton" id="DownloadPictures">Download</button>
+          </div>
+          <div class="linebreak"></div>
           <button type="button" class="commandButton" id="TakeCameraShot">Shoot Picture</button>
           <button type="button" class="commandButton" id="TakeVideoShot">Shoot Video</button>
           <div class="linebreak"></div>
           <button type="button" class="commandButton" id="TestLCShutter">Test LC Shutter</button>
-          <div class="linebreak"></div>
-          <div class="pictureDownloadWidget">
-            <h4>Download Pictures</h4>
-            <div class="formWrapper">
-              <label for="downloadDateSelector">Date: </label>
-              <input type="date">
-            </div>
-            <button type="button" class="commandButton" id="DownloadPictures">Download</button>
-          </div>
         </div>
       </div>
 
       <!--HDD Tab-->
       <div class="tabContent hddControl">
-        <h1>THIS IS THE HDD TAB</h1>
+        <div class="hddBasicFunctions">
+          <button type="button" class="commandButton" id="HDDOn">Enable Ext. HDD</button>
+          <button type="button" class="commandButton" id="HDDOff">Disable Ext. HDD</button>
+          <button type="button" class="commandButton" id="MountHDD">Mount Ext. HDD</button>
+          <button type="button" class="commandButton" id="UnmountHDD">Unmount Ext. HDD</button>
+          <button type="button" class="commandButton" id="CheckSpace">Check Ext. HDD Status</button>
+        </div>
+
+        <div class="hddAdvancedFunctions">
+          <div class="formatForm">
+            <h4 class="moduleHeader">Format Hard Drive</h4>
+            <div class="checkboxWrapper">
+                <input type="checkbox" id="installPartedCheck">
+                <label for="installPartedCheck">Install Parted</label>
+            </div>
+            <div class="checkboxWrapper">
+                <input type="checkbox" id="formatData1Check">
+                <label for="formatData1Check">Format /data1</label>
+            </div>
+            <div class="checkboxWrapper">
+                <input type="checkbox" id="formatData2Check">
+                <label for="formatData2Check">Format /data2</label>
+            </div>
+            <button type="button" class="commandButton" id="FormatDrives">Format Drives</button>
+          </div>
+          <div class="linebreak"></div>
+          <button type="button" class="commandButton" id="HDDRunSmartTest">Run Smart Test</button>
+          <div class="linebreak"></div>
+          <button type="button" class="commandButton" id="Data0Check">Get /data0 contents</button>
+        </div>
       </div>
 
       <!--Network Tab-->

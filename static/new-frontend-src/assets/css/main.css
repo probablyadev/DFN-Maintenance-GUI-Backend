@@ -255,7 +255,7 @@ hr {
   text-align: center;
   font-size: 2.5vh;
   margin: 5px; }
-  .commandButton:hover, .commandButton:focus, .commandButton:active {
+  .commandButton:hover {
     background-color: #FF4100; }
 
 .linebreak {
@@ -451,11 +451,11 @@ hr {
       -webkit-align-items: center;
       -ms-flex-align: center;
       align-items: center;
-      -webkit-justify-content: center;
-      -ms-flex-pack: center;
-      justify-content: center;
-      margin-top: 3%;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
       padding: 3%;
+      margin-bottom: 3%;
       background-color: #660000;
       -webkit-border-radius: 3%;
       -moz-border-radius: 3%;
@@ -464,8 +464,86 @@ hr {
       .cameraControl .cameraAdvancedFunctions .pictureDownloadWidget h4 {
         white-space: nowrap;
         text-align: center; }
-      .cameraControl .cameraAdvancedFunctions .pictureDownloadWidget input {
-        color: #000; }
+      .cameraControl .cameraAdvancedFunctions .pictureDownloadWidget .downloadFormWrapper {
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center; }
+        .cameraControl .cameraAdvancedFunctions .pictureDownloadWidget .downloadFormWrapper label {
+          margin-right: 5px; }
+        .cameraControl .cameraAdvancedFunctions .pictureDownloadWidget .downloadFormWrapper input {
+          color: #000;
+          width: 70%; }
+
+.hddControl {
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between; }
+  .hddControl .hddBasicFunctions {
+    height: 100%;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 50%;
+    border-right: 3px solid #80000b; }
+  .hddControl .hddAdvancedFunctions {
+    height: 100%;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 50%; }
+    .hddControl .hddAdvancedFunctions .formatForm {
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      margin-top: 3%;
+      background-color: #660000;
+      -webkit-border-radius: 3%;
+      -moz-border-radius: 3%;
+      -ms-border-radius: 3%;
+      border-radius: 3%; }
+      .hddControl .hddAdvancedFunctions .formatForm h4 {
+        white-space: nowrap;
+        text-align: center;
+        margin: 3% 10px; }
 
 .contentWrapper {
   height: 100vh;
