@@ -1,0 +1,19 @@
+.networkControl
+  display: flex
+  flex-wrap: wrap
+  align-content: center
+  justify-content: center
+
+  #visibleLinebreak
+    position: relative
+    margin-bottom: 5px
+
+    &::after
+      content: ""
+      position: absolute
+      bottom: -4px
+      left: 50%
+      +transform(translate(-50%, 0))
+      width: 40%
+      height: 3px
+      background: $lightred
