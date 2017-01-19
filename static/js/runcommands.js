@@ -43,9 +43,6 @@ $(document).ready(function () {
     $("#StatusCheck").click(systemStatusHandler);
     $("#StatusConfig").click(statusConfigHandler);
 
-    //Get system status
-    systemStatusHandler();
-
     //Code for adding to web console
     function addToWebConsole(inputText) {
         $(webConsole).append(inputText);
@@ -452,4 +449,7 @@ $(document).ready(function () {
     $("#gpsTab").click({tabName: "gpsTab", contentName: "gpsControl"}, changeTab);
     $("#advancedTab").click({tabName: "advancedTab", contentName: "advancedControl"}, changeTab);
     $("#statusTab").trigger("click");
+
+    //Get system status
+    //systemStatusHandler();
 });
