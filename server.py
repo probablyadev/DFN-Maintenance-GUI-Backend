@@ -12,7 +12,9 @@ urls = ('/', 'Index',
         '/logout', 'Logout',
         '/cameraon', 'CameraOn',
         '/cameraoff', 'CameraOff',
+        '/camerastatus', 'CameraStatus',
         '/gpscheck', 'GPSCheck',
+        '/timezonechange', 'TimezoneChange',
         '/intervaltest', 'IntervalTest',
         '/previntervaltest', 'PrevIntervalTest',
         '/enablehdd', 'EnableHDD',
@@ -109,15 +111,21 @@ class CameraOff:
             outJSON = json.dumps(data)
             return outJSON
 
+class CameraStatus:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            data['consoleFeedback'], data['cameraStatus'] = commandSender.cameraStatus()
+            outJSON = json.dumps(data)
+            return outJSON
+
 class EnableHDD:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
             data['consoleFeedback'] = commandSender.hddOn()
-            statusFeedback, hdd1Boolean, hdd2Boolean, data['HDD1Space'], data['HDD2Space'] = commandSender.hddStatus()
+            statusFeedback, data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
             data['consoleFeedback'] += statusFeedback
-            data['HDD1Status'] = hdd1Boolean
-            data['HDD2Status'] = hdd2Boolean
             outJSON = json.dumps(data)
             return outJSON
 
@@ -126,10 +134,8 @@ class DisableHDD:
         if LoginChecker.loggedIn():
             data = {}
             data['consoleFeedback'] = commandSender.hddOff()
-            statusFeedback, hdd1Boolean, hdd2Boolean, data['HDD1Space'], data['HDD2Space'] = commandSender.hddStatus()
+            statusFeedback, data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
             data['consoleFeedback'] += statusFeedback
-            data['HDD1Status'] = hdd1Boolean
-            data['HDD2Status'] = hdd2Boolean
             outJSON = json.dumps(data)
             return outJSON
 
@@ -138,10 +144,8 @@ class MountHDD:
         if LoginChecker.loggedIn():
             data = {}
             data['consoleFeedback'] = commandSender.mountHDD()
-            statusFeedback, hdd1Boolean, hdd2Boolean, data['HDD1Space'], data['HDD2Space'] = commandSender.hddStatus()
+            statusFeedback, data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
             data['consoleFeedback'] += statusFeedback
-            data['HDD1Status'] = hdd1Boolean
-            data['HDD2Status'] = hdd2Boolean
             outJSON = json.dumps(data)
             return outJSON
 
@@ -150,10 +154,8 @@ class UnmountHDD:
         if LoginChecker.loggedIn():
             data = {}
             data['consoleFeedback'] = commandSender.unmountHDD()
-            statusFeedback, hdd1Boolean, hdd2Boolean, data['HDD1Space'], data['HDD2Space'] = commandSender.hddStatus()
+            statusFeedback, data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
             data['consoleFeedback'] += statusFeedback
-            data['HDD1Status'] = hdd1Boolean
-            data['HDD2Status'] = hdd2Boolean
             outJSON = json.dumps(data)
             return outJSON
 
@@ -163,10 +165,8 @@ class FormatHDD:
             data = {}
             checkData = [web.input().installChecked, web.input().data1Checked, web.input().data2Checked]
             data['consoleFeedback'] = commandSender.formatHDD(checkData)
-            statusFeedback, hdd1Boolean, hdd2Boolean, data['HDD1Space'], data['HDD2Space'] = commandSender.hddStatus()
+            statusFeedback, data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
             data['consoleFeedback'] += statusFeedback
-            data['HDD1Status'] = hdd1Boolean
-            data['HDD2Status'] = hdd2Boolean
             outJSON = json.dumps(data)
             return outJSON
 
@@ -174,7 +174,7 @@ class CheckHDD:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
-            data['consoleFeedback'], data['HDD1Status'], data['HDD2Status'], data['HDD1Space'], data['HDD2Space'] = commandSender.hddStatus()
+            data['consoleFeedback'], data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
             outJSON = json.dumps(data)
             return outJSON
 
@@ -191,6 +191,16 @@ class GPSCheck:
         if LoginChecker.loggedIn():
             data = {}
             data['consoleFeedback'], data['gpsStatus'] = commandSender.gpsStatus()
+            outJSON = json.dumps(data)
+            return outJSON
+
+class TimezoneChange:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            timezone = web.input().zone
+            print timezone
+            data['consoleFeedback'] = commandSender.timezoneChange(timezone)
             outJSON = json.dumps(data)
             return outJSON
 
@@ -266,7 +276,7 @@ class SystemStatus:
             cameraFeedback, cameraBoolean = commandSender.cameraStatus()
             gpsFeedback, gpsBoolean = commandSender.gpsStatus()
             internetFeedback, internetBoolean = commandSender.internetStatus()
-            extHDDFeedback, hdd1Boolean, hdd2Boolean, hdd1Space, hdd2Space = commandSender.hddStatus()
+            extHDDFeedback, hdd1Boolean, hdd2Boolean, hdd3Boolean, hdd1Space, hdd2Space, hdd3Space = commandSender.hddStatus()
             hdd0Feedback, hdd0Boolean = commandSender.data0Check()
             vpnFeedback, vpnBoolean = commandSender.vpnStatus()
 
@@ -280,8 +290,10 @@ class SystemStatus:
             data['HDD0Status'] = hdd0Boolean
             data['HDD1Status'] = hdd1Boolean
             data['HDD2Status'] = hdd2Boolean
+            data['HDD3Status'] = hdd3Boolean
             data['HDD1Space'] = hdd1Space
             data['HDD2Space'] = hdd2Space
+            data['HDD3Space'] = hdd3Space
             outJSON = json.dumps(data)
             return outJSON
 

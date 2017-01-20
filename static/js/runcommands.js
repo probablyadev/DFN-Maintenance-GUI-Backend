@@ -1,6 +1,41 @@
 $(document).ready(function () {
+    //Change img with svg source to inline svg
+    jQuery('img.svg').each(function () {
+        var $img = jQuery(this);
+        var imgID = $img.attr('id');
+        var imgClass = $img.attr('class');
+        var imgURL = $img.attr('src');
+
+        jQuery.get(imgURL, function (data) {
+            // Get the SVG tag, ignore the rest
+            var $svg = jQuery(data).find('svg');
+
+            // Add replaced image's ID to the new SVG
+            if (typeof imgID !== 'undefined') {
+                $svg = $svg.attr('id', imgID);
+            }
+            // Add replaced image's classes to the new SVG
+            if (typeof imgClass !== 'undefined') {
+                $svg = $svg.attr('class', imgClass + ' replaced-svg');
+            }
+
+            // Remove any invalid XML tags as per http://validator.w3.org
+            $svg = $svg.removeAttr('xmlns:a');
+
+            // Check if the viewport is set, if the viewport is not set the SVG wont't scale.
+            if (!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
+                $svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'))
+            }
+
+            // Replace image with new SVG
+            $img.replaceWith($svg);
+
+        }, 'xml');
+    });
+
     //HTML element variables
     var webConsole = $('#feedbackText');
+    var timezoneCombobox = $('#timezoneSelector')
     var cameraLight = $('#cameraLight');
     var gpsLight = $('#GPSLight');
     var internetLight = $('#internetLight');
@@ -9,8 +44,10 @@ $(document).ready(function () {
     var hdd0Light = $('#HDD0Light');
     var hdd1Light = $('#HDD1Light');
     var hdd2Light = $('#HDD2Light');
+    var hdd3Light = $('#HDD3Light');
     var hdd1Space = $('#HDD1Space');
     var hdd2Space = $('#HDD2Space');
+    var hdd3Space = $('#HDD3Space');
     var installCheck = $('#installPartedCheck');
     var formatData1Check = $('#formatData1Check');
     var formatData2Check = $('#formatData2Check');
@@ -26,6 +63,7 @@ $(document).ready(function () {
     //Button click events
     $("#CameraOn").click(cameraOnHandler);
     $("#CameraOff").click(cameraOffHandler);
+    $("#CameraStatus").click(cameraStatusHandler);
     $("#HDDOn").click(hddOnHandler);
     $("#HDDOff").click(hddOffHandler);
     $("#MountHDD").click(hddMountHandler);
@@ -34,6 +72,7 @@ $(document).ready(function () {
     $("#CheckSpace").click(hddSpaceCheckHandler);
     $("#Data0Check").click(data0CheckHandler);
     $("#GPSCheck").click(gpsCheckHandler);
+    $("#ChangeTimezone").click(timezoneHandler);
     $("#IntervalCheck").click(intervalTestHandler);
     $("#PrevIntervalCheck").click(checkPrevIntervalHandler);
     $("#InternetCheck").click(internetCheckHandler);
@@ -88,6 +127,22 @@ $(document).ready(function () {
         }
     }
 
+    function cameraStatusHandler() {
+        if (!doingCommand)
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Checking camera...\n");
+            //Request to turn camera off
+            $.getJSON("/camerastatus", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Set light colour
+                cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
+                //Open up for other commands to be run
+                doingCommand = false;
+            });
+    }
+
     function hddOnHandler() {
         if (!doingCommand) {
             doingCommand = true;
@@ -100,8 +155,10 @@ $(document).ready(function () {
                 //Set light colours
                 hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
                 hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
+                hdd3Light.css("background-color", complexColorMapping[result.HDD3Status]);
                 hdd1Space.text(result.HDD1Space);
                 hdd2Space.text(result.HDD2Space);
+                hdd3Space.text(result.HDD3Space);
                 //Open up for other commands to be run
                 doingCommand = false;
             });
@@ -120,8 +177,10 @@ $(document).ready(function () {
                 //Set light colours
                 hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
                 hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
+                hdd3Light.css("background-color", complexColorMapping[result.HDD3Status]);
                 hdd1Space.text(result.HDD1Space);
                 hdd2Space.text(result.HDD2Space);
+                hdd3Space.text(result.HDD3Space);
                 //Open up for other commands to be run
                 doingCommand = false;
             });
@@ -140,8 +199,10 @@ $(document).ready(function () {
                 //Set light colours
                 hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
                 hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
+                hdd3Light.css("background-color", complexColorMapping[result.HDD3Status]);
                 hdd1Space.text(result.HDD1Space);
                 hdd2Space.text(result.HDD2Space);
+                hdd3Space.text(result.HDD3Space);
                 //Open up for other commands to be run
                 doingCommand = false;
             });
@@ -160,8 +221,10 @@ $(document).ready(function () {
                 //Set light colours
                 hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
                 hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
+                hdd3Light.css("background-color", complexColorMapping[result.HDD3Status]);
                 hdd1Space.text(result.HDD1Space);
                 hdd2Space.text(result.HDD2Space);
+                hdd3Space.text(result.HDD3Space);
                 //Open up for other commands to be run
                 doingCommand = false;
             });
@@ -186,8 +249,10 @@ $(document).ready(function () {
                 //Set light colours
                 hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
                 hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
+                hdd3Light.css("background-color", complexColorMapping[result.HDD3Status]);
                 hdd1Space.text(result.HDD1Space);
                 hdd2Space.text(result.HDD2Space);
+                hdd3Space.text(result.HDD3Space);
                 //Open up for other commands to be run
                 doingCommand = false;
             });
@@ -206,8 +271,10 @@ $(document).ready(function () {
                 //Set light colours
                 hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
                 hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
+                hdd3Light.css("background-color", complexColorMapping[result.HDD3Status]);
                 hdd1Space.text(result.HDD1Space);
                 hdd2Space.text(result.HDD2Space);
+                hdd3Space.text(result.HDD3Space);
                 //Open up for other commands to be run
                 doingCommand = false;
             });
@@ -244,6 +311,20 @@ $(document).ready(function () {
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colour
                 gpsLight.css("background-color", simpleColorMapping[result.gpsStatus]);
+                //Open up for other commands to be run
+                doingCommand = false;
+            });
+        }
+    }
+
+    function timezoneHandler() {
+        if (!doingCommand) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("DONE\n");
+            $.getJSON("/timezonechange", {zone: timezoneCombobox.find(":selected").attr("value")}, function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Open up for other commands to be run
                 doingCommand = false;
             });
@@ -382,47 +463,15 @@ $(document).ready(function () {
                 hdd0Light.css("background-color", simpleColorMapping[result.HDD0Status]);
                 hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
                 hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
+                hdd3Light.css("background-color", complexColorMapping[result.HDD3Status]);
                 hdd1Space.text(result.HDD1Space);
                 hdd2Space.text(result.HDD2Space);
+                hdd3Space.text(result.HDD3Space);
                 //Open up for other commands to be run
                 doingCommand = false;
             });
         }
     }
-
-    //Change img with svg source to inline svg
-    jQuery('img.svg').each(function () {
-        var $img = jQuery(this);
-        var imgID = $img.attr('id');
-        var imgClass = $img.attr('class');
-        var imgURL = $img.attr('src');
-
-        jQuery.get(imgURL, function (data) {
-            // Get the SVG tag, ignore the rest
-            var $svg = jQuery(data).find('svg');
-
-            // Add replaced image's ID to the new SVG
-            if (typeof imgID !== 'undefined') {
-                $svg = $svg.attr('id', imgID);
-            }
-            // Add replaced image's classes to the new SVG
-            if (typeof imgClass !== 'undefined') {
-                $svg = $svg.attr('class', imgClass + ' replaced-svg');
-            }
-
-            // Remove any invalid XML tags as per http://validator.w3.org
-            $svg = $svg.removeAttr('xmlns:a');
-
-            // Check if the viewport is set, if the viewport is not set the SVG wont't scale.
-            if (!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
-                $svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'))
-            }
-
-            // Replace image with new SVG
-            $img.replaceWith($svg);
-
-        }, 'xml');
-    });
 
     //Code for tab controls
     function changeTab(event) {
@@ -451,5 +500,5 @@ $(document).ready(function () {
     $("#statusTab").trigger("click");
 
     //Get system status
-    //systemStatusHandler();
+    systemStatusHandler();
 });

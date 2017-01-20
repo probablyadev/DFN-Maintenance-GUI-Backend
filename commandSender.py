@@ -109,25 +109,33 @@ def hddStatus():
     hddStatusDict = {0: constants.hddStatusOff, 1: constants.hddStatusPowered, 2: constants.hddStatusMounted}
 
     # Do command
+    command = constants.mountedStatus
     poweredStatus = doConsoleCommand(constants.hddPoweredStatus)
-    data1MountedStatus = doConsoleCommand(constants.data1MountedStatus)
-    data2MountedStatus = doConsoleCommand(constants.data2MountedStatus)
+    data1MountedStatus = doConsoleCommand(command.format("/data1"))
+    data2MountedStatus = doConsoleCommand(command.format("/data2"))
+    data3MountedStatus = doConsoleCommand(command.format("/data3"))
 
     # Parse output for results
     # NB: Status 0 = Unpowered, Status 1 = Powered, but not mounted, Status 2 = Powered + Mounted
     hdd1Status = 0
     hdd2Status = 0
+    hdd3Status = 0
     hdd1Space = "-"
     hdd2Space = "-"
+    hdd3Space = "-"
 
+    #TODO: Account for new architecture
     if "JMicron Technology Corp." in poweredStatus:
         hdd1Status = 1
         hdd2Status = 1
+        hdd3Status = 0
 
         if data1MountedStatus == "1":
             hdd1Status = 2
         if data2MountedStatus == "1":
             hdd2Status = 2
+        if data3MountedStatus == "1":
+            hdd3Status = 2
 
     # Finding remaining space in HDDs according to /tmp/dfn_disk_usage
     with open("/tmp/dfn_disk_usage") as f:
@@ -143,10 +151,12 @@ def hddStatus():
                     hdd1Space = spaceAvail
                 if device == "/data2\n":
                     hdd2Space = spaceAvail
+                if device == "/data3\n":
+                    hdd3Space = spaceAvail
 
-    feedbackOutput = constants.hddStatusString.format(hddStatusDict[hdd1Status], hdd1Space, hddStatusDict[hdd2Status], hdd2Space)
+    feedbackOutput = constants.hddStatusString.format(hddStatusDict[hdd1Status], hdd1Space, hddStatusDict[hdd2Status], hdd2Space, hddStatusDict[hdd3Status], hdd3Space)
 
-    return feedbackOutput, hdd1Status, hdd2Status, hdd1Space, hdd2Space
+    return feedbackOutput, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space
 
 def data0Check():
     # Do command
@@ -159,7 +169,7 @@ def data0Check():
     return consoleOutput, data0Status
 
 
-# GPS Utilities
+# GPS + Clock Utilities
 def gpsStatus():
     gpsStatusDict = {"1": "Locked", "0": "No lock"}
 
@@ -177,6 +187,11 @@ def gpsStatus():
         feedbackOutput = constants.gpsOnline.format(gpsStatusDict[splitOutput[6]], splitOutput[7])
 
     return feedbackOutput, status
+
+def timezoneChange(timezone):
+    command = constants.setTimezone
+    doConsoleCommand(command.format(timezone))
+    return constants.timezoneChanged.format(timezone)
 
 # Internet Utilities
 def internetStatus():
@@ -261,7 +276,8 @@ def prevIntervalTest():
     latestDateUnparsed = doConsoleCommand(constants.checkPrevIntervalStatus)
     latestDateParsed = re.search('\d{4}-\d{2}-\d{2}', latestDateUnparsed).group(0)
     latestDateSplit = re.split("-", latestDateParsed)
-    if str(currDate.day) == latestDateSplit[2] and str(currDate.month) == latestDateSplit[1] and str(currDate.year) == latestDateSplit[0]:
+
+    if currDate.day == int(latestDateSplit[2]) and currDate.month == int(latestDateSplit[1]) and currDate.year == int(latestDateSplit[0]):
         consoleFeedback = constants.prevIntervalDidRun
 
     return consoleFeedback

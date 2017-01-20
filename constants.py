@@ -1,6 +1,7 @@
 # This file stores all constants used in this GUI.
 # The major constants here are different bash commands, executed server-side.
 gpsCheck = "echo G > /dev/leostick && cat /dev/leostick"
+setTimezone = "sudo ln -fs /usr/share/zoneinfo/{0} /etc/localtime"
 
 cameraOn = "python /opt/dfn-software/enable_camera.py"
 cameraOff = "python /opt/dfn-software/disable_camera.py"
@@ -12,8 +13,7 @@ mountHardDrive = "mount /data1 && echo SUCCESS; mount /data2 && echo SUCCESS"
 unmountHardDrive = "umount /data1 && echo SUCCESS; umount /data2 && echo SUCCESS"
 formatHardDrive = "/opt/dfn-software/Shipped/formatHDDs.sh {0} {1} {2}"
 hddPoweredStatus = "lsusb"
-data1MountedStatus = "mount | grep /data1 > /dev/null && echo 1"
-data2MountedStatus = "mount | grep /data2 > /dev/null && echo 1"
+mountedStatus = "mount | grep {0} > /dev/null && echo 1"
 hddSpace = "cat /tmp/dfn_disk_usage"
 
 internetCheck = "ping -c 1 www.google.com"
@@ -38,6 +38,7 @@ cameraCheckOff = "\nCAMERA STATUS:\nCamera not found.\n"
 
 gpsCheckFailed = "\nGPS STATUS:\nGPS offline.\n"
 gpsOnline = "\nGPS STATUS:\nLock: {0}\nSatellites: {1}\n"
+timezoneChanged = "\nTime zone changed to {0}.\n"
 
 internetCheckPassed = "\nINTERNET STATUS:\nInternet access available at {0}.\n"
 internetCheckFailed = "\nINTERNET STATUS:\nNo internet access.\n"
@@ -54,7 +55,7 @@ intervalTestFailed = "\nINTERVAL TEST RESULTS:\nInterval test failed.\n"
 prevIntervalDidRun = "\nINTERVAL CONTROL SW RAN SUCCESSFULLY LAST NIGHT.\n"
 prevIntervalNotRun ="\nINTERVAL CONTROL SW DID NOT RUN SUCCESSFULLY LAST NIGHT.\n"
 
-hddStatusString = "\nEXT. HDD STATUS:\n/data1: {0}, {1} full.\n/data2: {2}, {3} full.\n"
+hddStatusString = "\nEXT. HDD STATUS:\n/data1: {0}, {1} full.\n/data2: {2}, {3} full.\n/data3: {4}, {5} full."
 hddStatusOff = "Not detected"
 hddStatusPowered = "Powered"
 hddStatusMounted = "Mounted"
