@@ -193,6 +193,11 @@ def timezoneChange(timezone):
     doConsoleCommand(command.format(timezone))
     return constants.timezoneChanged.format(timezone)
 
+def outputTime():
+    #Do command
+    consoleOutput = doConsoleCommand(constants.outputTime)
+    return consoleOutput + "\n"
+
 # Internet Utilities
 def internetStatus():
     #Do command

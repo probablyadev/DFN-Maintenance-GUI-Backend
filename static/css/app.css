@@ -322,6 +322,7 @@ hr {
   width: 25%;
   height: 100%;
   margin-right: 5%;
+  padding: 3px;
   float: left;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -334,7 +335,10 @@ hr {
   align-items: center;
   -webkit-justify-content: space-around;
   -ms-flex-pack: distribute;
-  justify-content: space-around; }
+  justify-content: space-around;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
   .statusModule .statusElement {
     width: 85%;
     background-color: #660000;
@@ -357,9 +361,9 @@ hr {
       margin: 3px; }
     .statusModule .statusElement label {
       margin: 2px 5px 2px 5px;
-      font-size: 2.2vh; }
+      font-size: 2vh; }
     .statusModule .statusElement span {
-      font-size: 2.2vh; }
+      font-size: 2vh; }
 
 .consoleModule {
   width: 70%;
@@ -560,6 +564,8 @@ hr {
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center; }
+  .networkControl .commandButton {
+    font-size: 2.8vh; }
   .networkControl #visibleLinebreak {
     position: relative;
     margin-bottom: 5px; }
@@ -693,6 +699,96 @@ hr {
     -ms-flex-pack: center;
     justify-content: center;
     width: 50%; }
+
+.downloadGreyScreen {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  background-color: rgba(38, 38, 38, 0.9);
+  display: none;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+  .downloadGreyScreen .downloadPrompt {
+    padding: 5px;
+    background-color: #95000C;
+    display: inherit;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px; }
+    .downloadGreyScreen .downloadPrompt .imageDownloadConfirmation {
+      width: 35vw;
+      height: 15vh;
+      padding: 5px;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center; }
+      .downloadGreyScreen .downloadPrompt .imageDownloadConfirmation p, .downloadGreyScreen .downloadPrompt .imageDownloadConfirmation span {
+        color: white;
+        margin: 0;
+        margin-bottom: -15%;
+        text-align: center; }
+    .downloadGreyScreen .downloadPrompt .imageDownloadProgress {
+      width: 35vw;
+      height: 12vh;
+      padding: 5px;
+      display: none;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center; }
+      .downloadGreyScreen .downloadPrompt .imageDownloadProgress span {
+        color: white; }
+      .downloadGreyScreen .downloadPrompt .imageDownloadProgress .imageDownloadLoadingBar {
+        width: 90%;
+        height: 10px;
+        position: relative;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        border-radius: 5px;
+        padding: 5px;
+        background-color: #555;
+        box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3); }
+        .downloadGreyScreen .downloadPrompt .imageDownloadProgress .imageDownloadLoadingBar span {
+          display: block;
+          height: 100%;
+          width: 25%;
+          border-bottom-right-radius: 8px;
+          border-top-right-radius: 8px;
+          border-bottom-left-radius: 20px;
+          border-top-left-radius: 20px;
+          background-color: #2bc253;
+          box-shadow: inset 0 2px 9px rgba(255, 255, 255, 0.3), inset 0 -2px 6px rgba(0, 0, 0, 0.4);
+          position: relative;
+          overflow: hidden; }
 
 .contentWrapper {
   height: 100vh;

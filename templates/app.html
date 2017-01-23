@@ -71,8 +71,8 @@
                 <button type="button" class="commandButton" id="CameraOn">Enable Camera</button>
                 <button type="button" class="commandButton" id="CameraOff">Disable Camera</button>
                 <div class="linebreak"></div>
-                <button type="button" class="commandButton" id="VideoCameraOn">Enable Video</button>
-                <button type="button" class="commandButton" id="VideoCameraOff">Disable Video</button>
+                <button type="button" class="commandButton" id="VideoCameraOn" disabled>Enable Video</button>
+                <button type="button" class="commandButton" id="VideoCameraOff" disabled>Disable Video</button>
                 <div class="linebreak"></div>
                 <button type="button" class="commandButton" id="CameraStatus">Update Camera Status</button>
             </div>
@@ -81,15 +81,15 @@
                     <h4>Download Pictures</h4>
                     <div class="downloadFormWrapper">
                         <label for="downloadDateSelector">Date: </label>
-                        <input type="text" id="downloadDateSelector">
+                        <input type="date" id="downloadDateSelector">
                     </div>
                     <button type="button" class="commandButton" id="DownloadPictures">Download</button>
                 </div>
                 <div class="linebreak"></div>
                 <button type="button" class="commandButton" id="TakeCameraShot">Shoot Picture</button>
-                <button type="button" class="commandButton" id="TakeVideoShot">Shoot Video</button>
+                <button type="button" class="commandButton" id="TakeVideoShot" disabled>Shoot Video</button>
                 <div class="linebreak"></div>
-                <button type="button" class="commandButton" id="TestLCShutter">Test LC Shutter</button>
+                <button type="button" class="commandButton" id="TestLCShutter" disabled>Test LC Shutter</button>
             </div>
         </div>
 
@@ -125,17 +125,15 @@
                     <button type="button" class="commandButton" id="FormatDrives">Format Drives</button>
                 </div>
                 <div class="linebreak"></div>
-                <button type="button" class="commandButton" id="HDDRunSmartTest">Run Smart Test</button>
+                <button type="button" class="commandButton" id="HDDRunSmartTest" disabled>Run Smart Test</button>
                 <div class="linebreak"></div>
-                <button type="button" class="commandButton" id="Data0Check">Get /data0 contents</button>
+                <button type="button" class="commandButton" id="Data0Check" disabled>Get /data0 contents</button>
             </div>
         </div>
 
         <!--Network Tab-->
         <div class="tabContent networkControl">
             <button type="button" class="commandButton" id="InternetCheck">Check Internet</button>
-            <button type="button" class="commandButton" id="ModemCheck">Check Modem</button>
-            <div class="linebreak"></div>
             <button type="button" class="commandButton" id="VPNCheck">Check VPN</button>
             <div class="linebreak" id="visibleLinebreak"></div>
             <button type="button" class="commandButton" id="RestartModem">Restart Modem</button>
@@ -428,6 +426,10 @@
                 <label for="cameraLight">Camera</label>
             </div>
             <div class="statusElement">
+                <div id="videoCameraLight" class="statusLight"></div>
+                <label for="videoCameraLight">Video Camera</label>
+            </div>
+            <div class="statusElement">
                 <div id="HDD0Light" class="statusLight"></div>
                 <label for="HDD0Light">/data0</label>
             </div>
@@ -469,6 +471,25 @@
             <textarea class="webConsole" id="feedbackText" readonly></textarea>
         </div>
 
+    </div>
+    <div class="downloadGreyScreen">
+        <div class="downloadPrompt">
+            <div class="imageDownloadConfirmation">
+                <div class="downloadWarningMessageWrapper">
+                    <p>Are you sure you'd like to download <span id="imageDownloadConfirmationDetails">3gb of images</span>?</p>
+                </div>
+                <button type="button" class="commandButton" id="ConfirmImageDownload">Download</button>
+                <button type="button" class="commandButton" id="CancelImageDownload">Cancel</button>
+            </div>
+            <div class="imageDownloadProgress">
+                <div class="imageDownloadLoadingBar">
+                  <span></span>
+                </div>
+                <span>25%</span>
+                <span class="downloadProgressSpan"></span>
+                <button type="button" class="commandButton" id="CancelImageDownloadInProgress">Cancel</button>
+            </div>
+        </div>
     </div>
 </div>
 <script src="static/js/jquery-3.1.1.js" type="text/javascript"></script>

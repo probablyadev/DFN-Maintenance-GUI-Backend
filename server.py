@@ -15,6 +15,7 @@ urls = ('/', 'Index',
         '/camerastatus', 'CameraStatus',
         '/gpscheck', 'GPSCheck',
         '/timezonechange', 'TimezoneChange',
+        '/outputTime', 'OutputTime',
         '/intervaltest', 'IntervalTest',
         '/previntervaltest', 'PrevIntervalTest',
         '/enablehdd', 'EnableHDD',
@@ -199,8 +200,15 @@ class TimezoneChange:
         if LoginChecker.loggedIn():
             data = {}
             timezone = web.input().zone
-            print timezone
             data['consoleFeedback'] = commandSender.timezoneChange(timezone)
+            outJSON = json.dumps(data)
+            return outJSON
+
+class OutputTime:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            data['consoleFeedback'] = commandSender.outputTime()
             outJSON = json.dumps(data)
             return outJSON
 
@@ -273,6 +281,7 @@ class SystemStatus:
     def GET(self):
         if LoginChecker.loggedIn():
             # Check status of system
+            datetime = commandSender.outputTime()
             cameraFeedback, cameraBoolean = commandSender.cameraStatus()
             gpsFeedback, gpsBoolean = commandSender.gpsStatus()
             internetFeedback, internetBoolean = commandSender.internetStatus()
@@ -282,7 +291,7 @@ class SystemStatus:
 
             # Encode to JSON
             data = {}
-            data['consoleFeedback'] = cameraFeedback + gpsFeedback + internetFeedback + vpnFeedback + hdd0Feedback + extHDDFeedback
+            data['consoleFeedback'] = datetime + cameraFeedback + hdd0Feedback + extHDDFeedback + internetFeedback + vpnFeedback + gpsFeedback
             data['cameraStatus'] = cameraBoolean
             data['gpsStatus'] = gpsBoolean
             data['internetStatus'] = internetBoolean

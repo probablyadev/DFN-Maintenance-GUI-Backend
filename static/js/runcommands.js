@@ -35,7 +35,12 @@ $(document).ready(function () {
 
     //HTML element variables
     var webConsole = $('#feedbackText');
-    var timezoneCombobox = $('#timezoneSelector')
+    var timezoneCombobox = $('#timezoneSelector');
+    var downloadDateSelector = $('#downloadDateSelector');
+    var downloadGreyScreen = $('.downloadGreyScreen');
+    var downloadPrompt = $('.downloadPrompt');
+    var downloadConfirmation = $('.imageDownloadConfirmation');
+    var downloadProgress = $('.imageDownloadProgress');
     var cameraLight = $('#cameraLight');
     var gpsLight = $('#GPSLight');
     var internetLight = $('#internetLight');
@@ -64,6 +69,10 @@ $(document).ready(function () {
     $("#CameraOn").click(cameraOnHandler);
     $("#CameraOff").click(cameraOffHandler);
     $("#CameraStatus").click(cameraStatusHandler);
+    $("#DownloadPictures").click(downloadPicturesHandler);
+    $("#ConfirmImageDownload").click(startPictureDownloadHandler);
+    $("#CancelImageDownload").click(cancelPictureDownloadHandler);
+    $("#CancelImageDownloadInProgress").click(cancelPictureDownloadHandler);
     $("#HDDOn").click(hddOnHandler);
     $("#HDDOff").click(hddOffHandler);
     $("#MountHDD").click(hddMountHandler);
@@ -73,6 +82,7 @@ $(document).ready(function () {
     $("#Data0Check").click(data0CheckHandler);
     $("#GPSCheck").click(gpsCheckHandler);
     $("#ChangeTimezone").click(timezoneHandler);
+    $("#OutputTime").click(outputTimeHandler);
     $("#IntervalCheck").click(intervalTestHandler);
     $("#PrevIntervalCheck").click(checkPrevIntervalHandler);
     $("#InternetCheck").click(internetCheckHandler);
@@ -128,7 +138,7 @@ $(document).ready(function () {
     }
 
     function cameraStatusHandler() {
-        if (!doingCommand)
+        if (!doingCommand) {
             doingCommand = true;
             //Feedback on button press
             $(webConsole).append("Checking camera...\n");
@@ -141,6 +151,29 @@ $(document).ready(function () {
                 //Open up for other commands to be run
                 doingCommand = false;
             });
+        }
+    }
+
+    function downloadPicturesHandler() {
+        if (!doingCommand) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Fetching pictures...\n");
+            //Bring up download window
+            $(downloadGreyScreen).css("display", "flex");
+            doingCommand = false;
+        }
+    }
+
+    function startPictureDownloadHandler() {
+        $(downloadConfirmation).css("display", "none");
+        $(downloadProgress).css("display", "flex");
+    }
+
+    function cancelPictureDownloadHandler() {
+        $(downloadConfirmation).css("display", "flex");
+        $(downloadProgress).css("display", "none");
+        $(downloadGreyScreen).css("display", "none");
     }
 
     function hddOnHandler() {
@@ -323,6 +356,20 @@ $(document).ready(function () {
             //Feedback on button press
             $(webConsole).append("DONE\n");
             $.getJSON("/timezonechange", {zone: timezoneCombobox.find(":selected").attr("value")}, function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Open up for other commands to be run
+                doingCommand = false;
+            });
+        }
+    }
+
+    function outputTimeHandler() {
+        if (!doingCommand) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("CURRENT TIME:\n");
+            $.getJSON("/outputTime", function (result) {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Open up for other commands to be run

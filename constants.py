@@ -2,6 +2,7 @@
 # The major constants here are different bash commands, executed server-side.
 gpsCheck = "echo G > /dev/leostick && cat /dev/leostick"
 setTimezone = "sudo ln -fs /usr/share/zoneinfo/{0} /etc/localtime"
+outputTime = "date"
 
 cameraOn = "python /opt/dfn-software/enable_camera.py"
 cameraOff = "python /opt/dfn-software/disable_camera.py"
@@ -55,7 +56,7 @@ intervalTestFailed = "\nINTERVAL TEST RESULTS:\nInterval test failed.\n"
 prevIntervalDidRun = "\nINTERVAL CONTROL SW RAN SUCCESSFULLY LAST NIGHT.\n"
 prevIntervalNotRun ="\nINTERVAL CONTROL SW DID NOT RUN SUCCESSFULLY LAST NIGHT.\n"
 
-hddStatusString = "\nEXT. HDD STATUS:\n/data1: {0}, {1} full.\n/data2: {2}, {3} full.\n/data3: {4}, {5} full."
+hddStatusString = "\nEXT. HDD STATUS:\n/data1: {0}, {1} full.\n/data2: {2}, {3} full.\n/data3: {4}, {5} full.\n"
 hddStatusOff = "Not detected"
 hddStatusPowered = "Powered"
 hddStatusMounted = "Mounted"
