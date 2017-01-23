@@ -33,6 +33,14 @@ $(document).ready(function () {
         }, 'xml');
     });
 
+    //Create date picker
+    $(".datepicker").datepicker({
+    inline: true,
+    showOtherMonths: true,
+    dateFormat: 'dd-mm-yy',
+    dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    });
+
     //HTML element variables
     var webConsole = $('#feedbackText');
     var timezoneCombobox = $('#timezoneSelector');
@@ -156,18 +164,34 @@ $(document).ready(function () {
 
     function downloadPicturesHandler() {
         if (!doingCommand) {
-            doingCommand = true;
-            //Feedback on button press
-            $(webConsole).append("Fetching pictures...\n");
             //Bring up download window
             $(downloadGreyScreen).css("display", "flex");
-            doingCommand = false;
+            console.log($(downloadDateSelector).datepicker('getDate'));
         }
     }
 
     function startPictureDownloadHandler() {
+        //Change display to loading bar window
         $(downloadConfirmation).css("display", "none");
         $(downloadProgress).css("display", "flex");
+
+        //Go start that download thread, chef!
+        /*$.getJSON("/startdownload", $(downloadDateSelector).datepicker("getDate"), function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Set light colour
+                cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
+                //Open up for other commands to be run
+                doingCommand = false;
+            });*/
+
+        //Now, every little bit, go check on the little guy and update the GUI.
+        //Also, check if its done.
+
+
+        //When golden brown, take out and serve on a clean platter.
+        //Serves one.
+
     }
 
     function cancelPictureDownloadHandler() {

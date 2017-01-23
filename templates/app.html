@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="static/img/favicon.ico">
     <link rel="stylesheet" href="static/css/app.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="/static/js/jquery-ui-1.12.1/jquery-ui.css"/>
 </head>
 <body>
 <div class="contentWrapper">
@@ -81,7 +82,7 @@
                     <h4>Download Pictures</h4>
                     <div class="downloadFormWrapper">
                         <label for="downloadDateSelector">Date: </label>
-                        <input type="date" id="downloadDateSelector">
+                        <input type="text" id="downloadDateSelector" class="datepicker">
                     </div>
                     <button type="button" class="commandButton" id="DownloadPictures">Download</button>
                 </div>
@@ -493,6 +494,7 @@
     </div>
 </div>
 <script src="static/js/jquery-3.1.1.js" type="text/javascript"></script>
+<script src="static/js/jquery-ui-1.12.1/jquery-ui.js" type="text/javascript"></script>
 <script src="static/js/runcommands.js" type="text/javascript"></script>
 <script src="static/js/base64decode.js" type="text/javascript"></script>
 <style>
