@@ -13,6 +13,7 @@ urls = ('/', 'Index',
         '/cameraon', 'CameraOn',
         '/cameraoff', 'CameraOff',
         '/camerastatus', 'CameraStatus',
+        '/findpictures', 'FindPictures',
         '/gpscheck', 'GPSCheck',
         '/timezonechange', 'TimezoneChange',
         '/outputTime', 'OutputTime',
@@ -117,6 +118,14 @@ class CameraStatus:
         if LoginChecker.loggedIn():
             data = {}
             data['consoleFeedback'], data['cameraStatus'] = commandSender.cameraStatus()
+            outJSON = json.dumps(data)
+            return outJSON
+
+class FindPictures:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            data['foundDirectory'], data['filesize'], data['filepath'] = commandSender.findPictures(web.input())
             outJSON = json.dumps(data)
             return outJSON
 

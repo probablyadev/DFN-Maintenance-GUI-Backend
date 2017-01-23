@@ -49,6 +49,7 @@ $(document).ready(function () {
     var downloadPrompt = $('.downloadPrompt');
     var downloadConfirmation = $('.imageDownloadConfirmation');
     var downloadProgress = $('.imageDownloadProgress');
+    var imageDownloadConfirmationDetails = $('#imageDownloadConfirmationDetails');
     var cameraLight = $('#cameraLight');
     var gpsLight = $('#GPSLight');
     var internetLight = $('#internetLight');
@@ -164,9 +165,30 @@ $(document).ready(function () {
 
     function downloadPicturesHandler() {
         if (!doingCommand) {
-            //Bring up download window
-            $(downloadGreyScreen).css("display", "flex");
-            console.log($(downloadDateSelector).datepicker('getDate'));
+            //Get the file size of pictures from that date date (if they exist)
+            var selectedDate = $(downloadDateSelector).datepicker('getDate');
+            if(selectedDate != null)
+            {
+                var selectedDay = selectedDate.getDate()
+                var selectedMonth = selectedDate.getMonth() + 1
+                var selectedYear = selectedDate.getFullYear();
+
+                $.getJSON("/findpictures", {day: selectedDay, month: selectedMonth, year: selectedYear}, function (result) {
+                    if(result.foundDirectory)
+                    {
+                        $(imageDownloadConfirmationDetails).text(result.filesize);
+                        $(downloadGreyScreen).css("display", "flex");
+                        console.log(result)
+                    }
+                    else
+                    {
+                        window.alert("No images found for selected date.");
+                    }
+                });
+            }
+            else {
+                window.alert("Please select a date.");
+            }
         }
     }
 

@@ -48,6 +48,23 @@ def cameraStatus():
     # Encode to JSON
     return feedbackOutput, status
 
+def findPictures(inDate):
+    # Let's do some directory searching!
+    day = inDate.day.zfill(2)
+    month = inDate.month.zfill(2)
+    year = inDate.year
+    commandTemplate = constants.findPictures
+    command = commandTemplate.format(year, month, day)
+    foundDirectories = doConsoleCommand(command)
+    directoriesList = foundDirectories.split('\n')
+    if directoriesList[0] == "":
+        return False, 0, ""
+    else:
+        # Find file size of said directory
+        command = constants.getDirectorySize
+        size = doConsoleCommand(command.format(directoriesList[0]))
+        return True, size, directoriesList[0]
+
 # HDD Utilities
 def hddOn():
     # Do command

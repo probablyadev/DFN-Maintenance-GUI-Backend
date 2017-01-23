@@ -7,6 +7,9 @@ outputTime = "date"
 cameraOn = "python /opt/dfn-software/enable_camera.py"
 cameraOff = "python /opt/dfn-software/disable_camera.py"
 cameraCheck = "lsusb"
+findPictures = "find /data[1-3] -type d -name '*{0}-{1}-{2}*' | grep -v 'test\|video'"
+getDirectorySize = "du -sh {0} | egrep -o '[0-9]+[A-Z]+'"
+getNumFilesInDirectory = 'find {0} -type f | wc -l'
 
 enableHardDrive = "python /opt/dfn-software/enable_ext-hd.py"
 disableHardDrive = "python /opt/dfn-software/disable_ext-hd.py"
@@ -36,6 +39,7 @@ cameraSwitchedOn = "Camera on command executed.\n"
 cameraSwitchedOff = "Camera off command executed.\n"
 cameraCheckOn = "\nCAMERA STATUS:\nCamera online.\n"
 cameraCheckOff = "\nCAMERA STATUS:\nCamera not found.\n"
+findPictures = "find /data[0-3] -type d -name '*{0}-{1}-{2}*' | grep -v 'test\|video'"
 
 gpsCheckFailed = "\nGPS STATUS:\nGPS offline.\n"
 gpsOnline = "\nGPS STATUS:\nLock: {0}\nSatellites: {1}\n"
