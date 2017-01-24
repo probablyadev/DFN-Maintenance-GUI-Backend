@@ -48,7 +48,8 @@ $(document).ready(function () {
     var downloadGreyScreen = $('.downloadGreyScreen');
     var downloadPrompt = $('.downloadPrompt');
     var downloadConfirmation = $('.imageDownloadConfirmation');
-    var downloadProgress = $('.imageDownloadProgress');
+    var downloadBarInsides = $('.downloadingBarInsides');
+    var downloadProgressSpan = $('.downloadProgressSpan')
     var imageDownloadConfirmationDetails = $('#imageDownloadConfirmationDetails');
     var cameraLight = $('#cameraLight');
     var gpsLight = $('#GPSLight');
@@ -163,8 +164,11 @@ $(document).ready(function () {
         }
     }
 
+    var currDownloadDirectory;
+
     function downloadPicturesHandler() {
         if (!doingCommand) {
+            doingCommand = true;
             //Get the file size of pictures from that date date (if they exist)
             var selectedDate = $(downloadDateSelector).datepicker('getDate');
             if(selectedDate != null)
@@ -178,7 +182,7 @@ $(document).ready(function () {
                     {
                         $(imageDownloadConfirmationDetails).text(result.filesize);
                         $(downloadGreyScreen).css("display", "flex");
-                        console.log(result)
+                        currDownloadDirectory = result.filepath
                     }
                     else
                     {
@@ -196,30 +200,43 @@ $(document).ready(function () {
         //Change display to loading bar window
         $(downloadConfirmation).css("display", "none");
         $(downloadProgress).css("display", "flex");
+        $(downloadProgress).css("display", "flex");
+        downloadBarInsides.css("width", "25%");
+        downloadProgressSpan.text("0%");
 
-        //Go start that download thread, chef!
-        /*$.getJSON("/startdownload", $(downloadDateSelector).datepicker("getDate"), function (result) {
-                //Set feedback text
-                addToWebConsole(result.consoleFeedback + "\n" + line);
-                //Set light colour
-                cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
-                //Open up for other commands to be run
-                doingCommand = false;
-            });*/
-
-        //Now, every little bit, go check on the little guy and update the GUI.
-        //Also, check if its done.
-
-
-        //When golden brown, take out and serve on a clean platter.
-        //Serves one.
-
+        //Go start that download thread, boss.
+        /*$.getJSON("/startdownload", {directory: currDownloadDirectory}, function (result) {
+            if(result.success) {
+                finished = false;
+                while(finished == false) {
+                    //Go fetch progress
+                    $.getJSON("/downloadProgress", function (progressResult) {
+                        if(progressResult.finished) {
+                            finished = true;
+                        }
+                        else {
+                            progress = progressResult.percent;
+                            downloadBarInsides.css("width", progressResult.percent.toString() + "%");
+                            downloadProgressSpan.text(progressResult.percent.toString() + "%");
+                        }
+                    });
+                    //Wait half a second before fetching progress again
+                    setTimeout(function(){return}, 500);
+                }
+                window.alert("Download successful.")
+                cancelPictureDownloadHandler()
+            }
+            else {
+                window.alert("ERROR: Download request unsuccessful. (Possible causes include the USB not being found, the files not existing, etc.")
+            }
+        });*/
     }
 
     function cancelPictureDownloadHandler() {
         $(downloadConfirmation).css("display", "flex");
         $(downloadProgress).css("display", "none");
         $(downloadGreyScreen).css("display", "none");
+        doingCommand = false;
     }
 
     function hddOnHandler() {
