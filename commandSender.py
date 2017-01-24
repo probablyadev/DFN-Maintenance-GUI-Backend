@@ -224,12 +224,12 @@ def internetStatus():
     status = False
     feedbackOutput = constants.internetCheckFailed
 
-    print consoleOutput
-
-    if "0" not in re.split(",", consoleOutput)[1]:
-        status = True
-        ipAddress = doConsoleCommand(constants.getInternetIP)
-        feedbackOutput = constants.internetCheckPassed.format(ipAddress)
+    if "unknown" not in consoleOutput:
+        splitOutput = re.split(",", consoleOutput)
+        if "0" not in splitOutput[1]:
+            status = True
+            ipAddress = doConsoleCommand(constants.getInternetIP)
+            feedbackOutput = constants.internetCheckPassed.format(ipAddress)
 
     return feedbackOutput, status
 
@@ -242,7 +242,7 @@ def restartModem():
     if "SUCCESS" in consoleOutput:
         feedbackOutput = constants.modemRestartPassed
 
-    time.sleep(4)
+    time.sleep(20)
     return feedbackOutput
 
 def vpnStatus():

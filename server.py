@@ -262,7 +262,7 @@ class RestartVPN:
         if LoginChecker.loggedIn():
             data = {}
             restartFeedback = commandSender.restartVPN()
-            statusFeedback, data['vpnStatus'] =  commandSender.vpnStatus()
+            statusFeedback, data['vpnStatus'] = commandSender.vpnStatus()
             data['consoleFeedback'] = restartFeedback + statusFeedback
             outJSON = json.dumps(data)
             return outJSON
