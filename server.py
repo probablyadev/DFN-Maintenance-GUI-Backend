@@ -2,7 +2,7 @@
 
 import web
 from web import form
-import os, model, commandSender, json, base64
+import os, model, commandSender, json, base64, datetime
 
 web.config.debug = False
 
@@ -25,13 +25,14 @@ urls = ('/', 'Index',
         '/unmounthdd', 'UnmountHDD',
         '/formathdd', 'FormatHDD',
         '/hddcheck', 'CheckHDD',
-        '/data0check', 'Data0Check',
         '/internetcheck', 'InternetCheck',
         '/restartmodem', 'RestartModem',
         '/vpncheck', 'VPNCheck',
         '/restartvpn', 'RestartVPN',
         '/systemstatus', 'SystemStatus',
-        '/statusconfig', 'StatusConfig')
+        '/statusconfig', 'StatusConfig',
+        '/getlatestlog', 'LatestLog',
+        '/getlatestprevlog', 'LatestPrevLog')
 app = web.application(urls, globals())
 
 # Initialising useful web.py framework variables
@@ -188,14 +189,6 @@ class CheckHDD:
             outJSON = json.dumps(data)
             return outJSON
 
-class Data0Check:
-    def GET(self):
-        if LoginChecker.loggedIn():
-            data = {}
-            data['consoleFeedback'], data['data0Boolean'] = commandSender.data0Check()
-            outJSON = json.dumps(data)
-            return outJSON
-
 class GPSCheck:
     def GET(self):
         if LoginChecker.loggedIn():
@@ -286,6 +279,36 @@ class StatusConfig:
             else:
                 raise web.notfound()
 
+class LatestLog:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            path = "/data0/latest/" + commandSender.getLog("latest")
+            if os.path.exists(path):
+                data = {}
+                getFile = file(path, 'rb')
+                data['file'] = getFile.read()
+                filestate = os.stat(path)
+                data['timestamp'] = datetime.datetime.fromtimestamp(filestate.st_mtime).strftime('%d-%m-%Y %H:%M:%S')
+                outJSON = json.dumps(data)
+                return outJSON
+            else:
+                raise web.notfound()
+
+class LatestPrevLog:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            path = "/data0/latest_prev/" + commandSender.getLog("latest_prev")
+            if os.path.exists(path):
+                data = {}
+                getFile = file(path, 'rb')
+                data['file'] = getFile.read()
+                filestate = os.stat(path)
+                data['timestamp'] = datetime.datetime.fromtimestamp(filestate.st_mtime).strftime('%d-%m-%Y %H:%M:%S')
+                outJSON = json.dumps(data)
+                return outJSON
+            else:
+                raise web.notfound()
+
 class SystemStatus:
     def GET(self):
         if LoginChecker.loggedIn():
@@ -295,17 +318,15 @@ class SystemStatus:
             gpsFeedback, gpsBoolean = commandSender.gpsStatus()
             internetFeedback, internetBoolean = commandSender.internetStatus()
             extHDDFeedback, hdd1Boolean, hdd2Boolean, hdd3Boolean, hdd1Space, hdd2Space, hdd3Space = commandSender.hddStatus()
-            hdd0Feedback, hdd0Boolean = commandSender.data0Check()
             vpnFeedback, vpnBoolean = commandSender.vpnStatus()
 
             # Encode to JSON
             data = {}
-            data['consoleFeedback'] = datetime + cameraFeedback + hdd0Feedback + extHDDFeedback + internetFeedback + vpnFeedback + gpsFeedback
+            data['consoleFeedback'] = datetime + cameraFeedback + extHDDFeedback + internetFeedback + vpnFeedback + gpsFeedback
             data['cameraStatus'] = cameraBoolean
             data['gpsStatus'] = gpsBoolean
             data['internetStatus'] = internetBoolean
             data['vpnStatus'] = vpnBoolean
-            data['HDD0Status'] = hdd0Boolean
             data['HDD1Status'] = hdd1Boolean
             data['HDD2Status'] = hdd2Boolean
             data['HDD3Status'] = hdd3Boolean

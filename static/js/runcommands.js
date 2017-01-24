@@ -48,6 +48,7 @@ $(document).ready(function () {
     var downloadGreyScreen = $('.downloadGreyScreen');
     var downloadPrompt = $('.downloadPrompt');
     var downloadConfirmation = $('.imageDownloadConfirmation');
+    var downloadProgressPrompt = $('.imageDownloadProgress');
     var downloadBarInsides = $('.downloadingBarInsides');
     var downloadProgressSpan = $('.downloadProgressSpan')
     var imageDownloadConfirmationDetails = $('#imageDownloadConfirmationDetails');
@@ -56,7 +57,6 @@ $(document).ready(function () {
     var internetLight = $('#internetLight');
     var vpnLight = $('#vpnLight');
     var intervalLight = $('#intervalLight');
-    var hdd0Light = $('#HDD0Light');
     var hdd1Light = $('#HDD1Light');
     var hdd2Light = $('#HDD2Light');
     var hdd3Light = $('#HDD3Light');
@@ -89,7 +89,6 @@ $(document).ready(function () {
     $("#UnmountHDD").click(hddUnmountHandler);
     $("#FormatDrives").click(hddFormatHandler);
     $("#CheckSpace").click(hddSpaceCheckHandler);
-    $("#Data0Check").click(data0CheckHandler);
     $("#GPSCheck").click(gpsCheckHandler);
     $("#ChangeTimezone").click(timezoneHandler);
     $("#OutputTime").click(outputTimeHandler);
@@ -101,6 +100,8 @@ $(document).ready(function () {
     $("#RestartVPN").click(restartVPNHandler);
     $("#StatusCheck").click(systemStatusHandler);
     $("#StatusConfig").click(statusConfigHandler);
+    $("#CheckLatestLogs").click(latestLogsHandler);
+    $("#CheckLatestPrevLogs").click(latestPrevLogsHandler);
 
     //Code for adding to web console
     function addToWebConsole(inputText) {
@@ -199,8 +200,7 @@ $(document).ready(function () {
     function startPictureDownloadHandler() {
         //Change display to loading bar window
         $(downloadConfirmation).css("display", "none");
-        $(downloadProgress).css("display", "flex");
-        $(downloadProgress).css("display", "flex");
+        $(downloadProgressPrompt).css("display", "flex");
         downloadBarInsides.css("width", "25%");
         downloadProgressSpan.text("0%");
 
@@ -234,7 +234,7 @@ $(document).ready(function () {
 
     function cancelPictureDownloadHandler() {
         $(downloadConfirmation).css("display", "flex");
-        $(downloadProgress).css("display", "none");
+        $(downloadProgressPrompt).css("display", "none");
         $(downloadGreyScreen).css("display", "none");
         doingCommand = false;
     }
@@ -556,6 +556,46 @@ $(document).ready(function () {
         }
     }
 
+    function latestLogsHandler() {
+        if (!doingCommand) {
+            doingCommand = true;
+            //Feedback
+            addToWebConsole("Fetching logfile...\n");
+            //Request file
+            $.getJSON("/getlatestlog", function (result) {
+                var element = document.createElement('a');
+                element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(result.file));
+                element.setAttribute('download', 'latestlog.txt');
+                element.style.display = 'none';
+                document.body.appendChild(element);
+                element.click();
+                document.body.removeChild(element);
+                addToWebConsole("Logfile created:\n" + result.timestamp + "\n" + line);
+                doingCommand = false;
+            });
+        }
+    }
+
+        function latestPrevLogsHandler() {
+        if (!doingCommand) {
+            doingCommand = true;
+            //Feedback
+            addToWebConsole("Fetching logfile...\n");
+            //Request file
+            $.getJSON("/getlatestprevlog", function (result) {
+                var element = document.createElement('a');
+                element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(result.file));
+                element.setAttribute('download', 'latestprevlog.txt');
+                element.style.display = 'none';
+                document.body.appendChild(element);
+                element.click();
+                document.body.removeChild(element);
+                addToWebConsole("Logfile created:\n" + result.timestamp + "\n" + line);
+                doingCommand = false;
+            });
+        }
+    }
+
     function systemStatusHandler() {
         if (!doingCommand) {
             doingCommand = true;
@@ -570,7 +610,6 @@ $(document).ready(function () {
                 gpsLight.css("background-color", simpleColorMapping[result.gpsStatus]);
                 internetLight.css("background-color", simpleColorMapping[result.internetStatus]);
                 vpnLight.css("background-color", simpleColorMapping[result.vpnStatus]);
-                hdd0Light.css("background-color", simpleColorMapping[result.HDD0Status]);
                 hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
                 hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
                 hdd3Light.css("background-color", complexColorMapping[result.HDD3Status]);

@@ -72,8 +72,8 @@
                 <button type="button" class="commandButton" id="CameraOn">Enable Camera</button>
                 <button type="button" class="commandButton" id="CameraOff">Disable Camera</button>
                 <div class="linebreak"></div>
-                <button type="button" class="commandButton" id="VideoCameraOn" disabled>Enable Video</button>
-                <button type="button" class="commandButton" id="VideoCameraOff" disabled>Disable Video</button>
+                <button type="button" class="commandButton disabled" id="VideoCameraOn" disabled>Enable Video</button>
+                <button type="button" class="commandButton disabled" id="VideoCameraOff" disabled>Disable Video</button>
                 <div class="linebreak"></div>
                 <button type="button" class="commandButton" id="CameraStatus">Update Camera Status</button>
             </div>
@@ -87,10 +87,10 @@
                     <button type="button" class="commandButton" id="DownloadPictures">Download</button>
                 </div>
                 <div class="linebreak"></div>
-                <button type="button" class="commandButton" id="TakeCameraShot">Shoot Picture</button>
-                <button type="button" class="commandButton" id="TakeVideoShot" disabled>Shoot Video</button>
+                <button type="button" class="commandButton disabled" id="TakeCameraShot" disabled>Shoot Picture</button>
+                <button type="button" class="commandButton disabled" id="TakeVideoShot" disabled>Shoot Video</button>
                 <div class="linebreak"></div>
-                <button type="button" class="commandButton" id="TestLCShutter" disabled>Test LC Shutter</button>
+                <button type="button" class="commandButton disabled" id="TestLCShutter" disabled>Test LC Shutter</button>
             </div>
         </div>
 
@@ -126,9 +126,9 @@
                     <button type="button" class="commandButton" id="FormatDrives">Format Drives</button>
                 </div>
                 <div class="linebreak"></div>
-                <button type="button" class="commandButton" id="HDDRunSmartTest" disabled>Run Smart Test</button>
+                <button type="button" class="commandButton" id="HDDRunSmartTest">Run Smart Test</button>
                 <div class="linebreak"></div>
-                <button type="button" class="commandButton" id="Data0Check" disabled>Get /data0 contents</button>
+                <button type="button" class="commandButton disabled" id="Data0Check" disabled>Get /data0 contents</button>
             </div>
         </div>
 
@@ -145,7 +145,6 @@
         <div class="tabContent gpsControl">
             <div class="gpsBasicFunctions">
                 <button type="button" class="commandButton" id="GPSCheck">Check GPS Status</button>
-                <button type="button" class="commandButton" id="GPSFunc">Check GPS Functionality</button>
             </div>
             <div class="gpsAdvancedFunctions">
                 <div class="timezoneForm">
@@ -404,12 +403,13 @@
         <!--Advanced Tab-->
         <div class="tabContent advancedControl">
             <div class="advancedFirmware">
-                <button type="button" class="commandButton" id="UpdateLeostick">Update Leostick Firmware</button>
-                <button type="button" class="commandButton" id="UpdatePython">Update Python SW</button>
+                <button type="button" class="commandButton disabled" id="UpdateLeostick" disabled>Update Leostick Firmware</button>
+                <button type="button" class="commandButton disabled" id="UpdatePython" disabled>Update Python SW</button>
             </div>
             <div class="advancedLogs">
                 <button type="button" class="commandButton" id="EditDFNConfig">Edit dfnstation.cfg</button>
-                <button type="button" class="commandButton" id="CheckLatestLogs">Check logs of last run</button>
+                <button type="button" class="commandButton" id="CheckLatestLogs">Check /latest logs</button>
+                <button type="button" class="commandButton" id="CheckLatestPrevLogs">Check /latest_prev logs</button>
             </div>
         </div>
     </div>
@@ -425,14 +425,6 @@
             <div class="statusElement">
                 <div id="cameraLight" class="statusLight"></div>
                 <label for="cameraLight">Camera</label>
-            </div>
-            <div class="statusElement">
-                <div id="videoCameraLight" class="statusLight"></div>
-                <label for="videoCameraLight">Video Camera</label>
-            </div>
-            <div class="statusElement">
-                <div id="HDD0Light" class="statusLight"></div>
-                <label for="HDD0Light">/data0</label>
             </div>
             <div class="statusElement">
                 <div id="HDD1Light" class="statusLight"></div>
@@ -464,6 +456,10 @@
             <div class="statusElement">
                 <div id="intervalLight" class="statusLight"></div>
                 <label for="IntervalLight">Interval Test</label>
+            </div>
+            <div class="statusElement">
+                <div id="videoCameraLight" class="statusLight"></div>
+                <label for="videoCameraLight">Video Camera</label>
             </div>
         </div>
 

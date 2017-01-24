@@ -258,6 +258,12 @@ hr {
   .commandButton:hover {
     background-color: #FF4100; }
 
+.disabled {
+  background-color: #660000;
+  color: #AAA; }
+  .disabled:hover {
+    background-color: #660000; }
+
 .linebreak {
   width: 100%;
   content: ""; }
@@ -298,10 +304,11 @@ hr {
           margin-right: 0.1em;
           vertical-align: middle; }
           .controlModule .tabControl li a svg path {
-            fill: #330006 !important; }
+            fill: #AAA !important; }
         .controlModule .tabControl li a span {
           vertical-align: middle;
-          font-size: 2.2vh; }
+          font-size: 2.2vh;
+          color: #AAA; }
     .controlModule .tabControl li:hover, .controlModule .tabControl .active, .controlModule .tabControl :focus {
       background-color: #95000C; }
       .controlModule .tabControl li:hover span, .controlModule .tabControl .active span, .controlModule .tabControl :focus span {

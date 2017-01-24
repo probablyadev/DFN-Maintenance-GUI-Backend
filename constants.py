@@ -15,7 +15,7 @@ enableHardDrive = "python /opt/dfn-software/enable_ext-hd.py"
 disableHardDrive = "python /opt/dfn-software/disable_ext-hd.py"
 mountHardDrive = "mount /data1 && echo SUCCESS; mount /data2 && echo SUCCESS"
 unmountHardDrive = "umount /data1 && echo SUCCESS; umount /data2 && echo SUCCESS"
-formatHardDrive = "/opt/dfn-software/Shipped/formatHDDs.sh {0} {1} {2}"
+formatHardDrive = "/opt/dfn-software/Shipped/formatHDDs.sh {0} {1} {2} {3}"
 hddPoweredStatus = "lsusb"
 mountedStatus = "mount | grep {0} > /dev/null && echo 1"
 hddSpace = "cat /tmp/dfn_disk_usage"
@@ -32,7 +32,7 @@ intervalTest = "/opt/dfn-software/interval_control_test.sh"
 checkIntervalResults = "ls -lR /data0/latest_prev/*.NEF | wc -l"
 checkPrevIntervalStatus = "find /data0/latest -exec stat -c%y {} \; | sort -n -r | head -n 1" # Actual, for now
 
-# TODO: DOWNLOAD TO USB COMMAND
+getLogfileName = "ls /data0/{0} | grep .txt"
 
 # Strings used as web console output
 cameraSwitchedOn = "Camera on command executed.\n"

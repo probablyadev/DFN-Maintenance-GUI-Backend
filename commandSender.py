@@ -224,6 +224,8 @@ def internetStatus():
     status = False
     feedbackOutput = constants.internetCheckFailed
 
+    print consoleOutput
+
     if "0" not in re.split(",", consoleOutput)[1]:
         status = True
         ipAddress = doConsoleCommand(constants.getInternetIP)
@@ -271,6 +273,13 @@ def restartVPN():
 
     time.sleep(4)
     return feedbackOutput
+
+# Advanced Utilities
+
+def getLog(directory):
+    filenames = doConsoleCommand(constants.getLogfileName.format(directory))
+    foundfile = filenames.split('\n')[0]
+    return foundfile
 
 
 # Interval test
