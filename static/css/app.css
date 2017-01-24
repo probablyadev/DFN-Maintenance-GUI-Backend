@@ -271,7 +271,7 @@ hr {
 .controlModule {
   background-color: #95000C;
   width: 72vw;
-  height: 48vh;
+  height: 46vh;
   min-width: 750px;
   margin: 2vh auto 2vh auto; }
   .controlModule .tabControl {
@@ -375,7 +375,8 @@ hr {
 .consoleModule {
   width: 70%;
   height: 100%;
-  display: inline-block; }
+  display: inline-block;
+  position: relative; }
   .consoleModule .webConsole {
     width: 100%;
     height: 100%;
@@ -390,7 +391,7 @@ hr {
     font: 15px Courier, monospace; }
 
 .pageHeader {
-  height: 6vh; }
+  height: 4vh; }
   .pageHeader::after {
     clear: both;
     content: "";
@@ -398,6 +399,18 @@ hr {
   .pageHeader img {
     height: 100%;
     float: right; }
+
+.pageFooter {
+  height: 2vh; }
+  .pageFooter::after {
+    clear: both;
+    content: "";
+    display: table; }
+  .pageFooter .commandButton {
+    float: right;
+    background-color: #000; }
+    .pageFooter .commandButton:hover {
+      background-color: #000; }
 
 .statusControl {
   -webkit-flex-direction: column;
@@ -616,6 +629,8 @@ hr {
     justify-content: center;
     width: 50%;
     border-right: 3px solid #80000b; }
+    .gpsControl .gpsBasicFunctions .commandButton {
+      font-size: 3.0vh; }
   .gpsControl .gpsAdvancedFunctions {
     height: 100%;
     display: -webkit-flex;
@@ -805,7 +820,7 @@ hr {
   width: 72vw;
   height: 40vh;
   min-width: 750px;
-  margin: 2vh auto 2vh auto;
+  margin: 0 auto 0 auto;
   padding: 2vh 0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;

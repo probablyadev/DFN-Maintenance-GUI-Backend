@@ -102,6 +102,7 @@ $(document).ready(function () {
     $("#StatusConfig").click(statusConfigHandler);
     $("#CheckLatestLogs").click(latestLogsHandler);
     $("#CheckLatestPrevLogs").click(latestPrevLogsHandler);
+    $("#SaveConsoleOutput").click(saveConsoleOutputHandler)
 
     //Code for adding to web console
     function addToWebConsole(inputText) {
@@ -377,25 +378,6 @@ $(document).ready(function () {
         }
     }
 
-    function data0CheckHandler() {
-        if (!doingCommand) {
-            doingCommand = true;
-            //Feedback on button press
-            $(webConsole).append("Fetching /data0 data...\n");
-            //Request to enable HDDs
-            $.getJSON("/data0check", function (result) {
-                //TODO: Decide on how to do the data0 output
-                addToWebConsole(result.consoleFeedback + "\n" + line);
-
-                //Set light colours
-                hdd0Light.css("background-color", simpleColorMapping[result.data0Boolean]);
-
-                //Open up for other commands to be run
-                doingCommand = false;
-            });
-        }
-    }
-
     function gpsCheckHandler() {
         if (!doingCommand) {
             doingCommand = true;
@@ -576,7 +558,7 @@ $(document).ready(function () {
         }
     }
 
-        function latestPrevLogsHandler() {
+    function latestPrevLogsHandler() {
         if (!doingCommand) {
             doingCommand = true;
             //Feedback
@@ -620,6 +602,16 @@ $(document).ready(function () {
                 doingCommand = false;
             });
         }
+    }
+
+    function saveConsoleOutputHandler() {
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent($(webConsole).val()));
+        element.setAttribute('download', 'webconsolelog.txt');
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
     }
 
     //Code for tab controls
