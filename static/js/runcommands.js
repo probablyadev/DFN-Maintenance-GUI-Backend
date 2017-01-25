@@ -45,6 +45,7 @@ $(document).ready(function () {
     var webConsole = $('#feedbackText');
     var timezoneCombobox = $('#timezoneSelector');
     var downloadDateSelector = $('#downloadDateSelector');
+    var configPopupGreyScreen = $('.configEditGreyScreen');
     var downloadGreyScreen = $('.downloadGreyScreen');
     var downloadPrompt = $('.downloadPrompt');
     var downloadConfirmation = $('.imageDownloadConfirmation');
@@ -103,6 +104,8 @@ $(document).ready(function () {
     $("#StatusConfig").click({callback: statusConfigHandler}, preCommandOK);
     $("#CheckLatestLogs").click({callback: latestLogsHandler}, preCommandOK);
     $("#CheckLatestPrevLogs").click({callback: latestPrevLogsHandler}, preCommandOK);
+    $("#EditDFNConfig").click({callback: openConfigEditHandler}, preCommandOK);
+    $("#ConfigPopupExit").click(closeConfigEditHandler);
     $("#SaveConsoleOutput").click({callback: saveConsoleOutputHandler}, preCommandOK)
 
     //Code for adding to web console
@@ -565,6 +568,19 @@ $(document).ready(function () {
             doingCommand = false;
         });
     }
+
+    function openConfigEditHandler() {
+        $(configPopupGreyScreen).css("display", "flex");
+
+    }
+
+    function closeConfigEditHandler() {
+        $(configPopupGreyScreen).css("display", "none");
+    }
+
+    $("#changeConfigForm").submit(function(e) {
+        e.preventDefault();
+    });
 
     function systemStatusHandler() {
         doingCommand = true;

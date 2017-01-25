@@ -812,6 +812,62 @@ hr {
           position: relative;
           overflow: hidden; }
 
+.configEditGreyScreen {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  background-color: rgba(38, 38, 38, 0.9);
+  display: none;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+  .configEditGreyScreen .configPrompt {
+    padding: 5px 15px;
+    padding-top: 0;
+    height: 18%;
+    background-color: #95000C;
+    display: inherit;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px; }
+    .configEditGreyScreen .configPrompt h4 {
+      margin: 10px 0; }
+    .configEditGreyScreen .configPrompt .commandButton {
+      margin-top: 10px; }
+    .configEditGreyScreen .configPrompt form {
+      display: inherit;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center; }
+      .configEditGreyScreen .configPrompt form input {
+        width: 100px;
+        margin-left: 10px;
+        white-space: nowrap; }
+      .configEditGreyScreen .configPrompt form #submitConfigChange {
+        position: absolute;
+        left: -9999px;
+        width: 1px;
+        height: 1px; }
+
 .contentWrapper {
   height: 100vh;
   width: 100vw; }

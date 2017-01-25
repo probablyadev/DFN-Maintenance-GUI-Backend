@@ -84,7 +84,7 @@
                         <label for="downloadDateSelector">Date: </label>
                         <input type="text" id="downloadDateSelector" class="datepicker">
                     </div>
-                    <button type="button" class="commandButton" id="DownloadPictures">Download</button>
+                    <button type="button" class="commandButton disabled" id="DownloadPictures" disabled>Download</button>
                 </div>
                 <div class="linebreak"></div>
                 <button type="button" class="commandButton disabled" id="TakeCameraShot" disabled>Shoot Picture</button>
@@ -468,6 +468,7 @@
         </div>
 
     </div>
+
     <div class="downloadGreyScreen">
         <div class="downloadPrompt">
             <div class="imageDownloadConfirmation">
@@ -484,6 +485,35 @@
                 <span class="downloadProgressSpan"></span>
                 <button type="button" class="commandButton" id="CancelImageDownloadInProgress">Cancel</button>
             </div>
+        </div>
+    </div>
+    <div class="configEditGreyScreen">
+        <div class="configPrompt">
+            <h4>Editing dfnconfig.cfg</h4>
+            <form id="changeConfigForm">
+                <select id="configSelector">
+                    <option>vid_lens</option>
+                    <option>vid_format</option>
+                    <option>camera_fstop</option>
+                    <option>still_lens</option>
+                    <option>vid_ser_no</option>
+                    <option>vid_camera</option>
+                    <option>camera_ser_no</option>
+                    <option>still_camera</option>
+                    <option>camera_iso</option>
+                    <option>camera_exposuretime</option>
+                    <option>location</option>
+                    <option>hostname</option>
+                    <option>lat</option>
+                    <option>lon</option>
+                    <option>altitude</option>
+                    <option>local_contact_email</option>
+                    <option>local_contact_name</option>
+                </select>
+                <input type="text">
+                <input type="submit" id="submitConfigChange" tabindex="-1"/>
+            </form>
+            <button type="button" class="commandButton" id="ConfigPopupExit">Exit</button>
         </div>
     </div>
 

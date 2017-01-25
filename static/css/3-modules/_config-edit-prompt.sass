@@ -1,0 +1,44 @@
+.configEditGreyScreen
+  width: 100%
+  height: 100%
+  position: absolute
+  left: 0
+  top: 0
+  z-index: 10
+  background-color: rgba(38, 38, 38, 0.9)
+  display: none
+  align-items: center
+  justify-content: center
+
+  .configPrompt
+    padding: 5px 15px
+    padding-top: 0
+    height: 18%
+    background-color: $regularred
+    display: inherit
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    +border-radius(5px)
+
+    h4
+      margin: 10px 0
+
+    .commandButton
+      margin-top: 10px
+
+    form
+      display: inherit
+      align-items: center
+      justify-content: center
+
+      input
+        width: 100px
+        margin-left: 10px
+        white-space: nowrap
+
+      #submitConfigChange
+        position: absolute
+        left: -9999px
+        width: 1px
+        height: 1px
