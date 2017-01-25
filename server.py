@@ -10,6 +10,7 @@ web.config.debug = False
 urls = ('/', 'Index',
         '/app', 'UI',
         '/logout', 'Logout',
+        '/connectioncheck', 'ConnectionCheck',
         '/cameraon', 'CameraOn',
         '/cameraoff', 'CameraOff',
         '/camerastatus', 'CameraStatus',
@@ -90,6 +91,13 @@ class LoginChecker:
             return True
         else:
             raise web.seeother('/')
+
+class ConnectionCheck:
+    def GET(self):
+        data = {}
+        data['connected'] = True
+        outJSON = json.dumps(data)
+        return outJSON
 
 # Classes for different functions of the GUI
 class CameraOn:
