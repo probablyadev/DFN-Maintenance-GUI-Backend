@@ -533,7 +533,7 @@ $(document).ready(function () {
     function latestLogsHandler() {
         doingCommand = true;
         //Feedback
-        addToWebConsole("Fetching logfile...\n");
+        addToWebConsole("Fetching latest logfile...\n");
         //Request file
         $.getJSON("/getlatestlog", function (result) {
             var element = document.createElement('a');
@@ -551,7 +551,7 @@ $(document).ready(function () {
     function latestPrevLogsHandler() {
         doingCommand = true;
         //Feedback
-        addToWebConsole("Fetching logfile...\n");
+        addToWebConsole("Fetching latest_prev logfile...\n");
         //Request file
         $.getJSON("/getlatestprevlog", function (result) {
             var element = document.createElement('a');
