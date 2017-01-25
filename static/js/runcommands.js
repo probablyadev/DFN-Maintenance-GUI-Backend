@@ -88,6 +88,7 @@ $(document).ready(function () {
     $("#MountHDD").click(hddMountHandler);
     $("#UnmountHDD").click(hddUnmountHandler);
     $("#FormatDrives").click(hddFormatHandler);
+    $("#HDDRunSmartTest").click(smartTestHandler);
     $("#CheckSpace").click(hddSpaceCheckHandler);
     $("#GPSCheck").click(gpsCheckHandler);
     $("#ChangeTimezone").click(timezoneHandler);
@@ -350,6 +351,21 @@ $(document).ready(function () {
                 hdd1Space.text(result.HDD1Space);
                 hdd2Space.text(result.HDD2Space);
                 hdd3Space.text(result.HDD3Space);
+                //Open up for other commands to be run
+                doingCommand = false;
+            });
+        }
+    }
+
+    function smartTestHandler() {
+        if (!doingCommand) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Running smart test...\n");
+            //Request for smart test results
+            $.getJSON("/smarttest", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + line);
                 //Open up for other commands to be run
                 doingCommand = false;
             });

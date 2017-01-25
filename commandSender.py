@@ -175,16 +175,33 @@ def hddStatus():
 
     return feedbackOutput, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space
 
-def data0Check():
-    # Do command
-    # consoleOutput = doConsoleCommand(constants.hddStatus)
-    consoleOutput = "\nDATA0 CHECK OUTPUT HERE\n"
+def smartTest():
+    smalldrives = ["usbjmicron,00", "usbjmicron,01"]
+    output = {}
+    feedbackOutput = ""
 
-    #TODO: Parse output for results
-    data0Status = bool(random.getrandbits(1))
+    # Start all smart tests
+    for drive in smalldrives:
+        consoleOutput = doConsoleCommand(constants.runSmartTest.format(drive))
+        if "SUCCESS" in consoleOutput:
+            output[drive] = constants.smartTestStartedSuccess.format(drive)
 
-    return consoleOutput, data0Status
+        else:
+            output[drive] = constants.smartTestStartedFailed.format(drive)
 
+    # Wait for completion
+    time.sleep(70)
+
+    # Evaluate results
+    for drive in smalldrives:
+        consoleOutput = doConsoleCommand(constants.checkSmartTest.format(drive))
+        if "No Errors Logged" in consoleOutput:
+            output[drive] += constants.smartTestResultsPassed.format(drive)
+        else:
+            output[drive] += constants.smartTestResultsFailed.format(drive)
+        feedbackOutput += output[drive]
+
+    return feedbackOutput
 
 # GPS + Clock Utilities
 def gpsStatus():

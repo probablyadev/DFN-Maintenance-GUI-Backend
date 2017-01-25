@@ -24,6 +24,7 @@ urls = ('/', 'Index',
         '/mounthdd', 'MountHDD',
         '/unmounthdd', 'UnmountHDD',
         '/formathdd', 'FormatHDD',
+        '/smarttest', 'SmartTest',
         '/hddcheck', 'CheckHDD',
         '/internetcheck', 'InternetCheck',
         '/restartmodem', 'RestartModem',
@@ -178,6 +179,14 @@ class FormatHDD:
             data['consoleFeedback'] = commandSender.formatHDD(checkData)
             statusFeedback, data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
             data['consoleFeedback'] += statusFeedback
+            outJSON = json.dumps(data)
+            return outJSON
+
+class SmartTest:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            data['consoleFeedback'] = commandSender.smartTest()
             outJSON = json.dumps(data)
             return outJSON
 
