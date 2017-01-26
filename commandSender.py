@@ -5,6 +5,10 @@ import random
 import re
 import time
 import datetime
+import os
+from tempfile import mkstemp
+from shutil import move
+from os import remove, close
 
 # Code for executing a command line command
 def doConsoleCommand(command):
@@ -297,6 +301,46 @@ def getLog(directory):
     filenames = doConsoleCommand(constants.getLogfileName.format(directory))
     foundfile = filenames.split('\n')[0]
     return foundfile
+
+def populateConfigBox():
+    whitelist = constants.configBoxWhitelist
+    path = "/opt/dfn-software/dfnstation.cfg"
+    outDict = {}
+
+    if os.path.exists(path):
+        getFile = file(path, 'rb')
+        filelines = getFile.read().split("\n")
+
+        for element in whitelist:
+            for line in filelines:
+                if element in line:
+                    parsed = line.split(" = ")
+                    outDict[parsed[0]] = parsed[1]
+
+    return outDict
+
+def updateConfigFile(inProperty):
+    path = "/opt/dfn-software/dfnstation.cfg"
+    consoleFeedback = constants.configWriteFailed
+
+    #Only one keyval pair, so get the "last" one
+    newLine = inProperty.key + " = " + inProperty.value
+    currkey = inProperty.key
+
+
+    if os.path.exists(path):
+        # Create temp file
+        fh, abs_path = mkstemp()
+        with open(abs_path, 'w') as new_file:
+            with open(path) as old_file:
+                for line in old_file:
+                    new_file.write(line.replace(currkey, newLine))
+        close(fh)
+        remove(path)
+        move(abs_path, path)
+        consoleFeedback = constants.configWritePassed.format(inProperty.key, inProperty.value)
+
+    return consoleFeedback
 
 
 # Interval test

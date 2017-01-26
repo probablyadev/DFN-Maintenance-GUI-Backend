@@ -830,7 +830,7 @@ hr {
   .configEditGreyScreen .configPrompt {
     padding: 5px 15px;
     padding-top: 0;
-    height: 15.5%;
+    height: 18%;
     background-color: #95000C;
     display: inherit;
     -webkit-flex-direction: column;
@@ -849,10 +849,21 @@ hr {
     position: relative; }
     .configEditGreyScreen .configPrompt h4 {
       margin: 10px 0; }
-    .configEditGreyScreen .configPrompt .commandButton {
+    .configEditGreyScreen .configPrompt #ConfigPopupSave {
+      position: absolute;
+      bottom: 0;
+      right: 17%; }
+    .configEditGreyScreen .configPrompt #ConfigPopupExit {
       position: absolute;
       bottom: 0;
       right: 0; }
+    .configEditGreyScreen .configPrompt span {
+      position: absolute;
+      bottom: 5%;
+      left: 5%;
+      width: 55%;
+      color: #FFF;
+      font-size: 2vh; }
     .configEditGreyScreen .configPrompt form {
       display: inherit;
       -webkit-align-items: center;

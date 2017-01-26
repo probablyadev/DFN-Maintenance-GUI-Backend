@@ -80,3 +80,12 @@ smartTestResultsFailed = "Smart test for {0} failed.\n"
 hddUnmountPassed = "HDD unmount successful.\n"
 hddUnmountFailed = "HDD unmount error: {0}\n"
 hddAlreadyUnmountedError = "HDDs may have already been unmounted. See status for confirmation."
+
+# Whitelist for which config variables the user can modify
+configBoxWhitelist = ["vid_lens", "vid_format", "camera_fstop", "still_lens", "vid_ser_no",
+                      "vid_camera", "camera_ser_no", "still_camera", "camera_iso",
+                      "camera_exposuretime", "location", "hostname", "lat", "lon",
+                      "altitude", "local_contact_email", "local_contact_name"]
+
+configWriteFailed = "ERROR: Unable to write property to file."
+configWritePassed = "Overwritten {0} as {1}."

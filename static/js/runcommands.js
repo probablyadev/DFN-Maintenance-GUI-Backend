@@ -46,6 +46,9 @@ $(document).ready(function () {
     var timezoneCombobox = $('#timezoneSelector');
     var downloadDateSelector = $('#downloadDateSelector');
     var configPopupGreyScreen = $('.configEditGreyScreen');
+    var configSelector = $('#configSelector');
+    var configFieldValue = $('#configFieldValue');
+    var configChangeFeedback = $('#configChangeFeedback')
     var downloadGreyScreen = $('.downloadGreyScreen');
     var downloadPrompt = $('.downloadPrompt');
     var downloadConfirmation = $('.imageDownloadConfirmation');
@@ -104,9 +107,10 @@ $(document).ready(function () {
     $("#StatusConfig").click({callback: statusConfigHandler}, preCommandOK);
     $("#CheckLatestLogs").click({callback: latestLogsHandler}, preCommandOK);
     $("#CheckLatestPrevLogs").click({callback: latestPrevLogsHandler}, preCommandOK);
-    $("#EditDFNConfig").click({callback: openConfigEditHandler}, preCommandOK);
+    $("#EditDFNConfig").click({callback: populateConfigChangeBox}, preCommandOK);
     $("#ConfigPopupExit").click(closeConfigEditHandler);
-    $("#SaveConsoleOutput").click({callback: saveConsoleOutputHandler}, preCommandOK)
+    $("#ConfigPopupSave").click({callback: saveConfigChanges}, preCommandOK);
+    $("#SaveConsoleOutput").click({callback: saveConsoleOutputHandler}, preCommandOK);
 
     //Code for adding to web console
     function addToWebConsole(inputText) {
@@ -569,18 +573,66 @@ $(document).ready(function () {
         });
     }
 
-    function openConfigEditHandler() {
-        $(configPopupGreyScreen).css("display", "flex");
+    var configOptions = {};
 
+    function populateConfigChangeBox() {
+        $.getJSON('/populateconfigbox', function (result) {
+            $('#configSelector').find('option').remove().end();
+            configOptions = result;
+            $.each(result, function (k, v) {
+                $(configSelector).append(
+                    $('<option>', {text: k, value: v})
+                );
+            });
+            $("#configSelector option:first").attr('selected', 'selected')
+            $("#configSelector").change().focus();
+            $(configFieldValue).val($("#configSelector option:selected").val());
+            $(configChangeFeedback).text("");
+            $(configPopupGreyScreen).css("display", "flex");
+        });
+    }
+
+    $("#configSelector").change(function () {
+        var selectedOption = $(this).find("option:selected").text();
+        $(configFieldValue).val(configOptions[selectedOption]);
+        $(configChangeFeedback).text("");
+    });
+
+    $("#changeConfigForm").submit(function (e) {
+        e.preventDefault();
+        if (!doingCommand) {
+            $.ajax({
+                url: '/connectioncheck',
+                dataType: 'json',
+                success: saveConfigChanges,
+                timeout: 3000,
+                error: timedOut
+            });
+        }
+    });
+
+    function saveConfigChanges()
+    {
+        //Create JSON with entered data
+        var selectedOptionText = $("#configSelector option:selected").text();
+        var selectedOptionValue = $(configFieldValue).val();
+        data = {key: selectedOptionText, value: selectedOptionValue};
+
+        $.getJSON('/updateconfigfile', data, function(result) {
+            //Feedback to user
+            $(configChangeFeedback).text(result.consoleFeedback);
+            addToWebConsole(result.consoleFeedback + "\n" + line);
+
+            //Update local copy
+            configOptions[selectedOptionText] = selectedOptionValue;
+            $("#configSelector option:selected").val(selectedOptionValue)
+
+        });
     }
 
     function closeConfigEditHandler() {
         $(configPopupGreyScreen).css("display", "none");
     }
-
-    $("#changeConfigForm").submit(function(e) {
-        e.preventDefault();
-    });
 
     function systemStatusHandler() {
         doingCommand = true;

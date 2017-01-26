@@ -34,7 +34,9 @@ urls = ('/', 'Index',
         '/systemstatus', 'SystemStatus',
         '/statusconfig', 'StatusConfig',
         '/getlatestlog', 'LatestLog',
-        '/getlatestprevlog', 'LatestPrevLog')
+        '/getlatestprevlog', 'LatestPrevLog',
+        '/populateconfigbox', 'PopulateConfigBox',
+        '/updateconfigfile', 'UpdateConfigFile')
 app = web.application(urls, globals())
 
 # Initialising useful web.py framework variables
@@ -325,6 +327,23 @@ class LatestPrevLog:
                 return outJSON
             else:
                 raise web.notfound()
+
+class PopulateConfigBox:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            data = commandSender.populateConfigBox()
+            outJSON = json.dumps(data)
+            return outJSON
+
+class UpdateConfigFile:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            data['consoleFeedback'] = commandSender.updateConfigFile(web.input())
+            outJSON = json.dumps(data)
+            return outJSON
+
 
 class SystemStatus:
     def GET(self):
