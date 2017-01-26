@@ -830,7 +830,7 @@ hr {
   .configEditGreyScreen .configPrompt {
     padding: 5px 15px;
     padding-top: 0;
-    height: 18%;
+    height: 15.5%;
     background-color: #95000C;
     display: inherit;
     -webkit-flex-direction: column;
@@ -839,17 +839,20 @@ hr {
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
-    border-radius: 5px; }
+    border-radius: 5px;
+    position: relative; }
     .configEditGreyScreen .configPrompt h4 {
       margin: 10px 0; }
     .configEditGreyScreen .configPrompt .commandButton {
-      margin-top: 10px; }
+      position: absolute;
+      bottom: 0;
+      right: 0; }
     .configEditGreyScreen .configPrompt form {
       display: inherit;
       -webkit-align-items: center;

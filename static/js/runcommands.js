@@ -643,5 +643,5 @@ $(document).ready(function () {
     $("#statusTab").trigger("click");
 
     //Get system status
-    systemStatusHandler();
+    //systemStatusHandler();
 });
