@@ -324,9 +324,11 @@ def updateConfigFile(inProperty):
     consoleFeedback = constants.configWriteFailed
 
     #Only one keyval pair, so get the "last" one
-    newLine = inProperty.key + " = " + inProperty.value
+    newLine = inProperty.key + " = " + inProperty.value + "\n"
     currkey = inProperty.key
-
+    print "-----------------"
+    print newLine
+    print "-----------------"
 
     if os.path.exists(path):
         # Create temp file
@@ -334,7 +336,7 @@ def updateConfigFile(inProperty):
         with open(abs_path, 'w') as new_file:
             with open(path) as old_file:
                 for line in old_file:
-                    new_file.write(line.replace(currkey, newLine))
+                    new_file.write(newLine if currkey in line else line)
         close(fh)
         remove(path)
         move(abs_path, path)

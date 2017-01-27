@@ -1,6 +1,6 @@
 # This file stores all constants used in this GUI.
 # The major constants here are different bash commands, executed server-side.
-gpsCheck = "echo G > /dev/leostick && cat /dev/leostick"
+gpsCheck = "python /opt/dfn-software/leostick_get_status.py -g"
 setTimezone = "sudo ln -fs /usr/share/zoneinfo/{0} /etc/localtime"
 outputTime = "date"
 

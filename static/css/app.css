@@ -872,6 +872,16 @@ hr {
       -webkit-justify-content: center;
       -ms-flex-pack: center;
       justify-content: center; }
+      .configEditGreyScreen .configPrompt form #configSelector {
+        display: inline-block;
+        max-width: 80%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-wrap: normal;
+        background-color: inherit;
+        border-color: white;
+        color: white; }
       .configEditGreyScreen .configPrompt form input {
         width: 100px;
         margin-left: 10px;
