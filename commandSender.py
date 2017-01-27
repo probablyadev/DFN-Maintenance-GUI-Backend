@@ -1,7 +1,6 @@
 # Placeholder for now, this is where we send data to die.
 import constants
 import commands
-import random
 import re
 import time
 import datetime
@@ -222,7 +221,11 @@ def gpsStatus():
     if len(splitOutput) == 15:
         if splitOutput[6] == "1":
             status = True
-        feedbackOutput = constants.gpsOnline.format(gpsStatusDict[splitOutput[6]], splitOutput[7])
+        latitude = splitOutput[2].replace(".", "")
+        latitude = ("-" if "S" in splitOutput[3] else '') + latitude[:-6] + "." + latitude[-6:]
+        longitude = splitOutput[4].replace(".", "")
+        longitude = ("-" if "W" in splitOutput[5] else '') + longitude[:-6] + "." + longitude[-6:]
+        feedbackOutput = constants.gpsOnline.format(gpsStatusDict[splitOutput[6]], splitOutput[7], latitude, longitude)
 
     return feedbackOutput, status
 
