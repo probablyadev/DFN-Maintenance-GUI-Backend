@@ -534,6 +534,7 @@ $(document).ready(function () {
             document.body.appendChild(element);
             element.click();
             document.body.removeChild(element);
+            doingCommand = false;
         });
     }
 
@@ -695,5 +696,5 @@ $(document).ready(function () {
     $("#statusTab").trigger("click");
 
     //Get system status
-    systemStatusHandler();
+    //systemStatusHandler();
 });
