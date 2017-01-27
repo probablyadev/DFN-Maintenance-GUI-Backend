@@ -326,9 +326,6 @@ def updateConfigFile(inProperty):
     #Only one keyval pair, so get the "last" one
     newLine = inProperty.key + " = " + inProperty.value + "\n"
     currkey = inProperty.key
-    print "-----------------"
-    print newLine
-    print "-----------------"
 
     if os.path.exists(path):
         # Create temp file

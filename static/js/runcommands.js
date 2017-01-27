@@ -460,7 +460,7 @@ $(document).ready(function () {
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colour
-            vpnLight.css("background-color", simpleColorMapping[result.internetStatus]);
+            internetLight.css("background-color", simpleColorMapping[result.internetStatus]);
             //Open up for other commands to be run
             doingCommand = false;
         });
