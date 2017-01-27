@@ -82,6 +82,8 @@ $(document).ready(function () {
     //Button click events
     $("#CameraOn").click({callback: cameraOnHandler}, preCommandOK);
     $("#CameraOff").click({callback: cameraOffHandler}, preCommandOK);
+    $("#VideoCameraOn").click({callback: videoOnHandler}, preCommandOK);
+    $("#VideoCameraOff").click({callback: videoOffHandler}, preCommandOK);
     $("#CameraStatus").click({callback: cameraStatusHandler}, preCommandOK);
     $("#DownloadPictures").click({callback: downloadPicturesHandler}, preCommandOK);
     $("#ConfirmImageDownload").click({callback: startPictureDownloadHandler}, preCommandOK);
@@ -165,6 +167,32 @@ $(document).ready(function () {
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colour
             cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
+            //Open up for other commands to be run
+            doingCommand = false;
+        });
+    }
+
+    function videoOnHandler() {
+        doingCommand = true;
+        //Feedback on button press
+        $(webConsole).append("Switching video camera on...\n");
+        //Request to turn camera on
+        $.getJSON("/videocameraon", function (result) {
+            //Set feedback text
+            addToWebConsole(result.consoleFeedback + "\n" + line);
+            //Open up for other commands to be run
+            doingCommand = false;
+        });
+    }
+
+    function videoOffHandler() {
+        doingCommand = true;
+        //Feedback on button press
+        $(webConsole).append("Switching video camera off...\n");
+        //Request to turn camera on
+        $.getJSON("/videocameraoff", function (result) {
+            //Set feedback text
+            addToWebConsole(result.consoleFeedback + "\n" + line);
             //Open up for other commands to be run
             doingCommand = false;
         });

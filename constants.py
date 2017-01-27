@@ -6,6 +6,8 @@ outputTime = "date"
 
 cameraOn = "python /opt/dfn-software/enable_camera.py"
 cameraOff = "python /opt/dfn-software/disable_camera.py"
+videoCameraOn = "python /opt/dfn-software/enable_video.py && echo SUCCESS"
+videoCameraOff = "python /opt/dfn-software/disable_video.py && echo SUCCESS"
 cameraCheck = "lsusb"
 getDirectorySize = "du -sh {0} | egrep -o '[0-9]+[A-Z]+'"
 getNumFilesInDirectory = 'find {0} -type f | wc -l'
@@ -38,6 +40,9 @@ getLogfileName = "ls /data0/{0} | grep .txt"
 # Strings used as web console output
 cameraSwitchedOn = "Camera on command executed.\n"
 cameraSwitchedOff = "Camera off command executed.\n"
+videoCameraSwitchedOn = "Video camera switched on.\n"
+videoCameraSwitchedOff = "Video camera switched off.\n"
+videoCameraOperationFailed = "Video camera operation failed.\n"
 cameraCheckOn = "\nCAMERA STATUS:\nCamera online.\n"
 cameraCheckOff = "\nCAMERA STATUS:\nCamera not found.\n"
 findPictures = "find /data[0-3] -type d -name '*{0}-{1}-{2}*' | grep -v 'test\|video'"

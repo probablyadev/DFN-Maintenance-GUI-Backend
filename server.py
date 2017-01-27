@@ -13,6 +13,8 @@ urls = ('/', 'Index',
         '/connectioncheck', 'ConnectionCheck',
         '/cameraon', 'CameraOn',
         '/cameraoff', 'CameraOff',
+        '/videocameraon', 'VideoCameraOn',
+        '/videocameraoff', 'VideoCameraOff',
         '/camerastatus', 'CameraStatus',
         '/findpictures', 'FindPictures',
         '/gpscheck', 'GPSCheck',
@@ -122,6 +124,22 @@ class CameraOff:
             statusFeedback, statusBoolean = commandSender.cameraStatus()
             data['consoleFeedback'] += statusFeedback
             data['cameraStatus'] = statusBoolean
+            outJSON = json.dumps(data)
+            return outJSON
+
+class VideoCameraOn:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            data['consoleFeedback'] = commandSender.videoCameraOn()
+            outJSON = json.dumps(data)
+            return outJSON
+
+class VideoCameraOff:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            data['consoleFeedback'] = commandSender.videoCameraOff()
             outJSON = json.dumps(data)
             return outJSON
 

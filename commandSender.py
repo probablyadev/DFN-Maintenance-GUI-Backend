@@ -36,6 +36,30 @@ def cameraOff():
 
     return feedbackOutput
 
+def videoCameraOn():
+    feedbackOutput = constants.videoCameraOperationFailed
+
+    # Do command
+    consoleFeedback = doConsoleCommand(constants.videoCameraOn)
+
+    # Parse output
+    if "SUCCESS" in consoleFeedback:
+        feedbackOutput = constants.videoCameraSwitchedOn
+
+    return feedbackOutput
+
+def videoCameraOff():
+    feedbackOutput = constants.videoCameraOperationFailed
+
+    # Do command
+    consoleFeedback = doConsoleCommand(constants.videoCameraOff)
+
+    # Parse output
+    if "SUCCESS" in consoleFeedback:
+        feedbackOutput = constants.videoCameraSwitchedOff
+
+    return feedbackOutput
+
 def cameraStatus():
     # Do command
     consoleOutput = doConsoleCommand(constants.cameraCheck)
