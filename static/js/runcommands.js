@@ -61,9 +61,11 @@ $(document).ready(function () {
     var internetLight = $('#internetLight');
     var vpnLight = $('#vpnLight');
     var intervalLight = $('#intervalLight');
+    var hdd0Light = $('#HDD0Light');
     var hdd1Light = $('#HDD1Light');
     var hdd2Light = $('#HDD2Light');
     var hdd3Light = $('#HDD3Light');
+    var hdd0Space = $('#HDD0Space');
     var hdd1Space = $('#HDD1Space');
     var hdd2Space = $('#HDD2Space');
     var hdd3Space = $('#HDD3Space');
@@ -74,7 +76,7 @@ $(document).ready(function () {
     //Useful globals + constants
     var doingCommand = false;
     var simpleColorMapping = {true: "#00FF00", false: "#FF0000"};
-    var complexColorMapping = {0: "#FF0000", 1: "#FF9900", 2: "#00FF00"}
+    var complexColorMapping = {0: "#FF0000", 1: "#FF9900", 2: "#00FF00"};
 
     //Useful strings
     var line = "-------------------------------\n"
@@ -295,9 +297,11 @@ $(document).ready(function () {
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colours
+            hdd0Light.css("background-color", complexColorMapping[result.HDD0Status]);
             hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
             hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
             hdd3Light.css("background-color", complexColorMapping[result.HDD3Status]);
+            hdd0Space.text(result.HDD0Space);
             hdd1Space.text(result.HDD1Space);
             hdd2Space.text(result.HDD2Space);
             hdd3Space.text(result.HDD3Space);
@@ -315,9 +319,11 @@ $(document).ready(function () {
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colours
+            hdd0Light.css("background-color", complexColorMapping[result.HDD0Status]);
             hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
             hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
             hdd3Light.css("background-color", complexColorMapping[result.HDD3Status]);
+            hdd0Space.text(result.HDD0Space);
             hdd1Space.text(result.HDD1Space);
             hdd2Space.text(result.HDD2Space);
             hdd3Space.text(result.HDD3Space);
@@ -335,9 +341,11 @@ $(document).ready(function () {
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colours
+            hdd0Light.css("background-color", complexColorMapping[result.HDD0Status]);
             hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
             hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
             hdd3Light.css("background-color", complexColorMapping[result.HDD3Status]);
+            hdd0Space.text(result.HDD0Space);
             hdd1Space.text(result.HDD1Space);
             hdd2Space.text(result.HDD2Space);
             hdd3Space.text(result.HDD3Space);
@@ -355,9 +363,11 @@ $(document).ready(function () {
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colours
+            hdd0Light.css("background-color", complexColorMapping[result.HDD0Status]);
             hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
             hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
             hdd3Light.css("background-color", complexColorMapping[result.HDD3Status]);
+            hdd0Space.text(result.HDD0Space);
             hdd1Space.text(result.HDD1Space);
             hdd2Space.text(result.HDD2Space);
             hdd3Space.text(result.HDD3Space);
@@ -381,9 +391,11 @@ $(document).ready(function () {
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colours
+            hdd0Light.css("background-color", complexColorMapping[result.HDD0Status]);
             hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
             hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
             hdd3Light.css("background-color", complexColorMapping[result.HDD3Status]);
+            hdd0Space.text(result.HDD0Space);
             hdd1Space.text(result.HDD1Space);
             hdd2Space.text(result.HDD2Space);
             hdd3Space.text(result.HDD3Space);
@@ -414,9 +426,11 @@ $(document).ready(function () {
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colours
+            hdd0Light.css("background-color", complexColorMapping[result.HDD0Status]);
             hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
             hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
             hdd3Light.css("background-color", complexColorMapping[result.HDD3Status]);
+            hdd0Space.text(result.HDD0Space);
             hdd1Space.text(result.HDD1Space);
             hdd2Space.text(result.HDD2Space);
             hdd3Space.text(result.HDD3Space);
@@ -434,7 +448,7 @@ $(document).ready(function () {
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colour
-            gpsLight.css("background-color", simpleColorMapping[result.gpsStatus]);
+            gpsLight.css("background-color", complexColorMapping[result.gpsStatus]);
             //Open up for other commands to be run
             doingCommand = false;
         });
@@ -473,7 +487,7 @@ $(document).ready(function () {
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colour
-            internetLight.css("background-color", simpleColorMapping[result.internetStatus]);
+            internetLight.css("background-color", complexColorMapping[result.internetStatus]);
             //Open up for other commands to be run
             doingCommand = false;
         });
@@ -676,9 +690,11 @@ $(document).ready(function () {
             gpsLight.css("background-color", simpleColorMapping[result.gpsStatus]);
             internetLight.css("background-color", simpleColorMapping[result.internetStatus]);
             vpnLight.css("background-color", simpleColorMapping[result.vpnStatus]);
+            hdd0Light.css("background-color", complexColorMapping[result.HDD0Status]);
             hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
             hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
             hdd3Light.css("background-color", complexColorMapping[result.HDD3Status]);
+            hdd0Space.text(result.HDD0Space);
             hdd1Space.text(result.HDD1Space);
             hdd2Space.text(result.HDD2Space);
             hdd3Space.text(result.HDD3Space);

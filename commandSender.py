@@ -161,12 +161,17 @@ def hddStatus():
 
     # Parse output for results
     # NB: Status 0 = Unpowered, Status 1 = Powered, but not mounted, Status 2 = Powered + Mounted
+    hdd0Status = 0
     hdd1Status = 0
     hdd2Status = 0
     hdd3Status = 0
+    hdd0Space = "-"
     hdd1Space = "-"
     hdd2Space = "-"
     hdd3Space = "-"
+
+    if "SUCCESS" in doConsoleCommand(constants.data0PoweredStatus):
+        hdd0Status = 2
 
     #TODO: Account for new architecture
     if "JMicron Technology Corp." in poweredStatus:
@@ -191,6 +196,8 @@ def hddStatus():
                 device = splitLine[5] # Get mounted name
                 spaceAvail = splitLine[4] # Get space for that mount
                 # Check if the data applies, if so assign to variable
+                if device == "/data0\n":
+                    hdd0Space = spaceAvail
                 if device == "/data1\n":
                     hdd1Space = spaceAvail
                 if device == "/data2\n":
@@ -198,9 +205,9 @@ def hddStatus():
                 if device == "/data3\n":
                     hdd3Space = spaceAvail
 
-    feedbackOutput = constants.hddStatusString.format(hddStatusDict[hdd1Status], hdd1Space, hddStatusDict[hdd2Status], hdd2Space, hddStatusDict[hdd3Status], hdd3Space)
+    feedbackOutput = constants.hddStatusString.format(hddStatusDict[hdd0Status], hdd0Space, hddStatusDict[hdd1Status], hdd1Space, hddStatusDict[hdd2Status], hdd2Space, hddStatusDict[hdd3Status], hdd3Space)
 
-    return feedbackOutput, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space
+    return feedbackOutput, hdd0Status, hdd0Space, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space
 
 def smartTest():
     smalldrives = ["usbjmicron,00", "usbjmicron,01"]
@@ -208,7 +215,7 @@ def smartTest():
     feedbackOutput = ""
 
     # If hardrives off or not mounted, get outta here!
-    feedbackOutput, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space = hddStatus()
+    feedbackOutput, hdd0Status, hdd0Space, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space = hddStatus()
     if hdd1Status != 2 and hdd2Status != 2:
         return "\nERROR: Smart test failed. Hard drives need to be powered and also mounted.\n"
 
