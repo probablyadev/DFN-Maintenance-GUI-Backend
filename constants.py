@@ -25,11 +25,11 @@ checkSmartTest= "smartctl -d {0} -a /dev/sdb"
 
 internetCheck = "ping -c 1 www.google.com"
 getInternetIP = "ifconfig | grep eth1 -A 1 | grep -o 'addr:[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' | cut -c6-"
-restartModem = "ifdown ppp0; ifup ppp0 && echo SUCCESS"
+restartModem = "ifdown ppp0; sleep 5; ifup ppp0; sleep 5; ifconfig ppp0 && echo SUCCESS"
 
 vpnCheck = "ping -c 1 10.1.16.1"
 getVpnIP = "ifconfig | grep tun0 -A 1 | grep -o 'addr:[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'| cut -c6-"
-restartVPN = "service openvpn restart && echo SUCCESS"
+restartVPN = "service openvpn restart; sleep 10; ifconfig tun0 && echo SUCCESS"
 
 intervalTest = "/opt/dfn-software/interval_control_test.sh"
 checkIntervalResults = "ls -lR /data0/latest_prev/*.NEF | wc -l"
