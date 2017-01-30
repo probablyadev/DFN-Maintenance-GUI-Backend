@@ -48,7 +48,7 @@ cameraCheckOff = "\nCAMERA STATUS:\nCamera not found.\n"
 findPictures = "find /data[0-3] -type d -name '*{0}-{1}-{2}*' | grep -v 'test\|video'"
 
 gpsCheckFailed = "\nGPS STATUS:\nGPS offline.\n"
-gpsOnline = "\nGPS STATUS:\nLock: {0}\nSatellites: {1}\nLatitude: {2}\nLongitude: {3}"
+gpsOnline = "\nGPS STATUS:\nLock: {0}\nSatellites: {1}\nLatitude: {2}\nLongitude: {3}\nAltitude: {4}"
 timezoneChanged = "\nTime zone changed to {0}.\n"
 
 internetCheckPassed = "\nINTERNET STATUS:\nInternet access available at {0}.\n"
