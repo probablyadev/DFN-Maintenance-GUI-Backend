@@ -207,6 +207,11 @@ def smartTest():
     output = {}
     feedbackOutput = ""
 
+    # If hardrives off or not mounted, get outta here!
+    feedbackOutput, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space = hddStatus()
+    if hdd1Status != 2 and hdd2Status != 2:
+        return "\nERROR: Smart test failed. Hard drives need to be powered and also mounted.\n"
+
     # Start all smart tests
     for drive in smalldrives:
         consoleOutput = doConsoleCommand(constants.runSmartTest.format(drive))
