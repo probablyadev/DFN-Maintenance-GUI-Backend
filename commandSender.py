@@ -94,12 +94,22 @@ def findPictures(inDate):
 
 # HDD Utilities
 def hddOn():
+    # If hardrives already on, get outta here!
+    feedbackOutput, hdd0Status, hdd0Space, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space = hddStatus()
+    if hdd1Status != 0 and hdd2Status != 0:
+        return constants.hddAlreadyOn
+
     # Do command
     doConsoleCommand(constants.enableHardDrive)
     time.sleep(25)
     return constants.hddCommandedOn
 
 def hddOff():
+    # If hardrives already on, get outta here!
+    feedbackOutput, hdd0Status, hdd0Space, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space = hddStatus()
+    if hdd1Status == 0 and hdd2Status == 0:
+        return constants.hddAlreadyOff
+
     # Do command
     doConsoleCommand(constants.disableHardDrive)
 

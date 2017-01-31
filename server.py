@@ -5,7 +5,7 @@ from web import form
 import os, model, commandSender, json, base64, datetime
 
 web.config.debug = False
-web.config.session_parameters['timeout'] = 7200
+web.config.session_parameters['timeout'] = 3600
 
 # Initialising web.py app object
 urls = ('/', 'Index',
@@ -99,10 +99,11 @@ class LoginChecker:
 
 class ConnectionCheck:
     def GET(self):
-        data = {}
-        data['connected'] = True
-        outJSON = json.dumps(data)
-        return outJSON
+        if LoginChecker.loggedIn():
+            data = {}
+            data['connected'] = True
+            outJSON = json.dumps(data)
+            return outJSON
 
 # Classes for different functions of the GUI
 class CameraOn:

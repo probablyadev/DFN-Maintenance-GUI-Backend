@@ -137,8 +137,22 @@ $(document).ready(function () {
     }
 
     function timedOut(jqXHR, status, errorThrown) {
-        addToWebConsole("ERROR: NO CONNECTION\n" + line);
+        if (jqXHR.status == 200) {
+            addToWebConsole("ERROR: Session timed out. Redirecting to login...\n" + line);
+            var timer = setTimeout(function() {
+                window.location.replace("/")}, 2000
+            );
+        }
+        else {
+            addToWebConsole("ERROR: NO CONNECTION\n" + line);
+        }
     }
+
+    function comfirmOnPageExit(e) {
+        return 'NOTE: Do not refresh/exit while performing an interval control test.'
+    }
+
+    window.onbeforeunload = comfirmOnPageExit;
 
     /***************************************************/
     /* CODE FOR BUTTON PRESS HANDLERS, AJAX REQUESTERS */
