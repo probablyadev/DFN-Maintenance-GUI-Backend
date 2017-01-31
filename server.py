@@ -5,6 +5,7 @@ from web import form
 import os, model, commandSender, json, base64, datetime
 
 web.config.debug = False
+web.config.session_parameters['timeout'] = 7200
 
 # Initialising web.py app object
 urls = ('/', 'Index',

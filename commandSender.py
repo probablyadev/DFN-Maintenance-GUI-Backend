@@ -165,10 +165,10 @@ def hddStatus():
     hdd1Status = 0
     hdd2Status = 0
     hdd3Status = 0
-    hdd0Space = "-"
-    hdd1Space = "-"
-    hdd2Space = "-"
-    hdd3Space = "-"
+    hdd0Space = "N/A"
+    hdd1Space = "N/A"
+    hdd2Space = "N/A"
+    hdd3Space = "N/A"
 
     if "SUCCESS" in doConsoleCommand(constants.data0PoweredStatus):
         hdd0Status = 2
