@@ -57,6 +57,7 @@ $(document).ready(function () {
     var downloadProgressSpan = $('.downloadProgressSpan')
     var imageDownloadConfirmationDetails = $('#imageDownloadConfirmationDetails');
     var cameraLight = $('#cameraLight');
+    var videoCameraLight = $('#videoCameraLight');
     var gpsLight = $('#GPSLight');
     var internetLight = $('#internetLight');
     var vpnLight = $('#vpnLight');
@@ -305,7 +306,7 @@ $(document).ready(function () {
     function hddOnHandler() {
         doingCommand = true;
         //Feedback on button press
-        $(webConsole).append("Enabling External HDDs...\n");
+        $(webConsole).append("Powering on external hard drives...\n");
         //Request to enable HDDs
         $.getJSON("/enablehdd", function (result) {
             //Set feedback text
@@ -327,7 +328,7 @@ $(document).ready(function () {
     function hddOffHandler() {
         doingCommand = true;
         //Feedback on button press
-        $(webConsole).append("Disabling External HDDs...\n");
+        $(webConsole).append("Disabling external hard drives...\n");
         //Request to enable HDDs
         $.getJSON("/disablehdd", function (result) {
             //Set feedback text
@@ -349,7 +350,7 @@ $(document).ready(function () {
     function hddMountHandler() {
         doingCommand = true;
         //Feedback on button press
-        $(webConsole).append("Mounting external HDDs...\n");
+        $(webConsole).append("Mounting external hard drives...\n");
         //Request to enable HDDs
         $.getJSON("/mounthdd", function (result) {
             //Set feedback text
@@ -371,7 +372,7 @@ $(document).ready(function () {
     function hddUnmountHandler() {
         doingCommand = true;
         //Feedback on button press
-        $(webConsole).append("Unmounting external HDDs...\n");
+        $(webConsole).append("Unmounting external hard drives...\n");
         //Request to enable HDDs
         $.getJSON("/unmounthdd", function (result) {
             //Set feedback text
@@ -393,7 +394,7 @@ $(document).ready(function () {
     function hddFormatHandler() {
         doingCommand = true;
         //Feedback on button press
-        $(webConsole).append("Formatting HDDs...\n");
+        $(webConsole).append("Formatting hard drives...\n");
         //Pack checkbox data into JSON
         var checkData = {
             installChecked: installCheck.is(':checked'),
@@ -434,7 +435,7 @@ $(document).ready(function () {
     function hddSpaceCheckHandler() {
         doingCommand = true;
         //Feedback on button press
-        $(webConsole).append("Checking external HDDs...\n");
+        $(webConsole).append("Checking hard drives...\n");
         //Request to enable HDDs
         $.getJSON("/hddcheck", function (result) {
             //Set feedback text
