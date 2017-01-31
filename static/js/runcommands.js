@@ -448,7 +448,7 @@ $(document).ready(function () {
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colour
-            gpsLight.css("background-color", complexColorMapping[result.gpsStatus]);
+            gpsLight.css("background-color", simpleColorMapping[result.gpsStatus]);
             //Open up for other commands to be run
             doingCommand = false;
         });

@@ -64,10 +64,10 @@ vpnRestartFailed = "\nERROR: VPN unable to restart successfully.\n"
 
 intervalTestPassed = "\nINTERVAL TEST RESULTS:\nInterval test passed.\n"
 intervalTestFailed = "\nINTERVAL TEST RESULTS:\nInterval test failed.\n"
-prevIntervalDidRun = "\nINTERVAL CONTROL SW RAN SUCCESSFULLY LAST NIGHT.\n"
-prevIntervalNotRun ="\nINTERVAL CONTROL SW DID NOT RUN SUCCESSFULLY LAST NIGHT.\n"
+prevIntervalDidRun = "\nINTERVAL CONTROL RAN SUCCESSFULLY LAST NIGHT.\n"
+prevIntervalNotRun ="\nINTERVAL CONTROL DID NOT RUN SUCCESSFULLY LAST NIGHT.\n"
 
-hddStatusString = "\nEXT. HDD STATUS:\n/data0: {0}, {1} full.\n/data1: {2}, {3} full.\n/data2: {4}, {5} full.\n/data3: {6}, {7} full.\n"
+hddStatusString = "\nHard Drive Status:\nInternal Drive: {0}, {1} full.\nDrive #1: {2}, {3} full.\nDrive #2: {4}, {5} full.\nDrive #3: {6}, {7} full.\n"
 hddStatusOff = "Not detected"
 hddStatusPowered = "Powered"
 hddStatusMounted = "Mounted"
