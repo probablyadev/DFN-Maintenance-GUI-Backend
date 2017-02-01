@@ -1,4 +1,4 @@
-# This file stores all constants used in this GUI.
+# This file stores all constants used on the server-side of the GUI.
 # The major constants here are different bash commands, executed server-side.
 gpsCheck = "python /opt/dfn-software/leostick_get_status.py -g"
 setTimezone = "sudo ln -fs /usr/share/zoneinfo/{0} /etc/localtime"
@@ -34,7 +34,7 @@ restartVPN = "service openvpn restart; sleep 10; ifconfig tun0 && echo SUCCESS"
 
 intervalTest = "/opt/dfn-software/interval_control_test.sh"
 checkIntervalResults = "ls -lR /data0/latest_prev/*.NEF | wc -l"
-checkPrevIntervalStatus = "find /data0/latest -exec stat -c%y {} \; | sort -n -r | head -n 1" # Actual, for now
+checkPrevIntervalStatus = "find /data0/latest -exec stat -c%y {} \; | sort -n -r | head -n 1"
 
 getLogfileName = "ls /data0/{0} | grep .txt"
 
@@ -55,12 +55,12 @@ timezoneChanged = "\nTime zone changed to {0}.\n"
 internetCheckPassed = "\nINTERNET STATUS:\nInternet access available at {0}.\n"
 internetCheckFailed = "\nINTERNET STATUS:\nNo internet access.\n"
 modemRestartPassed = "\nModem restarted successfully.\n"
-modemRestartFailed = "\nERROR: modem unable to restart successfully.\n"
+modemRestartFailed = "\nERROR: modem unable to restart successfully. Please try again.\n"
 
 vpnCheckPassed = "\nVPN STATUS:\nVPN connection available at {0}.\n"
 vpnCheckFailed = "\nVPN STATUS:\nNo VPN connection available.\n"
 vpnRestartPassed = "\nVPN restarted successfully.\n"
-vpnRestartFailed = "\nERROR: VPN unable to restart successfully.\n"
+vpnRestartFailed = "\nERROR: VPN unable to restart successfully. Please try again.\n"
 
 intervalTestPassed = "\nINTERVAL TEST RESULTS:\nInterval test passed.\n"
 intervalTestFailed = "\nINTERVAL TEST RESULTS:\nInterval test failed.\n"
@@ -95,5 +95,5 @@ configBoxWhitelist = ["vid_lens", "vid_format", "camera_fstop", "still_lens", "v
                       "camera_exposuretime", "location", "hostname", "lat", "lon",
                       "altitude", "local_contact_email", "local_contact_name"]
 
-configWriteFailed = "ERROR: Unable to write property to file."
+configWriteFailed = "ERROR: Unable to write to config file (is internal drive mounted?)."
 configWritePassed = "Overwritten {0} as {1}."

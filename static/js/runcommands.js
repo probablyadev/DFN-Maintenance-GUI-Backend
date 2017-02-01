@@ -128,7 +128,7 @@ $(document).ready(function () {
     }
 
     function consoleBlinkGreen() {
-        $(webConsole).css('border', '4px solid LimeGreen');
+        $(webConsole).css('border', '2px solid LimeGreen');
         $(webConsole).animate({
             borderTopColor: 'transparent',
             borderLeftColor: 'transparent',
@@ -519,6 +519,7 @@ $(document).ready(function () {
         //Request to check GPS status
         $.getJSON("/restartmodem", function (result) {
             closeSpinner();
+            consoleBlinkGreen();
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colour
@@ -547,8 +548,11 @@ $(document).ready(function () {
         doingCommand = true;
         //Feedback on button press
         $(webConsole).append("Restarting VPN...\n");
+        openSpinner("Restarting VPN, just a minute...");
         //Request to check GPS status
         $.getJSON("/restartvpn", function (result) {
+            closeSpinner();
+            consoleBlinkGreen();
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colour
