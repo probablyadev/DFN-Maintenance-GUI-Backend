@@ -26,7 +26,7 @@ checkSmartTest= "smartctl -d {0} -a /dev/sdb"
 
 internetCheck = "ping -c 1 www.google.com"
 getInternetIP = "ifconfig | grep eth1 -A 1 | grep -o 'addr:[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' | cut -c6-"
-restartModem = "ifdown ppp0; sleep 5; ifup ppp0; sleep 5; ifconfig ppp0 && echo SUCCESS"
+restartModem = "ifdown ppp0; sleep 8; ifup ppp0; sleep 8; ifconfig ppp0 && echo SUCCESS"
 
 vpnCheck = "ping -c 1 10.1.16.1"
 getVpnIP = "ifconfig | grep tun0 -A 1 | grep -o 'addr:[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'| cut -c6-"
@@ -67,7 +67,7 @@ intervalTestFailed = "\nINTERVAL TEST RESULTS:\nInterval test failed.\n"
 prevIntervalDidRun = "\nINTERVAL CONTROL RAN SUCCESSFULLY LAST NIGHT.\n"
 prevIntervalNotRun ="\nINTERVAL CONTROL DID NOT RUN SUCCESSFULLY LAST NIGHT.\n"
 
-hddStatusString = "\nHard Drive Status:\nSystem Drive: {0}, {1} full.\nDrive #1: {2}, {3} full.\nDrive #2: {4}, {5} full.\nDrive #3: {6}, {7} full.\n"
+hddStatusString = "\nHARD DRIVE STATUS:\nSystem Drive: {0}, {1} full.\nDrive #1: {2}, {3} full.\nDrive #2: {4}, {5} full.\nDrive #3: {6}, {7} full.\n"
 hddStatusOff = "Not detected"
 hddStatusPowered = "Powered"
 hddStatusMounted = "Mounted"
@@ -97,3 +97,5 @@ configBoxWhitelist = ["vid_lens", "vid_format", "camera_fstop", "still_lens", "v
 
 configWriteFailed = "ERROR: Unable to write to config file (is internal drive mounted?)."
 configWritePassed = "Overwritten {0} as {1}."
+
+systemStatusHeader = "\n-----OVERALL SYSTEM STATUS-----\n"

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import web
+import constants
 from web import form
 import os, model, commandSender, json, base64, datetime
 
@@ -378,7 +379,7 @@ class SystemStatus:
 
             # Encode to JSON
             data = {}
-            data['consoleFeedback'] = datetime + cameraFeedback + extHDDFeedback + internetFeedback + vpnFeedback + gpsFeedback
+            data['consoleFeedback'] = constants.systemStatusHeader + datetime + cameraFeedback + extHDDFeedback + internetFeedback + vpnFeedback + gpsFeedback
             data['cameraStatus'] = cameraBoolean
             data['gpsStatus'] = gpsBoolean
             data['internetStatus'] = internetBoolean

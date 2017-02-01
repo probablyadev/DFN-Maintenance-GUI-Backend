@@ -210,7 +210,7 @@ $(document).ready(function () {
             cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
             //Open up for other commands to be run
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     function cameraOffHandler() {
@@ -225,7 +225,7 @@ $(document).ready(function () {
             cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
             //Open up for other commands to be run
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     function videoOnHandler() {
@@ -238,7 +238,7 @@ $(document).ready(function () {
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Open up for other commands to be run
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     function videoOffHandler() {
@@ -251,7 +251,7 @@ $(document).ready(function () {
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Open up for other commands to be run
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     function cameraStatusHandler() {
@@ -266,7 +266,7 @@ $(document).ready(function () {
             cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
             //Open up for other commands to be run
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     var currDownloadDirectory;
@@ -293,7 +293,7 @@ $(document).ready(function () {
                 else {
                     window.alert("No images found for selected date.");
                 }
-            }).error(timedOut);
+            }).fail(timedOut);
         }
         else {
             window.alert("Please select a date.");
@@ -357,7 +357,7 @@ $(document).ready(function () {
             drawHDDStatus(result);
             //Open up for other commands to be run
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     function hddOffHandler() {
@@ -372,7 +372,7 @@ $(document).ready(function () {
             drawHDDStatus(result);
             //Open up for other commands to be run
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     function hddMountHandler() {
@@ -387,7 +387,7 @@ $(document).ready(function () {
             drawHDDStatus(result);
             //Open up for other commands to be run
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     function hddUnmountHandler() {
@@ -402,7 +402,7 @@ $(document).ready(function () {
             drawHDDStatus(result);
             //Open up for other commands to be run
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     function hddFormatHandler() {
@@ -423,7 +423,7 @@ $(document).ready(function () {
             drawHDDStatus(result);
             //Open up for other commands to be run
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     function smartTestHandler() {
@@ -439,7 +439,7 @@ $(document).ready(function () {
             addToWebConsole(result.consoleFeedback + line);
             //Open up for other commands to be run
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     function hddSpaceCheckHandler() {
@@ -454,7 +454,7 @@ $(document).ready(function () {
             drawHDDStatus(result);
             //Open up for other commands to be run
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     function gpsCheckHandler() {
@@ -469,7 +469,7 @@ $(document).ready(function () {
             gpsLight.css("background-color", simpleColorMapping[result.gpsStatus]);
             //Open up for other commands to be run
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     function timezoneHandler() {
@@ -481,7 +481,7 @@ $(document).ready(function () {
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Open up for other commands to be run
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     function outputTimeHandler() {
@@ -493,7 +493,7 @@ $(document).ready(function () {
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Open up for other commands to be run
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     function internetCheckHandler() {
@@ -508,7 +508,7 @@ $(document).ready(function () {
             internetLight.css("background-color", complexColorMapping[result.internetStatus]);
             //Open up for other commands to be run
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     function restartModemHandler() {
@@ -526,7 +526,7 @@ $(document).ready(function () {
             internetLight.css("background-color", simpleColorMapping[result.internetStatus]);
             //Open up for other commands to be run
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     function vpnCheckHandler() {
@@ -541,7 +541,7 @@ $(document).ready(function () {
             vpnLight.css("background-color", simpleColorMapping[result.vpnStatus]);
             //Open up for other commands to be run
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     function restartVPNHandler() {
@@ -559,7 +559,7 @@ $(document).ready(function () {
             vpnLight.css("background-color", simpleColorMapping[result.vpnStatus]);
             //Open up for other commands to be run
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     function intervalTestHandler() {
@@ -576,7 +576,7 @@ $(document).ready(function () {
             intervalLight.css("background-color", simpleColorMapping[result.intervalTestResult])
             //Open up for other commands to be run
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     function checkPrevIntervalHandler() {
@@ -588,7 +588,7 @@ $(document).ready(function () {
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Open up for other commands to be run
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     function statusConfigHandler() {
@@ -622,7 +622,7 @@ $(document).ready(function () {
             document.body.removeChild(element);
             addToWebConsole("Logfile created:\n" + result.timestamp + "\n" + line);
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     function latestPrevLogsHandler() {
@@ -640,7 +640,7 @@ $(document).ready(function () {
             document.body.removeChild(element);
             addToWebConsole("Logfile created:\n" + result.timestamp + "\n" + line);
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     var configOptions = {};
@@ -659,7 +659,7 @@ $(document).ready(function () {
             $(configFieldValue).val($("#configSelector option:selected").val());
             $(configChangeFeedback).text("");
             $(configPopupGreyScreen).css("display", "flex");
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     $("#configSelector").change(function () {
@@ -697,7 +697,7 @@ $(document).ready(function () {
             configOptions[selectedOptionText] = selectedOptionValue;
             $("#configSelector option:selected").val(selectedOptionValue)
 
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     function closeConfigEditHandler() {
@@ -720,7 +720,7 @@ $(document).ready(function () {
             drawHDDStatus(result);
             //Open up for other commands to be run
             doingCommand = false;
-        }).error(timedOut);
+        }).fail(timedOut);
     }
 
     function saveConsoleOutputHandler() {
