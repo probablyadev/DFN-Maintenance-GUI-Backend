@@ -79,7 +79,7 @@ hddAlreadyOn = "Hard drives already powered.\n"
 hddAlreadyOff = "Hard drives already powered off.\n"
 hddAlreadyMountedError = "Hard drives may have already been mounted. See status for confirmation."
 smartTestStartedSuccess = "\nSmart test for {0} successfully executed.\n"
-smartTestStartedFailed = "\nSmart test {0} failed execution (not mounted?)\n"
+smartTestStartedFailed = "\nSmart test {0} failed execution (try re-powering drives).\n"
 smartTestResultsPassed = "Smart test for {0} passed.\n"
 smartTestResultsFailed = "Smart test for {0} failed.\n"
 
