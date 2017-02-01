@@ -45,16 +45,18 @@ $(document).ready(function () {
     var webConsole = $('#feedbackText');
     var timezoneCombobox = $('#timezoneSelector');
     var downloadDateSelector = $('#downloadDateSelector');
+    var spinnerGreyScreen = $('.spinnerGreyScreen');
+    var spinnerSpan = $('.spinnerSpan');
     var configPopupGreyScreen = $('.configEditGreyScreen');
     var configSelector = $('#configSelector');
     var configFieldValue = $('#configFieldValue');
-    var configChangeFeedback = $('#configChangeFeedback')
+    var configChangeFeedback = $('#configChangeFeedback');
     var downloadGreyScreen = $('.downloadGreyScreen');
     var downloadPrompt = $('.downloadPrompt');
     var downloadConfirmation = $('.imageDownloadConfirmation');
     var downloadProgressPrompt = $('.imageDownloadProgress');
     var downloadBarInsides = $('.downloadingBarInsides');
-    var downloadProgressSpan = $('.downloadProgressSpan')
+    var downloadProgressSpan = $('.downloadProgressSpan');
     var imageDownloadConfirmationDetails = $('#imageDownloadConfirmationDetails');
     var cameraLight = $('#cameraLight');
     var videoCameraLight = $('#videoCameraLight');
@@ -307,8 +309,11 @@ $(document).ready(function () {
         doingCommand = true;
         //Feedback on button press
         $(webConsole).append("Powering on external hard drives...\n");
+        $(spinnerSpan).text("Powering on external drives, please wait ~20 seconds...");
+        $(spinnerGreyScreen).css('display', 'flex');
         //Request to enable HDDs
         $.getJSON("/enablehdd", function (result) {
+            spinnerGreyScreen.css('display', 'none');
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colours
@@ -423,8 +428,11 @@ $(document).ready(function () {
         doingCommand = true;
         //Feedback on button press
         $(webConsole).append("Running smart test...\n");
+        $(spinnerSpan).text("Performing smart test, please wait ~2 minutes...");
+        $(spinnerGreyScreen).css('display', 'flex');
         //Request for smart test results
         $.getJSON("/smarttest", function (result) {
+            $(spinnerGreyScreen).css('display', 'none');
             //Set feedback text
             addToWebConsole(result.consoleFeedback + line);
             //Open up for other commands to be run
@@ -555,9 +563,12 @@ $(document).ready(function () {
 
     function intervalTestHandler() {
         doingCommand = true;
+        $(spinnerSpan).text("Performing interval test... Go grab some coffee!");
+        $(spinnerGreyScreen).css('display', 'flex');
         $(webConsole).append("Performing interval test...\n");
         //Request to perform interval test
         $.getJSON("/intervaltest", function (result) {
+            $(spinnerGreyScreen).css('display', 'none');
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colours

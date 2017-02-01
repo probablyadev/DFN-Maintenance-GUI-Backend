@@ -1,0 +1,66 @@
+.spinnerGreyScreen
+  width: 100%
+  height: 100%
+  position: absolute
+  left: 0
+  top: 0
+  z-index: 10
+  background-color: rgba(38, 38, 38, 0.9)
+  display: none
+  align-items: center
+  justify-content: center
+
+  .spinnerPrompt
+    padding: 15px
+    background-color: $regularred
+    display: inherit
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    +border-radius(5px)
+    position: relative
+
+    .spinnerImage
+      width: 40px
+      height: 40px
+      border: 4px solid $darkred
+      +border-radius(50%)
+      position: relative
+      margin: 20px
+      display: inline-block
+
+      &:after, &:before
+        content: ''
+        display: block
+        width: 40px
+        height: 40px
+        +border-radius(50%)
+
+
+    .spinnerImage:after
+      position: absolute
+      top: -4px
+      left: -4px
+      border: 4px solid #FFF
+      border-bottom-color: transparent
+      animation: spinnerAnim 1.2s linear infinite
+
+    @keyframes spinnerAnim
+      0%
+        +transform(rotate(0deg))
+      100%
+        +transform(rotate(360deg))
+
+
+  @keyframes spinnerAnim
+    0%
+      +transform(rotate(0deg))
+
+    50%
+      +transform(rotate(180deg))
+
+    100%
+      +transform(rotate(360deg))
+
+  .spinnerSpan
+    color: #FFF
