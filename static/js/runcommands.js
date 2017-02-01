@@ -140,9 +140,12 @@ $(document).ready(function () {
     }
 
     function timedOut(jqXHR, status, errorThrown) {
+        $(configPopupGreyScreen).css('display', 'none');
+        $(downloadGreyScreen).css('display', 'none');
+        $(spinnerGreyScreen).css('display', 'none');
         if (jqXHR.status == 200) {
             addToWebConsole("ERROR: Session timed out. Redirecting to login...\n" + line);
-            var timer = setTimeout(function() {
+            setTimeout(function() {
                 window.location.replace("/")}, 2000
             );
         }
@@ -173,7 +176,7 @@ $(document).ready(function () {
             cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
             //Open up for other commands to be run
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     function cameraOffHandler() {
@@ -188,7 +191,7 @@ $(document).ready(function () {
             cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
             //Open up for other commands to be run
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     function videoOnHandler() {
@@ -201,7 +204,7 @@ $(document).ready(function () {
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Open up for other commands to be run
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     function videoOffHandler() {
@@ -214,7 +217,7 @@ $(document).ready(function () {
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Open up for other commands to be run
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     function cameraStatusHandler() {
@@ -229,7 +232,7 @@ $(document).ready(function () {
             cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
             //Open up for other commands to be run
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     var currDownloadDirectory;
@@ -256,7 +259,7 @@ $(document).ready(function () {
                 else {
                     window.alert("No images found for selected date.");
                 }
-            });
+            }).error(timedOut);
         }
         else {
             window.alert("Please select a date.");
@@ -327,7 +330,7 @@ $(document).ready(function () {
             hdd3Space.text(result.HDD3Space);
             //Open up for other commands to be run
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     function hddOffHandler() {
@@ -349,7 +352,7 @@ $(document).ready(function () {
             hdd3Space.text(result.HDD3Space);
             //Open up for other commands to be run
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     function hddMountHandler() {
@@ -371,7 +374,7 @@ $(document).ready(function () {
             hdd3Space.text(result.HDD3Space);
             //Open up for other commands to be run
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     function hddUnmountHandler() {
@@ -393,7 +396,7 @@ $(document).ready(function () {
             hdd3Space.text(result.HDD3Space);
             //Open up for other commands to be run
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     function hddFormatHandler() {
@@ -421,7 +424,7 @@ $(document).ready(function () {
             hdd3Space.text(result.HDD3Space);
             //Open up for other commands to be run
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     function smartTestHandler() {
@@ -437,7 +440,7 @@ $(document).ready(function () {
             addToWebConsole(result.consoleFeedback + line);
             //Open up for other commands to be run
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     function hddSpaceCheckHandler() {
@@ -459,7 +462,7 @@ $(document).ready(function () {
             hdd3Space.text(result.HDD3Space);
             //Open up for other commands to be run
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     function gpsCheckHandler() {
@@ -474,7 +477,7 @@ $(document).ready(function () {
             gpsLight.css("background-color", simpleColorMapping[result.gpsStatus]);
             //Open up for other commands to be run
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     function timezoneHandler() {
@@ -486,7 +489,7 @@ $(document).ready(function () {
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Open up for other commands to be run
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     function outputTimeHandler() {
@@ -498,7 +501,7 @@ $(document).ready(function () {
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Open up for other commands to be run
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     function internetCheckHandler() {
@@ -513,7 +516,7 @@ $(document).ready(function () {
             internetLight.css("background-color", complexColorMapping[result.internetStatus]);
             //Open up for other commands to be run
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     function restartModemHandler() {
@@ -528,7 +531,7 @@ $(document).ready(function () {
             internetLight.css("background-color", simpleColorMapping[result.internetStatus]);
             //Open up for other commands to be run
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     function vpnCheckHandler() {
@@ -543,7 +546,7 @@ $(document).ready(function () {
             vpnLight.css("background-color", simpleColorMapping[result.vpnStatus]);
             //Open up for other commands to be run
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     function restartVPNHandler() {
@@ -558,7 +561,7 @@ $(document).ready(function () {
             vpnLight.css("background-color", simpleColorMapping[result.vpnStatus]);
             //Open up for other commands to be run
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     function intervalTestHandler() {
@@ -575,7 +578,7 @@ $(document).ready(function () {
             intervalLight.css("background-color", simpleColorMapping[result.intervalTestResult])
             //Open up for other commands to be run
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     function checkPrevIntervalHandler() {
@@ -587,7 +590,7 @@ $(document).ready(function () {
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Open up for other commands to be run
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     function statusConfigHandler() {
@@ -621,7 +624,7 @@ $(document).ready(function () {
             document.body.removeChild(element);
             addToWebConsole("Logfile created:\n" + result.timestamp + "\n" + line);
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     function latestPrevLogsHandler() {
@@ -639,7 +642,7 @@ $(document).ready(function () {
             document.body.removeChild(element);
             addToWebConsole("Logfile created:\n" + result.timestamp + "\n" + line);
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     var configOptions = {};
@@ -658,7 +661,7 @@ $(document).ready(function () {
             $(configFieldValue).val($("#configSelector option:selected").val());
             $(configChangeFeedback).text("");
             $(configPopupGreyScreen).css("display", "flex");
-        });
+        }).error(timedOut);
     }
 
     $("#configSelector").change(function () {
@@ -696,7 +699,7 @@ $(document).ready(function () {
             configOptions[selectedOptionText] = selectedOptionValue;
             $("#configSelector option:selected").val(selectedOptionValue)
 
-        });
+        }).error(timedOut);
     }
 
     function closeConfigEditHandler() {
@@ -726,7 +729,7 @@ $(document).ready(function () {
             hdd3Space.text(result.HDD3Space);
             //Open up for other commands to be run
             doingCommand = false;
-        });
+        }).error(timedOut);
     }
 
     function saveConsoleOutputHandler() {
