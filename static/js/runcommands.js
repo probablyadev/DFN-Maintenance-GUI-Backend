@@ -128,7 +128,6 @@ $(document).ready(function () {
     }
 
     function consoleBlinkGreen() {
-        spinnerGreyScreen.css('display', 'none');
         $(webConsole).css('border', '4px solid LimeGreen');
         $(webConsole).animate({
             borderTopColor: 'transparent',
@@ -149,6 +148,15 @@ $(document).ready(function () {
         hdd3Space.text(result.HDD3Space);
     }
 
+    function openSpinner(message) {
+        $(spinnerSpan).text(message);
+        $(spinnerGreyScreen).css('display', 'flex');
+    }
+
+    function closeSpinner() {
+        spinnerGreyScreen.css('display', 'none');
+    }
+
     //Code runs before each command is executed and checks for connection and command state
     function preCommandOK(event) {
         if (!doingCommand) {
@@ -165,7 +173,7 @@ $(document).ready(function () {
     function timedOut(jqXHR, status, errorThrown) {
         $(configPopupGreyScreen).css('display', 'none');
         $(downloadGreyScreen).css('display', 'none');
-        $(spinnerGreyScreen).css('display', 'none');
+        closeSpinner();
         if (jqXHR.status == 200) {
             addToWebConsole("ERROR: Session timed out. Redirecting to login...\n" + line);
             setTimeout(function() {
@@ -191,8 +199,11 @@ $(document).ready(function () {
         doingCommand = true;
         //Feedback on button press
         $(webConsole).append("Switching camera on...\n");
+        openSpinner("Switching camera on, sit tight...");
         //Request to turn camera on
         $.getJSON("/cameraon", function (result) {
+            closeSpinner();
+            consoleBlinkGreen();
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colour
@@ -335,10 +346,10 @@ $(document).ready(function () {
         doingCommand = true;
         //Feedback on button press
         $(webConsole).append("Powering on external hard drives...\n");
-        $(spinnerSpan).text("Powering on external drives, please wait ~20 seconds...");
-        $(spinnerGreyScreen).css('display', 'flex');
+        openSpinner("Powering on external drives, please wait ~20 seconds...");
         //Request to enable HDDs
         $.getJSON("/enablehdd", function (result) {
+            closeSpinner();
             consoleBlinkGreen();
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
@@ -419,10 +430,10 @@ $(document).ready(function () {
         doingCommand = true;
         //Feedback on button press
         $(webConsole).append("Running smart test...\n");
-        $(spinnerSpan).text("Performing smart test, please wait ~2 minutes...");
-        $(spinnerGreyScreen).css('display', 'flex');
+        openSpinner("Performing smart test, please wait ~2 minutes...");
         //Request for smart test results
         $.getJSON("/smarttest", function (result) {
+            closeSpinner();
             consoleBlinkGreen();
             //Set feedback text
             addToWebConsole(result.consoleFeedback + line);
@@ -504,8 +515,10 @@ $(document).ready(function () {
         doingCommand = true;
         //Feedback on button press
         $(webConsole).append("Restarting modem...\n");
+        openSpinner("Restarting modem, just a minute...");
         //Request to check GPS status
         $.getJSON("/restartmodem", function (result) {
+            closeSpinner();
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colour
@@ -547,11 +560,11 @@ $(document).ready(function () {
 
     function intervalTestHandler() {
         doingCommand = true;
-        $(spinnerSpan).text("Performing interval test... Go grab some coffee!");
-        $(spinnerGreyScreen).css('display', 'flex');
+        openSpinner("Performing interval test... Go grab some coffee!");
         $(webConsole).append("Performing interval test...\n");
         //Request to perform interval test
         $.getJSON("/intervaltest", function (result) {
+            closeSpinner();
             consoleBlinkGreen();
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
