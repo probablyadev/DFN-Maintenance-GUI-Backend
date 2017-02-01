@@ -119,11 +119,34 @@ $(document).ready(function () {
     $("#ConfigPopupSave").click({callback: saveConfigChanges}, preCommandOK);
     $("#SaveConsoleOutput").click({callback: saveConsoleOutputHandler}, preCommandOK);
 
+    //Useful frontend feedback functions
     //Code for adding to web console
     function addToWebConsole(inputText) {
         $(webConsole).append(inputText);
         if (webConsole.length)
             webConsole.scrollTop(webConsole[0].scrollHeight - webConsole.height());
+    }
+
+    function consoleBlinkGreen() {
+        spinnerGreyScreen.css('display', 'none');
+        $(webConsole).css('border', '4px solid LimeGreen');
+        $(webConsole).animate({
+            borderTopColor: 'transparent',
+            borderLeftColor: 'transparent',
+            borderRightColor: 'transparent',
+            borderBottomColor: 'transparent'
+        }, 600, 'swing');
+    }
+
+    function drawHDDStatus(result) {
+        hdd0Light.css("background-color", complexColorMapping[result.HDD0Status]);
+        hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
+        hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
+        hdd3Light.css("background-color", complexColorMapping[result.HDD3Status]);
+        hdd0Space.text(result.HDD0Space);
+        hdd1Space.text(result.HDD1Space);
+        hdd2Space.text(result.HDD2Space);
+        hdd3Space.text(result.HDD3Space);
     }
 
     //Code runs before each command is executed and checks for connection and command state
@@ -316,18 +339,11 @@ $(document).ready(function () {
         $(spinnerGreyScreen).css('display', 'flex');
         //Request to enable HDDs
         $.getJSON("/enablehdd", function (result) {
-            spinnerGreyScreen.css('display', 'none');
+            consoleBlinkGreen();
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colours
-            hdd0Light.css("background-color", complexColorMapping[result.HDD0Status]);
-            hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
-            hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
-            hdd3Light.css("background-color", complexColorMapping[result.HDD3Status]);
-            hdd0Space.text(result.HDD0Space);
-            hdd1Space.text(result.HDD1Space);
-            hdd2Space.text(result.HDD2Space);
-            hdd3Space.text(result.HDD3Space);
+            drawHDDStatus(result);
             //Open up for other commands to be run
             doingCommand = false;
         }).error(timedOut);
@@ -342,14 +358,7 @@ $(document).ready(function () {
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colours
-            hdd0Light.css("background-color", complexColorMapping[result.HDD0Status]);
-            hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
-            hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
-            hdd3Light.css("background-color", complexColorMapping[result.HDD3Status]);
-            hdd0Space.text(result.HDD0Space);
-            hdd1Space.text(result.HDD1Space);
-            hdd2Space.text(result.HDD2Space);
-            hdd3Space.text(result.HDD3Space);
+            drawHDDStatus(result);
             //Open up for other commands to be run
             doingCommand = false;
         }).error(timedOut);
@@ -364,14 +373,7 @@ $(document).ready(function () {
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colours
-            hdd0Light.css("background-color", complexColorMapping[result.HDD0Status]);
-            hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
-            hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
-            hdd3Light.css("background-color", complexColorMapping[result.HDD3Status]);
-            hdd0Space.text(result.HDD0Space);
-            hdd1Space.text(result.HDD1Space);
-            hdd2Space.text(result.HDD2Space);
-            hdd3Space.text(result.HDD3Space);
+            drawHDDStatus(result);
             //Open up for other commands to be run
             doingCommand = false;
         }).error(timedOut);
@@ -386,14 +388,7 @@ $(document).ready(function () {
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colours
-            hdd0Light.css("background-color", complexColorMapping[result.HDD0Status]);
-            hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
-            hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
-            hdd3Light.css("background-color", complexColorMapping[result.HDD3Status]);
-            hdd0Space.text(result.HDD0Space);
-            hdd1Space.text(result.HDD1Space);
-            hdd2Space.text(result.HDD2Space);
-            hdd3Space.text(result.HDD3Space);
+            drawHDDStatus(result);
             //Open up for other commands to be run
             doingCommand = false;
         }).error(timedOut);
@@ -414,14 +409,7 @@ $(document).ready(function () {
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colours
-            hdd0Light.css("background-color", complexColorMapping[result.HDD0Status]);
-            hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
-            hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
-            hdd3Light.css("background-color", complexColorMapping[result.HDD3Status]);
-            hdd0Space.text(result.HDD0Space);
-            hdd1Space.text(result.HDD1Space);
-            hdd2Space.text(result.HDD2Space);
-            hdd3Space.text(result.HDD3Space);
+            drawHDDStatus(result);
             //Open up for other commands to be run
             doingCommand = false;
         }).error(timedOut);
@@ -435,7 +423,7 @@ $(document).ready(function () {
         $(spinnerGreyScreen).css('display', 'flex');
         //Request for smart test results
         $.getJSON("/smarttest", function (result) {
-            $(spinnerGreyScreen).css('display', 'none');
+            consoleBlinkGreen();
             //Set feedback text
             addToWebConsole(result.consoleFeedback + line);
             //Open up for other commands to be run
@@ -452,14 +440,7 @@ $(document).ready(function () {
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colours
-            hdd0Light.css("background-color", complexColorMapping[result.HDD0Status]);
-            hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
-            hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
-            hdd3Light.css("background-color", complexColorMapping[result.HDD3Status]);
-            hdd0Space.text(result.HDD0Space);
-            hdd1Space.text(result.HDD1Space);
-            hdd2Space.text(result.HDD2Space);
-            hdd3Space.text(result.HDD3Space);
+            drawHDDStatus(result);
             //Open up for other commands to be run
             doingCommand = false;
         }).error(timedOut);
@@ -571,7 +552,7 @@ $(document).ready(function () {
         $(webConsole).append("Performing interval test...\n");
         //Request to perform interval test
         $.getJSON("/intervaltest", function (result) {
-            $(spinnerGreyScreen).css('display', 'none');
+            consoleBlinkGreen();
             //Set feedback text
             addToWebConsole(result.consoleFeedback + "\n" + line);
             //Set light colours
@@ -719,14 +700,7 @@ $(document).ready(function () {
             gpsLight.css("background-color", simpleColorMapping[result.gpsStatus]);
             internetLight.css("background-color", simpleColorMapping[result.internetStatus]);
             vpnLight.css("background-color", simpleColorMapping[result.vpnStatus]);
-            hdd0Light.css("background-color", complexColorMapping[result.HDD0Status]);
-            hdd1Light.css("background-color", complexColorMapping[result.HDD1Status]);
-            hdd2Light.css("background-color", complexColorMapping[result.HDD2Status]);
-            hdd3Light.css("background-color", complexColorMapping[result.HDD3Status]);
-            hdd0Space.text(result.HDD0Space);
-            hdd1Space.text(result.HDD1Space);
-            hdd2Space.text(result.HDD2Space);
-            hdd3Space.text(result.HDD3Space);
+            drawHDDStatus(result);
             //Open up for other commands to be run
             doingCommand = false;
         }).error(timedOut);
