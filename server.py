@@ -6,7 +6,7 @@ from web import form
 import os, model, commandSender, json, base64, datetime
 
 web.config.debug = False
-web.config.session_parameters['timeout'] = 3600
+web.config.session_parameters['timeout'] = 5
 
 # Initialising web.py app object
 urls = ('/', 'Index',
@@ -98,14 +98,6 @@ class LoginChecker:
         else:
             raise web.seeother('/')
 
-class ConnectionCheck:
-    def GET(self):
-        if LoginChecker.loggedIn():
-            data = {}
-            data['connected'] = True
-            outJSON = json.dumps(data)
-            return outJSON
-
 # Classes for different functions of the GUI
 class CameraOn:
     def GET(self):
@@ -158,9 +150,8 @@ class FindPictures:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
-            data['foundDirectory'], data['filesize'], data['filepath'] = commandSender.findPictures(web.input())
-            outJSON = json.dumps(data)
-            return outJSON
+            fileBankJSON = commandSender.findPictures(web.input())
+            return fileBankJSON
 
 class EnableHDD:
     def GET(self):

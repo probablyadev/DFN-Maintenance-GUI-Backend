@@ -5,6 +5,7 @@ import re
 import time
 import datetime
 import os
+import json
 from tempfile import mkstemp
 from shutil import move
 from os import remove, close
@@ -76,6 +77,7 @@ def cameraStatus():
     return feedbackOutput, status
 
 def findPictures(inDate):
+    data = {}
     # Let's do some directory searching!
     day = inDate.day.zfill(2)
     month = inDate.month.zfill(2)
@@ -84,13 +86,19 @@ def findPictures(inDate):
     command = commandTemplate.format(year, month, day)
     foundDirectories = doConsoleCommand(command)
     directoriesList = foundDirectories.split('\n')
-    if directoriesList[0] == "":
-        return False, 0, ""
-    else:
-        # Find file size of said directory
-        command = constants.getDirectorySize
-        size = doConsoleCommand(command.format(directoriesList[0]))
-        return True, size, directoriesList[0]
+
+    if directoriesList:
+        # Find all dates + times for all directories
+        data = {}
+        for directory in directoriesList:
+            fileList = doConsoleCommand("ls " + directory).split("\n")
+            for fileName in fileList:
+                if ".NEF" in fileName:
+                    filePath = (directory + "/" + fileName)
+                    fileModTime = datetime.datetime.fromtimestamp(os.path.getmtime(filePath)).strftime("%H:%M:%S")
+                    data[fileModTime] = filePath
+
+        return json.dumps(data)
 
 # HDD Utilities
 def hddOn():

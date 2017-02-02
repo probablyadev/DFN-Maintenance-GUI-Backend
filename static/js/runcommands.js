@@ -53,11 +53,6 @@ $(document).ready(function () {
     var configChangeFeedback = $('#configChangeFeedback');
     var downloadGreyScreen = $('.downloadGreyScreen');
     var downloadPrompt = $('.downloadPrompt');
-    var downloadConfirmation = $('.imageDownloadConfirmation');
-    var downloadProgressPrompt = $('.imageDownloadProgress');
-    var downloadBarInsides = $('.downloadingBarInsides');
-    var downloadProgressSpan = $('.downloadProgressSpan');
-    var imageDownloadConfirmationDetails = $('#imageDownloadConfirmationDetails');
     var cameraLight = $('#cameraLight');
     var videoCameraLight = $('#videoCameraLight');
     var gpsLight = $('#GPSLight');
@@ -82,42 +77,41 @@ $(document).ready(function () {
     var complexColorMapping = {0: "#FF0000", 1: "#FF9900", 2: "#00FF00"};
 
     //Useful strings
-    var line = "-------------------------------\n"
+    var line = "-------------------------------\n";
 
     //Button click events
-    $("#CameraOn").click({callback: cameraOnHandler}, preCommandOK);
-    $("#CameraOff").click({callback: cameraOffHandler}, preCommandOK);
-    $("#VideoCameraOn").click({callback: videoOnHandler}, preCommandOK);
-    $("#VideoCameraOff").click({callback: videoOffHandler}, preCommandOK);
-    $("#CameraStatus").click({callback: cameraStatusHandler}, preCommandOK);
-    $("#DownloadPictures").click({callback: downloadPicturesHandler}, preCommandOK);
-    $("#ConfirmImageDownload").click({callback: startPictureDownloadHandler}, preCommandOK);
-    $("#CancelImageDownload").click({callback: cancelPictureDownloadHandler}, preCommandOK);
-    $("#CancelImageDownloadInProgress").click({callback: cancelPictureDownloadHandler}, preCommandOK);
-    $("#HDDOn").click({callback: hddOnHandler}, preCommandOK);
-    $("#HDDOff").click({callback: hddOffHandler}, preCommandOK);
-    $("#MountHDD").click({callback: hddMountHandler}, preCommandOK);
-    $("#UnmountHDD").click({callback: hddUnmountHandler}, preCommandOK);
-    $("#FormatDrives").click({callback: hddFormatHandler}, preCommandOK);
-    $("#HDDRunSmartTest").click({callback: smartTestHandler}, preCommandOK);
-    $("#CheckSpace").click({callback: hddSpaceCheckHandler}, preCommandOK);
-    $("#GPSCheck").click({callback: gpsCheckHandler}, preCommandOK);
-    $("#ChangeTimezone").click({callback: timezoneHandler}, preCommandOK);
-    $("#OutputTime").click({callback: outputTimeHandler}, preCommandOK);
-    $("#IntervalCheck").click({callback: intervalTestHandler}, preCommandOK);
-    $("#PrevIntervalCheck").click({callback: checkPrevIntervalHandler}, preCommandOK);
-    $("#InternetCheck").click({callback: internetCheckHandler}, preCommandOK);
-    $("#RestartModem").click({callback: restartModemHandler}, preCommandOK);
-    $("#VPNCheck").click({callback: vpnCheckHandler}, preCommandOK);
-    $("#RestartVPN").click({callback: restartVPNHandler}, preCommandOK);
-    $("#StatusCheck").click({callback: systemStatusHandler}, preCommandOK);
-    $("#StatusConfig").click({callback: statusConfigHandler}, preCommandOK);
-    $("#CheckLatestLogs").click({callback: latestLogsHandler}, preCommandOK);
-    $("#CheckLatestPrevLogs").click({callback: latestPrevLogsHandler}, preCommandOK);
-    $("#EditDFNConfig").click({callback: populateConfigChangeBox}, preCommandOK);
+    $("#CameraOn").click(cameraOnHandler);
+    $("#CameraOff").click(cameraOffHandler);
+    $("#VideoCameraOn").click(videoOnHandler);
+    $("#VideoCameraOff").click(videoOffHandler);
+    $("#CameraStatus").click(cameraStatusHandler);
+    $("#DownloadPictures").click(downloadPicturesHandler);
+    $("#downloadDateSelector").datepicker().on("input change", downloadPicturesHandler);
+    $("#CancelImageDownload").click(cancelPictureDownloadHandler);
+    $("#HDDOn").click(hddOnHandler);
+    $("#HDDOff").click(hddOffHandler);
+    $("#MountHDD").click(hddMountHandler);
+    $("#UnmountHDD").click(hddUnmountHandler);
+    $("#FormatDrives").click(hddFormatHandler);
+    $("#HDDRunSmartTest").click(smartTestHandler);
+    $("#CheckSpace").click(hddSpaceCheckHandler);
+    $("#GPSCheck").click(gpsCheckHandler);
+    $("#ChangeTimezone").click(timezoneHandler);
+    $("#OutputTime").click(outputTimeHandler);
+    $("#IntervalCheck").click(intervalTestHandler);
+    $("#PrevIntervalCheck").click(checkPrevIntervalHandler);
+    $("#InternetCheck").click(internetCheckHandler);
+    $("#RestartModem").click(restartModemHandler);
+    $("#VPNCheck").click(vpnCheckHandler);
+    $("#RestartVPN").click(restartVPNHandler);
+    $("#StatusCheck").click(systemStatusHandler);
+    $("#StatusConfig").click(statusConfigHandler);
+    $("#CheckLatestLogs").click(latestLogsHandler);
+    $("#CheckLatestPrevLogs").click(latestPrevLogsHandler);
+    $("#EditDFNConfig").click(populateConfigChangeBox);
     $("#ConfigPopupExit").click(closeConfigEditHandler);
-    $("#ConfigPopupSave").click({callback: saveConfigChanges}, preCommandOK);
-    $("#SaveConsoleOutput").click({callback: saveConsoleOutputHandler}, preCommandOK);
+    $("#ConfigPopupSave").click(saveConfigChanges);
+    $("#SaveConsoleOutput").click(saveConsoleOutputHandler);
 
     //Useful frontend feedback functions
     //Code for adding to web console
@@ -157,19 +151,6 @@ $(document).ready(function () {
         spinnerGreyScreen.css('display', 'none');
     }
 
-    //Code runs before each command is executed and checks for connection and command state
-    function preCommandOK(event) {
-        if (!doingCommand) {
-            $.ajax({
-                url: '/connectioncheck',
-                dataType: 'json',
-                success: event.data.callback,
-                timeout: 3000,
-                error: timedOut
-            });
-        }
-    }
-
     function timedOut(jqXHR, status, errorThrown) {
         $(configPopupGreyScreen).css('display', 'none');
         $(downloadGreyScreen).css('display', 'none');
@@ -182,14 +163,9 @@ $(document).ready(function () {
         }
         else {
             addToWebConsole("ERROR: NO CONNECTION\n" + line);
+            doingCommand = false;
         }
     }
-
-    function comfirmOnPageExit(e) {
-        return 'NOTE: Do not refresh/exit while performing an interval control test.'
-    }
-
-    window.onbeforeunload = comfirmOnPageExit;
 
     /***************************************************/
     /* CODE FOR BUTTON PRESS HANDLERS, AJAX REQUESTERS */
@@ -269,15 +245,13 @@ $(document).ready(function () {
         }).fail(timedOut);
     }
 
-    var currDownloadDirectory;
-
     function downloadPicturesHandler() {
         doingCommand = true;
         //Get the file size of pictures from that date date (if they exist)
         var selectedDate = $(downloadDateSelector).datepicker('getDate');
         if (selectedDate != null) {
-            var selectedDay = selectedDate.getDate()
-            var selectedMonth = selectedDate.getMonth() + 1
+            var selectedDay = selectedDate.getDate();
+            var selectedMonth = selectedDate.getMonth() + 1;
             var selectedYear = selectedDate.getFullYear();
 
             $.getJSON("/findpictures", {
@@ -285,59 +259,23 @@ $(document).ready(function () {
                 month: selectedMonth,
                 year: selectedYear
             }, function (result) {
-                if (result.foundDirectory) {
-                    $(imageDownloadConfirmationDetails).text(result.filesize);
-                    $(downloadGreyScreen).css("display", "flex");
-                    currDownloadDirectory = result.filepath
+                if (!$.isEmptyObject(result)) {
+                    //$(downloadGreyScreen).css("display", "flex");
+                    console.log(result);
                 }
                 else {
                     window.alert("No images found for selected date.");
                 }
+                doingCommand = false;
             }).fail(timedOut);
         }
         else {
             window.alert("Please select a date.");
+            doingCommand = false;
         }
     }
 
-    function startPictureDownloadHandler() {
-        //Change display to loading bar window
-        $(downloadConfirmation).css("display", "none");
-        $(downloadProgressPrompt).css("display", "flex");
-        downloadBarInsides.css("width", "25%");
-        downloadProgressSpan.text("0%");
-
-        //Go start that download thread, boss.
-        /*$.getJSON("/startdownload", {directory: currDownloadDirectory}, function (result) {
-         if(result.success) {
-         finished = false;
-         while(finished == false) {
-         //Go fetch progress
-         $.getJSON("/downloadProgress", function (progressResult) {
-         if(progressResult.finished) {
-         finished = true;
-         }
-         else {
-         progress = progressResult.percent;
-         downloadBarInsides.css("width", progressResult.percent.toString() + "%");
-         downloadProgressSpan.text(progressResult.percent.toString() + "%");
-         }
-         });
-         //Wait half a second before fetching progress again
-         setTimeout(function(){return}, 500);
-         }
-         window.alert("Download successful.")
-         cancelPictureDownloadHandler()
-         }
-         else {
-         window.alert("ERROR: Download request unsuccessful. (Possible causes include the USB not being found, the files not existing, etc.")
-         }
-         });*/
-    }
-
     function cancelPictureDownloadHandler() {
-        $(downloadConfirmation).css("display", "flex");
-        $(downloadProgressPrompt).css("display", "none");
         $(downloadGreyScreen).css("display", "none");
         doingCommand = false;
     }

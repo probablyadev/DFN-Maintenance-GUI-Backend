@@ -82,9 +82,9 @@
                     <h4>Download Pictures</h4>
                     <div class="downloadFormWrapper">
                         <label for="downloadDateSelector">Date: </label>
-                        <input type="text" id="downloadDateSelector" class="datepicker">
+                        <input type="text" id="downloadDateSelector" class="datepicker" readonly="readonly">
                     </div>
-                    <button type="button" class="commandButton disabled" id="DownloadPictures" disabled>Download</button>
+                    <button type="button" class="commandButton" id="DownloadPictures">Download</button>
                 </div>
                 <div class="linebreak"></div>
                 <button type="button" class="commandButton disabled" id="TakeCameraShot" disabled>Shoot Picture</button>
@@ -476,20 +476,6 @@
 
     <div class="downloadGreyScreen">
         <div class="downloadPrompt">
-            <div class="imageDownloadConfirmation">
-                <div class="downloadWarningMessageWrapper">
-                    <p>Are you sure you'd like to download <span id="imageDownloadConfirmationDetails"></span> of images?</p>
-                </div>
-                <button type="button" class="commandButton" id="ConfirmImageDownload">Download</button>
-                <button type="button" class="commandButton" id="CancelImageDownload">Cancel</button>
-            </div>
-            <div class="imageDownloadProgress">
-                <div class="imageDownloadLoadingBar">
-                  <span class="downloadingBarInsides"></span>
-                </div>
-                <span class="downloadProgressSpan"></span>
-                <button type="button" class="commandButton" id="CancelImageDownloadInProgress">Cancel</button>
-            </div>
         </div>
     </div>
     <div class="configEditGreyScreen">
