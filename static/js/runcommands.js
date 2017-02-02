@@ -45,14 +45,13 @@ $(document).ready(function () {
     var webConsole = $('#feedbackText');
     var timezoneCombobox = $('#timezoneSelector');
     var downloadDateSelector = $('#downloadDateSelector');
+    var downloadTimeSelector = $('#downloadTimeSelector');
     var spinnerGreyScreen = $('.spinnerGreyScreen');
     var spinnerSpan = $('.spinnerSpan');
     var configPopupGreyScreen = $('.configEditGreyScreen');
     var configSelector = $('#configSelector');
     var configFieldValue = $('#configFieldValue');
     var configChangeFeedback = $('#configChangeFeedback');
-    var downloadGreyScreen = $('.downloadGreyScreen');
-    var downloadPrompt = $('.downloadPrompt');
     var cameraLight = $('#cameraLight');
     var videoCameraLight = $('#videoCameraLight');
     var gpsLight = $('#GPSLight');
@@ -157,8 +156,9 @@ $(document).ready(function () {
         closeSpinner();
         if (jqXHR.status == 200) {
             addToWebConsole("ERROR: Session timed out. Redirecting to login...\n" + line);
-            setTimeout(function() {
-                window.location.replace("/")}, 2000
+            setTimeout(function () {
+                    window.location.replace("/")
+                }, 2000
             );
         }
         else {
@@ -247,7 +247,9 @@ $(document).ready(function () {
 
     function downloadPicturesHandler() {
         doingCommand = true;
-        //Get the file size of pictures from that date date (if they exist)
+        //Reset time selector
+        $(downloadTimeSelector).find('option').remove().end();
+        //Get the list of pictures and their timestamps from that date (if they exist)
         var selectedDate = $(downloadDateSelector).datepicker('getDate');
         if (selectedDate != null) {
             var selectedDay = selectedDate.getDate();
@@ -260,8 +262,12 @@ $(document).ready(function () {
                 year: selectedYear
             }, function (result) {
                 if (!$.isEmptyObject(result)) {
-                    //$(downloadGreyScreen).css("display", "flex");
-                    console.log(result);
+                    configOptions = result;
+                    $.each(result, function (k, v) {
+                        $(downloadTimeSelector).append(
+                            $('<option>', {text: k, value: v})
+                        );
+                    });
                 }
                 else {
                     window.alert("No images found for selected date.");
@@ -619,14 +625,13 @@ $(document).ready(function () {
         }
     });
 
-    function saveConfigChanges()
-    {
+    function saveConfigChanges() {
         //Create JSON with entered data
         var selectedOptionText = $("#configSelector option:selected").text();
         var selectedOptionValue = $(configFieldValue).val();
         data = {key: selectedOptionText, value: selectedOptionValue};
 
-        $.getJSON('/updateconfigfile', data, function(result) {
+        $.getJSON('/updateconfigfile', data, function (result) {
             //Feedback to user
             $(configChangeFeedback).text(result.consoleFeedback);
             addToWebConsole(result.consoleFeedback + "\n" + line);

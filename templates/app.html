@@ -81,8 +81,14 @@
                 <div class="pictureDownloadWidget">
                     <h4>Download Pictures</h4>
                     <div class="downloadFormWrapper">
-                        <label for="downloadDateSelector">Date: </label>
-                        <input type="text" id="downloadDateSelector" class="datepicker" readonly="readonly">
+                        <div>
+                            <label for="downloadDateSelector">Date: </label>
+                            <input type="text" id="downloadDateSelector" class="datepicker" readonly="readonly">
+                        </div>
+                        <div>
+                            <label for="downloadDateSelector">Time: </label>
+                            <select id="downloadTimeSelector"></select>
+                        </div>
                     </div>
                     <button type="button" class="commandButton" id="DownloadPictures">Download</button>
                 </div>
@@ -474,10 +480,6 @@
 
     </div>
 
-    <div class="downloadGreyScreen">
-        <div class="downloadPrompt">
-        </div>
-    </div>
     <div class="configEditGreyScreen">
         <div class="configPrompt">
             <h4>Editing dfnconfig.cfg</h4>

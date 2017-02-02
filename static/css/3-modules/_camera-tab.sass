@@ -24,9 +24,10 @@
       display: flex
       flex-direction: column
       align-items: center
-      justify-content: space-between
-      padding: 3%
+      justify-content: center
+      width: 60%
       margin-bottom: 3%
+      padding: 3%
       background-color: $darkred
       +border-radius(3%)
 
@@ -36,12 +37,28 @@
 
       .downloadFormWrapper
         display: flex
+        flex-direction: column
         align-items: center
         justify-content: center
+        padding: 5px
+
+        div
+          display: flex
+          align-items: center
+          justify-content: center
+          width: 100%
+          margin: 5px
 
         label
           margin-right: 5px
 
         input
+          +box-sizing(border-box)
           color: #000
+          width: 70%
+
+        select
+          +ellipsis(80%)
+          background-color: inherit
+          border-color: white
           width: 70%

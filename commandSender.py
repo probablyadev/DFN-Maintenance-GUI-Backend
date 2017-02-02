@@ -98,7 +98,7 @@ def findPictures(inDate):
                     fileModTime = datetime.datetime.fromtimestamp(os.path.getmtime(filePath)).strftime("%H:%M:%S")
                     data[fileModTime] = filePath
 
-        return json.dumps(data)
+        return json.dumps(data, sort_keys=True)
 
 # HDD Utilities
 def hddOn():
