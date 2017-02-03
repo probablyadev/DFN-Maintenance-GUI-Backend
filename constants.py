@@ -9,10 +9,13 @@ cameraOff = "python /opt/dfn-software/disable_camera.py"
 videoCameraOn = "python /opt/dfn-software/enable_video.py && echo SUCCESS"
 videoCameraOff = "python /opt/dfn-software/disable_video.py && echo SUCCESS"
 cameraCheck = "lsusb"
+cameraActuation = "ls /data0/latest/*.NEF | xargs exiv2 | grep 'Shutter Speed'"
 getDirectorySize = "du -sh {0} | egrep -o '[0-9]+[A-Z]+'"
 getNumFilesInDirectory = 'find {0} -type f | wc -l'
 findPictures = "find /data[0-3] -type d -name '*{0}-{1}-{2}*' | grep -v 'test\|video'"
 copyFileToStatic = "cp {0} /opt/dfn-software/GUI/static/downloads && echo SUCCESS"
+extractThumbnail = "exiv2 -ep3 -l /opt/dfn-software/GUI/static/downloads/ {0} && SUCCESS"
+shutterCount = "exiv2 -pa {0} | grep Nikon3\.ShutterCount | grep -oP '[0-9]{5}'"
 
 enableHardDrive = "python /opt/dfn-software/enable_ext-hd.py"
 disableHardDrive = "python /opt/dfn-software/disable_ext-hd.py"

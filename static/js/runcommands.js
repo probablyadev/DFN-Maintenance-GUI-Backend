@@ -84,8 +84,8 @@ $(document).ready(function () {
     $("#VideoCameraOn").click(videoOnHandler);
     $("#VideoCameraOff").click(videoOffHandler);
     $("#CameraStatus").click(cameraStatusHandler);
-    $("#DownloadNEFPicture").click({extension: ".NEF"}, downloadPicturesHandler);
-    $("#DownloadJPGPicture").click({extension: ".thumb.masked.jpg"}, downloadPicturesHandler);
+    $("#DownloadNEFPicture").click(downloadPictureHandler);
+    $("#DownloadJPGPicture").click(downloadThumbnailHandler);
     $("#DownloadDateSelector").datepicker().on("input change", findPicturesHandler);
     $("#HDDOn").click(hddOnHandler);
     $("#HDDOff").click(hddOffHandler);
@@ -151,7 +151,7 @@ $(document).ready(function () {
 
     function preCommandCheck() {
         var approved = false;
-        if(!doingCommand) {
+        if (!doingCommand) {
             approved = true
         }
         console.log(approved);
@@ -160,7 +160,6 @@ $(document).ready(function () {
 
     function timedOut(jqXHR, status, errorThrown) {
         $(configPopupGreyScreen).css('display', 'none');
-        $(downloadGreyScreen).css('display', 'none');
         doingCommand = false;
         closeSpinner();
         if (jqXHR.status == 200) {
@@ -181,7 +180,7 @@ $(document).ready(function () {
     /***************************************************/
 
     function cameraOnHandler() {
-        if(preCommandCheck()) {
+        if (preCommandCheck()) {
             doingCommand = true;
             //Feedback on button press
             $(webConsole).append("Switching camera on...\n");
@@ -265,51 +264,44 @@ $(document).ready(function () {
     }
 
     function findPicturesHandler() {
-        if (preCommandCheck()) {
-            doingCommand = true;
-            //Reset time selector
-            $(downloadTimeSelector).find('option').remove().end();
-            //Get the list of pictures and their timestamps from that date (if they exist)
-            var selectedDate = $(downloadDateSelector).datepicker('getDate');
-            if (selectedDate != null) {
-                var selectedDay = selectedDate.getDate();
-                var selectedMonth = selectedDate.getMonth() + 1;
-                var selectedYear = selectedDate.getFullYear();
+        doingCommand = true;
+        //Reset time selector
+        $(downloadTimeSelector).find('option').remove().end();
+        //Get the list of pictures and their timestamps from that date (if they exist)
+        var selectedDate = $(downloadDateSelector).datepicker('getDate');
+        if (selectedDate != null) {
+            var selectedDay = selectedDate.getDate();
+            var selectedMonth = selectedDate.getMonth() + 1;
+            var selectedYear = selectedDate.getFullYear();
 
-                $.getJSON("/findpictures", {
-                    day: selectedDay,
-                    month: selectedMonth,
-                    year: selectedYear
-                }, function (result) {
-                    if (!$.isEmptyObject(result)) {
-                        configOptions = result;
-                        $.each(result, function (k, v) {
-                            $(downloadTimeSelector).append(
-                                $('<option>', {text: k, value: v})
-                            );
-                        });
-                    }
-                    else {
+            $.getJSON("/findpictures", {
+                day: selectedDay,
+                month: selectedMonth,
+                year: selectedYear
+            }, function (result) {
+                if (!$.isEmptyObject(result)) {
+                    configOptions = result;
+                    $.each(result, function (k, v) {
                         $(downloadTimeSelector).append(
-                            $('<option>', {text: "No Images Found", value: null})
+                            $('<option>', {text: k, value: v})
                         );
-                    }
-                    doingCommand = false;
-                }).fail(timedOut);
-            }
-            else {
-                window.alert("Please select a date.");
-                doingCommand = false;
-            }
+                    });
+                }
+                else {
+                    $(downloadTimeSelector).append(
+                        $('<option>', {text: "No Images Found", value: null})
+                    );
+                }
+            }).fail(timedOut);
+        }
+        else {
+            window.alert("Please select a date.");
         }
     }
 
-    function downloadPicturesHandler(event) {
-        if (preCommandCheck()) {
-            doingCommand = true;
+    function downloadPictureHandler() {
             if ($(downloadTimeSelector).val() && downloadTimeSelector.find(":selected").attr("value") != null) {
-                var selectedPath = downloadTimeSelector.find(":selected").attr("value");
-                var path = selectedPath.replace(".NEF", event.data.extension);
+                var path = downloadTimeSelector.find(":selected").attr("value");
                 var filename = path.split("/").slice(-1)[0];
                 $.getJSON('/downloadpicture', {filepath: path}, function (result) {
                     if (result.success) {
@@ -322,17 +314,43 @@ $(document).ready(function () {
                         document.body.removeChild(element);
                     }
                     else {
-                        addToWebConsole("Download error: Unable to serve photo. Something went seriously wrong here!\n" + line);
+                        addToWebConsole("Download error: Unable to serve NEF. Select a picture again.\n" + line);
                     }
-                    doingCommand = false;
-                });
+                }).fail(timedOut);
             }
             else {
                 addToWebConsole("Download error: Please select a valid date and time.\n" + line);
-                doingCommand = false;
             }
         }
-    }
+
+    function downloadThumbnailHandler() {
+            if ($(downloadTimeSelector).val() && downloadTimeSelector.find(":selected").attr("value") != null) {
+                var nefPath = downloadTimeSelector.find(":selected").attr("value");
+                var nefFilename = nefPath.split("/").slice(-1)[0];
+                var jpgFilename = nefFilename.replace(".NEF", "-preview3.jpg");
+                $("#DownloadJPGPicture").attr("disabled", "disabled");
+                $.getJSON('/downloadthumbnail', {filepath: nefPath}, function (result) {
+                    if (result.success) {
+                        var element = document.createElement('a');
+                        element.setAttribute('href', "/static/downloads/" + jpgFilename);
+                        element.setAttribute('download', jpgFilename);
+                        element.style.display = 'none';
+                        document.body.appendChild(element);
+                        element.click();
+                        document.body.removeChild(element);
+                        $.get('/removethumbnail', {filepath: "/opt/dfn-software/GUI/static/downloads/" + jpgFilename}, function() {
+                            $("#DownloadJPGPicture").removeAttr("disabled");
+                        });
+                    }
+                    else {
+                        addToWebConsole("Download error: Unable to serve jpg. Select a picture again.\n" + line);
+                    }
+                }).fail(timedOut);
+            }
+            else {
+                addToWebConsole("Download error: Please select a valid date and time.\n" + line);
+            }
+        }
 
     function hddOnHandler() {
         if (preCommandCheck()) {

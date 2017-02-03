@@ -114,6 +114,18 @@ def downloadPicture(inPath):
         success = True
     return success
 
+def downloadThumbnail(inPath):
+    success = False
+    consoleFeedback = doConsoleCommand(constants.extractThumbnail.format(inPath.filepath))
+    if "SUCCESS" in consoleFeedback:
+        success = True
+    return success
+
+def removeThumbnail(inJSON):
+    time.sleep(2)
+    doConsoleCommand("rm " + inJSON.filepath)
+    print "rm " + inJSON.filepath
+
 # HDD Utilities
 def hddOn():
     # If hardrives already on, get outta here!

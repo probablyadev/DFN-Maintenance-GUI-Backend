@@ -20,6 +20,8 @@ urls = ('/', 'Index',
         '/camerastatus', 'CameraStatus',
         '/findpictures', 'FindPictures',
         '/downloadpicture', 'DownloadPicture',
+        '/removethumbnail', 'RemoveThumbnail',
+        '/downloadthumbnail', 'DownloadThumbnail',
         '/gpscheck', 'GPSCheck',
         '/timezonechange', 'TimezoneChange',
         '/outputTime', 'OutputTime',
@@ -161,6 +163,20 @@ class DownloadPicture:
             data['success'] = commandSender.downloadPicture(web.input())
             outJSON = json.dumps(data)
             return outJSON
+
+class DownloadThumbnail:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            data['success'] = commandSender.downloadThumbnail(web.input())
+            outJSON = json.dumps(data)
+            return outJSON
+
+class RemoveThumbnail:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            commandSender.removeThumbnail(web.input())
+            return 0
 
 class EnableHDD:
     def GET(self):
