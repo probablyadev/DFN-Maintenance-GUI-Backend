@@ -38,7 +38,7 @@ $(document).ready(function () {
         inline: true,
         showOtherMonths: true,
         dateFormat: 'dd-mm-yy',
-        dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     });
 
     //HTML element variables
@@ -113,7 +113,6 @@ $(document).ready(function () {
     $("#SaveConsoleOutput").click(saveConsoleOutputHandler);
 
     //Useful frontend feedback functions
-    //Code for adding to web console
     function addToWebConsole(inputText) {
         $(webConsole).append(inputText);
         if (webConsole.length)
@@ -150,9 +149,19 @@ $(document).ready(function () {
         spinnerGreyScreen.css('display', 'none');
     }
 
+    function preCommandCheck() {
+        var approved = false;
+        if(!doingCommand) {
+            approved = true
+        }
+        console.log(approved);
+        return approved;
+    }
+
     function timedOut(jqXHR, status, errorThrown) {
         $(configPopupGreyScreen).css('display', 'none');
         $(downloadGreyScreen).css('display', 'none');
+        doingCommand = false;
         closeSpinner();
         if (jqXHR.status == 200) {
             addToWebConsole("ERROR: Session timed out. Redirecting to login...\n" + line);
@@ -172,397 +181,445 @@ $(document).ready(function () {
     /***************************************************/
 
     function cameraOnHandler() {
-        doingCommand = true;
-        //Feedback on button press
-        $(webConsole).append("Switching camera on...\n");
-        openSpinner("Switching camera on, sit tight...");
-        //Request to turn camera on
-        $.getJSON("/cameraon", function (result) {
-            closeSpinner();
-            consoleBlinkGreen();
-            //Set feedback text
-            addToWebConsole(result.consoleFeedback + "\n" + line);
-            //Set light colour
-            cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
-            //Open up for other commands to be run
-            doingCommand = false;
-        }).fail(timedOut);
-    }
-
-    function cameraOffHandler() {
-        doingCommand = true;
-        //Feedback on button press
-        $(webConsole).append("Switching camera off...\n");
-        //Request to turn camera off
-        $.getJSON("/cameraoff", function (result) {
-            //Set feedback text
-            addToWebConsole(result.consoleFeedback + "\n" + line);
-            //Set light colour
-            cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
-            //Open up for other commands to be run
-            doingCommand = false;
-        }).fail(timedOut);
-    }
-
-    function videoOnHandler() {
-        doingCommand = true;
-        //Feedback on button press
-        $(webConsole).append("Switching video camera on...\n");
-        //Request to turn camera on
-        $.getJSON("/videocameraon", function (result) {
-            //Set feedback text
-            addToWebConsole(result.consoleFeedback + "\n" + line);
-            //Open up for other commands to be run
-            doingCommand = false;
-        }).fail(timedOut);
-    }
-
-    function videoOffHandler() {
-        doingCommand = true;
-        //Feedback on button press
-        $(webConsole).append("Switching video camera off...\n");
-        //Request to turn camera on
-        $.getJSON("/videocameraoff", function (result) {
-            //Set feedback text
-            addToWebConsole(result.consoleFeedback + "\n" + line);
-            //Open up for other commands to be run
-            doingCommand = false;
-        }).fail(timedOut);
-    }
-
-    function cameraStatusHandler() {
-        doingCommand = true;
-        //Feedback on button press
-        $(webConsole).append("Checking camera...\n");
-        //Request to turn camera off
-        $.getJSON("/camerastatus", function (result) {
-            //Set feedback text
-            addToWebConsole(result.consoleFeedback + "\n" + line);
-            //Set light colour
-            cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
-            //Open up for other commands to be run
-            doingCommand = false;
-        }).fail(timedOut);
-    }
-
-    function findPicturesHandler() {
-        doingCommand = true;
-        //Reset time selector
-        $(downloadTimeSelector).find('option').remove().end();
-        //Get the list of pictures and their timestamps from that date (if they exist)
-        var selectedDate = $(downloadDateSelector).datepicker('getDate');
-        if (selectedDate != null) {
-            var selectedDay = selectedDate.getDate();
-            var selectedMonth = selectedDate.getMonth() + 1;
-            var selectedYear = selectedDate.getFullYear();
-
-            $.getJSON("/findpictures", {
-                day: selectedDay,
-                month: selectedMonth,
-                year: selectedYear
-            }, function (result) {
-                if (!$.isEmptyObject(result)) {
-                    configOptions = result;
-                    $.each(result, function (k, v) {
-                        $(downloadTimeSelector).append(
-                            $('<option>', {text: k, value: v})
-                        );
-                    });
-                }
-                else {
-                    $(downloadTimeSelector).append(
-                        $('<option>', {text: "No Images Found", value: null})
-                    );
-                }
+        if(preCommandCheck()) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Switching camera on...\n");
+            openSpinner("Switching camera on, sit tight...");
+            //Request to turn camera on
+            $.getJSON("/cameraon", function (result) {
+                closeSpinner();
+                consoleBlinkGreen();
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Set light colour
+                cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
+                //Open up for other commands to be run
                 doingCommand = false;
             }).fail(timedOut);
         }
-        else {
-            window.alert("Please select a date.");
-            doingCommand = false;
+    }
+
+    function cameraOffHandler() {
+        if (preCommandCheck()) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Switching camera off...\n");
+            //Request to turn camera off
+            $.getJSON("/cameraoff", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Set light colour
+                cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
+                //Open up for other commands to be run
+                doingCommand = false;
+            }).fail(timedOut);
+        }
+    }
+
+    function videoOnHandler() {
+        if (preCommandCheck()) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Switching video camera on...\n");
+            //Request to turn camera on
+            $.getJSON("/videocameraon", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Open up for other commands to be run
+                doingCommand = false;
+            }).fail(timedOut);
+        }
+    }
+
+    function videoOffHandler() {
+        if (preCommandCheck()) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Switching video camera off...\n");
+            //Request to turn camera on
+            $.getJSON("/videocameraoff", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Open up for other commands to be run
+                doingCommand = false;
+            }).fail(timedOut);
+        }
+    }
+
+    function cameraStatusHandler() {
+        if (preCommandCheck()) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Checking camera...\n");
+            //Request to turn camera off
+            $.getJSON("/camerastatus", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Set light colour
+                cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
+                //Open up for other commands to be run
+                doingCommand = false;
+            }).fail(timedOut);
+        }
+    }
+
+    function findPicturesHandler() {
+        if (preCommandCheck()) {
+            doingCommand = true;
+            //Reset time selector
+            $(downloadTimeSelector).find('option').remove().end();
+            //Get the list of pictures and their timestamps from that date (if they exist)
+            var selectedDate = $(downloadDateSelector).datepicker('getDate');
+            if (selectedDate != null) {
+                var selectedDay = selectedDate.getDate();
+                var selectedMonth = selectedDate.getMonth() + 1;
+                var selectedYear = selectedDate.getFullYear();
+
+                $.getJSON("/findpictures", {
+                    day: selectedDay,
+                    month: selectedMonth,
+                    year: selectedYear
+                }, function (result) {
+                    if (!$.isEmptyObject(result)) {
+                        configOptions = result;
+                        $.each(result, function (k, v) {
+                            $(downloadTimeSelector).append(
+                                $('<option>', {text: k, value: v})
+                            );
+                        });
+                    }
+                    else {
+                        $(downloadTimeSelector).append(
+                            $('<option>', {text: "No Images Found", value: null})
+                        );
+                    }
+                    doingCommand = false;
+                }).fail(timedOut);
+            }
+            else {
+                window.alert("Please select a date.");
+                doingCommand = false;
+            }
         }
     }
 
     function downloadPicturesHandler(event) {
-        if ($(downloadTimeSelector).val() && downloadTimeSelector.find(":selected").attr("value") != null) {
-            var selectedPath = downloadTimeSelector.find(":selected").attr("value");
-            var path = selectedPath.replace(".NEF", event.data.extension);
-            var filename = path.split("/").slice(-1)[0];
-            console.log({path: path, filename: filename});
-            $.getJSON('/downloadpicture', {filepath: path}, function (result) {
-                if (result.success) {
-                    var element = document.createElement('a');
-                    element.setAttribute('href', "/static/downloads/" + filename);
-                    element.setAttribute('download', filename);
-                    element.style.display = 'none';
-                    document.body.appendChild(element);
-                    element.click();
-                    document.body.removeChild(element);
-                }
-                else {
-                    addToWebConsole("Download error: Unable to serve photo. Something went seriously wrong here!\n" + line)
-                }
-            });
-        }
-        else {
-            addToWebConsole("Download error: Please select a valid date and time.\n" + line)
+        if (preCommandCheck()) {
+            doingCommand = true;
+            if ($(downloadTimeSelector).val() && downloadTimeSelector.find(":selected").attr("value") != null) {
+                var selectedPath = downloadTimeSelector.find(":selected").attr("value");
+                var path = selectedPath.replace(".NEF", event.data.extension);
+                var filename = path.split("/").slice(-1)[0];
+                $.getJSON('/downloadpicture', {filepath: path}, function (result) {
+                    if (result.success) {
+                        var element = document.createElement('a');
+                        element.setAttribute('href', "/static/downloads/" + filename);
+                        element.setAttribute('download', filename);
+                        element.style.display = 'none';
+                        document.body.appendChild(element);
+                        element.click();
+                        document.body.removeChild(element);
+                    }
+                    else {
+                        addToWebConsole("Download error: Unable to serve photo. Something went seriously wrong here!\n" + line);
+                    }
+                    doingCommand = false;
+                });
+            }
+            else {
+                addToWebConsole("Download error: Please select a valid date and time.\n" + line);
+                doingCommand = false;
+            }
         }
     }
 
     function hddOnHandler() {
-        doingCommand = true;
-        //Feedback on button press
-        $(webConsole).append("Powering on external hard drives...\n");
-        openSpinner("Powering on external drives, please wait ~20 seconds...");
-        //Request to enable HDDs
-        $.getJSON("/enablehdd", function (result) {
-            closeSpinner();
-            consoleBlinkGreen();
-            //Set feedback text
-            addToWebConsole(result.consoleFeedback + "\n" + line);
-            //Set light colours
-            drawHDDStatus(result);
-            //Open up for other commands to be run
-            doingCommand = false;
-        }).fail(timedOut);
+        if (preCommandCheck()) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Powering on external hard drives...\n");
+            openSpinner("Powering on external drives, please wait ~20 seconds...");
+            //Request to enable HDDs
+            $.getJSON("/enablehdd", function (result) {
+                closeSpinner();
+                consoleBlinkGreen();
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Set light colours
+                drawHDDStatus(result);
+                //Open up for other commands to be run
+                doingCommand = false;
+            }).fail(timedOut);
+        }
     }
 
     function hddOffHandler() {
-        doingCommand = true;
-        //Feedback on button press
-        $(webConsole).append("Disabling external hard drives...\n");
-        //Request to enable HDDs
-        $.getJSON("/disablehdd", function (result) {
-            //Set feedback text
-            addToWebConsole(result.consoleFeedback + "\n" + line);
-            //Set light colours
-            drawHDDStatus(result);
-            //Open up for other commands to be run
-            doingCommand = false;
-        }).fail(timedOut);
+        if (preCommandCheck()) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Disabling external hard drives...\n");
+            //Request to enable HDDs
+            $.getJSON("/disablehdd", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Set light colours
+                drawHDDStatus(result);
+                //Open up for other commands to be run
+                doingCommand = false;
+            }).fail(timedOut);
+        }
     }
 
     function hddMountHandler() {
-        doingCommand = true;
-        //Feedback on button press
-        $(webConsole).append("Mounting external hard drives...\n");
-        //Request to enable HDDs
-        $.getJSON("/mounthdd", function (result) {
-            //Set feedback text
-            addToWebConsole(result.consoleFeedback + "\n" + line);
-            //Set light colours
-            drawHDDStatus(result);
-            //Open up for other commands to be run
-            doingCommand = false;
-        }).fail(timedOut);
+        if (preCommandCheck()) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Mounting external hard drives...\n");
+            //Request to enable HDDs
+            $.getJSON("/mounthdd", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Set light colours
+                drawHDDStatus(result);
+                //Open up for other commands to be run
+                doingCommand = false;
+            }).fail(timedOut);
+        }
     }
 
     function hddUnmountHandler() {
-        doingCommand = true;
-        //Feedback on button press
-        $(webConsole).append("Unmounting external hard drives...\n");
-        //Request to enable HDDs
-        $.getJSON("/unmounthdd", function (result) {
-            //Set feedback text
-            addToWebConsole(result.consoleFeedback + "\n" + line);
-            //Set light colours
-            drawHDDStatus(result);
-            //Open up for other commands to be run
-            doingCommand = false;
-        }).fail(timedOut);
+        if (preCommandCheck()) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Unmounting external hard drives...\n");
+            //Request to enable HDDs
+            $.getJSON("/unmounthdd", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Set light colours
+                drawHDDStatus(result);
+                //Open up for other commands to be run
+                doingCommand = false;
+            }).fail(timedOut);
+        }
     }
 
     function hddFormatHandler() {
-        doingCommand = true;
-        //Feedback on button press
-        $(webConsole).append("Formatting hard drives...\n");
-        //Pack checkbox data into JSON
-        var checkData = {
-            installChecked: installCheck.is(':checked'),
-            data1Checked: formatData1Check.is(':checked'),
-            data2Checked: formatData2Check.is(':checked')
-        };
-        //Request to enable HDDs
-        $.getJSON("/formathdd", checkData, function (result) {
-            //Set feedback text
-            addToWebConsole(result.consoleFeedback + "\n" + line);
-            //Set light colours
-            drawHDDStatus(result);
-            //Open up for other commands to be run
-            doingCommand = false;
-        }).fail(timedOut);
+        if (preCommandCheck()) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Formatting hard drives...\n");
+            //Pack checkbox data into JSON
+            var checkData = {
+                installChecked: installCheck.is(':checked'),
+                data1Checked: formatData1Check.is(':checked'),
+                data2Checked: formatData2Check.is(':checked')
+            };
+            //Request to enable HDDs
+            $.getJSON("/formathdd", checkData, function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Set light colours
+                drawHDDStatus(result);
+                //Open up for other commands to be run
+                doingCommand = false;
+            }).fail(timedOut);
+        }
     }
 
     function smartTestHandler() {
-        doingCommand = true;
-        //Feedback on button press
-        $(webConsole).append("Running smart test...\n");
-        openSpinner("Performing smart test, please wait ~2 minutes...");
-        //Request for smart test results
-        $.getJSON("/smarttest", function (result) {
-            closeSpinner();
-            consoleBlinkGreen();
-            //Set feedback text
-            addToWebConsole(result.consoleFeedback + line);
-            //Open up for other commands to be run
-            doingCommand = false;
-        }).fail(timedOut);
+        if (preCommandCheck()) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Running smart test...\n");
+            openSpinner("Performing smart test, please wait ~2 minutes...");
+            //Request for smart test results
+            $.getJSON("/smarttest", function (result) {
+                closeSpinner();
+                consoleBlinkGreen();
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + line);
+                //Open up for other commands to be run
+                doingCommand = false;
+            }).fail(timedOut);
+        }
     }
 
     function hddSpaceCheckHandler() {
-        doingCommand = true;
-        //Feedback on button press
-        $(webConsole).append("Checking hard drives...\n");
-        //Request to enable HDDs
-        $.getJSON("/hddcheck", function (result) {
-            //Set feedback text
-            addToWebConsole(result.consoleFeedback + "\n" + line);
-            //Set light colours
-            drawHDDStatus(result);
-            //Open up for other commands to be run
-            doingCommand = false;
-        }).fail(timedOut);
+        if (preCommandCheck()) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Checking hard drives...\n");
+            //Request to enable HDDs
+            $.getJSON("/hddcheck", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Set light colours
+                drawHDDStatus(result);
+                //Open up for other commands to be run
+                doingCommand = false;
+            }).fail(timedOut);
+        }
     }
 
     function gpsCheckHandler() {
-        doingCommand = true;
-        //Feedback on button press
-        $(webConsole).append("Checking GPS status...\n");
-        //Request to check GPS status
-        $.getJSON("/gpscheck", function (result) {
-            //Set feedback text
-            addToWebConsole(result.consoleFeedback + "\n" + line);
-            //Set light colour
-            gpsLight.css("background-color", simpleColorMapping[result.gpsStatus]);
-            //Open up for other commands to be run
-            doingCommand = false;
-        }).fail(timedOut);
+        if (preCommandCheck()) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Checking GPS status...\n");
+            //Request to check GPS status
+            $.getJSON("/gpscheck", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Set light colour
+                gpsLight.css("background-color", simpleColorMapping[result.gpsStatus]);
+                //Open up for other commands to be run
+                doingCommand = false;
+            }).fail(timedOut);
+        }
     }
 
     function timezoneHandler() {
-        doingCommand = true;
-        //Feedback on button press
-        $(webConsole).append("DONE\n");
-        $.getJSON("/timezonechange", {zone: timezoneCombobox.find(":selected").attr("value")}, function (result) {
-            //Set feedback text
-            addToWebConsole(result.consoleFeedback + "\n" + line);
-            //Open up for other commands to be run
-            doingCommand = false;
-        }).fail(timedOut);
+        if (preCommandCheck()) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("DONE\n");
+            $.getJSON("/timezonechange", {zone: timezoneCombobox.find(":selected").attr("value")}, function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Open up for other commands to be run
+                doingCommand = false;
+            }).fail(timedOut);
+        }
     }
 
     function outputTimeHandler() {
-        doingCommand = true;
-        //Feedback on button press
-        $(webConsole).append("CURRENT TIME:\n");
-        $.getJSON("/outputTime", function (result) {
-            //Set feedback text
-            addToWebConsole(result.consoleFeedback + "\n" + line);
-            //Open up for other commands to be run
-            doingCommand = false;
-        }).fail(timedOut);
+        if (preCommandCheck()) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("CURRENT TIME:\n");
+            $.getJSON("/outputTime", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Open up for other commands to be run
+                doingCommand = false;
+            }).fail(timedOut);
+        }
     }
 
     function internetCheckHandler() {
-        doingCommand = true;
-        //Feedback on button press
-        $(webConsole).append("Checking internet connectivity...\n");
-        //Request to check GPS status
-        $.getJSON("/internetcheck", function (result) {
-            //Set feedback text
-            addToWebConsole(result.consoleFeedback + "\n" + line);
-            //Set light colour
-            internetLight.css("background-color", complexColorMapping[result.internetStatus]);
-            //Open up for other commands to be run
-            doingCommand = false;
-        }).fail(timedOut);
+        if (preCommandCheck()) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Checking internet connectivity...\n");
+            //Request to check GPS status
+            $.getJSON("/internetcheck", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Set light colour
+                internetLight.css("background-color", complexColorMapping[result.internetStatus]);
+                //Open up for other commands to be run
+                doingCommand = false;
+            }).fail(timedOut);
+        }
     }
 
     function restartModemHandler() {
-        doingCommand = true;
-        //Feedback on button press
-        $(webConsole).append("Restarting modem...\n");
-        openSpinner("Restarting modem, just a minute...");
-        //Request to check GPS status
-        $.getJSON("/restartmodem", function (result) {
-            closeSpinner();
-            consoleBlinkGreen();
-            //Set feedback text
-            addToWebConsole(result.consoleFeedback + "\n" + line);
-            //Set light colour
-            internetLight.css("background-color", simpleColorMapping[result.internetStatus]);
-            //Open up for other commands to be run
-            doingCommand = false;
-        }).fail(timedOut);
+        if (preCommandCheck()) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Restarting modem...\n");
+            openSpinner("Restarting modem, just a minute...");
+            //Request to check GPS status
+            $.getJSON("/restartmodem", function (result) {
+                closeSpinner();
+                consoleBlinkGreen();
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Set light colour
+                internetLight.css("background-color", simpleColorMapping[result.internetStatus]);
+                //Open up for other commands to be run
+                doingCommand = false;
+            }).fail(timedOut);
+        }
     }
 
     function vpnCheckHandler() {
-        doingCommand = true;
-        //Feedback on button press
-        $(webConsole).append("Checking vpn connectivity...\n");
-        //Request to check GPS status
-        $.getJSON("/vpncheck", function (result) {
-            //Set feedback text
-            addToWebConsole(result.consoleFeedback + "\n" + line);
-            //Set light colour
-            vpnLight.css("background-color", simpleColorMapping[result.vpnStatus]);
-            //Open up for other commands to be run
-            doingCommand = false;
-        }).fail(timedOut);
+        if (preCommandCheck()) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Checking vpn connectivity...\n");
+            //Request to check GPS status
+            $.getJSON("/vpncheck", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Set light colour
+                vpnLight.css("background-color", simpleColorMapping[result.vpnStatus]);
+                //Open up for other commands to be run
+                doingCommand = false;
+            }).fail(timedOut);
+        }
     }
 
     function restartVPNHandler() {
-        doingCommand = true;
-        //Feedback on button press
-        $(webConsole).append("Restarting VPN...\n");
-        openSpinner("Restarting VPN, just a minute...");
-        //Request to check GPS status
-        $.getJSON("/restartvpn", function (result) {
-            closeSpinner();
-            consoleBlinkGreen();
-            //Set feedback text
-            addToWebConsole(result.consoleFeedback + "\n" + line);
-            //Set light colour
-            vpnLight.css("background-color", simpleColorMapping[result.vpnStatus]);
-            //Open up for other commands to be run
-            doingCommand = false;
-        }).fail(timedOut);
+        if (preCommandCheck()) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Restarting VPN...\n");
+            openSpinner("Restarting VPN, just a minute...");
+            //Request to check GPS status
+            $.getJSON("/restartvpn", function (result) {
+                closeSpinner();
+                consoleBlinkGreen();
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Set light colour
+                vpnLight.css("background-color", simpleColorMapping[result.vpnStatus]);
+                //Open up for other commands to be run
+                doingCommand = false;
+            }).fail(timedOut);
+        }
     }
 
     function intervalTestHandler() {
-        doingCommand = true;
-        openSpinner("Performing interval test... Go grab some coffee!");
-        $(webConsole).append("Performing interval test...\n");
-        //Request to perform interval test
-        $.getJSON("/intervaltest", function (result) {
-            closeSpinner();
-            consoleBlinkGreen();
-            //Set feedback text
-            addToWebConsole(result.consoleFeedback + "\n" + line);
-            //Set light colours
-            intervalLight.css("background-color", simpleColorMapping[result.intervalTestResult])
-            //Open up for other commands to be run
-            doingCommand = false;
-        }).fail(timedOut);
+        if (preCommandCheck()) {
+            doingCommand = true;
+            openSpinner("Performing interval test... Go grab some coffee!");
+            $(webConsole).append("Performing interval test...\n");
+            //Request to perform interval test
+            $.getJSON("/intervaltest", function (result) {
+                closeSpinner();
+                consoleBlinkGreen();
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Set light colours
+                intervalLight.css("background-color", simpleColorMapping[result.intervalTestResult]);
+                //Open up for other commands to be run
+                doingCommand = false;
+            }).fail(timedOut);
+        }
     }
 
     function checkPrevIntervalHandler() {
-        doingCommand = true;
-        $(webConsole).append("Retrieving previous interval test...\n");
-        //Request to perform interval test
-        $.getJSON("/previntervaltest", function (result) {
-            //Set feedback text
-            addToWebConsole(result.consoleFeedback + "\n" + line);
-            //Open up for other commands to be run
-            doingCommand = false;
-        }).fail(timedOut);
+        if (preCommandCheck()) {
+            doingCommand = true;
+            $(webConsole).append("Retrieving previous interval test...\n");
+            //Request to perform interval test
+            $.getJSON("/previntervaltest", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Open up for other commands to be run
+                doingCommand = false;
+            }).fail(timedOut);
+        }
     }
 
     function statusConfigHandler() {
         doingCommand = true;
         //Request file
         $.get("/statusconfig", function (result) {
-            var decoded = decode64(result)
+            var decoded = decode64(result);
             var element = document.createElement('a');
             element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(decoded));
             element.setAttribute('download', 'dfnstation.cfg');
@@ -613,20 +670,22 @@ $(document).ready(function () {
     var configOptions = {};
 
     function populateConfigChangeBox() {
-        $.getJSON('/populateconfigbox', function (result) {
-            $('#configSelector').find('option').remove().end();
-            configOptions = result;
-            $.each(result, function (k, v) {
-                $(configSelector).append(
-                    $('<option>', {text: k, value: v})
-                );
-            });
-            $("#configSelector option:first").attr('selected', 'selected')
-            $("#configSelector").change().focus();
-            $(configFieldValue).val($("#configSelector option:selected").val());
-            $(configChangeFeedback).text("");
-            $(configPopupGreyScreen).css("display", "flex");
-        }).fail(timedOut);
+        if (preCommandCheck()) {
+            $.getJSON('/populateconfigbox', function (result) {
+                $('#configSelector').find('option').remove().end();
+                configOptions = result;
+                $.each(result, function (k, v) {
+                    $(configSelector).append(
+                        $('<option>', {text: k, value: v})
+                    );
+                });
+                $("#configSelector option:first").attr('selected', 'selected');
+                $("#configSelector").change().focus();
+                $(configFieldValue).val($("#configSelector option:selected").val());
+                $(configChangeFeedback).text("");
+                $(configPopupGreyScreen).css("display", "flex");
+            }).fail(timedOut);
+        }
     }
 
     $("#configSelector").change(function () {
@@ -637,33 +696,28 @@ $(document).ready(function () {
 
     $("#changeConfigForm").submit(function (e) {
         e.preventDefault();
-        if (!doingCommand) {
-            $.ajax({
-                url: '/connectioncheck',
-                dataType: 'json',
-                success: saveConfigChanges,
-                timeout: 3000,
-                error: timedOut
-            });
-        }
+        saveConfigChanges();
     });
 
     function saveConfigChanges() {
-        //Create JSON with entered data
-        var selectedOptionText = $("#configSelector option:selected").text();
-        var selectedOptionValue = $(configFieldValue).val();
-        data = {key: selectedOptionText, value: selectedOptionValue};
+        if (preCommandCheck()) {
+            //Create JSON with entered data
+            var selectedOptionText = $("#configSelector option:selected").text();
+            var selectedOptionValue = $(configFieldValue).val();
+            data = {key: selectedOptionText, value: selectedOptionValue};
 
-        $.getJSON('/updateconfigfile', data, function (result) {
-            //Feedback to user
-            $(configChangeFeedback).text(result.consoleFeedback);
-            addToWebConsole(result.consoleFeedback + "\n" + line);
+            $.getJSON('/updateconfigfile', data, function (result) {
+                //Feedback to user
+                $(configChangeFeedback).text(result.consoleFeedback);
+                addToWebConsole(result.consoleFeedback + "\n" + line);
 
-            //Update local copy
-            configOptions[selectedOptionText] = selectedOptionValue;
-            $("#configSelector option:selected").val(selectedOptionValue)
+                //Update local copy
+                configOptions[selectedOptionText] = selectedOptionValue;
+                $("#configSelector option:selected").val(selectedOptionValue)
+                doingCommand = false;
 
-        }).fail(timedOut);
+            }).fail(timedOut);
+        }
     }
 
     function closeConfigEditHandler() {
@@ -671,22 +725,24 @@ $(document).ready(function () {
     }
 
     function systemStatusHandler() {
-        doingCommand = true;
-        //Feedback on button press
-        $(webConsole).append("Checking system status...\n");
-        //Request for system status to be checked
-        $.getJSON("/systemstatus", function (result) {
-            //Set feedback text
-            addToWebConsole(result.consoleFeedback + "\n" + line);
-            //Set light colours
-            cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
-            gpsLight.css("background-color", simpleColorMapping[result.gpsStatus]);
-            internetLight.css("background-color", simpleColorMapping[result.internetStatus]);
-            vpnLight.css("background-color", simpleColorMapping[result.vpnStatus]);
-            drawHDDStatus(result);
-            //Open up for other commands to be run
-            doingCommand = false;
-        }).fail(timedOut);
+        if (preCommandCheck()) {
+            doingCommand = true;
+            //Feedback on button press
+            $(webConsole).append("Checking system status...\n");
+            //Request for system status to be checked
+            $.getJSON("/systemstatus", function (result) {
+                //Set feedback text
+                addToWebConsole(result.consoleFeedback + "\n" + line);
+                //Set light colours
+                cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
+                gpsLight.css("background-color", simpleColorMapping[result.gpsStatus]);
+                internetLight.css("background-color", simpleColorMapping[result.internetStatus]);
+                vpnLight.css("background-color", simpleColorMapping[result.vpnStatus]);
+                drawHDDStatus(result);
+                //Open up for other commands to be run
+                doingCommand = false;
+            }).fail(timedOut);
+        }
     }
 
     function saveConsoleOutputHandler() {
