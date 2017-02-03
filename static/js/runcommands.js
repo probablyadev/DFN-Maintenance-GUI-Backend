@@ -161,6 +161,7 @@ $(document).ready(function () {
     function timedOut(jqXHR, status, errorThrown) {
         $(configPopupGreyScreen).css('display', 'none');
         doingCommand = false;
+        $(window).bind("beforeunload",function(event){});
         closeSpinner();
         if (jqXHR.status == 200) {
             addToWebConsole("ERROR: Session timed out. Redirecting to login...\n" + line);
@@ -602,6 +603,9 @@ $(document).ready(function () {
 
     function intervalTestHandler() {
         if (preCommandCheck()) {
+            $(window).bind("beforeunload",function(event) {
+                return "WARNING: Refreshing while interval test is running is NOT recommended.\n Please only do this if you are 100% sure.";
+            });
             doingCommand = true;
             openSpinner("Performing interval test... Go grab some coffee!");
             $(webConsole).append("Performing interval test...\n");
@@ -615,6 +619,8 @@ $(document).ready(function () {
                 intervalLight.css("background-color", simpleColorMapping[result.intervalTestResult]);
                 //Open up for other commands to be run
                 doingCommand = false;
+            $(window).bind("beforeunload",function(event){});
+
             }).fail(timedOut);
         }
     }
