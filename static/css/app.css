@@ -523,7 +523,7 @@ hr {
           -moz-box-sizing: border-box;
           box-sizing: border-box;
           color: #000;
-          width: 70%; }
+          width: 80%; }
         .cameraControl .cameraAdvancedFunctions .pictureDownloadWidget .downloadFormWrapper select {
           display: inline-block;
           max-width: 80%;
@@ -533,7 +533,7 @@ hr {
           word-wrap: normal;
           background-color: inherit;
           border-color: white;
-          width: 70%; }
+          width: 80%; }
 
 .hddControl {
   -webkit-flex-direction: row;

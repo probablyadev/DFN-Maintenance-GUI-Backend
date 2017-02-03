@@ -4,6 +4,7 @@ import commands
 import re
 import time
 import datetime
+import calendar
 import os
 import json
 from tempfile import mkstemp
@@ -94,11 +95,24 @@ def findPictures(inDate):
             fileList = doConsoleCommand("ls " + directory).split("\n")
             for fileName in fileList:
                 if ".NEF" in fileName:
+                    #Get filepath for NEF file
                     filePath = (directory + "/" + fileName)
-                    fileModTime = datetime.datetime.fromtimestamp(os.path.getmtime(filePath)).strftime("%H:%M:%S")
-                    data[fileModTime] = filePath
+                    #Get corrected timestamp for NEF file
+                    fileModTime = os.path.getmtime(filePath)
+                    t = time.localtime()
+                    offset = calendar.timegm(t) - calendar.timegm(time.gmtime(time.mktime(t)))
+                    fileModTime = fileModTime + offset
+                    correctedTimeStamp = datetime.datetime.fromtimestamp(fileModTime).strftime("%H:%M:%S")
+                    data[correctedTimeStamp] = filePath
 
         return json.dumps(data, sort_keys=True)
+
+def downloadPicture(inPath):
+    success = False
+    consoleFeedback = doConsoleCommand(constants.copyFileToStatic.format(inPath.filepath))
+    if "SUCCESS" in consoleFeedback:
+        success = True
+    return success
 
 # HDD Utilities
 def hddOn():

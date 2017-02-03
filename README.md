@@ -13,3 +13,6 @@ New things learnt (and included in this project):
 * jQuery and incidentally, Javascript.
 * AJAX with jQuery.
 * Bash commands + Linux stuff
+
+###REQUIRED PACKAGES
+* web.py

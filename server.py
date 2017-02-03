@@ -19,6 +19,7 @@ urls = ('/', 'Index',
         '/videocameraoff', 'VideoCameraOff',
         '/camerastatus', 'CameraStatus',
         '/findpictures', 'FindPictures',
+        '/downloadpicture', 'DownloadPicture',
         '/gpscheck', 'GPSCheck',
         '/timezonechange', 'TimezoneChange',
         '/outputTime', 'OutputTime',
@@ -152,6 +153,14 @@ class FindPictures:
             data = {}
             fileBankJSON = commandSender.findPictures(web.input())
             return fileBankJSON
+
+class DownloadPicture:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+            data['success'] = commandSender.downloadPicture(web.input())
+            outJSON = json.dumps(data)
+            return outJSON
 
 class EnableHDD:
     def GET(self):

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="static/img/favicon.ico">
     <link rel="stylesheet" href="static/css/app.css"/>
-    <link rel="stylesheet" type="text/css" media="all" href="/static/js/jquery-ui-1.12.1/jquery-ui.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="static/js/jquery-ui-1.12.1/jquery-ui.css"/>
 </head>
 <body>
 <div class="contentWrapper">
@@ -82,21 +82,20 @@
                     <h4>Download Pictures</h4>
                     <div class="downloadFormWrapper">
                         <div>
-                            <label for="downloadDateSelector">Date: </label>
-                            <input type="text" id="downloadDateSelector" class="datepicker" readonly="readonly">
+                            <label for="DownloadDateSelector">Date: </label>
+                            <input type="text" id="DownloadDateSelector" class="datepicker" readonly="readonly">
                         </div>
                         <div>
-                            <label for="downloadDateSelector">Time: </label>
-                            <select id="downloadTimeSelector"></select>
+                            <label for="DownloadTimeSelector">Time: </label>
+                            <select id="DownloadTimeSelector"></select>
                         </div>
                     </div>
-                    <button type="button" class="commandButton" id="DownloadPictures">Download</button>
+                    <button type="button" class="commandButton" id="DownloadNEFPicture">Download .NEF</button>
+                    <button type="button" class="commandButton" id="DownloadJPGPicture">Download .jpg</button>
                 </div>
                 <div class="linebreak"></div>
                 <button type="button" class="commandButton disabled" id="TakeCameraShot" disabled>Shoot Picture</button>
                 <button type="button" class="commandButton disabled" id="TakeVideoShot" disabled>Shoot Video</button>
-                <div class="linebreak"></div>
-                <button type="button" class="commandButton disabled" id="TestLCShutter" disabled>Test LC Shutter</button>
             </div>
         </div>
 

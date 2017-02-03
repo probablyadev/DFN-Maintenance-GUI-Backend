@@ -44,8 +44,8 @@ $(document).ready(function () {
     //HTML element variables
     var webConsole = $('#feedbackText');
     var timezoneCombobox = $('#timezoneSelector');
-    var downloadDateSelector = $('#downloadDateSelector');
-    var downloadTimeSelector = $('#downloadTimeSelector');
+    var downloadDateSelector = $('#DownloadDateSelector');
+    var downloadTimeSelector = $('#DownloadTimeSelector');
     var spinnerGreyScreen = $('.spinnerGreyScreen');
     var spinnerSpan = $('.spinnerSpan');
     var configPopupGreyScreen = $('.configEditGreyScreen');
@@ -84,9 +84,9 @@ $(document).ready(function () {
     $("#VideoCameraOn").click(videoOnHandler);
     $("#VideoCameraOff").click(videoOffHandler);
     $("#CameraStatus").click(cameraStatusHandler);
-    $("#DownloadPictures").click(downloadPicturesHandler);
-    $("#downloadDateSelector").datepicker().on("input change", downloadPicturesHandler);
-    $("#CancelImageDownload").click(cancelPictureDownloadHandler);
+    $("#DownloadNEFPicture").click({extension: ".NEF"}, downloadPicturesHandler);
+    $("#DownloadJPGPicture").click({extension: ".thumb.masked.jpg"}, downloadPicturesHandler);
+    $("#DownloadDateSelector").datepicker().on("input change", findPicturesHandler);
     $("#HDDOn").click(hddOnHandler);
     $("#HDDOff").click(hddOffHandler);
     $("#MountHDD").click(hddMountHandler);
@@ -245,7 +245,7 @@ $(document).ready(function () {
         }).fail(timedOut);
     }
 
-    function downloadPicturesHandler() {
+    function findPicturesHandler() {
         doingCommand = true;
         //Reset time selector
         $(downloadTimeSelector).find('option').remove().end();
@@ -270,7 +270,9 @@ $(document).ready(function () {
                     });
                 }
                 else {
-                    window.alert("No images found for selected date.");
+                    $(downloadTimeSelector).append(
+                        $('<option>', {text: "No Images Found", value: null})
+                    );
                 }
                 doingCommand = false;
             }).fail(timedOut);
@@ -281,9 +283,30 @@ $(document).ready(function () {
         }
     }
 
-    function cancelPictureDownloadHandler() {
-        $(downloadGreyScreen).css("display", "none");
-        doingCommand = false;
+    function downloadPicturesHandler(event) {
+        if ($(downloadTimeSelector).val() && downloadTimeSelector.find(":selected").attr("value") != null) {
+            var selectedPath = downloadTimeSelector.find(":selected").attr("value");
+            var path = selectedPath.replace(".NEF", event.data.extension);
+            var filename = path.split("/").slice(-1)[0];
+            console.log({path: path, filename: filename});
+            $.getJSON('/downloadpicture', {filepath: path}, function (result) {
+                if (result.success) {
+                    var element = document.createElement('a');
+                    element.setAttribute('href', "/static/downloads/" + filename);
+                    element.setAttribute('download', filename);
+                    element.style.display = 'none';
+                    document.body.appendChild(element);
+                    element.click();
+                    document.body.removeChild(element);
+                }
+                else {
+                    addToWebConsole("Download error: Unable to serve photo. Something went seriously wrong here!\n" + line)
+                }
+            });
+        }
+        else {
+            addToWebConsole("Download error: Please select a valid date and time.\n" + line)
+        }
     }
 
     function hddOnHandler() {

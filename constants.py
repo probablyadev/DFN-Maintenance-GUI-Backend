@@ -11,6 +11,8 @@ videoCameraOff = "python /opt/dfn-software/disable_video.py && echo SUCCESS"
 cameraCheck = "lsusb"
 getDirectorySize = "du -sh {0} | egrep -o '[0-9]+[A-Z]+'"
 getNumFilesInDirectory = 'find {0} -type f | wc -l'
+findPictures = "find /data[0-3] -type d -name '*{0}-{1}-{2}*' | grep -v 'test\|video'"
+copyFileToStatic = "cp {0} /opt/dfn-software/GUI/static/downloads && echo SUCCESS"
 
 enableHardDrive = "python /opt/dfn-software/enable_ext-hd.py"
 disableHardDrive = "python /opt/dfn-software/disable_ext-hd.py"
@@ -46,7 +48,6 @@ videoCameraSwitchedOff = "Video camera switched off.\n"
 videoCameraOperationFailed = "Video camera operation failed.\n"
 cameraCheckOn = "\nCAMERA STATUS:\nCamera online.\n"
 cameraCheckOff = "\nCAMERA STATUS:\nCamera not found.\n"
-findPictures = "find /data[0-3] -type d -name '*{0}-{1}-{2}*' | grep -v 'test\|video'"
 
 gpsCheckFailed = "\nGPS STATUS:\nGPS offline.\n"
 gpsOnline = "\nGPS STATUS:\nLock: {0}\nSatellites: {1}\nLatitude: {2}\nLongitude: {3}\nAltitude: {4}"
