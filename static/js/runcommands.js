@@ -265,7 +265,6 @@ $(document).ready(function () {
     }
 
     function findPicturesHandler() {
-        doingCommand = true;
         //Reset time selector
         $(downloadTimeSelector).find('option').remove().end();
         //Get the list of pictures and their timestamps from that date (if they exist)
