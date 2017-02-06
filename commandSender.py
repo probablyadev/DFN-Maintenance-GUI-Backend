@@ -176,14 +176,20 @@ def mountHDD():
     return feedbackOutput
 
 def unmountHDD():
-    # Do command
-    consoleOutput = doConsoleCommand(constants.unmountHardDrive)
-    poweredStatus = doConsoleCommand(constants.hddPoweredStatus)
+    outputDict = {'/data1':"Drive #1", '/data2':"Drive #2", '/data3':"Drive #3",}
+    smalldrives = ['/data1', '/data2']
+    extdrives = ['/data1', '/data2', '/data3']
+    feedbackOutput = ""
 
-    feedbackOutput = feedbackOutput = constants.hddUnmountFailed.format(constants.hddAlreadyUnmountedError)
+    for drive in smalldrives:
+        # Do command
+        consoleOutput = doConsoleCommand(constants.unmountHardDrive.format(drive))
 
-    if "SUCCESS\nSUCCESS" in consoleOutput:
-        feedbackOutput = constants.hddUnmountPassed
+        if "SUCCESS" in consoleOutput:
+            feedbackOutput += constants.hddUnmountPassed.format(outputDict[drive])
+        else:
+            feedbackOutput += constants.hddUnmountFailed.format(outputDict[drive], constants.hddAlreadyUnmountedError)
+
     return feedbackOutput
 
 # TODO: FINISH THIS!
