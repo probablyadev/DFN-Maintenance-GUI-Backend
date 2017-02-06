@@ -154,7 +154,6 @@ $(document).ready(function () {
         if (!doingCommand) {
             approved = true
         }
-        console.log(approved);
         return approved;
     }
 

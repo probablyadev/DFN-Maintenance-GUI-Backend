@@ -145,9 +145,12 @@ def hddOff():
         return constants.hddAlreadyOff
 
     # Do command
-    doConsoleCommand(constants.disableHardDrive)
+    consoleOutput = doConsoleCommand(constants.disableHardDrive)
 
-    feedbackOutput = constants.hddCommandedOff
+    if consoleOutput == "":
+        feedbackOutput = constants.hddCommandedOff
+    else:
+        feedbackOutput = constants.hddOffFailed
 
     return feedbackOutput
 
