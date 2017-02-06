@@ -273,7 +273,7 @@ def smartTest():
 
         else:
             output[drive] = constants.smartTestStartedFailed.format(drive)
-            # successfuldrives.append(drive)
+            successfuldrives.append(drive)
 
     print successfuldrives
 
@@ -281,6 +281,8 @@ def smartTest():
     if successfuldrives:
         # Sleep while smart test performs
         time.sleep(70)
+
+        print "SLEEP DONE\n"
 
         # Evaluate results
         for drive in successfuldrives:
@@ -290,7 +292,7 @@ def smartTest():
             else:
                 output[drive] += constants.smartTestResultsFailed.format(drive)
             feedbackOutput += output[drive]
-            print feedbackOutput[drive]
+            print output[drive]
 
     return feedbackOutput
 
