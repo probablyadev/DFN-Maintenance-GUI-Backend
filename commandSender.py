@@ -266,13 +266,16 @@ def smartTest():
 
     # Start all smart tests
     for drive in smalldrives:
+        print "STARTING TEST ON: " + drive
         consoleOutput = doConsoleCommand(constants.runSmartTest.format(drive))
         if "SUCCESS" in consoleOutput:
             output[drive] = constants.smartTestStartedSuccess.format(drive)
 
         else:
             output[drive] = constants.smartTestStartedFailed.format(drive)
-            successfuldrives.append(drive)
+            # successfuldrives.append(drive)
+
+    print successfuldrives
 
     # Wait for completion
     if successfuldrives:
@@ -287,6 +290,7 @@ def smartTest():
             else:
                 output[drive] += constants.smartTestResultsFailed.format(drive)
             feedbackOutput += output[drive]
+            print feedbackOutput[drive]
 
     return feedbackOutput
 
