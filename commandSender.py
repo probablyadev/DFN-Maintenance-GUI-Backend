@@ -255,34 +255,29 @@ def hddStatus():
 
 def smartTest():
     smalldrives = ["usbjmicron,00", "usbjmicron,01"]
-    successfuldrives = smalldrives
+    successfuldrives = list(smalldrives)
     output = {}
     feedbackOutput = ""
 
     # If hardrives off or not mounted, get outta here!
     feedbackOutput, hdd0Status, hdd0Space, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space = hddStatus()
-    if hdd1Status == 0 and hdd2Status == 0:
-        return "\nERROR: Smart test failed. Hard drives need to be powered.\n"
+    # if hdd1Status == 0 and hdd2Status == 0:
+        # return "\nERROR: Smart test failed. Hard drives need to be powered.\n"
 
     # Start all smart tests
     for drive in smalldrives:
-        print "STARTING TEST ON: " + drive
         consoleOutput = doConsoleCommand(constants.runSmartTest.format(drive))
         if "SUCCESS" in consoleOutput:
-            output[drive] = constants.smartTestStartedSuccess.format(drive)
+            output.update({drive: constants.smartTestStartedSuccess.format(drive)})
 
         else:
-            output[drive] = constants.smartTestStartedFailed.format(drive)
-            successfuldrives.append(drive)
-
-    print successfuldrives
+            output.update({drive: constants.smartTestStartedFailed.format(drive)})
+            successfuldrives.remove(drive)
 
     # Wait for completion
     if successfuldrives:
         # Sleep while smart test performs
         time.sleep(70)
-
-        print "SLEEP DONE\n"
 
         # Evaluate results
         for drive in successfuldrives:
@@ -291,8 +286,9 @@ def smartTest():
                 output[drive] += constants.smartTestResultsPassed.format(drive)
             else:
                 output[drive] += constants.smartTestResultsFailed.format(drive)
-            feedbackOutput += output[drive]
-            print output[drive]
+
+    for drive in smalldrives:
+        feedbackOutput += output[drive]
 
     return feedbackOutput
 
