@@ -12,7 +12,6 @@ web.config.session_parameters['timeout'] = 3600
 urls = ('/', 'Index',
         '/app', 'UI',
         '/logout', 'Logout',
-        '/connectioncheck', 'ConnectionCheck',
         '/cameraon', 'CameraOn',
         '/cameraoff', 'CameraOff',
         '/videocameraon', 'VideoCameraOn',

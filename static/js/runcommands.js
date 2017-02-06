@@ -159,8 +159,8 @@ $(document).ready(function () {
     }
 
     function timedOut(jqXHR, status, errorThrown) {
-        $(configPopupGreyScreen).css('display', 'none');
         doingCommand = false;
+        $(configPopupGreyScreen).css('display', 'none');
         $(window).unbind('beforeunload');
         closeSpinner();
         if (jqXHR.status == 200) {
@@ -170,9 +170,11 @@ $(document).ready(function () {
                 }, 2000
             );
         }
+        else if (jqXHR.status == 500) {
+            addToWebConsole("ERROR: Internal server error. Please save console output and report this bug.\n" + line);
+        }
         else {
             addToWebConsole("ERROR: NO CONNECTION\n" + line);
-            doingCommand = false;
         }
     }
 
@@ -502,7 +504,7 @@ $(document).ready(function () {
         if (preCommandCheck()) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("DONE\n");
+            $(webConsole).append("Changing time zone...\n");
             $.getJSON("/timezonechange", {zone: timezoneCombobox.find(":selected").attr("value")}, function (result) {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
@@ -651,7 +653,7 @@ $(document).ready(function () {
             element.click();
             document.body.removeChild(element);
             doingCommand = false;
-        });
+        }).fail(timedOut);
     }
 
     function latestLogsHandler() {

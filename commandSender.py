@@ -255,6 +255,7 @@ def hddStatus():
 
 def smartTest():
     smalldrives = ["usbjmicron,00", "usbjmicron,01"]
+    successfuldrives = smalldrives
     output = {}
     feedbackOutput = ""
 
@@ -271,18 +272,21 @@ def smartTest():
 
         else:
             output[drive] = constants.smartTestStartedFailed.format(drive)
+            successfuldrives.append(drive)
 
     # Wait for completion
-    time.sleep(70)
+    if successfuldrives:
+        # Sleep while smart test performs
+        time.sleep(70)
 
-    # Evaluate results
-    for drive in smalldrives:
-        consoleOutput = doConsoleCommand(constants.checkSmartTest.format(drive))
-        if "No Errors Logged" in consoleOutput:
-            output[drive] += constants.smartTestResultsPassed.format(drive)
-        else:
-            output[drive] += constants.smartTestResultsFailed.format(drive)
-        feedbackOutput += output[drive]
+        # Evaluate results
+        for drive in successfuldrives:
+            consoleOutput = doConsoleCommand(constants.checkSmartTest.format(drive))
+            if "No Errors Logged" in consoleOutput:
+                output[drive] += constants.smartTestResultsPassed.format(drive)
+            else:
+                output[drive] += constants.smartTestResultsFailed.format(drive)
+            feedbackOutput += output[drive]
 
     return feedbackOutput
 
