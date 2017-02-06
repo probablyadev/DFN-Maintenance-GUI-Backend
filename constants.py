@@ -19,7 +19,7 @@ shutterCount = "exiv2 -pa {0} | grep Nikon3\.ShutterCount | grep -oP '[0-9]{5}'"
 
 enableHardDrive = "python /opt/dfn-software/enable_ext-hd.py"
 disableHardDrive = "python /opt/dfn-software/disable_ext-hd.py"
-mountHardDrive = "mount /data1 && echo SUCCESS; mount /data2 && echo SUCCESS"
+mountHardDrive = "mount {0} && echo SUCCESS"
 unmountHardDrive = "umount /data1 && echo SUCCESS; umount /data2 && echo SUCCESS"
 formatHardDrive = "/opt/dfn-software/Shipped/formatHDDs.sh {0} {1} {2} {3}"
 hddPoweredStatus = "lsusb"
@@ -87,11 +87,11 @@ smartTestStartedFailed = "\nSmart test {0} failed execution (try re-powering dri
 smartTestResultsPassed = "Smart test for {0} passed.\n"
 smartTestResultsFailed = "Smart test for {0} failed.\n"
 
-hddMountPassed = "Hard drive mount successful.\n"
-hddMountFailed = "Hard drive mount error: {0}\n"
+hddMountPassed = "{0} mounted successfully.\n"
+hddMountFailed = "{0} mount error: {1}\n"
 hddUnmountPassed = "Hard drive unmount successful.\n"
 hddUnmountFailed = "Hard drive unmount error: {0}\n"
-hddAlreadyUnmountedError = "Hard drive may have already been unmounted. See status for confirmation."
+hddAlreadyUnmountedError = "{0} may have already been unmounted. See status for confirmation.\n"
 
 # Whitelist for which config variables the user can modify
 configBoxWhitelist = ["vid_lens", "vid_format", "camera_fstop", "still_lens", "vid_ser_no",

@@ -152,18 +152,25 @@ def hddOff():
     return feedbackOutput
 
 def mountHDD():
-    # Do command
-    consoleOutput = doConsoleCommand(constants.mountHardDrive)
-    poweredStatus = doConsoleCommand(constants.hddPoweredStatus)
+    outputDict = {'/data1':"Drive #1", '/data2':"Drive #2", '/data3':"Drive #3",}
+    smalldrives = ['/data1', '/data2']
+    extdrives = ['/data1', '/data2', '/data3']
     feedbackOutput = ""
 
-    if "SUCCESS\nSUCCESS" in consoleOutput:
-        if "JMicron Technology Corp." not in poweredStatus:
-            feedbackOutput = constants.hddMountFailed.format(constants.hddNotPoweredError)
+    poweredStatus = doConsoleCommand(constants.hddPoweredStatus)
+
+    for drive in smalldrives:
+        # Do command for drive
+        consoleOutput = doConsoleCommand(constants.mountHardDrive.format(drive))
+
+
+        if "SUCCESS" in consoleOutput:
+            if "JMicron Technology Corp." not in poweredStatus:
+                feedbackOutput += constants.hddMountFailed.format(outputDict[drive], constants.hddNotPoweredError)
+            else:
+                feedbackOutput += constants.hddMountPassed.format(outputDict[drive])
         else:
-            feedbackOutput = constants.hddMountPassed
-    else:
-        feedbackOutput = constants.hddMountFailed.format(constants.hddAlreadyMountedError)
+            feedbackOutput += constants.hddMountFailed.format(outputDict[drive], constants.hddAlreadyMountedError)
 
 
     return feedbackOutput
