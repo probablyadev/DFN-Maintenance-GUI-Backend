@@ -112,7 +112,6 @@ class CameraOn:
             outJSON = json.dumps(data)
             return outJSON
 
-
 class CameraOff:
     def GET(self):
         if LoginChecker.loggedIn():
@@ -303,7 +302,6 @@ class RestartModem:
             outJSON = json.dumps(data)
             return outJSON
 
-
 class VPNCheck:
     def GET(self):
         if LoginChecker.loggedIn():
@@ -380,7 +378,6 @@ class UpdateConfigFile:
             outJSON = json.dumps(data)
             return outJSON
 
-
 class SystemStatus:
     def GET(self):
         if LoginChecker.loggedIn():
@@ -412,4 +409,5 @@ class SystemStatus:
 
 # Start of execution
 if __name__ == "__main__":
+    os.chdir("/opt/dfn-software/GUI")
     app.run()
