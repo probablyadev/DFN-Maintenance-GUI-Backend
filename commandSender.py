@@ -110,6 +110,7 @@ def findPictures(inDate):
 def downloadPicture(inPath):
     success = False
     consoleFeedback = doConsoleCommand(constants.copyFileToStatic.format(inPath.filepath))
+    print consoleFeedback
     if "SUCCESS" in consoleFeedback:
         success = True
     return success
