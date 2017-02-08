@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     //Change img with svg source to inline svg
     jQuery('img.svg').each(function () {
         var $img = jQuery(this);
@@ -43,6 +44,14 @@ $(document).ready(function () {
 
     //HTML element variables
     var webConsole = $('#feedbackText');
+    var formatData1Wrapper = "#formatData1Wrapper";
+    var formatData2Wrapper = "#formatData2Wrapper";
+    var formatData3Wrapper = "#formatData3Wrapper";
+    var formatDrivesGreyScreen = $(".formatDrivesGreyScreen");
+    var formatDrivesPreConfirmation = $("#FormatDrivesPreConfirmation");
+    var formatDrivesConfirmation = $(".formatDrivesConfirmation");
+    var formatConfirmationTextBox = $("#FormatConfirmationTextBox");
+    var formatDrivesButton = $("#FormatDrives");
     var timezoneCombobox = $('#timezoneSelector');
     var downloadDateSelector = $('#DownloadDateSelector');
     var downloadTimeSelector = $('#DownloadTimeSelector');
@@ -66,11 +75,12 @@ $(document).ready(function () {
     var hdd1Space = $('#HDD1Space');
     var hdd2Space = $('#HDD2Space');
     var hdd3Space = $('#HDD3Space');
-    var installCheck = $('#installPartedCheck');
     var formatData1Check = $('#formatData1Check');
     var formatData2Check = $('#formatData2Check');
+    var formatData3Check = $('#formatData3Check');
 
     //Useful globals + constants
+    var hostname = "DFNSMALL62";
     var doingCommand = false;
     var simpleColorMapping = {true: "#00FF00", false: "#FF0000"};
     var complexColorMapping = {0: "#FF0000", 1: "#FF9900", 2: "#00FF00"};
@@ -91,6 +101,14 @@ $(document).ready(function () {
     $("#HDDOff").click(hddOffHandler);
     $("#MountHDD").click(hddMountHandler);
     $("#UnmountHDD").click(hddUnmountHandler);
+    $("#ProbeHDDs").click(hddProbeHandler);
+    $("#formatData1Check").change(formatCheckboxChangedHandler);
+    $("#formatData2Check").change(formatCheckboxChangedHandler);
+    $("#formatData3Check").change(formatCheckboxChangedHandler);
+    $("#FormatDrivesPreConfirmation").click(openFormatConfirmationMenu);
+    $("#ExitFormatMenu").click(closeFormatMenu);
+    $("#ExitFormatConfirmation").click(closeFormatConfirmationMenu);
+    $("#FormatConfirmationTextBox").keyup(formatConfirmHostnameHandler);
     $("#FormatDrives").click(hddFormatHandler);
     $("#HDDRunSmartTest").click(smartTestHandler);
     $("#CheckSpace").click(hddSpaceCheckHandler);
@@ -149,12 +167,40 @@ $(document).ready(function () {
         spinnerGreyScreen.css('display', 'none');
     }
 
+    function openFormatMenu() {
+        $(formatDrivesGreyScreen).css("display", "flex");
+    }
+
+    function closeFormatMenu() {
+        $(formatDrivesGreyScreen).css("display", "none");
+    }
+
+    function unselectAllFormatCheckboxes() {
+        $(formatData1Check).prop('checked', false);
+        $(formatData2Check).prop('checked', false);
+        $(formatData3Check).prop('checked', false);
+    }
+
+    function openFormatConfirmationMenu() {
+        $(formatDrivesConfirmation).css("display", "flex");
+    }
+
+    function closeFormatConfirmationMenu() {
+        $(formatDrivesConfirmation).css("display", "none");
+    }
+
     function preCommandCheck() {
         var approved = false;
         if (!doingCommand) {
             approved = true
         }
         return approved;
+    }
+
+    function getHostname() {
+        $.getJSON('/gethostname', function(result) {
+            hostname = result.hostname
+        });
     }
 
     function timedOut(jqXHR, status, errorThrown) {
@@ -301,57 +347,58 @@ $(document).ready(function () {
     }
 
     function downloadPictureHandler() {
-            if ($(downloadTimeSelector).val() && downloadTimeSelector.find(":selected").attr("value") != null) {
-                var path = downloadTimeSelector.find(":selected").attr("value");
-                var filename = path.split("/").slice(-1)[0];
-                $.getJSON('/downloadpicture', {filepath: path}, function (result) {
-                    if (result.success) {
-                        var element = document.createElement('a');
-                        element.setAttribute('href', "/static/downloads/" + filename);
-                        element.setAttribute('download', filename);
-                        element.style.display = 'none';
-                        document.body.appendChild(element);
-                        element.click();
-                        document.body.removeChild(element);
-                    }
-                    else {
-                        addToWebConsole("Download error: Unable to serve NEF. Select a picture again.\n" + line);
-                    }
-                }).fail(timedOut);
-            }
-            else {
-                addToWebConsole("Download error: Please select a valid date and time.\n" + line);
-            }
+        if ($(downloadTimeSelector).val() && downloadTimeSelector.find(":selected").attr("value") != null) {
+            var path = downloadTimeSelector.find(":selected").attr("value");
+            var filename = path.split("/").slice(-1)[0];
+            $.getJSON('/downloadpicture', {filepath: path}, function (result) {
+                if (result.success) {
+                    var element = document.createElement('a');
+                    element.setAttribute('href', "/static/downloads/" + filename);
+                    element.setAttribute('download', filename);
+                    element.style.display = 'none';
+                    document.body.appendChild(element);
+                    element.click();
+                    document.body.removeChild(element);
+                }
+                else {
+                    addToWebConsole("Download error: Unable to serve NEF. Select a picture again.\n" + line);
+                }
+            }).fail(timedOut);
         }
+        else {
+            addToWebConsole("Download error: Please select a valid date and time.\n" + line);
+        }
+    }
 
     function downloadThumbnailHandler() {
-            if ($(downloadTimeSelector).val() && downloadTimeSelector.find(":selected").attr("value") != null) {
-                var nefPath = downloadTimeSelector.find(":selected").attr("value");
-                var nefFilename = nefPath.split("/").slice(-1)[0];
-                var jpgFilename = nefFilename.replace(".NEF", "-preview3.jpg");
-                $("#DownloadJPGPicture").attr("disabled", "disabled");
-                $.getJSON('/downloadthumbnail', {filepath: nefPath}, function (result) {
-                    if (result.success) {
-                        var element = document.createElement('a');
-                        element.setAttribute('href', "/static/downloads/" + jpgFilename);
-                        element.setAttribute('download', jpgFilename);
-                        element.style.display = 'none';
-                        document.body.appendChild(element);
-                        element.click();
-                        document.body.removeChild(element);
-                        $.get('/removethumbnail', {filepath: "/opt/dfn-software/GUI/static/downloads/" + jpgFilename}, function() {
-                            $("#DownloadJPGPicture").removeAttr("disabled");
-                        });
-                    }
-                    else {
-                        addToWebConsole("Download error: Unable to serve jpg. Select a picture again.\n" + line);
-                    }
-                }).fail(timedOut);
-            }
-            else {
-                addToWebConsole("Download error: Please select a valid date and time.\n" + line);
-            }
+        if ($(downloadTimeSelector).val() && downloadTimeSelector.find(":selected").attr("value") != null) {
+            var nefPath = downloadTimeSelector.find(":selected").attr("value");
+            var nefFilename = nefPath.split("/").slice(-1)[0];
+            var jpgFilename = nefFilename.replace(".NEF", "-preview3.jpg");
+            $("#DownloadJPGPicture").attr("disabled", "disabled");
+            $.getJSON('/downloadthumbnail', {filepath: nefPath}, function (result) {
+                if (result.success) {
+                    var element = document.createElement('a');
+                    element.setAttribute('href', "/static/downloads/" + jpgFilename);
+                    element.setAttribute('download', jpgFilename);
+                    element.style.display = 'none';
+                    document.body.appendChild(element);
+                    element.click();
+                    document.body.removeChild(element);
+                    $.get('/removethumbnail', {filepath: "/opt/dfn-software/GUI/static/downloads/" + jpgFilename}, function () {
+                        $("#DownloadJPGPicture").removeAttr("disabled");
+                    });
+                }
+                else {
+                    addToWebConsole("Download error: Unable to serve jpg. Select a picture again.\n" + line);
+                    $("#DownloadJPGPicture").removeAttr("disabled");
+                }
+            }).fail(timedOut);
         }
+        else {
+            addToWebConsole("Download error: Please select a valid date and time.\n" + line);
+        }
+    }
 
     function hddOnHandler() {
         if (preCommandCheck()) {
@@ -424,23 +471,78 @@ $(document).ready(function () {
         }
     }
 
+    var probeDict = {"data1": formatData1Wrapper, "data2": formatData2Wrapper, "data3": formatData3Wrapper};
+
+    function hddProbeHandler() {
+        if (preCommandCheck()) {
+            doingCommand = true;
+            addToWebConsole("Finding drives to format...\n");
+            $.getJSON("/probehdd", function (result) {
+                if (!$.isEmptyObject(result)) {
+                    addToWebConsole("Drives found\n" + line);
+                    $.each(result, function (key, value) {
+                        $(probeDict[key]).css("display", "flex");
+                        $(probeDict[key] + " input").attr("value", value);
+                    });
+                    unselectAllFormatCheckboxes();
+                    openFormatMenu();
+                    doingCommand = false;
+                }
+                else {
+                    addToWebConsole("ERROR: No drives detected. Power on drives and try again.\n" + line)
+                    doingCommand = false;
+                }
+            }).fail(timedOut);
+        }
+    }
+
+    function formatCheckboxChangedHandler() {
+        if (formatData1Check.is(':checked') || formatData2Check.is(':checked') || formatData3Check.is(':checked')) {
+            $(formatDrivesPreConfirmation).removeAttr('disabled');
+            $(formatDrivesPreConfirmation).removeClass('disabled');
+        }
+        else {
+            $(formatDrivesPreConfirmation).attr('disabled', 'disabled');
+            $(formatDrivesPreConfirmation).addClass('disabled');
+        }
+    }
+
+    function formatConfirmHostnameHandler() {
+        if ($(formatConfirmationTextBox).val() == hostname) {
+            $(formatDrivesButton).removeAttr('disabled');
+            $(formatDrivesButton).removeClass('disabled');
+        }
+
+        else {
+            $(formatDrivesButton).attr('disabled', 'disabled');
+            $(formatDrivesButton).addClass('disabled');
+        }
+    }
+
     function hddFormatHandler() {
         if (preCommandCheck()) {
             doingCommand = true;
+            closeFormatConfirmationMenu();
+            closeFormatMenu();
+            openSpinner("Formatting hard-drives, please wait ~2 minutes...")
             //Feedback on button press
             $(webConsole).append("Formatting hard drives...\n");
-            //Pack checkbox data into JSON
-            var checkData = {
-                installChecked: installCheck.is(':checked'),
-                data1Checked: formatData1Check.is(':checked'),
-                data2Checked: formatData2Check.is(':checked')
-            };
-            //Request to enable HDDs
-            $.getJSON("/formathdd", checkData, function (result) {
-                //Set feedback text
+            //Get ticked checkboxes and put into a string
+            var tickedString = "";
+            if($(formatData1Check).is(":checked")) {
+                tickedString += $(formatData1Check).val() + " ";
+            }
+            if($(formatData2Check).is(":checked")) {
+                tickedString += $(formatData2Check).val() + " ";
+            }
+            if($(formatData3Check).is(":checked")) {
+                tickedString += $(formatData3Check).val();
+            }
+            $.getJSON("/formathdd", {args: tickedString}, function (result) {
+                closeSpinner();
+                consoleBlinkGreen();
+                //Set feedbacktext
                 addToWebConsole(result.consoleFeedback + "\n" + line);
-                //Set light colours
-                drawHDDStatus(result);
                 //Open up for other commands to be run
                 doingCommand = false;
             }).fail(timedOut);
@@ -781,7 +883,7 @@ $(document).ready(function () {
 
     //Code for tab controls
     function changeTab(event) {
-        var i, tabContent, tabControl;
+        var tabContent, tabControl;
         var contentName = event.data.contentName;
         var tabName = event.data.tabName;
 
@@ -807,4 +909,5 @@ $(document).ready(function () {
 
     //Get system status
     systemStatusHandler();
+    getHostname();
 });

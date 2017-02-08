@@ -19,6 +19,11 @@ def doConsoleCommand(command):
 # NB: Most functionality that requires a true/false return, the default is set to false
 # and then changed if the exit status for that operation is true.
 
+# Login utilities
+def getHostname():
+    consoleOutput = doConsoleCommand("hostname")
+    return consoleOutput
+
 # Camera utilities
 def cameraOn():
     # Do command
@@ -189,6 +194,7 @@ def unmountHDD():
         # Do command
         consoleOutput = doConsoleCommand(constants.unmountHardDrive.format(drive))
 
+        # Parse results
         if "SUCCESS" in consoleOutput:
             feedbackOutput += constants.hddUnmountPassed.format(outputDict[drive])
         else:
@@ -196,19 +202,30 @@ def unmountHDD():
 
     return feedbackOutput
 
+def probeHDD():
+    # Do command
+    consoleOutput = doConsoleCommand(constants.probeHardDrives)
+    validTokens = []
+    data = {}
+
+    # Parse results
+    splitOutput = consoleOutput.split(" ")
+    for idx, token in enumerate(splitOutput):
+        if "/" in token:
+            data[splitOutput[idx + 1]] = token + " " + splitOutput[idx + 1]
+
+    return data
+
 # TODO: FINISH THIS!
-def formatHDD(checkData):
-    checkDictionary = {"true": "y", "false": "N"}
-    i=0
-    arg = ["N", "N", "N"]
+def formatHDD(inDrives):
+    consoleOutput = doConsoleCommand(constants.formatHardDrive.format(inDrives))
+    feedbackOutput = constants.hddFormatFailed
+    if "SUCCESS" in consoleOutput and "is mounted" not in consoleOutput:
+        feedbackOutput = constants.hddFormatPassed
+    else:
+        feedbackOutput = constants.hddFormatFailed
 
-    for checked in checkData:
-        arg[i] = checkDictionary[checked]
-        i += 1
-
-    consoleOutput = doConsoleCommand(constants.formatHardDrive.format(arg[0], arg[1], arg[2]))
-    print consoleOutput
-    return "0\n"
+    return feedbackOutput
 
 def hddStatus():
     hddStatusDict = {0: constants.hddStatusOff, 1: constants.hddStatusPowered, 2: constants.hddStatusMounted}

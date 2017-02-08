@@ -12,6 +12,7 @@ web.config.session_parameters['timeout'] = 3600
 urls = ('/', 'Index',
         '/app', 'UI',
         '/logout', 'Logout',
+        '/gethostname', 'GetHostname',
         '/cameraon', 'CameraOn',
         '/cameraoff', 'CameraOff',
         '/videocameraon', 'VideoCameraOn',
@@ -30,6 +31,7 @@ urls = ('/', 'Index',
         '/disablehdd', 'DisableHDD',
         '/mounthdd', 'MountHDD',
         '/unmounthdd', 'UnmountHDD',
+        '/probehdd', 'ProbeHDD',
         '/formathdd', 'FormatHDD',
         '/smarttest', 'SmartTest',
         '/hddcheck', 'CheckHDD',
@@ -74,12 +76,11 @@ class Index:
 
 
 # Class for Maintenance GUI
-if __name__ == '__main__':
-    class UI:
-        def GET(self):
-            if LoginChecker.loggedIn():
-                f = loginForm()
-                return render.app()
+class UI:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            hostname = commandSender.getHostname()
+            return render.app(hostname)
 
 class Login:
     @staticmethod
@@ -99,6 +100,12 @@ class LoginChecker:
             return True
         else:
             raise web.seeother('/')
+
+class GetHostname:
+    def GET(self):
+        data = {}
+        data['hostname'] = commandSender.getHostname()
+        return json.dumps(data)
 
 # Classes for different functions of the GUI
 class CameraOn:
@@ -216,14 +223,18 @@ class UnmountHDD:
             outJSON = json.dumps(data)
             return outJSON
 
+class ProbeHDD:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = commandSender.probeHDD()
+            outJSON = json.dumps(data)
+            return outJSON
+
 class FormatHDD:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
-            checkData = [web.input().installChecked, web.input().data1Checked, web.input().data2Checked]
-            data['consoleFeedback'] = commandSender.formatHDD(checkData)
-            statusFeedback, data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
-            data['consoleFeedback'] += statusFeedback
+            data['consoleFeedback'] = commandSender.formatHDD(web.input().args)
             outJSON = json.dumps(data)
             return outJSON
 

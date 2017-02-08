@@ -1,3 +1,5 @@
+$def with (hostname)
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +14,7 @@
 
 <div class="contentWrapper">
     <div class="pageHeader">
-        <a href="/logout" class="logoutText">Logout</a>
+        <a href="/logout" class="logoutText">Logout of $:hostname</a>
         <img src="/static/img/fireballLogo.png">
     </div>
 
@@ -113,29 +115,8 @@
             </div>
 
             <div class="hddAdvancedFunctions">
-                <div class="formatForm" style="display:none;">
-                    <h4 class="moduleHeader">Format Hard Drive</h4>
-                    <div class="checkboxWrapper">
-                        <input type="checkbox" id="installPartedCheck">
-                        <label for="installPartedCheck">Install Parted</label>
-                    </div>
-                    <div class="checkboxWrapper">
-                        <input type="checkbox" id="formatData1Check">
-                        <label for="formatData1Check">Format /data1</label>
-                    </div>
-                    <div class="checkboxWrapper">
-                        <input type="checkbox" id="formatData2Check">
-                        <label for="formatData2Check">Format /data2</label>
-                    </div>
-                    <div class="checkboxWrapper">
-                        <input type="checkbox" id="formatData3Check">
-                        <label for="formatData3Check">Format /data3</label>
-                    </div>
-                    <button type="button" class="commandButton disabled" id="FormatDrives" disabled>Format Drives</button>
-                </div>
-                <div class="linebreak"></div>
+                <button type="button" class="commandButton criticalButton" id="ProbeHDDs">Format Drives</button>
                 <button type="button" class="commandButton" id="HDDRunSmartTest">Run Smart Test</button>
-                <div class="linebreak"></div>
             </div>
         </div>
 
@@ -494,6 +475,37 @@
             <span id="configChangeFeedback"></span>
             <button type="button" class="commandButton" id="ConfigPopupSave">Save</button>
             <button type="button" class="commandButton" id="ConfigPopupExit">Exit</button>
+        </div>
+    </div>
+
+    <div class="formatDrivesGreyScreen">
+        <div class="formatDrivesPrompt">
+            <h4>Format Drives</h4>
+            <div class="formatDrivesForm">
+                <div class="formatCheckboxWrapper" id="formatData1Wrapper">
+                    <input type="checkbox" id="formatData1Check">
+                    <label for="formatData1Check">Format Drive #1</label>
+                </div>
+                <div class="formatCheckboxWrapper" id="formatData2Wrapper">
+                    <input type="checkbox" id="formatData2Check">
+                    <label for="formatData2Check">Format Drive #2</label>
+                </div>
+                <div class="formatCheckboxWrapper" id="formatData3Wrapper">
+                    <input type="checkbox" id="formatData3Check">
+                    <label for="formatData3Check">Format Drive #3</label>
+                </div>
+                <button type="button" class="commandButton disabled" id="FormatDrivesPreConfirmation" disabled>Format Drives</button>
+                <button type="button" class="commandButton" id="ExitFormatMenu">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="formatDrivesConfirmation">
+        <p>WARNING: This will erase all data on the selected drives.<br>Enter this camera's hostname to continue.</p>
+        <div class="formatConfirmationButtonWrapper">
+            <input type="text" id="FormatConfirmationTextBox">
+            <button type="button" class="commandButton disabled" id="FormatDrives" disabled>Format Drives</button>
+            <button type="button" class="commandButton" id="ExitFormatConfirmation">Cancel</button>
         </div>
     </div>
 

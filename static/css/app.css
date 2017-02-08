@@ -258,6 +258,11 @@ hr {
   .commandButton:hover {
     background-color: #FF4100; }
 
+.criticalButton {
+  background-color: #E50000; }
+  .criticalButton:hover {
+    background-color: #FF0000; }
+
 .disabled {
   background-color: #660000;
   color: #AAA; }
@@ -566,40 +571,16 @@ hr {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    -webkit-flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    -webkit-align-content: center;
-    -ms-flex-line-pack: center;
-    align-content: center;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     -webkit-justify-content: center;
     -ms-flex-pack: center;
     justify-content: center;
     width: 50%; }
-    .hddControl .hddAdvancedFunctions .formatForm {
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-      flex-direction: column;
-      -webkit-align-items: center;
-      -ms-flex-align: center;
-      align-items: center;
-      -webkit-justify-content: center;
-      -ms-flex-pack: center;
-      justify-content: center;
-      margin-bottom: 3%;
-      padding: 3%;
-      background-color: #660000;
-      -webkit-border-radius: 3%;
-      -moz-border-radius: 3%;
-      -ms-border-radius: 3%;
-      border-radius: 3%; }
-      .hddControl .hddAdvancedFunctions .formatForm h4 {
-        white-space: nowrap;
-        text-align: center;
-        margin: 3% 10px; }
 
 .networkControl {
   display: -webkit-flex;
@@ -946,6 +927,106 @@ hr {
     transform: rotate(360deg); } }
   .spinnerGreyScreen .spinnerSpan {
     color: #FFF; }
+
+.formatDrivesConfirmation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  padding: 10px;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background-color: #330006;
+  z-index: 20;
+  height: 20%;
+  display: none;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px; }
+  .formatDrivesConfirmation p {
+    margin: 3px;
+    color: #FFF;
+    font-size: 1.2em;
+    text-align: center; }
+  .formatDrivesConfirmation input {
+    margin: 10px; }
+  .formatDrivesConfirmation .formatComfirmationButtonWrapper {
+    display: inherit;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin: 10px; }
+
+.formatDrivesGreyScreen {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  background-color: rgba(38, 38, 38, 0.9);
+  display: none;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+  .formatDrivesGreyScreen .formatDrivesPrompt {
+    padding: 15px 30px;
+    background-color: #95000C;
+    display: inherit;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px; }
+    .formatDrivesGreyScreen .formatDrivesPrompt .formatDrivesForm {
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center; }
+      .formatDrivesGreyScreen .formatDrivesPrompt .formatDrivesForm .formatCheckboxWrapper {
+        margin: 5px 0;
+        display: none;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center; }
+        .formatDrivesGreyScreen .formatDrivesPrompt .formatDrivesForm .formatCheckboxWrapper label {
+          color: #FFF;
+          margin-left: 7px; }
 
 .contentWrapper {
   height: 100vh;
