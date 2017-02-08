@@ -216,7 +216,6 @@ def probeHDD():
 
     return data
 
-# TODO: FINISH THIS!
 def formatHDD(inDrives):
     consoleOutput = doConsoleCommand(constants.formatHardDrive.format(inDrives))
     feedbackOutput = constants.hddFormatFailed
@@ -224,6 +223,9 @@ def formatHDD(inDrives):
         feedbackOutput = constants.hddFormatPassed
     else:
         feedbackOutput = constants.hddFormatFailed
+
+    # Sleep while smart tests perform
+    time.sleep(70)
 
     return feedbackOutput
 

@@ -177,8 +177,11 @@ $(document).ready(function () {
 
     function unselectAllFormatCheckboxes() {
         $(formatData1Check).prop('checked', false);
-        $(formatData2Check).prop('checked', false);
-        $(formatData3Check).prop('checked', false);
+        $(formatData1Wrapper).css('display', 'none');
+        $(formatData2Wrapper).prop('checked', false);
+        $(formatData2Check).css('display', 'none');
+        $(formatData3Wrapper).prop('checked', false);
+        $(formatData3Check).css('display', 'none');
     }
 
     function openFormatConfirmationMenu() {
@@ -478,13 +481,13 @@ $(document).ready(function () {
             doingCommand = true;
             addToWebConsole("Finding drives to format...\n");
             $.getJSON("/probehdd", function (result) {
+                unselectAllFormatCheckboxes();
                 if (!$.isEmptyObject(result)) {
                     addToWebConsole("Drives found\n" + line);
                     $.each(result, function (key, value) {
                         $(probeDict[key]).css("display", "flex");
                         $(probeDict[key] + " input").attr("value", value);
                     });
-                    unselectAllFormatCheckboxes();
                     openFormatMenu();
                     doingCommand = false;
                 }
