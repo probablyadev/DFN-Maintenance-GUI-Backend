@@ -178,8 +178,8 @@ $(document).ready(function () {
     function unselectAllFormatCheckboxes() {
         $(formatData1Check).prop('checked', false);
         $(formatData1Wrapper).css('display', 'none');
-        $(formatData2Wrapper).prop('checked', false);
-        $(formatData2Check).css('display', 'none');
+        $(formatData2Check).prop('checked', false);
+        $(formatData2Wrapper).css('display', 'none');
         $(formatData3Wrapper).prop('checked', false);
         $(formatData3Check).css('display', 'none');
     }

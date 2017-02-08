@@ -258,12 +258,6 @@ hr {
   .commandButton:hover {
     background-color: #FF4100; }
 
-.criticalButton {
-  background: linear-gradient(45deg, transparent 5%, #660000 5%, #660000 10%, transparent 10%, transparent 15%, #660000 15%, #660000 20%, transparent 20%, transparent 25%, #660000 25%, #660000 30%, transparent 30%, transparent 35%, #660000 35%, #660000 40%, transparent 40%, transparent 45%, #660000 45%, #660000 50%, transparent 50%, transparent 55%, #660000 55%, #660000 60%, transparent 60%, transparent 65%, #660000 65%, #660000 70%, transparent 70%, transparent 75%, #660000 75%, #660000 80%, transparent 80%, transparent 85%, #660000 85%, #660000 90%, transparent 90%, transparent 95%, #660000 95%);
-  background-color: #CC0000; }
-  .criticalButton:hover {
-    background-color: #AA0000; }
-
 .disabled {
   background-color: #660000;
   color: #AAA; }
@@ -990,8 +984,9 @@ hr {
   -ms-flex-pack: center;
   justify-content: center; }
   .formatDrivesGreyScreen .formatDrivesPrompt {
-    padding: 15px 30px;
-    background-color: #95000C;
+    padding: 25px 0;
+    background: linear-gradient(30deg, transparent 6.25%, #292325 6.25%, #292325 12.5%, transparent 12.5%, transparent 18.75%, #292325 18.75%, #292325 25%, transparent 25%, transparent 31.25%, #292325 31.25%, #292325 37.5%, transparent 37.5%, transparent 43.75%, #292325 43.75%, #292325 50%, transparent 50%, transparent 56.25%, #292325 56.25%, #292325 62.5%, transparent 62.5%, transparent 68.75%, #292325 68.75%, #292325 75%, transparent 75%, transparent 81.25%, #292325 81.25%, #292325 87.5%, transparent 87.5%, transparent 93.75%, #292325 93.75%);
+    background-color: #EEBC0E;
     display: inherit;
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
@@ -1007,6 +1002,9 @@ hr {
     -ms-border-radius: 5px;
     border-radius: 5px; }
     .formatDrivesGreyScreen .formatDrivesPrompt .formatDrivesForm {
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
       -webkit-flex-direction: column;
       -ms-flex-direction: column;
       flex-direction: column;
@@ -1015,7 +1013,17 @@ hr {
       align-items: center;
       -webkit-justify-content: center;
       -ms-flex-pack: center;
-      justify-content: center; }
+      justify-content: center;
+      background-color: #95000C;
+      padding: 10px 0;
+      border-top: 2px solid black;
+      border-bottom: 2px solid black;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      -ms-border-radius: 3px;
+      border-radius: 3px; }
+      .formatDrivesGreyScreen .formatDrivesPrompt .formatDrivesForm h4 {
+        color: white; }
       .formatDrivesGreyScreen .formatDrivesPrompt .formatDrivesForm .formatCheckboxWrapper {
         margin: 5px 0;
         display: none;
@@ -1026,8 +1034,10 @@ hr {
         -ms-flex-pack: center;
         justify-content: center; }
         .formatDrivesGreyScreen .formatDrivesPrompt .formatDrivesForm .formatCheckboxWrapper label {
-          color: #FFF;
+          color: white;
           margin-left: 7px; }
+      .formatDrivesGreyScreen .formatDrivesPrompt .formatDrivesForm .formatButtonPreConfirmationWrapper {
+        margin: 0 10px; }
 
 .contentWrapper {
   height: 100vh;

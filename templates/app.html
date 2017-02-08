@@ -115,7 +115,7 @@ $def with (hostname)
             </div>
 
             <div class="hddAdvancedFunctions">
-                <button type="button" class="commandButton criticalButton" id="ProbeHDDs">Format Drives</button>
+                <button type="button" class="commandButton" id="ProbeHDDs">Format Drives</button>
                 <button type="button" class="commandButton" id="HDDRunSmartTest">Run Smart Test</button>
             </div>
         </div>
@@ -480,8 +480,8 @@ $def with (hostname)
 
     <div class="formatDrivesGreyScreen">
         <div class="formatDrivesPrompt">
-            <h4>Format Drives</h4>
             <div class="formatDrivesForm">
+                <h4>Format Drives</h4>
                 <div class="formatCheckboxWrapper" id="formatData1Wrapper">
                     <input type="checkbox" id="formatData1Check">
                     <label for="formatData1Check">Format Drive #1</label>
@@ -494,8 +494,10 @@ $def with (hostname)
                     <input type="checkbox" id="formatData3Check">
                     <label for="formatData3Check">Format Drive #3</label>
                 </div>
-                <button type="button" class="commandButton disabled" id="FormatDrivesPreConfirmation" disabled>Format Drives</button>
-                <button type="button" class="commandButton" id="ExitFormatMenu">Cancel</button>
+                <div class="formatButtonPreConfirmationWrapper">
+                    <button type="button" class="commandButton disabled" id="FormatDrivesPreConfirmation" disabled>Format Drives</button>
+                    <button type="button" class="commandButton" id="ExitFormatMenu">Cancel</button>
+                </div>
             </div>
         </div>
     </div>
