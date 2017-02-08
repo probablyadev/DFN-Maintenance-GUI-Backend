@@ -259,9 +259,10 @@ hr {
     background-color: #FF4100; }
 
 .criticalButton {
-  background-color: #E50000; }
+  background: linear-gradient(45deg, transparent 5%, #660000 5%, #660000 10%, transparent 10%, transparent 15%, #660000 15%, #660000 20%, transparent 20%, transparent 25%, #660000 25%, #660000 30%, transparent 30%, transparent 35%, #660000 35%, #660000 40%, transparent 40%, transparent 45%, #660000 45%, #660000 50%, transparent 50%, transparent 55%, #660000 55%, #660000 60%, transparent 60%, transparent 65%, #660000 65%, #660000 70%, transparent 70%, transparent 75%, #660000 75%, #660000 80%, transparent 80%, transparent 85%, #660000 85%, #660000 90%, transparent 90%, transparent 95%, #660000 95%);
+  background-color: #CC0000; }
   .criticalButton:hover {
-    background-color: #FF0000; }
+    background-color: #AA0000; }
 
 .disabled {
   background-color: #660000;

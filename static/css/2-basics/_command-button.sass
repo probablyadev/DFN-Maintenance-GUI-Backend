@@ -11,10 +11,11 @@
     background-color: $buttonhover
 
 .criticalButton
-  background-color: $criticalbuttonred
+  +striped-bg($darkred, 10)
+  background-color: #CC0000
 
   &:hover
-    background-color: $criticalbuttonhover
+    background-color: #AA0000
 
 .disabled
   background-color: $darkred

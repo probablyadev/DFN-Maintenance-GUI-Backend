@@ -221,11 +221,11 @@ def formatHDD(inDrives):
     feedbackOutput = constants.hddFormatFailed
     if "SUCCESS" in consoleOutput and "is mounted" not in consoleOutput:
         feedbackOutput = constants.hddFormatPassed
+        # Sleep while smart tests perform
+        time.sleep(70)
     else:
         feedbackOutput = constants.hddFormatFailed
 
-    # Sleep while smart tests perform
-    time.sleep(70)
 
     return feedbackOutput
 

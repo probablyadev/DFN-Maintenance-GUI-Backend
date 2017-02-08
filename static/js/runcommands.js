@@ -524,6 +524,9 @@ $(document).ready(function () {
 
     function hddFormatHandler() {
         if (preCommandCheck()) {
+            $(window).bind("beforeunload",function(event) {
+                return "WARNING: Refreshing while formatting is NOT recommended.\n Please only do this if you are 100% sure.";
+            });
             doingCommand = true;
             closeFormatConfirmationMenu();
             closeFormatMenu();
@@ -548,6 +551,7 @@ $(document).ready(function () {
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Open up for other commands to be run
                 doingCommand = false;
+                $(window).unbind('beforeunload');
             }).fail(timedOut);
         }
     }
