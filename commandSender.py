@@ -102,13 +102,20 @@ def findPictures(inDate):
                 if ".NEF" in fileName:
                     #Get filepath for NEF file
                     filePath = (directory + "/" + fileName)
-                    #Get corrected timestamp for NEF file
-                    fileModTime = os.path.getmtime(filePath)
-                    t = time.localtime()
-                    offset = calendar.timegm(t) - calendar.timegm(time.gmtime(time.mktime(t)))
-                    fileModTime = fileModTime + offset
-                    correctedTimeStamp = datetime.datetime.fromtimestamp(fileModTime).strftime("%H:%M:%S")
-                    data[correctedTimeStamp] = filePath
+                    # Find timestamp of when photo was taken
+                    regexSearch = re.search('(?<!\d)\d{6}(?!\d)', filePath)
+                    fileCreationTime = ""
+                    if regexSearch:
+                        fileCreationTime = regexSearch.group(0)
+                        fileCreationTime = fileCreationTime[:2] + ':' + fileCreationTime[2:]
+                        fileCreationTime = fileCreationTime[:5] + ':' + fileCreationTime[5:]
+                        h, m, s = fileCreationTime.split(':')
+                        seconds = int(h) * 3600 + int(m) * 60 + int(s)
+                        offset = calendar.timegm(time.localtime()) - calendar.timegm(time.gmtime(time.mktime(time.localtime())))
+                        fileCreationTimeSeconds = seconds + offset
+                        fileCreationTimeReadable = time.strftime('%H:%M:%S', time.gmtime(fileCreationTimeSeconds))
+
+                    data[fileCreationTimeReadable] = filePath
 
         return json.dumps(data, sort_keys=True)
 
