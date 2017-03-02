@@ -21,13 +21,15 @@ def doConsoleCommand(command):
 
 # Login utilities
 def getHostname():
-    consoleOutput = doConsoleCommand("hostname")
+    consoleOutput = doConsoleCommand(constants.getHostname)
     return consoleOutput
 
 # Camera utilities
 def cameraOn():
     # Do command
-    doConsoleCommand(constants.cameraOn)
+    consoleOutput = doConsoleCommand(constants.cameraOn + constants.getExitStatus)
+    if "2" in consoleOutput:
+        raise IOError(constants.scriptNotFound)
 
     # Parse output
     feedbackOutput = constants.cameraSwitchedOn
@@ -36,7 +38,9 @@ def cameraOn():
 
 def cameraOff():
     # Do command
-    doConsoleCommand(constants.cameraOff)
+    consoleOutput = doConsoleCommand(constants.cameraOff + constants.getExitStatus)
+    if "2" in consoleOutput:
+        raise IOError(constants.scriptNotFound)
 
     # Parse output
     feedbackOutput = constants.cameraSwitchedOff
@@ -44,26 +48,26 @@ def cameraOff():
     return feedbackOutput
 
 def videoCameraOn():
-    feedbackOutput = constants.videoCameraOperationFailed
-
     # Do command
-    consoleFeedback = doConsoleCommand(constants.videoCameraOn)
+    consoleFeedback = doConsoleCommand(constants.videoCameraOn + constants.getExitStatus)
 
     # Parse output
-    if "SUCCESS" in consoleFeedback:
-        feedbackOutput = constants.videoCameraSwitchedOn
+    if "2" in consoleFeedback:
+        raise IOError(constants.scriptNotFound)
+
+    feedbackOutput = constants.videoCameraSwitchedOn
 
     return feedbackOutput
 
 def videoCameraOff():
-    feedbackOutput = constants.videoCameraOperationFailed
-
     # Do command
-    consoleFeedback = doConsoleCommand(constants.videoCameraOff)
+    consoleFeedback = doConsoleCommand(constants.videoCameraOff + constants.getExitStatus)
 
     # Parse output
-    if "SUCCESS" in consoleFeedback:
-        feedbackOutput = constants.videoCameraSwitchedOff
+    if "2" in consoleFeedback:
+        raise IOError(constants.scriptNotFound)
+
+    feedbackOutput = constants.videoCameraSwitchedOff
 
     return feedbackOutput
 
@@ -474,7 +478,7 @@ def intervalTest():
     # Do interval test command
     consoleOutput = doConsoleCommand(constants.intervalTest + constants.getExitStatus)
     if "127" in consoleOutput:
-        raise IOError
+        raise IOError("Interval control script not found.")
 
     # Check /data0/latest_prev for correct number of NEF files
     status = False

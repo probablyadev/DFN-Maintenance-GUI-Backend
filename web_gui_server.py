@@ -117,38 +117,58 @@ class CameraOn:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
-            data['consoleFeedback'] = commandSender.cameraOn()
-            statusFeedback, statusBoolean = commandSender.cameraStatus()
-            data['consoleFeedback'] += statusFeedback
-            data['cameraStatus'] = statusBoolean
-            outJSON = json.dumps(data)
+
+            try:
+                data['consoleFeedback'] = commandSender.cameraOn()
+                statusFeedback, statusBoolean = commandSender.cameraStatus()
+                data['consoleFeedback'] += statusFeedback
+                data['cameraStatus'] = statusBoolean
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.notfound(e.message)
+
             return outJSON
 
 class CameraOff:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
-            data['consoleFeedback'] = commandSender.cameraOff()
-            statusFeedback, statusBoolean = commandSender.cameraStatus()
-            data['consoleFeedback'] += statusFeedback
-            data['cameraStatus'] = statusBoolean
-            outJSON = json.dumps(data)
+
+            try:
+                data['consoleFeedback'] = commandSender.cameraOff()
+                statusFeedback, statusBoolean = commandSender.cameraStatus()
+                data['consoleFeedback'] += statusFeedback
+                data['cameraStatus'] = statusBoolean
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.notfound(e.message)
+
             return outJSON
 
 class VideoCameraOn:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
-            data['consoleFeedback'] = commandSender.videoCameraOn()
-            outJSON = json.dumps(data)
+
+            try:
+                data['consoleFeedback'] = commandSender.videoCameraOn()
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.notfound(e.message)
+
             return outJSON
 
 class VideoCameraOff:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
-            data['consoleFeedback'] = commandSender.videoCameraOff()
-            outJSON = json.dumps(data)
+
+            try:
+                data['consoleFeedback'] = commandSender.videoCameraOff()
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.notfound(e.message)
+
             return outJSON
 
 class CameraStatus:
@@ -293,7 +313,7 @@ class IntervalTest:
                 data['consoleFeedback'], data['intervalTestResult'] = commandSender.intervalTest()
                 outJSON = json.dumps(data)
             except IOError as e:
-                raise web.notfound("Interval control script not found.")
+                raise web.notfound(e.message)
 
             return outJSON
 

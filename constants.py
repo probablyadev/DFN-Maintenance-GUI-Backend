@@ -1,15 +1,16 @@
 # This file stores all constants used on the server-side of the GUI.
 # The major constants here are different bash commands, executed server-side.
 getExitStatus = "echo $?"
+getHostname = "hostname"
 
 gpsCheck = "python /opt/dfn-software/leostick_get_status.py -g"
 setTimezone = "sudo ln -fs /usr/share/zoneinfo/{0} /etc/localtime"
 outputTime = "date"
 
-cameraOn = "python /opt/dfn-software/enable_camera.py"
-cameraOff = "python /opt/dfn-software/disable_camera.py"
-videoCameraOn = "python /opt/dfn-software/enable_video.py && echo SUCCESS"
-videoCameraOff = "python /opt/dfn-software/disable_video.py && echo SUCCESS"
+cameraOn = "python /opt/dfn-software/enable_camera.py;"
+cameraOff = "python /opt/dfn-software/disable_camera.py;"
+videoCameraOn = "python /opt/dfn-software/enable_video.py"
+videoCameraOff = "python /opt/dfn-software/disable_video.py"
 cameraCheck = "lsusb"
 cameraActuation = "ls /data0/latest/*.NEF | xargs exiv2 | grep 'Shutter Speed'"
 getDirectorySize = "du -sh {0} | egrep -o '[0-9]+[A-Z]+'"
@@ -47,11 +48,10 @@ checkPrevIntervalStatus = "find /data0/latest -exec stat -c%y {} \; | sort -n -r
 getLogfileName = "ls /data0/{0} | grep .txt"
 
 # Strings used as web console output
-cameraSwitchedOn = "Camera on command executed.\n"
-cameraSwitchedOff = "Camera off command executed.\n"
-videoCameraSwitchedOn = "Video camera switched on.\n"
-videoCameraSwitchedOff = "Video camera switched off.\n"
-videoCameraOperationFailed = "Video camera operation failed.\n"
+cameraSwitchedOn = "Camera on command executed. Check status for confirmation.\n"
+cameraSwitchedOff = "Camera off command executed. Check status for confirmation.\n"
+videoCameraSwitchedOn = "Video camera switched on. Check status for confirmation.\n"
+videoCameraSwitchedOff = "Video camera switched off. Check status for confirmation.\n"
 cameraCheckOn = "\nCAMERA STATUS:\nCamera online.\n"
 cameraCheckOff = "\nCAMERA STATUS:\nCamera not found.\n"
 
@@ -98,6 +98,8 @@ hddMountFailed = "{0} mount error: {1}\n"
 hddUnmountPassed = "{0} unmounted successfully.\n"
 hddUnmountFailed = "{0} unmount error: {1}\n"
 hddAlreadyUnmountedError = "May have already been unmounted."
+
+scriptNotFound = "Requested script not found."
 
 # Whitelist for which config variables the user can modify
 configBoxWhitelist = ["vid_lens", "vid_format", "camera_fstop", "still_lens", "vid_ser_no",

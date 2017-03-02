@@ -224,10 +224,10 @@ $(document).ready(function () {
             }
             else if (jqXHR.status == 500 && jqXHR.responseText === "internal server error") {
                 console.log(jqXHR);
-                addToWebConsole("ERROR: Unknown server error. Please report this bug to campbelljip@gmail.com.\n" + line);
+                addToWebConsole("HTTP ERROR 500: Unknown server error. Please report this bug to campbelljip@gmail.com.\n" + line);
             }
             else {
-                addToWebConsole(jqXHR.status + ": " + jqXHR.responseText + "\n" + line);
+                addToWebConsole("HTTP ERROR " + jqXHR.status + ": " + jqXHR.responseText + "\n" + line);
             }
 
         }
@@ -376,7 +376,7 @@ $(document).ready(function () {
             }).fail(ajaxFailed);
         }
         else {
-            addToWebConsole("Download error: Please select a valid date and time.\n" + line);
+            addToWebConsole("Input error: Please select a valid date and time.\n" + line);
         }
     }
 
