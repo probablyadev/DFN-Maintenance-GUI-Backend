@@ -125,7 +125,7 @@ class CameraOn:
                 data['cameraStatus'] = statusBoolean
                 outJSON = json.dumps(data)
             except IOError as e:
-                raise web.notfound(e.message)
+                raise web.InternalError(e.message)
 
             return outJSON
 
@@ -141,7 +141,7 @@ class CameraOff:
                 data['cameraStatus'] = statusBoolean
                 outJSON = json.dumps(data)
             except IOError as e:
-                raise web.notfound(e.message)
+                raise web.InternalError(e.message)
 
             return outJSON
 
@@ -154,7 +154,7 @@ class VideoCameraOn:
                 data['consoleFeedback'] = commandSender.videoCameraOn()
                 outJSON = json.dumps(data)
             except IOError as e:
-                raise web.notfound(e.message)
+                raise web.InternalError(e.message)
 
             return outJSON
 
@@ -167,7 +167,7 @@ class VideoCameraOff:
                 data['consoleFeedback'] = commandSender.videoCameraOff()
                 outJSON = json.dumps(data)
             except IOError as e:
-                raise web.notfound(e.message)
+                raise web.InternalError(e.message)
 
             return outJSON
 
@@ -190,101 +190,164 @@ class DownloadPicture:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
-            data['success'] = commandSender.downloadPicture(web.input())
-            outJSON = json.dumps(data)
+
+            try:
+                data['success'] = commandSender.downloadPicture(web.input())
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.NotFound(e.message)
+
             return outJSON
 
 class DownloadThumbnail:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
-            data['success'] = commandSender.downloadThumbnail(web.input())
-            outJSON = json.dumps(data)
+
+            try:
+                data['success'] = commandSender.downloadThumbnail(web.input())
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.NotFound(e.message)
+
             return outJSON
 
 class RemoveThumbnail:
     def GET(self):
         if LoginChecker.loggedIn():
-            commandSender.removeThumbnail(web.input())
+
+            try:
+                commandSender.removeThumbnail(web.input())
+            except IOError as e:
+                raise web.InternalError(e.message)
+
             return 0
 
 class EnableHDD:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
-            data['consoleFeedback'] = commandSender.hddOn()
-            statusFeedback, data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
-            data['consoleFeedback'] += statusFeedback
-            outJSON = json.dumps(data)
+            try:
+                data['consoleFeedback'] = commandSender.hddOn()
+                statusFeedback, data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
+                data['consoleFeedback'] += statusFeedback
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.InternalError(e.message)
+
             return outJSON
 
 class DisableHDD:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
-            data['consoleFeedback'] = commandSender.hddOff()
-            statusFeedback, data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
-            data['consoleFeedback'] += statusFeedback
-            outJSON = json.dumps(data)
+
+            try:
+                data['consoleFeedback'] = commandSender.hddOff()
+                statusFeedback, data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
+                data['consoleFeedback'] += statusFeedback
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.InternalError(e.message)
+
             return outJSON
 
 class MountHDD:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
-            data['consoleFeedback'] = commandSender.mountHDD()
-            statusFeedback, data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
-            data['consoleFeedback'] += statusFeedback
-            outJSON = json.dumps(data)
+
+            try:
+                data['consoleFeedback'] = commandSender.mountHDD()
+                statusFeedback, data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
+                data['consoleFeedback'] += statusFeedback
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.InternalError(e.message)
+
             return outJSON
 
 class UnmountHDD:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
-            data['consoleFeedback'] = commandSender.unmountHDD()
-            statusFeedback, data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
-            data['consoleFeedback'] += statusFeedback
-            outJSON = json.dumps(data)
+
+            try:
+                data['consoleFeedback'] = commandSender.unmountHDD()
+                statusFeedback, data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
+                data['consoleFeedback'] += statusFeedback
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.InternalError(e.message)
+
             return outJSON
 
 class ProbeHDD:
     def GET(self):
         if LoginChecker.loggedIn():
-            data = commandSender.probeHDD()
-            outJSON = json.dumps(data)
+
+            try:
+                data = commandSender.probeHDD()
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.InternalError(e.message)
+
             return outJSON
 
 class FormatHDD:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
-            data['consoleFeedback'] = commandSender.formatHDD(web.input().args)
-            outJSON = json.dumps(data)
+            try:
+                data['consoleFeedback'] = commandSender.formatHDD(web.input().args)
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.InternalError(e.message)
+            except RuntimeError as e:
+                raise web.InternalError(e.message)
+
             return outJSON
 
 class SmartTest:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
-            data['consoleFeedback'] = commandSender.smartTest()
-            outJSON = json.dumps(data)
+            try:
+                data['consoleFeedback'] = commandSender.smartTest()
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.InternalError(e.message)
+            except OSError as e:
+                raise web.InternalError(e.message)
+            except AssertionError as e:
+                raise web.Conflict(e.message)
+
             return outJSON
 
 class CheckHDD:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
-            data['consoleFeedback'], data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
-            outJSON = json.dumps(data)
+
+            try:
+                data['consoleFeedback'], data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.InternalError(e.message)
+
             return outJSON
 
 class GPSCheck:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
-            data['consoleFeedback'], data['gpsStatus'] = commandSender.gpsStatus()
-            outJSON = json.dumps(data)
+
+            try:
+                data['consoleFeedback'], data['gpsStatus'] = commandSender.gpsStatus()
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.InternalError(e.message)
+
             return outJSON
 
 class TimezoneChange:
@@ -313,7 +376,7 @@ class IntervalTest:
                 data['consoleFeedback'], data['intervalTestResult'] = commandSender.intervalTest()
                 outJSON = json.dumps(data)
             except IOError as e:
-                raise web.notfound(e.message)
+                raise web.InternalError(e.message)
 
             return outJSON
 
@@ -326,7 +389,7 @@ class PrevIntervalTest:
                 data['consoleFeedback'] = commandSender.prevIntervalTest()
                 outJSON = json.dumps(data)
             except AttributeError as e:
-                raise web.internalerror('Latest photo directory (/data0/latest) corrupt or not present.')
+                raise web.InternalError('Latest photo directory (/data0/latest) corrupt or not present.')
 
             return outJSON
 
@@ -369,7 +432,7 @@ class RestartVPN:
 class StatusConfig:
     def GET(self):
         if LoginChecker.loggedIn():
-            path = "/opt/dfn-software/dfnstation.cfg"
+            path = constants.dfnconfigPath
             if os.path.exists(path):
                 getFile = file(path, 'rb')
                 web.header('Content-type', 'application/octet-stream')
@@ -412,45 +475,59 @@ class PopulateConfigBox:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
-            data = commandSender.populateConfigBox()
-            outJSON = json.dumps(data)
+
+            try:
+                data = commandSender.populateConfigBox()
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.InternalError(e.message)
+
             return outJSON
 
 class UpdateConfigFile:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
-            data['consoleFeedback'] = commandSender.updateConfigFile(web.input())
-            outJSON = json.dumps(data)
+
+            try:
+                data['consoleFeedback'] = commandSender.updateConfigFile(web.input())
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.InternalError(e.message)
+
             return outJSON
 
 class SystemStatus:
     def GET(self):
         if LoginChecker.loggedIn():
             # Check status of system
-            datetime = commandSender.outputTime()
-            cameraFeedback, cameraBoolean = commandSender.cameraStatus()
-            gpsFeedback, gpsBoolean = commandSender.gpsStatus()
-            internetFeedback, internetBoolean = commandSender.internetStatus()
-            extHDDFeedback, hdd0Boolean, hdd0Space, hdd1Boolean, hdd2Boolean, hdd3Boolean, hdd1Space, hdd2Space, hdd3Space = commandSender.hddStatus()
-            vpnFeedback, vpnBoolean = commandSender.vpnStatus()
+            try:
+                datetime = commandSender.outputTime()
+                cameraFeedback, cameraBoolean = commandSender.cameraStatus()
+                gpsFeedback, gpsBoolean = commandSender.gpsStatus()
+                internetFeedback, internetBoolean = commandSender.internetStatus()
+                extHDDFeedback, hdd0Boolean, hdd0Space, hdd1Boolean, hdd2Boolean, hdd3Boolean, hdd1Space, hdd2Space, hdd3Space = commandSender.hddStatus()
+                vpnFeedback, vpnBoolean = commandSender.vpnStatus()
 
-            # Encode to JSON
-            data = {}
-            data['consoleFeedback'] = constants.systemStatusHeader + datetime + cameraFeedback + extHDDFeedback + internetFeedback + vpnFeedback + gpsFeedback
-            data['cameraStatus'] = cameraBoolean
-            data['gpsStatus'] = gpsBoolean
-            data['internetStatus'] = internetBoolean
-            data['vpnStatus'] = vpnBoolean
-            data['HDD0Status'] = hdd0Boolean
-            data['HDD1Status'] = hdd1Boolean
-            data['HDD2Status'] = hdd2Boolean
-            data['HDD3Status'] = hdd3Boolean
-            data['HDD0Space'] = hdd0Space
-            data['HDD1Space'] = hdd1Space
-            data['HDD2Space'] = hdd2Space
-            data['HDD3Space'] = hdd3Space
-            outJSON = json.dumps(data)
+                # Encode to JSON
+                data = {}
+                data['consoleFeedback'] = constants.systemStatusHeader + datetime + cameraFeedback + extHDDFeedback + internetFeedback + vpnFeedback + gpsFeedback
+                data['cameraStatus'] = cameraBoolean
+                data['gpsStatus'] = gpsBoolean
+                data['internetStatus'] = internetBoolean
+                data['vpnStatus'] = vpnBoolean
+                data['HDD0Status'] = hdd0Boolean
+                data['HDD1Status'] = hdd1Boolean
+                data['HDD2Status'] = hdd2Boolean
+                data['HDD3Status'] = hdd3Boolean
+                data['HDD0Space'] = hdd0Space
+                data['HDD1Space'] = hdd1Space
+                data['HDD2Space'] = hdd2Space
+                data['HDD3Space'] = hdd3Space
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.InternalError(e.message)
+
             return outJSON
 
 # Start of execution

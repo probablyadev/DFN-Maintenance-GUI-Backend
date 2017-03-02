@@ -227,7 +227,7 @@ $(document).ready(function () {
                 addToWebConsole("HTTP ERROR 500: Unknown server error. Please report this bug to campbelljip@gmail.com.\n" + line);
             }
             else {
-                addToWebConsole("HTTP ERROR " + jqXHR.status + ": " + jqXHR.responseText + "\n" + line);
+                addToWebConsole(jqXHR.status + " " + jqXHR.statusText + ": " + jqXHR.responseText + "\n" + line);
             }
 
         }
@@ -406,7 +406,7 @@ $(document).ready(function () {
             }).fail(ajaxFailed);
         }
         else {
-            addToWebConsole("Download error: Please select a valid date and time.\n" + line);
+            addToWebConsole("Input error: Please select a valid date and time.\n" + line);
         }
     }
 

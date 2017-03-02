@@ -3,7 +3,7 @@
 getExitStatus = "echo $?"
 getHostname = "hostname"
 
-gpsCheck = "python /opt/dfn-software/leostick_get_status.py -g"
+gpsCheck = "python /opt/dfn-software/leostick_get_status.py -g;"
 setTimezone = "sudo ln -fs /usr/share/zoneinfo/{0} /etc/localtime"
 outputTime = "date"
 
@@ -20,17 +20,17 @@ copyFileToStatic = "mkdir /opt/dfn-software/GUI/static/downloads; cp {0} /opt/df
 extractThumbnail = "mkdir /opt/dfn-software/GUI/static/downloads; exiv2 -ep3 -l /opt/dfn-software/GUI/static/downloads/ {0} && SUCCESS"
 shutterCount = "exiv2 -pa {0} | grep Nikon3\.ShutterCount | grep -oP '[0-9]{5}'"
 
-enableHardDrive = "python /opt/dfn-software/enable_ext-hd.py"
-disableHardDrive = "python /opt/dfn-software/disable_ext-hd.py"
+enableHardDrive = "python /opt/dfn-software/enable_ext-hd.py;"
+disableHardDrive = "python /opt/dfn-software/disable_ext-hd.py;"
 mountHardDrive = "mount {0} && echo SUCCESS"
 unmountHardDrive = "umount {0} && echo SUCCESS"
-probeHardDrives = "/root/bin/dfn_setup_usb_hdds.sh -p"
-formatHardDrive = "/root/bin/dfn_setup_usb_hdds.sh {0}"
+probeHardDrives = "/root/bin/dfn_setup_usb_hdds.sh -p;"
+formatHardDrive = "/root/bin/dfn_setup_usb_hdds.sh {0};"
 hddPoweredStatus = "lsusb"
 data0PoweredStatus = "df | grep /data0 && echo SUCCESS"
 mountedStatus = "mount | grep {0} > /dev/null && echo 1"
 hddSpace = "cat /tmp/dfn_disk_usage"
-runSmartTest = "smartctl -d {0} -t short /dev/sdb && echo SUCCESS"
+runSmartTest = "smartctl -d {0} -t short /dev/sdb;"
 checkSmartTest= "smartctl -d {0} -a /dev/sdb"
 
 internetCheck = "ping -c 1 www.google.com"
@@ -79,7 +79,8 @@ hddStatusOff = "Not detected"
 hddStatusPowered = "Powered"
 hddStatusMounted = "Mounted"
 hddFormatPassed = "\nHarddrives formatted successfully.\n"
-hddFormatFailed = "\nERROR: Some drives still mounted, or didn't format properly. Please make sure drives are unmounted and safe to format.\n"
+hddFormatFailed = "Some drives still mounted, or didn't format properly. Please make sure drives are unmounted and safe to format."
+
 
 hddCommandedOn = "Hard drive power on command executed.\n"
 hddCommandedOff = "Hard drive power off successful.\n"
@@ -92,6 +93,8 @@ smartTestStartedSuccess = "\nSmart test for {0} successfully executed.\n"
 smartTestStartedFailed = "\nSmart test {0} failed execution (try re-powering drives).\n"
 smartTestResultsPassed = "Smart test for {0} passed.\n"
 smartTestResultsFailed = "Smart test for {0} failed.\n"
+smartTestNotPowereredError = "Smart test failed. Hard drives need to be powered."
+smartTestCommandNotInstalled = "Smart test command not installed. Please contact campbelljip@gmail.com."
 
 hddMountPassed = "{0} mounted successfully.\n"
 hddMountFailed = "{0} mount error: {1}\n"
@@ -100,6 +103,12 @@ hddUnmountFailed = "{0} unmount error: {1}\n"
 hddAlreadyUnmountedError = "May have already been unmounted."
 
 scriptNotFound = "Requested script not found."
+diskUsageNotFound = "Error reading disk usage log file."
+pictureNotFound = "Picture not found."
+
+#File paths
+diskUsagePath = "/tmp/dfn_disk_usage"
+dfnconfigPath = "/opt/dfn-software/dfnstation.cfg"
 
 # Whitelist for which config variables the user can modify
 configBoxWhitelist = ["vid_lens", "vid_format", "camera_fstop", "still_lens", "vid_ser_no",
@@ -107,6 +116,7 @@ configBoxWhitelist = ["vid_lens", "vid_format", "camera_fstop", "still_lens", "v
                       "camera_exposuretime", "location", "hostname", "lat", "lon",
                       "altitude", "local_contact_email", "local_contact_name"]
 
+configNotFound = "Config file not found."
 configWriteFailed = "ERROR: Unable to write to config file (is internal drive mounted?)."
 configWritePassed = "Overwritten {0} as {1}."
 

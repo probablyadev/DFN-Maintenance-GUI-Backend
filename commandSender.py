@@ -129,6 +129,8 @@ def downloadPicture(inPath):
     print consoleFeedback
     if "SUCCESS" in consoleFeedback:
         success = True
+    else:
+        raise IOError(constants.pictureNotFound)
     return success
 
 def downloadThumbnail(inPath):
@@ -136,12 +138,17 @@ def downloadThumbnail(inPath):
     consoleFeedback = doConsoleCommand(constants.extractThumbnail.format(inPath.filepath))
     if "SUCCESS" in consoleFeedback:
         success = True
+    else:
+        raise IOError(constants.pictureNotFound)
     return success
 
 def removeThumbnail(inJSON):
     time.sleep(2)
-    doConsoleCommand("rm " + inJSON.filepath)
-    print "rm " + inJSON.filepath
+    consoleOutput = doConsoleCommand("rm " + inJSON.filepath + ";" + constants.getExitStatus)
+    if "\n1" in consoleOutput:
+        raise IOError("Thumbnail file doesn't exist to delete. No worries though, it was going to be deleted anyway!")
+
+    return 0
 
 # HDD Utilities
 def hddOn():
@@ -151,7 +158,11 @@ def hddOn():
         return constants.hddAlreadyOn
 
     # Do command
-    doConsoleCommand(constants.enableHardDrive)
+    consoleOutput = doConsoleCommand(constants.enableHardDrive + constants.getExitStatus)
+
+    if "\n2" in consoleOutput:
+        raise IOError(constants.scriptNotFound)
+
     time.sleep(25)
     return constants.hddCommandedOn
 
@@ -162,7 +173,10 @@ def hddOff():
         return constants.hddAlreadyOff
 
     # Do command
-    consoleOutput = doConsoleCommand(constants.disableHardDrive)
+    consoleOutput = doConsoleCommand(constants.disableHardDrive + constants.getExitStatus)
+
+    if "\n2" in consoleOutput:
+        raise IOError(constants.scriptNotFound)
 
     if consoleOutput == "":
         feedbackOutput = constants.hddCommandedOff
@@ -215,11 +229,14 @@ def unmountHDD():
 
 def probeHDD():
     # Do command
-    consoleOutput = doConsoleCommand(constants.probeHardDrives)
+    consoleOutput = doConsoleCommand(constants.probeHardDrives + constants.getExitStatus)
     validTokens = []
     data = {}
 
     # Parse results
+    if "\n127" in consoleOutput:
+        raise IOError(constants.scriptNotFound)
+
     splitOutput = consoleOutput.split(" ")
     for idx, token in enumerate(splitOutput):
         if "/" in token:
@@ -228,13 +245,15 @@ def probeHDD():
     return data
 
 def formatHDD(inDrives):
-    consoleOutput = doConsoleCommand(constants.formatHardDrive.format(inDrives))
-    feedbackOutput = constants.hddFormatFailed
-    if "SUCCESS" in consoleOutput and "is mounted" not in consoleOutput:
-        feedbackOutput = constants.hddFormatPassed
-    else:
-        feedbackOutput = constants.hddFormatFailed
+    consoleOutput = doConsoleCommand(constants.formatHardDrive.format(inDrives) + constants.getExitStatus)
 
+
+    if "\n127" in consoleOutput:
+        raise IOError(constants.scriptNotFound)
+    elif "is mounted" in consoleOutput:
+        raise RuntimeError(constants.hddFormatFailed)
+    else:
+        feedbackOutput = constants.hddFormatPassed
 
     return feedbackOutput
 
@@ -276,23 +295,26 @@ def hddStatus():
             hdd3Status = 2
 
     # Finding remaining space in HDDs according to /tmp/dfn_disk_usage
-    with open("/tmp/dfn_disk_usage") as f:
-        lines = f.readlines()
-        for line in lines: # For each line in the file
-            fixedLine = re.sub(" +", ",", line) # Reduce whitespace down to 1
-            if line[0] == "/": # If the line is the title line, ignore it
-                splitLine = re.split(",", fixedLine) # Split into terms
-                device = splitLine[5] # Get mounted name
-                spaceAvail = splitLine[4] # Get space for that mount
-                # Check if the data applies, if so assign to variable
-                if device == "/data0\n":
-                    hdd0Space = spaceAvail
-                if device == "/data1\n":
-                    hdd1Space = spaceAvail
-                if device == "/data2\n":
-                    hdd2Space = spaceAvail
-                if device == "/data3\n":
-                    hdd3Space = spaceAvail
+    try:
+        with open(constants.diskUsagePath) as f:
+            lines = f.readlines()
+            for line in lines: # For each line in the file
+                fixedLine = re.sub(" +", ",", line) # Reduce whitespace down to 1
+                if line[0] == "/": # If the line is the title line, ignore it
+                    splitLine = re.split(",", fixedLine) # Split into terms
+                    device = splitLine[5] # Get mounted name
+                    spaceAvail = splitLine[4] # Get space for that mount
+                    # Check if the data applies, if so assign to variable
+                    if device == "/data0\n":
+                        hdd0Space = spaceAvail
+                    if device == "/data1\n":
+                        hdd1Space = spaceAvail
+                    if device == "/data2\n":
+                        hdd2Space = spaceAvail
+                    if device == "/data3\n":
+                        hdd3Space = spaceAvail
+    except IOError:
+        raise IOError(constants.diskUsageNotFound)
 
     feedbackOutput = constants.hddStatusString.format(hddStatusDict[hdd0Status], hdd0Space, hddStatusDict[hdd1Status], hdd1Space, hddStatusDict[hdd2Status], hdd2Space, hddStatusDict[hdd3Status], hdd3Space)
 
@@ -306,13 +328,18 @@ def smartTest():
 
     # If hardrives off or not mounted, get outta here!
     feedbackOutput, hdd0Status, hdd0Space, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space = hddStatus()
-    if hdd1Status == 0 and hdd2Status == 0:
-        return "\nERROR: Smart test failed. Hard drives need to be powered.\n"
+    try:
+        assert hdd1Status == 0 and hdd2Status == 0
+    except AssertionError:
+        raise AssertionError(constants.smartTestNotPowereredError)
 
     # Start all smart tests
     for drive in smalldrives:
-        consoleOutput = doConsoleCommand(constants.runSmartTest.format(drive))
-        if "SUCCESS" in consoleOutput:
+        consoleOutput = doConsoleCommand(constants.runSmartTest.format(drive) + constants.getExitStatus)
+        if "\n127" in consoleOutput:
+            raise OSError(constants.smartTestCommandNotInstalled)
+
+        elif "\n0" in consoleOutput:
             output.update({drive: constants.smartTestStartedSuccess.format(drive)})
 
         else:
@@ -342,7 +369,10 @@ def gpsStatus():
     gpsStatusDict = {"1": "Locked", "0": "No lock"}
 
     # Do command
-    consoleOutput = doConsoleCommand(constants.gpsCheck)
+    consoleOutput = doConsoleCommand(constants.gpsCheck + constants.getExitStatus)
+
+    if "\n2" in consoleOutput:
+        raise IOError(constants.scriptNotFound)
 
     # Parse output for results
     status = False
@@ -435,7 +465,7 @@ def getLog(directory):
 
 def populateConfigBox():
     whitelist = constants.configBoxWhitelist
-    path = "/opt/dfn-software/dfnstation.cfg"
+    path = constants.dfnconfigPath
     outDict = {}
 
     if os.path.exists(path):
@@ -447,6 +477,8 @@ def populateConfigBox():
                 if element in line:
                     parsed = line.split(" = ")
                     outDict[parsed[0]] = parsed[1]
+    else:
+        raise IOError(constants.configNotFound)
 
     return outDict
 
@@ -469,6 +501,8 @@ def updateConfigFile(inProperty):
         remove(path)
         move(abs_path, path)
         consoleFeedback = constants.configWritePassed.format(inProperty.key, inProperty.value)
+    else:
+        raise IOError(constants.configNotFound)
 
     return consoleFeedback
 
@@ -477,8 +511,8 @@ def updateConfigFile(inProperty):
 def intervalTest():
     # Do interval test command
     consoleOutput = doConsoleCommand(constants.intervalTest + constants.getExitStatus)
-    if "127" in consoleOutput:
-        raise IOError("Interval control script not found.")
+    if "\n127" in consoleOutput:
+        raise IOError(constants.scriptNotFound)
 
     # Check /data0/latest_prev for correct number of NEF files
     status = False
