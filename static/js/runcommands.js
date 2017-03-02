@@ -206,23 +206,30 @@ $(document).ready(function () {
         });
     }
 
-    function timedOut(jqXHR, status, errorThrown) {
+    function ajaxFailed(jqXHR, status, errorThrown) {
         doingCommand = false;
+        closeSpinner();
         $(configPopupGreyScreen).css('display', 'none');
         $(window).unbind('beforeunload');
-        closeSpinner();
-        if (jqXHR.status == 200) {
-            addToWebConsole("ERROR: Session timed out. Redirecting to login...\n" + line);
-            setTimeout(function () {
-                    window.location.replace("/")
-                }, 2000
-            );
-        }
-        else if (jqXHR.status == 500) {
-            addToWebConsole("ERROR: Internal server error. Please save console output and report this bug.\n" + line);
+        if (jqXHR.readyState == 0) {
+            addToWebConsole("ERROR: NO CONNECTION\n" + line);
         }
         else {
-            addToWebConsole("ERROR: NO CONNECTION\n" + line);
+            if (jqXHR.status == 200) {
+                addToWebConsole("ERROR: Session timed out. Redirecting to login...\n" + line);
+                setTimeout(function () {
+                        window.location.replace("/")
+                    }, 2000
+                );
+            }
+            else if (jqXHR.status == 500 && jqXHR.responseText === "internal server error") {
+                console.log(jqXHR);
+                addToWebConsole("ERROR: Unknown server error. Please report this bug to campbelljip@gmail.com.\n" + line);
+            }
+            else {
+                addToWebConsole(jqXHR.status + ": " + jqXHR.responseText + "\n" + line);
+            }
+
         }
     }
 
@@ -246,7 +253,7 @@ $(document).ready(function () {
                 cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
                 //Open up for other commands to be run
                 doingCommand = false;
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -263,7 +270,7 @@ $(document).ready(function () {
                 cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
                 //Open up for other commands to be run
                 doingCommand = false;
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -278,7 +285,7 @@ $(document).ready(function () {
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Open up for other commands to be run
                 doingCommand = false;
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -293,7 +300,7 @@ $(document).ready(function () {
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Open up for other commands to be run
                 doingCommand = false;
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -310,7 +317,7 @@ $(document).ready(function () {
                 cameraLight.css("background-color", simpleColorMapping[result.cameraStatus]);
                 //Open up for other commands to be run
                 doingCommand = false;
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -342,7 +349,7 @@ $(document).ready(function () {
                         $('<option>', {text: "No Images Found", value: null})
                     );
                 }
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
         else {
             window.alert("Please select a date.");
@@ -366,7 +373,7 @@ $(document).ready(function () {
                 else {
                     addToWebConsole("Download error: Unable to serve NEF. Select a picture again.\n" + line);
                 }
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
         else {
             addToWebConsole("Download error: Please select a valid date and time.\n" + line);
@@ -396,7 +403,7 @@ $(document).ready(function () {
                     addToWebConsole("Download error: Unable to serve jpg. Select a picture again.\n" + line);
                     $("#DownloadJPGPicture").removeAttr("disabled");
                 }
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
         else {
             addToWebConsole("Download error: Please select a valid date and time.\n" + line);
@@ -419,7 +426,7 @@ $(document).ready(function () {
                 drawHDDStatus(result);
                 //Open up for other commands to be run
                 doingCommand = false;
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -436,7 +443,7 @@ $(document).ready(function () {
                 drawHDDStatus(result);
                 //Open up for other commands to be run
                 doingCommand = false;
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -453,7 +460,7 @@ $(document).ready(function () {
                 drawHDDStatus(result);
                 //Open up for other commands to be run
                 doingCommand = false;
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -470,7 +477,7 @@ $(document).ready(function () {
                 drawHDDStatus(result);
                 //Open up for other commands to be run
                 doingCommand = false;
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -495,7 +502,7 @@ $(document).ready(function () {
                     addToWebConsole("ERROR: No drives detected. Power on drives and try again.\n" + line)
                     doingCommand = false;
                 }
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -552,7 +559,7 @@ $(document).ready(function () {
                 //Open up for other commands to be run
                 doingCommand = false;
                 $(window).unbind('beforeunload');
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -570,7 +577,7 @@ $(document).ready(function () {
                 addToWebConsole(result.consoleFeedback + line);
                 //Open up for other commands to be run
                 doingCommand = false;
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -587,7 +594,7 @@ $(document).ready(function () {
                 drawHDDStatus(result);
                 //Open up for other commands to be run
                 doingCommand = false;
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -604,7 +611,7 @@ $(document).ready(function () {
                 gpsLight.css("background-color", simpleColorMapping[result.gpsStatus]);
                 //Open up for other commands to be run
                 doingCommand = false;
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -618,7 +625,7 @@ $(document).ready(function () {
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Open up for other commands to be run
                 doingCommand = false;
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -632,7 +639,7 @@ $(document).ready(function () {
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Open up for other commands to be run
                 doingCommand = false;
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -649,7 +656,7 @@ $(document).ready(function () {
                 internetLight.css("background-color", complexColorMapping[result.internetStatus]);
                 //Open up for other commands to be run
                 doingCommand = false;
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -669,7 +676,7 @@ $(document).ready(function () {
                 internetLight.css("background-color", simpleColorMapping[result.internetStatus]);
                 //Open up for other commands to be run
                 doingCommand = false;
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -686,7 +693,7 @@ $(document).ready(function () {
                 vpnLight.css("background-color", simpleColorMapping[result.vpnStatus]);
                 //Open up for other commands to be run
                 doingCommand = false;
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -706,7 +713,7 @@ $(document).ready(function () {
                 vpnLight.css("background-color", simpleColorMapping[result.vpnStatus]);
                 //Open up for other commands to be run
                 doingCommand = false;
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -730,7 +737,7 @@ $(document).ready(function () {
                 doingCommand = false;
             $(window).unbind('beforeunload');
 
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -744,7 +751,7 @@ $(document).ready(function () {
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Open up for other commands to be run
                 doingCommand = false;
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -761,7 +768,7 @@ $(document).ready(function () {
             element.click();
             document.body.removeChild(element);
             doingCommand = false;
-        }).fail(timedOut);
+        }).fail(ajaxFailed);
     }
 
     function latestLogsHandler() {
@@ -779,7 +786,7 @@ $(document).ready(function () {
             document.body.removeChild(element);
             addToWebConsole("Logfile created:\n" + result.timestamp + "\n" + line);
             doingCommand = false;
-        }).fail(timedOut);
+        }).fail(ajaxFailed);
     }
 
     function latestPrevLogsHandler() {
@@ -797,7 +804,7 @@ $(document).ready(function () {
             document.body.removeChild(element);
             addToWebConsole("Logfile created:\n" + result.timestamp + "\n" + line);
             doingCommand = false;
-        }).fail(timedOut);
+        }).fail(ajaxFailed);
     }
 
     var configOptions = {};
@@ -817,7 +824,7 @@ $(document).ready(function () {
                 $(configFieldValue).val($("#configSelector option:selected").val());
                 $(configChangeFeedback).text("");
                 $(configPopupGreyScreen).css("display", "flex");
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -849,7 +856,7 @@ $(document).ready(function () {
                 $("#configSelector option:selected").val(selectedOptionValue)
                 doingCommand = false;
 
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 
@@ -874,7 +881,7 @@ $(document).ready(function () {
                 drawHDDStatus(result);
                 //Open up for other commands to be run
                 doingCommand = false;
-            }).fail(timedOut);
+            }).fail(ajaxFailed);
         }
     }
 

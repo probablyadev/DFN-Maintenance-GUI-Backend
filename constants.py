@@ -1,5 +1,7 @@
 # This file stores all constants used on the server-side of the GUI.
 # The major constants here are different bash commands, executed server-side.
+getExitStatus = "echo $?"
+
 gpsCheck = "python /opt/dfn-software/leostick_get_status.py -g"
 setTimezone = "sudo ln -fs /usr/share/zoneinfo/{0} /etc/localtime"
 outputTime = "date"
@@ -38,7 +40,7 @@ vpnCheck = "ping -c 1 10.1.16.1"
 getVpnIP = "ifconfig | grep tun0 -A 1 | grep -o 'addr:[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'| cut -c6-"
 restartVPN = "service openvpn restart; sleep 10; ifconfig tun0 && echo SUCCESS"
 
-intervalTest = "/opt/dfn-software/interval_control_test.sh"
+intervalTest = "/opt/dfn-software/interval_control_test.sh;"
 checkIntervalResults = "ls -lR /data0/latest_prev/*.NEF | wc -l"
 checkPrevIntervalStatus = "find /data0/latest -exec stat -c%y {} \; | sort -n -r | head -n 1"
 

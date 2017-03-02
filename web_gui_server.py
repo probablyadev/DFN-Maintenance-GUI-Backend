@@ -47,6 +47,11 @@ urls = ('/', 'Index',
         '/updateconfigfile', 'UpdateConfigFile')
 app = web.application(urls, globals())
 
+# Custom http response messages
+def notfound():
+    return web.notfound("The requested file(s) could not be found.")
+app.notfound = notfound
+
 # Initialising useful web.py framework variables
 render = web.template.render('templates/')
 session = web.session.Session(app, web.session.DiskStore('sessions/'))
@@ -283,16 +288,26 @@ class IntervalTest:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
-            data['consoleFeedback'], data['intervalTestResult'] = commandSender.intervalTest()
-            outJSON = json.dumps(data)
+
+            try:
+                data['consoleFeedback'], data['intervalTestResult'] = commandSender.intervalTest()
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.notfound("Interval control script not found.")
+
             return outJSON
 
 class PrevIntervalTest:
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
-            data['consoleFeedback'] = commandSender.prevIntervalTest()
-            outJSON = json.dumps(data)
+
+            try:
+                data['consoleFeedback'] = commandSender.prevIntervalTest()
+                outJSON = json.dumps(data)
+            except AttributeError as e:
+                raise web.internalerror('Latest photo directory (/data0/latest) corrupt or not present.')
+
             return outJSON
 
 class InternetCheck:
@@ -420,5 +435,5 @@ class SystemStatus:
 
 # Start of execution
 if __name__ == "__main__":
-    os.chdir("/opt/dfn-software/GUI")
+    # os.chdir("/opt/dfn-software/GUI")
     app.run()

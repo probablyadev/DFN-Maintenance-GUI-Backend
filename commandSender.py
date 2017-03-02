@@ -472,7 +472,9 @@ def updateConfigFile(inProperty):
 # Interval test
 def intervalTest():
     # Do interval test command
-    doConsoleCommand(constants.intervalTest)
+    consoleOutput = doConsoleCommand(constants.intervalTest + constants.getExitStatus)
+    if "127" in consoleOutput:
+        raise IOError
 
     # Check /data0/latest_prev for correct number of NEF files
     status = False
@@ -488,9 +490,9 @@ def intervalTest():
 def prevIntervalTest():
     # Get current date
     currDate = datetime.datetime.now()
+    consoleFeedback = constants.prevIntervalNotRun
 
     # Do console command to find mod date of latest
-    consoleFeedback = constants.prevIntervalNotRun
     latestDateUnparsed = doConsoleCommand(constants.checkPrevIntervalStatus)
     latestDateParsed = re.search('\d{4}-\d{2}-\d{2}', latestDateUnparsed).group(0)
     latestDateSplit = re.split("-", latestDateParsed)
