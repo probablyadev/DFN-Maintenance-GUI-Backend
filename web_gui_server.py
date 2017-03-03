@@ -217,6 +217,7 @@ class GetHostname:
  *
  * * * * * * * *
 """""
+# Camera
 class CameraOn:
 
     """""
@@ -280,7 +281,7 @@ class CameraOff:
 class VideoCameraOn:
 
     """""
-     * Name:     VideoCameraOn.GET
+     * Name:     VideoCameraOn
      *
      * Purpose:  Switches the video camera on
      *
@@ -449,6 +450,7 @@ class RemoveThumbnail:
 
             return 0
 
+# Hard drives
 class EnableHDD:
 
     """""
@@ -460,7 +462,7 @@ class EnableHDD:
      *
      * Return:   A JSON object with the following variables:
      *           consoleFeedback: An output string to give the user feedback
-     *           HDD0Status, HDD1Status, HDD2Status, HDD3Status: Booleans representing the status
+     *           HDD0Status, HDD1Status, HDD2Status, HDD3Status: Integers representing the status
      *               of each external hard drive.
      *           HDD0Space, HDD1Space, HDD2Space, HDD3Space: Real numbers representing the occupied
      *               space of each external hard drive.
@@ -491,7 +493,7 @@ class DisableHDD:
      *
      * Return:   A JSON object with the following variables:
      *           consoleFeedback: An output string to give the user feedback
-     *           HDD0Status, HDD1Status, HDD2Status, HDD3Status: Booleans representing the status
+     *           HDD0Status, HDD1Status, HDD2Status, HDD3Status: Integers representing the status
      *               of each external hard drive.
      *           HDD0Space, HDD1Space, HDD2Space, HDD3Space: Real numbers representing the occupied
      *               space of each external hard drive.
@@ -523,7 +525,7 @@ class MountHDD:
      *
      * Return:   A JSON object with the following variables:
      *           consoleFeedback: An output string to give the user feedback
-     *           HDD0Status, HDD1Status, HDD2Status, HDD3Status: Booleans representing the status
+     *           HDD0Status, HDD1Status, HDD2Status, HDD3Status: Integers representing the status
      *               of each external hard drive.
      *           HDD0Space, HDD1Space, HDD2Space, HDD3Space: Real numbers representing the occupied
      *               space of each external hard drive.
@@ -555,7 +557,7 @@ class UnmountHDD:
      *
      * Return:   A JSON object with the following variables:
      *           consoleFeedback: An output string to give the user feedback
-     *           HDD0Status, HDD1Status, HDD2Status, HDD3Status: Booleans representing the status
+     *           HDD0Status, HDD1Status, HDD2Status, HDD3Status: Integers representing the status
      *               of each external hard drive.
      *           HDD0Space, HDD1Space, HDD2Space, HDD3Space: Real numbers representing the occupied
      *               space of each external hard drive.
@@ -628,6 +630,36 @@ class FormatHDD:
 
             return outJSON
 
+class CheckHDD:
+
+    """""
+     * Name:     CheckHDD.GET
+     *
+     * Purpose:  Delivers a summary of the external hard drives' status
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *           HDD0Status, HDD1Status, HDD2Status, HDD3Status: Integers representing the status
+     *               of each external hard drive.
+     *           HDD0Space, HDD1Space, HDD2Space, HDD3Space: Real numbers representing the occupied
+     *               space of each external hard drive.
+     *
+     * Notes:    None
+    """""
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+
+            try:
+                data['consoleFeedback'], data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.InternalError(e.message)
+
+            return outJSON
+
 class SmartTest:
 
     """""
@@ -657,36 +689,7 @@ class SmartTest:
 
             return outJSON
 
-class CheckHDD:
-
-    """""
-     * Name:     CheckHDD.GET
-     *
-     * Purpose:  Delivers a summary of the external hard drives' status
-     *
-     * Params:   None
-     *
-     * Return:   A JSON object with the following variables:
-     *           consoleFeedback: An output string to give the user feedback
-     *           HDD0Status, HDD1Status, HDD2Status, HDD3Status: Booleans representing the status
-     *               of each external hard drive.
-     *           HDD0Space, HDD1Space, HDD2Space, HDD3Space: Real numbers representing the occupied
-     *               space of each external hard drive.
-     *
-     * Notes:    None
-    """""
-    def GET(self):
-        if LoginChecker.loggedIn():
-            data = {}
-
-            try:
-                data['consoleFeedback'], data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
-                outJSON = json.dumps(data)
-            except IOError as e:
-                raise web.InternalError(e.message)
-
-            return outJSON
-
+# GPS/Time
 class GPSCheck:
 
     """""
@@ -758,60 +761,7 @@ class OutputTime:
             outJSON = json.dumps(data)
             return outJSON
 
-class IntervalTest:
-
-    """""
-     * Name:     IntervalTest.GET
-     *
-     * Purpose:  Performs an interval control test on the system
-     *
-     * Params:   None
-     *
-     * Return:   A JSON object with the following variables:
-     *           consoleFeedback: An output string to give the user feedback
-     *           intervalTestResult: A boolean representing if the test passed or failed
-     *
-     * Notes:    None
-    """""
-    def GET(self):
-        if LoginChecker.loggedIn():
-            data = {}
-
-            try:
-                data['consoleFeedback'], data['intervalTestResult'] = commandSender.intervalTest()
-                outJSON = json.dumps(data)
-            except IOError as e:
-                raise web.InternalError(e.message)
-
-            return outJSON
-
-class PrevIntervalTest:
-
-    """""
-     * Name:     PrevIntervalTest.GET
-     *
-     * Purpose:  Checks the /latest folder to see if the camera took
-     *           pictures the last time interval control ran
-     *
-     * Params:   None
-     *
-     * Return:   A JSON object with the following variables:
-     *           consoleFeedback: An output string to give the user feedback
-     *
-     * Notes:    None
-    """""
-    def GET(self):
-        if LoginChecker.loggedIn():
-            data = {}
-
-            try:
-                data['consoleFeedback'] = commandSender.prevIntervalTest()
-                outJSON = json.dumps(data)
-            except AttributeError as e:
-                raise web.InternalError('Latest photo directory (/data0/latest) corrupt or not present.')
-
-            return outJSON
-
+# Network
 class InternetCheck:
 
     """""
@@ -906,6 +856,7 @@ class RestartVPN:
             outJSON = json.dumps(data)
             return outJSON
 
+# Status/Advanced
 class StatusConfig:
 
     """""
@@ -1055,7 +1006,7 @@ class SystemStatus:
      *           gpsStatus: A boolean representing the GPSs status
      *           internetStatus: A boolean representing the internet connectivity of the system
      *           vpnStatus: A boolean representing the vpn connectivity of the system
-     *           HDD0Status, HDD1Status, HDD2Status, HDD3Status: A boolean representing
+     *           HDD0Status, HDD1Status, HDD2Status, HDD3Status: Integers representing
      *               the status of each external hard drive
      *           HDD0Space, HDD1Space, HDD2Space, HDD3Space: A real number representing
      *               the occupied space of each external hard drive
@@ -1094,7 +1045,62 @@ class SystemStatus:
 
             return outJSON
 
+# Interval Control Test
+class IntervalTest:
+
+    """""
+     * Name:     IntervalTest.GET
+     *
+     * Purpose:  Performs an interval control test on the system
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *           intervalTestResult: A boolean representing if the test passed or failed
+     *
+     * Notes:    None
+    """""
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+
+            try:
+                data['consoleFeedback'], data['intervalTestResult'] = commandSender.intervalTest()
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.InternalError(e.message)
+
+            return outJSON
+
+class PrevIntervalTest:
+
+    """""
+     * Name:     PrevIntervalTest.GET
+     *
+     * Purpose:  Checks the /latest folder to see if the camera took
+     *           pictures the last time interval control ran
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *
+     * Notes:    None
+    """""
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+
+            try:
+                data['consoleFeedback'] = commandSender.prevIntervalTest()
+                outJSON = json.dumps(data)
+            except AttributeError as e:
+                raise web.InternalError('Latest photo directory (/data0/latest) corrupt or not present.')
+
+            return outJSON
+
 # Start of execution
 if __name__ == "__main__":
-    # os.chdir("/opt/dfn-software/GUI") #Uncomment when put on system
+    # os.chdir("/opt/dfn-software/GUI") # NB: Uncomment when GUI is put on system
     app.run()

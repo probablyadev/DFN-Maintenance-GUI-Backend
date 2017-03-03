@@ -22,20 +22,53 @@ from tempfile import mkstemp
 from shutil import move
 from os import remove, close
 
-# Code for executing a command line command
+"""""
+ * Name:     doConsoleCommand
+ *
+ * Purpose:  Sends the system a console command to execute in bash
+ *
+ * Params:   command: A string specifying the console command to be done
+ *
+ * Return:   A string, the console output
+ *
+ * Notes:    None
+"""""
 def doConsoleCommand(command):
     outputText = commands.getstatusoutput(command)[1]
     return outputText
 
-# NB: Most functionality that requires a true/false return, the default is set to false
-# and then changed if the exit status for that operation is true.
-
-# Login utilities
+"""""
+ * Name:     getHostname
+ *
+ * Purpose:  Gets the hostname of the system
+ *
+ * Params:   None
+ *
+ * Return:   A string, the hostname of the system
+ *
+ * Notes:    None
+"""""
 def getHostname():
     consoleOutput = doConsoleCommand(constants.getHostname)
     return consoleOutput
 
-# Camera utilities
+"""""
+ * * * * * * * * * * * *
+ *   CAMERA UTILITIES  *
+ * * * * * * * * * * * *
+"""""
+
+"""""
+ * Name:     cameraOn
+ *
+ * Purpose:  Switches the DSLR on
+ *
+ * Params:   None
+ *
+ * Return:   feedbackOutput, an output string to give the user feedback
+ *
+ * Notes:    None
+"""""
 def cameraOn():
     # Do command
     consoleOutput = doConsoleCommand(constants.cameraOn + constants.getExitStatus)
@@ -47,6 +80,17 @@ def cameraOn():
 
     return feedbackOutput
 
+"""""
+ * Name:     cameraOff
+ *
+ * Purpose:  Switches the DSLR off
+ *
+ * Params:   None
+ *
+ * Return:   feedbackOutput, an output string to give the user feedback
+ *
+ * Notes:    None
+"""""
 def cameraOff():
     # Do command
     consoleOutput = doConsoleCommand(constants.cameraOff + constants.getExitStatus)
@@ -58,6 +102,18 @@ def cameraOff():
 
     return feedbackOutput
 
+"""""
+ * Name:     videoCameraOn
+ *
+ * Purpose:  Switches the video camera on
+ *
+ * Params:   None
+ *
+ * Return:   consoleFeedback, an output string to give the user feedback
+ *
+ * Notes:    Doesn't return a boolean yet, because a way to detect the video camera's
+ *           presence is still to be implemented.
+"""""
 def videoCameraOn():
     # Do command
     consoleFeedback = doConsoleCommand(constants.videoCameraOn + constants.getExitStatus)
@@ -70,6 +126,18 @@ def videoCameraOn():
 
     return feedbackOutput
 
+"""""
+ * Name:     videoCameraOff
+ *
+ * Purpose:  Switches the video camera off
+ *
+ * Params:   None
+ *
+ * Return:   consoleFeedback, an output string to give the user feedback
+ *
+ * Notes:    Doesn't return a boolean yet, because a way to detect the video camera's
+ *           presence is still to be implemented.
+"""""
 def videoCameraOff():
     # Do command
     consoleFeedback = doConsoleCommand(constants.videoCameraOff + constants.getExitStatus)
@@ -82,6 +150,18 @@ def videoCameraOff():
 
     return feedbackOutput
 
+"""""
+ * Name:     cameraStatus
+ *
+ * Purpose:  Delivers a summary of the DSLR's status
+ *
+ * Params:   None
+ *
+ * Return:   feedbackOutput: An output string to give the user feedback
+ *           status: A boolean representing whether the DSLR is turned on or off
+ *
+ * Notes:    None
+"""""
 def cameraStatus():
     # Do command
     consoleOutput = doConsoleCommand(constants.cameraCheck)
@@ -97,6 +177,18 @@ def cameraStatus():
     # Encode to JSON
     return feedbackOutput, status
 
+"""""
+ * Name:     findPictures
+ *
+ * Purpose:  Fetches the filenames of pictures taken on the date specified
+ *
+ * Params:   inDate: The date the requested pictures were taken
+ *
+ * Return:   A python dictionary with many keys, with the following format:
+ *           {filecreationtime: filepath}
+ *
+ * Notes:    None
+"""""
 def findPictures(inDate):
     data = {}
     # Let's do some directory searching!
@@ -134,6 +226,17 @@ def findPictures(inDate):
 
         return data
 
+"""""
+ * Name:     downloadPicture
+ *
+ * Purpose:  Fetches the specified .NEF file for the user to download
+ *
+ * Params:   inPath: The filepath of the file to download
+ *
+ * Return:   success: A boolean which represents the success of the request
+ *
+ * Notes:    None
+"""""
 def downloadPicture(inPath):
     success = False
     consoleFeedback = doConsoleCommand(constants.copyFileToStatic.format(inPath.filepath))
@@ -144,6 +247,17 @@ def downloadPicture(inPath):
         raise IOError(constants.pictureNotFound)
     return success
 
+"""""
+ * Name:     downloadThumbnail
+ *
+ * Purpose:  Extracts the thumbnail of the specified .NEF, and serves it to the user
+ *
+ * Params:   inPath: The filepath of the .NEF file to extract the thumbnail from
+ *
+ * Return:   success: A boolean representing the success of the operation
+ *
+ * Notes:    None
+"""""
 def downloadThumbnail(inPath):
     success = False
     consoleFeedback = doConsoleCommand(constants.extractThumbnail.format(inPath.filepath))
@@ -153,6 +267,18 @@ def downloadThumbnail(inPath):
         raise IOError(constants.pictureNotFound)
     return success
 
+"""""
+ * Name:     removeThumbnail
+ *
+ * Purpose:  Deletes the specified thumbnail from the camera's filesystem
+ *
+ * Params:   inJSON: A JSON object with the following format:
+ *           {filepath: (filepath)}
+ *
+ * Return:   success: A boolean relating to the success of the operation
+ *
+ * Notes:    None
+"""""
 def removeThumbnail(inJSON):
     time.sleep(2)
     consoleOutput = doConsoleCommand("rm " + inJSON.filepath + ";" + constants.getExitStatus)
@@ -161,7 +287,23 @@ def removeThumbnail(inJSON):
 
     return 0
 
-# HDD Utilities
+"""""
+ * * * * * * * * * * * * * * * * *
+ * EXTERNAL HARD DRIVE UTILITIES *
+ * * * * * * * * * * * * * * * * *
+"""""
+
+"""""
+ * Name:     hddOn
+ *
+ * Purpose:  Switches the camera's external hard drives on
+ *
+ * Params:   None
+ *
+ * Return:   A string, relating to the success of the operation
+ *
+ * Notes:    None
+"""""
 def hddOn():
     # If hardrives already on, get outta here!
     feedbackOutput, hdd0Status, hdd0Space, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space = hddStatus()
@@ -177,6 +319,17 @@ def hddOn():
     time.sleep(25)
     return constants.hddCommandedOn
 
+"""""
+ * Name:     hddOff
+ *
+ * Purpose:  Switches the camera's external hard drives off
+ *
+ * Params:   None
+ *
+ * Return:   A string, relating to the success of the operation
+ *
+ * Notes:    None
+"""""
 def hddOff():
     # If hardrives already on, get outta here!
     feedbackOutput, hdd0Status, hdd0Space, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space = hddStatus()
@@ -196,6 +349,17 @@ def hddOff():
 
     return feedbackOutput
 
+"""""
+ * Name:     mountHDD
+ *
+ * Purpose:  Mounts the external hard drives to the file system
+ *
+ * Params:   None
+ *
+ * Return:   A string, relating to the success of the operation
+ *
+ * Notes:    None
+"""""
 def mountHDD():
     outputDict = {'/data1':"Drive #1", '/data2':"Drive #2", '/data3':"Drive #3",}
     smalldrives = ['/data1', '/data2']
@@ -220,6 +384,17 @@ def mountHDD():
 
     return feedbackOutput
 
+"""""
+ * Name:     unmountHDD
+ *
+ * Purpose:  Unmounts the external hard drives from the file system
+ *
+ * Params:   None
+ *
+ * Return:   A string, relating to the success of the operation
+ *
+ * Notes:    None
+"""""
 def unmountHDD():
     outputDict = {'/data1':"Drive #1", '/data2':"Drive #2", '/data3':"Drive #3",}
     smalldrives = ['/data1', '/data2']
@@ -238,6 +413,18 @@ def unmountHDD():
 
     return feedbackOutput
 
+"""""
+ * Name:     probeHDD
+ *
+ * Purpose:  Searches for present drives to format
+ *
+ * Params:   None
+ *
+ * Return:   A python dictionary with many keys, with the following format;
+ *           {/dev/sdxx: /datax /dev/sdxx}
+ *
+ * Notes:    None
+"""""
 def probeHDD():
     # Do command
     consoleOutput = doConsoleCommand(constants.probeHardDrives + constants.getExitStatus)
@@ -254,6 +441,17 @@ def probeHDD():
 
     return data
 
+"""""
+ * Name:     FormatHDD.GET
+ *
+ * Purpose:  Formats specified drives
+ *
+ * Params:   inDrives, a string of arguments for the format hard drive script
+ *
+ * Return:   feedbackOutput, an output string to give the user feedback
+ *
+ * Notes:    None
+"""""
 def formatHDD(inDrives):
     consoleOutput = doConsoleCommand(constants.formatHardDrive.format(inDrives) + constants.getExitStatus)
 
@@ -267,6 +465,21 @@ def formatHDD(inDrives):
 
     return feedbackOutput
 
+"""""
+ * Name:     hddStatus
+ *
+ * Purpose:  Delivers a summary of the external hard drives' status
+ *
+ * Params:   None
+ *
+ * Return:   feedbackOutput: An output string to give the user feedback
+ *           HDD0Status, HDD1Status, HDD2Status, HDD3Status: Integers representing the status
+ *               of each external hard drive.
+ *           HDD0Space, HDD1Space, HDD2Space, HDD3Space: Real numbers representing the occupied
+ *               space of each external hard drive.
+ *
+ * Notes:    None
+"""""
 def hddStatus():
     hddStatusDict = {0: constants.hddStatusOff, 1: constants.hddStatusPowered, 2: constants.hddStatusMounted}
 
@@ -330,6 +543,17 @@ def hddStatus():
 
     return feedbackOutput, hdd0Status, hdd0Space, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space
 
+"""""
+ * Name:     smartTest
+ *
+ * Purpose:  Performs a smart test
+ *
+ * Params:   None
+ *
+ * Return:   feedbackOutput: An output string to give the user feedback
+ *
+ * Notes:    None
+"""""
 def smartTest():
     smalldrives = ["usbjmicron,00", "usbjmicron,01"]
     successfuldrives = list(smalldrives)
@@ -374,7 +598,24 @@ def smartTest():
 
     return feedbackOutput
 
-# GPS + Clock Utilities
+"""""
+ * * * * * * * * * * * * * * * * *
+ *         GPS UTILITIES         *
+ * * * * * * * * * * * * * * * * *
+"""""
+
+"""""
+ * Name:     gpsStatus
+ *
+ * Purpose:  Delivers a summary of the GPS' status
+ *
+ * Params:   None
+ *
+ * Return:   feedbackOutput: An output string to give the user feedback
+ *           gpstatus: A boolean representing the status of the GPS
+ *
+ * Notes:    None
+"""""
 def gpsStatus():
     gpsStatusDict = {"1": "Locked", "0": "No lock"}
 
@@ -400,17 +641,56 @@ def gpsStatus():
 
     return feedbackOutput, status
 
+"""""
+ * Name:     timezoneChange
+ *
+ * Purpose:  Changes the system's timezone
+ *
+ * Params:   timezone: The timezone information to change the system's timezone to
+ *
+ * Return:   An output string to give the user feedback
+ *
+ * Notes:    None
+"""""
 def timezoneChange(timezone):
     command = constants.setTimezone
     doConsoleCommand(command.format(timezone))
     return constants.timezoneChanged.format(timezone)
 
+"""""
+ * Name:     outputTime
+ *
+ * Purpose:  Outputs the current system time to the user
+ *
+ * Params:   None
+ *
+ * Return:   consoleOutput: The console output of the outputTime command
+ *
+ * Notes:    None
+"""""
 def outputTime():
     #Do command
     consoleOutput = doConsoleCommand(constants.outputTime)
     return consoleOutput + "\n"
 
-# Internet Utilities
+"""""
+ * * * * * * * * * * * * * * * * *
+ *       NETWORK UTILITIES       *
+ * * * * * * * * * * * * * * * * *
+"""""
+
+"""""
+ * Name:     internetStatus
+ *
+ * Purpose:  Delivers a summary of the internet connectivity of the system.
+ *
+ * Params:   None
+ *
+ * Return:   feedbackOutput: An output string to give the user feedback
+ *           internetStatus: A boolean representing the internet connectivity of the system
+ *
+ * Notes:    None
+"""""
 def internetStatus():
     #Do command
     consoleOutput = doConsoleCommand(constants.internetCheck)
@@ -428,6 +708,17 @@ def internetStatus():
 
     return feedbackOutput, status
 
+"""""
+ * Name:     restartModem
+ *
+ * Purpose:  Restarts the modem network interface
+ *
+ * Params:   None
+ *
+ * Return:   feedbackOutput: An output string to give the user feedback
+ *
+ * Notes:    None
+"""""
 def restartModem():
     # Do command
     consoleOutput = doConsoleCommand(constants.restartModem)
@@ -439,6 +730,18 @@ def restartModem():
 
     return feedbackOutput
 
+"""""
+ * Name:     vpnStatus
+ *
+ * Purpose:  Delivers a summary of the vpn connectivity of the system.
+ *
+ * Params:   None
+ *
+ * Return:   feedbackOutput: An output string to give the user feedback
+ *           vpnStatus: A boolean representing the vpn connectivity of the system
+ *
+ * Notes:    None
+"""""
 def vpnStatus():
     # Do command
     consoleOutput = doConsoleCommand(constants.vpnCheck)
@@ -454,6 +757,17 @@ def vpnStatus():
 
     return feedbackOutput, status
 
+"""""
+ * Name:     restartVPN
+ *
+ * Purpose:  Restarts the system's VPN daemon
+ *
+ * Params:   None
+ *
+ * Return:   feedbackOutput: An output string to give the user feedback
+ *
+ * Notes:    None
+"""""
 def restartVPN():
     # Do command
     consoleOutput = doConsoleCommand(constants.restartVPN)
@@ -466,13 +780,40 @@ def restartVPN():
 
     return feedbackOutput
 
-# Advanced Utilities
+"""""
+ * * * * * * * * * * * * * * * * *
+ *      ADVANCED UTILITIES       *
+ * * * * * * * * * * * * * * * * *
+"""""
 
+"""""
+ * Name:     getLog
+ *
+ * Purpose:  Fetches the file path of a text logfile on the file system
+ *
+ * Params:   directory: the directory (/data0/ + directory) to get the logfile from
+ *
+ * Return:   foundfile: the file path of the found logfile
+ *
+ * Notes:    None
+"""""
 def getLog(directory):
     filenames = doConsoleCommand(constants.getLogfileName.format(directory))
     foundfile = filenames.split('\n')[0]
     return foundfile
 
+"""""
+ * Name:     populateConfigBox
+ *
+ * Purpose:  Serves information to fill in the interface for changing the dfnstation.cfg file
+ *
+ * Params:   None
+ *
+ * Return:   A python dictionary with many keys the following format:
+ *           {param: value}
+ *
+ * Notes:    None
+"""""
 def populateConfigBox():
     whitelist = constants.configBoxWhitelist
     path = constants.dfnconfigPath
@@ -492,6 +833,18 @@ def populateConfigBox():
 
     return outDict
 
+"""""
+ * Name:     updateConfigFile
+ *
+ * Purpose:  Updates the dfnstation.cfg file with a new value for a parameter
+ *
+ * Params:   inProperty, a JSON object in the format:
+ *           {param: value}
+ *
+ * Return:   consoleFeedback: An output string to give the user feedback
+ *
+ * Notes:    None
+"""""
 def updateConfigFile(inProperty):
     path = "/opt/dfn-software/dfnstation.cfg"
     consoleFeedback = constants.configWriteFailed
@@ -517,7 +870,24 @@ def updateConfigFile(inProperty):
     return consoleFeedback
 
 
-# Interval test
+"""""
+ * * * * * * * * * * * * * * * * *
+ *    INTERVAL TEST UTILITIES    *
+ * * * * * * * * * * * * * * * * *
+"""""
+
+"""""
+ * Name:     intervalTest
+ *
+ * Purpose:  Performs an interval control test on the system
+ *
+ * Params:   None
+ *
+ * Return:   feedbackOutput: An output string to give the user feedback
+ *           status: A boolean representing if the test passed or failed
+ *
+ * Notes:    None
+"""""
 def intervalTest():
     # Do interval test command
     consoleOutput = doConsoleCommand(constants.intervalTest + constants.getExitStatus)
@@ -535,6 +905,18 @@ def intervalTest():
 
     return feedbackOutput, status
 
+"""""
+ * Name:     prevIntervalTest
+ *
+ * Purpose:  Checks the /latest folder to see if the camera took
+ *           pictures the last time interval control ran
+ *
+ * Params:   None
+ *
+ * Return:   consoleFeedback: An output string to give the user feedback
+ *
+ * Notes:    None
+"""""
 def prevIntervalTest():
     # Get current date
     currDate = datetime.datetime.now()
