@@ -1,7 +1,28 @@
+"""""
+ * * * * * * * * * *
+ * Filename:    model.py
+ *
+ * Purpose:     Queries the auth database for the DFN Maintenance GUI
+ *
+ * Copyright: © 2017 Fireballs in the Sky, all rights reserved
+ *
+ * * * * * * * * * *
+"""""
 import sqlite3
 import hashlib
 
-
+"""""
+ * Name:     loginAuth
+ *
+ * Purpose:  Checks whether login credentials are correct according to the database
+ *
+ * Params:   username: A string; the input username
+ *           password: A string; the input password
+ *
+ * Return:   A boolean, true if authorized successfully and false if invalid credentials
+ *
+ * Notes:    None
+"""""
 def loginAuth(username, password):
     auth = False
 

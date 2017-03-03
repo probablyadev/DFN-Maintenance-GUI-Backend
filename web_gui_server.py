@@ -1,3 +1,13 @@
+"""""
+ * * * * * * * * * *
+ * Filename:    web_gui_server.py
+ *
+ * Purpose:     HTTP Server for DFN Cameras to serve the DFN Maintenance GUI
+ *
+ * Copyright: © 2017 Fireballs in the Sky, all rights reserved
+ *
+ * * * * * * * * * *
+"""""
 #!/usr/bin/env python
 
 import web
@@ -5,6 +15,7 @@ import constants
 from web import form
 import os, model, commandSender, json, base64, datetime
 
+# Initialising web.py config variables
 web.config.debug = False
 web.config.session_parameters['timeout'] = 3600
 
@@ -62,12 +73,41 @@ loginForm = form.Form(
     form.Password("password", description='Password:'),
     form.Button('Login'))
 
-# Class for login page
+"""""
+ * * * * * * * *
+ *
+ *      Classes for handling page requests and login
+ *
+ * * * * * * * *
+"""""
 class Index:
+
+    """""
+     * Name:     Index.GET
+     *
+     * Purpose:  Serves the request for the login page
+     *
+     * Params:   None
+     *
+     * Return:   Rendered HTML of login template
+     *
+     * Notes:    None
+    """""
     def GET(self):
         f = loginForm()
         return render.login(f, '')
 
+    """""
+     * Name:     Index.POST
+     *
+     * Purpose:  Handles login form submission
+     *
+     * Params:   None (However, the login form data is extracted by web.py)
+     *
+     * Return:   Rendered HTML of the login page (for failure to login)
+     *
+     * Notes:    On success, calls Login.login to raise the HTML of the Maintenance GUI
+    """""
     def POST(self):
         f = loginForm()
 
@@ -79,26 +119,70 @@ class Index:
         else:
             return render.login(f, 'ERROR: Form entry invalid.')
 
-
-# Class for Maintenance GUI
 class UI:
+    """""
+     * Name:     UI.GET
+     *
+     * Purpose:  Renders the Maintenance GUI
+     *
+     * Params:   None
+     *
+     * Return:   None
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             hostname = commandSender.getHostname()
             return render.app(hostname)
 
 class Login:
+
+    """""
+     * Name:     Login.login
+     *
+     * Purpose:  Logs the user in, by manipulating their session
+     *
+     * Params:   None
+     *
+     * Return:   None, but raises the /app endpoint to the client
+     *
+     * Notes:    None
+    """""
     @staticmethod
     def login():
         session.logged_in = True
         raise web.seeother('/app')
 
 class Logout:
+    """""
+     * Name:     Logout.GET
+     *
+     * Purpose:  Logs the user out, by manipulating their session
+     *
+     * Params:   None
+     *
+     * Return:   None, but raises the / endpoint to the client
+     *
+     * Notes:    None
+    """""
     def GET(self):
         session.logged_in = False
         raise web.seeother('/')
 
 class LoginChecker:
+
+    """""
+     * Name:     LoginChecker.loggedIn
+     *
+     * Purpose:  Checks whether the user's session is logged in
+     *
+     * Params:   None
+     *
+     * Return:   Either returns True for logged in, or raises the / enpoint if not logged in.
+     *
+     * Notes:    None
+    """""
     @staticmethod
     def loggedIn():
         if session.get('logged_in', False):
@@ -107,13 +191,47 @@ class LoginChecker:
             raise web.seeother('/')
 
 class GetHostname:
+
+    """""
+     * Name:     GetHostname.GET
+     *
+     * Purpose:  Gets the hostname of the current DFN Camera
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object, in the form of
+     *           {hostname : "DFNXXX}
+     *
+     * Notes:    None
+    """""
     def GET(self):
         data = {}
         data['hostname'] = commandSender.getHostname()
         return json.dumps(data)
 
-# Classes for different functions of the GUI
+
+"""""
+ * * * * * * * *
+ *
+ *      Classes for handling camera functionality
+ *
+ * * * * * * * *
+"""""
 class CameraOn:
+
+    """""
+     * Name:     CameraOn.GET
+     *
+     * Purpose:  Switches the DSLR on
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *           cameraStatus: A boolean representing whether the DSLR is turned on or off
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -130,6 +248,20 @@ class CameraOn:
             return outJSON
 
 class CameraOff:
+
+    """""
+     * Name:     CameraOn.GET
+     *
+     * Purpose:  Switches the DSLR off
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *           cameraStatus: A boolean representing whether the DSLR is turned on or off
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -146,6 +278,20 @@ class CameraOff:
             return outJSON
 
 class VideoCameraOn:
+
+    """""
+     * Name:     VideoCameraOn.GET
+     *
+     * Purpose:  Switches the video camera on
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *
+     * Notes:    Doesn't return a boolean yet, because a way to detect the video camera's
+     *           presence is still to be implemented.
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -159,6 +305,20 @@ class VideoCameraOn:
             return outJSON
 
 class VideoCameraOff:
+
+    """""
+     * Name:     VideoCameraOff.GET
+     *
+     * Purpose:  Switches the video camera off
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *
+     * Notes:    Doesn't return a boolean yet, because a way to detect the video camera's
+     *           presence is still to be implemented.
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -172,6 +332,20 @@ class VideoCameraOff:
             return outJSON
 
 class CameraStatus:
+
+    """""
+     * Name:     CameraStatus.GET
+     *
+     * Purpose:  Delivers a summary of the DSLR's status
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *           cameraStatus: A boolean representing whether the DSLR is turned on or off
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -180,13 +354,39 @@ class CameraStatus:
             return outJSON
 
 class FindPictures:
+
+    """""
+     * Name:     FindPictures.GET
+     *
+     * Purpose:  Fetches the filenames of pictures taken on the date specified
+     *
+     * Params:   None, but web.input fetches the input date specified by the user
+     *
+     * Return:   A JSON object with many keys, with the following format:
+     *           {filecreationtime: filepath}
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
             fileBankJSON = commandSender.findPictures(web.input())
-            return fileBankJSON
+            return json.dumps(fileBankJSON, sort_keys=True)
 
 class DownloadPicture:
+
+    """""
+     * Name:     DownloadPicture.GET
+     *
+     * Purpose:  Fetches the specified .NEF file for the user to download
+     *
+     * Params:   None, but web.input fetches the filepath for download
+     *
+     * Return:   A JSON object with the following format:
+     *           {success: boolean}
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -200,6 +400,19 @@ class DownloadPicture:
             return outJSON
 
 class DownloadThumbnail:
+
+    """""
+     * Name:     DownloadThumbnail.GET
+     *
+     * Purpose:  Fetches the specified .jpg file for the user to download
+     *
+     * Params:   None, but web.input fetches the filepath for jpg extraction
+     *
+     * Return:   A JSON object with the following format:
+     *           {success: boolean}
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -213,6 +426,19 @@ class DownloadThumbnail:
             return outJSON
 
 class RemoveThumbnail:
+
+    """""
+     * Name:     RemoveThumbnail.GET
+     *
+     * Purpose:  Deletes the specified thumbnail from the camera's filesystem
+     *
+     * Params:   None, but web.input fetches the filepath to delete
+     *
+     * Return:   A JSON object with the following format:
+     *           {success: boolean}
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
 
@@ -224,6 +450,23 @@ class RemoveThumbnail:
             return 0
 
 class EnableHDD:
+
+    """""
+     * Name:     EnableHDD.GET
+     *
+     * Purpose:  Switches the camera's external hard drives on
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *           HDD0Status, HDD1Status, HDD2Status, HDD3Status: Booleans representing the status
+     *               of each external hard drive.
+     *           HDD0Space, HDD1Space, HDD2Space, HDD3Space: Real numbers representing the occupied
+     *               space of each external hard drive.
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -238,6 +481,23 @@ class EnableHDD:
             return outJSON
 
 class DisableHDD:
+
+    """""
+     * Name:     DisableHDD.GET
+     *
+     * Purpose:  Switches the camera's external hard drives off
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *           HDD0Status, HDD1Status, HDD2Status, HDD3Status: Booleans representing the status
+     *               of each external hard drive.
+     *           HDD0Space, HDD1Space, HDD2Space, HDD3Space: Real numbers representing the occupied
+     *               space of each external hard drive.
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -253,6 +513,23 @@ class DisableHDD:
             return outJSON
 
 class MountHDD:
+
+    """""
+     * Name:     MountHDD.GET
+     *
+     * Purpose:  Mounts the powered HDDs to the filesystem
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *           HDD0Status, HDD1Status, HDD2Status, HDD3Status: Booleans representing the status
+     *               of each external hard drive.
+     *           HDD0Space, HDD1Space, HDD2Space, HDD3Space: Real numbers representing the occupied
+     *               space of each external hard drive.
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -268,6 +545,23 @@ class MountHDD:
             return outJSON
 
 class UnmountHDD:
+
+    """""
+     * Name:     UnmountHDD.GET
+     *
+     * Purpose:  Unmounts the powered HDDs from the filesystem
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *           HDD0Status, HDD1Status, HDD2Status, HDD3Status: Booleans representing the status
+     *               of each external hard drive.
+     *           HDD0Space, HDD1Space, HDD2Space, HDD3Space: Real numbers representing the occupied
+     *               space of each external hard drive.
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -283,6 +577,19 @@ class UnmountHDD:
             return outJSON
 
 class ProbeHDD:
+
+    """""
+     * Name:     ProbeHDD.GET
+     *
+     * Purpose:  Searches for present drives to format
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with many keys, with the following format;
+     *           {/dev/sdxx: /datax /dev/sdxx}
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
 
@@ -295,6 +602,19 @@ class ProbeHDD:
             return outJSON
 
 class FormatHDD:
+
+    """""
+     * Name:     FormatHDD.GET
+     *
+     * Purpose:  Formats specified drives
+     *
+     * Params:   None, but web.input fetches the args for the format hdd script
+     *
+     * Return:   A JSON object with the variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -309,6 +629,19 @@ class FormatHDD:
             return outJSON
 
 class SmartTest:
+
+    """""
+     * Name:     SmartTest.GET
+     *
+     * Purpose:  Performs a smart test
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -325,6 +658,23 @@ class SmartTest:
             return outJSON
 
 class CheckHDD:
+
+    """""
+     * Name:     CheckHDD.GET
+     *
+     * Purpose:  Delivers a summary of the external hard drives' status
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *           HDD0Status, HDD1Status, HDD2Status, HDD3Status: Booleans representing the status
+     *               of each external hard drive.
+     *           HDD0Space, HDD1Space, HDD2Space, HDD3Space: Real numbers representing the occupied
+     *               space of each external hard drive.
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -338,6 +688,20 @@ class CheckHDD:
             return outJSON
 
 class GPSCheck:
+
+    """""
+     * Name:     GPSCheck.GET
+     *
+     * Purpose:  Delivers a summary of the GPS' status
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *           gpstatus: A boolean representing the status of the GPS
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -351,6 +715,19 @@ class GPSCheck:
             return outJSON
 
 class TimezoneChange:
+
+    """""
+     * Name:     TimezoneChange.GET
+     *
+     * Purpose:  Changes the system's timezone
+     *
+     * Params:   None, but web.input fetches the timezone information from the user
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -360,6 +737,20 @@ class TimezoneChange:
             return outJSON
 
 class OutputTime:
+
+    """""
+     * Name:     OutputTime.GET
+     *
+     * Purpose:  Outputs the current system time to the user
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback.
+     *               Includes current system time.
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -368,6 +759,20 @@ class OutputTime:
             return outJSON
 
 class IntervalTest:
+
+    """""
+     * Name:     IntervalTest.GET
+     *
+     * Purpose:  Performs an interval control test on the system
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *           intervalTestResult: A boolean representing if the test passed or failed
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -381,6 +786,20 @@ class IntervalTest:
             return outJSON
 
 class PrevIntervalTest:
+
+    """""
+     * Name:     PrevIntervalTest.GET
+     *
+     * Purpose:  Checks the /latest folder to see if the camera took
+     *           pictures the last time interval control ran
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -394,6 +813,21 @@ class PrevIntervalTest:
             return outJSON
 
 class InternetCheck:
+
+    """""
+     * Name:     InternetCheck.GET
+     *
+     * Purpose:  Delivers a summary of the internet connectivity of the system.
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *           internetStatus: A boolean representing the internet connectivity
+     *               of the system
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -402,6 +836,21 @@ class InternetCheck:
             return outJSON
 
 class RestartModem:
+
+    """""
+     * Name:     RestartModem.GET
+     *
+     * Purpose:  Restarts the modem network interface
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *           internetStatus: A boolean representing the internet connectivity
+     *               of the system
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -412,6 +861,20 @@ class RestartModem:
             return outJSON
 
 class VPNCheck:
+
+    """""
+     * Name:     VPNCheck.GET
+     *
+     * Purpose:  Delivers a summary of the vpn connectivity of the system.
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *           vpnStatus: A boolean representing the vpn connectivity of the system
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -420,6 +883,20 @@ class VPNCheck:
             return outJSON
 
 class RestartVPN:
+
+    """""
+     * Name:     RestartVPN.GET
+     *
+     * Purpose:  Restarts the system's VPN daemon
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *           vpnStatus: A boolean representing the vpn connectivity of the system
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -430,6 +907,18 @@ class RestartVPN:
             return outJSON
 
 class StatusConfig:
+
+    """""
+     * Name:     StatusConfig.GET
+     *
+     * Purpose:  Serves the dfnstation.cfg file to the user to read.
+     *
+     * Params:   None
+     *
+     * Return:   A Base64 encoded string; the contents of dfnstation.cfg
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             path = constants.dfnconfigPath
@@ -442,6 +931,20 @@ class StatusConfig:
                 raise web.notfound()
 
 class LatestLog:
+
+    """""
+     * Name:     LatestLog.GET
+     *
+     * Purpose:  Serves the latest logfile from interval control
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           file: The contents of the logfile
+     *           timestamp: The timestamp that the logfile was last modified
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             path = "/data0/latest/" + commandSender.getLog("latest")
@@ -457,6 +960,20 @@ class LatestLog:
                 raise web.notfound()
 
 class LatestPrevLog:
+
+    """""
+     * Name:     LatestPrevLog.GET
+     *
+     * Purpose:  Serves the second-latest logfile from interval control
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           file: The contents of the logfile
+     *           timestamp: The timestamp that the logfile was last modified
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             path = "/data0/latest_prev/" + commandSender.getLog("latest_prev")
@@ -472,6 +989,19 @@ class LatestPrevLog:
                 raise web.notfound()
 
 class PopulateConfigBox:
+
+    """""
+     * Name:     PopulateConfigBox.GET
+     *
+     * Purpose:  Serves information to fill in the interface for changing the dfnstation.cfg file
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with many keys the following format:
+     *           {param: value}
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -485,6 +1015,19 @@ class PopulateConfigBox:
             return outJSON
 
 class UpdateConfigFile:
+
+    """""
+     * Name:     UpdateConfigFile.GET
+     *
+     * Purpose:  Updates the dfnstation.cfg file with a new value for a parameter
+     *
+     * Params:   None, but web.input fetches the modified parameter, and the new value for it.
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             data = {}
@@ -498,6 +1041,27 @@ class UpdateConfigFile:
             return outJSON
 
 class SystemStatus:
+
+    """""
+     * Name:     SystemStatus.GET
+     *
+     * Purpose:  Provides an overall status of the system to the user
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleOutput: An output string to give the user feedback
+     *           cameraStatus: A boolean representing the camera's status
+     *           gpsStatus: A boolean representing the GPSs status
+     *           internetStatus: A boolean representing the internet connectivity of the system
+     *           vpnStatus: A boolean representing the vpn connectivity of the system
+     *           HDD0Status, HDD1Status, HDD2Status, HDD3Status: A boolean representing
+     *               the status of each external hard drive
+     *           HDD0Space, HDD1Space, HDD2Space, HDD3Space: A real number representing
+     *               the occupied space of each external hard drive
+     *
+     * Notes:    None
+    """""
     def GET(self):
         if LoginChecker.loggedIn():
             # Check status of system
@@ -532,5 +1096,5 @@ class SystemStatus:
 
 # Start of execution
 if __name__ == "__main__":
-    # os.chdir("/opt/dfn-software/GUI")
+    # os.chdir("/opt/dfn-software/GUI") #Uncomment when put on system
     app.run()

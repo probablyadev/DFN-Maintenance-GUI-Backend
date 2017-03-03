@@ -1,3 +1,15 @@
+"""""
+ * * * * * * * * * *
+ * Filename:    commandSender.py
+ *
+ * Purpose:     Responsible for running commands on each Camera, returns appropriate
+ *              console output.
+ *
+ * Copyright: © 2017 Fireballs in the Sky, all rights reserved
+ *
+ * * * * * * * * * *
+"""""
+
 # Placeholder for now, this is where we send data to die.
 import constants
 import commands
@@ -6,7 +18,6 @@ import time
 import datetime
 import calendar
 import os
-import json
 from tempfile import mkstemp
 from shutil import move
 from os import remove, close
@@ -121,7 +132,7 @@ def findPictures(inDate):
 
                     data[fileCreationTimeReadable] = filePath
 
-        return json.dumps(data, sort_keys=True)
+        return data
 
 def downloadPicture(inPath):
     success = False
@@ -230,7 +241,6 @@ def unmountHDD():
 def probeHDD():
     # Do command
     consoleOutput = doConsoleCommand(constants.probeHardDrives + constants.getExitStatus)
-    validTokens = []
     data = {}
 
     # Parse results

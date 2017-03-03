@@ -1,3 +1,12 @@
+/**************
+ *
+ * Filename:    runcommands.js
+ *
+ * Purpose:     Handles DOM manipulation, and also makes http requests to the camera
+ *
+ * Copyright: © 2017 Fireballs in the Sky, all rights reserved
+ *
+ **************/
 $(document).ready(function () {
 
     //Change img with svg source to inline svg
