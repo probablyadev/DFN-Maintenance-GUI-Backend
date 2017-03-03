@@ -4,7 +4,7 @@
  *
  * Purpose:     HTTP Server for DFN Cameras to serve the DFN Maintenance GUI
  *
- * Copyright: © 2017 Fireballs in the Sky, all rights reserved
+ * Copyright:   2017 Fireballs in the Sky, all rights reserved
  *
  * * * * * * * * * *
 """""

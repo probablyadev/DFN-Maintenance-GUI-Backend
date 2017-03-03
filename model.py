@@ -4,7 +4,7 @@
  *
  * Purpose:     Queries the auth database for the DFN Maintenance GUI
  *
- * Copyright: © 2017 Fireballs in the Sky, all rights reserved
+ * Copyright:   2017 Fireballs in the Sky, all rights reserved
  *
  * * * * * * * * * *
 """""

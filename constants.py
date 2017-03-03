@@ -4,7 +4,7 @@
  *
  * Purpose:     A set of strings used throughout the DFN Maintenance GUI
  *
- * Copyright: © 2017 Fireballs in the Sky, all rights reserved
+ * Copyright:   2017 Fireballs in the Sky, all rights reserved
  *
  * * * * * * * * * *
 """""
@@ -113,13 +113,25 @@ hddUnmountPassed = "{0} unmounted successfully.\n"
 hddUnmountFailed = "{0} unmount error: {1}\n"
 hddAlreadyUnmountedError = "May have already been unmounted."
 
-scriptNotFound = "Requested script not found."
+scriptNotFound = "Script not found: {0}."
 diskUsageNotFound = "Error reading disk usage log file."
 pictureNotFound = "Picture not found."
 
-#File paths
+# File paths
 diskUsagePath = "/tmp/dfn_disk_usage"
 dfnconfigPath = "/opt/dfn-software/dfnstation.cfg"
+
+# Script not found names
+cameraOnScriptNotFound = scriptNotFound.format("enable_camera.py")
+cameraOffScriptNotFound = scriptNotFound.format("disable_camera.py")
+videoCameraOnScriptNotFound = scriptNotFound.format("enable_video.py")
+videoCameraOffScriptNotFound = scriptNotFound.format("disable_video.py")
+hddOnScriptNotFound = scriptNotFound.format("enable_ext-hd.py")
+hddOffScriptNotFound = scriptNotFound.format("disable_ext-hd.py")
+hddFormatScriptNotFound = scriptNotFound.format("dfn_setup_usb_hdds.sh")
+leostickStatusScriptNotFound = scriptNotFound.format("leostick_get_status.py")
+intervalControlTestScriptNotFound = scriptNotFound.format("interval_control_test.sh")
+
 
 # Whitelist for which config variables the user can modify
 configBoxWhitelist = ["vid_lens", "vid_format", "camera_fstop", "still_lens", "vid_ser_no",

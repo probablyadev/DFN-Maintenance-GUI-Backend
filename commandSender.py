@@ -5,7 +5,7 @@
  * Purpose:     Responsible for running commands on each Camera, returns appropriate
  *              console output.
  *
- * Copyright: © 2017 Fireballs in the Sky, all rights reserved
+ * Copyright:   2017 Fireballs in the Sky, all rights reserved
  *
  * * * * * * * * * *
 """""
@@ -73,7 +73,7 @@ def cameraOn():
     # Do command
     consoleOutput = doConsoleCommand(constants.cameraOn + constants.getExitStatus)
     if "2" in consoleOutput:
-        raise IOError(constants.scriptNotFound)
+        raise IOError(constants.cameraOnScriptNotFound)
 
     # Parse output
     feedbackOutput = constants.cameraSwitchedOn
@@ -95,7 +95,7 @@ def cameraOff():
     # Do command
     consoleOutput = doConsoleCommand(constants.cameraOff + constants.getExitStatus)
     if "2" in consoleOutput:
-        raise IOError(constants.scriptNotFound)
+        raise IOError(constants.cameraOffScriptNotFound)
 
     # Parse output
     feedbackOutput = constants.cameraSwitchedOff
@@ -120,7 +120,7 @@ def videoCameraOn():
 
     # Parse output
     if "2" in consoleFeedback:
-        raise IOError(constants.scriptNotFound)
+        raise IOError(constants.videoCameraOnScriptNotFound)
 
     feedbackOutput = constants.videoCameraSwitchedOn
 
@@ -144,7 +144,7 @@ def videoCameraOff():
 
     # Parse output
     if "2" in consoleFeedback:
-        raise IOError(constants.scriptNotFound)
+        raise IOError(constants.cameraOffScriptNotFound)
 
     feedbackOutput = constants.videoCameraSwitchedOff
 
@@ -340,7 +340,7 @@ def hddOff():
     consoleOutput = doConsoleCommand(constants.disableHardDrive + constants.getExitStatus)
 
     if "\n2" in consoleOutput:
-        raise IOError(constants.scriptNotFound)
+        raise IOError(constants.hddOffScriptNotFound)
 
     if consoleOutput == "":
         feedbackOutput = constants.hddCommandedOff
@@ -432,7 +432,7 @@ def probeHDD():
 
     # Parse results
     if "\n127" in consoleOutput:
-        raise IOError(constants.scriptNotFound)
+        raise IOError(constants.hddFormatScriptNotFound)
 
     splitOutput = consoleOutput.split(" ")
     for idx, token in enumerate(splitOutput):
@@ -457,7 +457,7 @@ def formatHDD(inDrives):
 
 
     if "\n127" in consoleOutput:
-        raise IOError(constants.scriptNotFound)
+        raise IOError(constants.hddFormatScriptNotFound)
     elif "is mounted" in consoleOutput:
         raise RuntimeError(constants.hddFormatFailed)
     else:
@@ -623,7 +623,7 @@ def gpsStatus():
     consoleOutput = doConsoleCommand(constants.gpsCheck + constants.getExitStatus)
 
     if "\n2" in consoleOutput:
-        raise IOError(constants.scriptNotFound)
+        raise IOError(constants.leostickStatusScriptNotFound)
 
     # Parse output for results
     status = False
@@ -892,7 +892,7 @@ def intervalTest():
     # Do interval test command
     consoleOutput = doConsoleCommand(constants.intervalTest + constants.getExitStatus)
     if "\n127" in consoleOutput:
-        raise IOError(constants.scriptNotFound)
+        raise IOError(constants.intervalControlTestScriptNotFound)
 
     # Check /data0/latest_prev for correct number of NEF files
     status = False
