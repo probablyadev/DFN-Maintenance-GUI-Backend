@@ -89,7 +89,7 @@ $(document).ready(function () {
     var formatData3Check = $('#formatData3Check');
 
     //Useful globals + constants
-    var hostname = "DFNSMALL62";
+    var hostname = "";
     var doingCommand = false;
     var simpleColorMapping = {true: "#00FF00", false: "#FF0000"};
     var complexColorMapping = {0: "#FF0000", 1: "#FF9900", 2: "#00FF00"};
@@ -930,7 +930,17 @@ $(document).ready(function () {
     $("#advancedTab").click({tabName: "advancedTab", contentName: "advancedControl"}, changeTab);
     $("#statusTab").trigger("click");
 
+    /***************************************************/
+    /*                   PAGE SETUP                    */
+    /***************************************************/
+
     //Get system status
     systemStatusHandler();
+    //Get camera hostname
     getHostname();
+    //Modify GUI according to system type
+    if (hostname.indexOf("EXT") == -1) {
+        $('#data3Status').css('display', 'none');
+    }
+    console.log(hostname.indexOf("EXT"))
 });
