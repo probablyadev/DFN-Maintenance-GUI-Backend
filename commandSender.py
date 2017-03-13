@@ -361,14 +361,21 @@ def hddOff():
  * Notes:    None
 """""
 def mountHDD():
-    outputDict = {'/data1':"Drive #1", '/data2':"Drive #2", '/data3':"Drive #3",}
+    outputDict = {'/data1':"Drive #1", '/data2':"Drive #2", '/data3':"Drive #3"}
     smalldrives = ['/data1', '/data2']
     extdrives = ['/data1', '/data2', '/data3']
+    drives = []
     feedbackOutput = ""
+
+    hostname = getHostname()
+    if 'EXT' in hostname:
+        drives = list(extdrives)
+    else:
+        drives = list(smalldrives)
 
     poweredStatus = doConsoleCommand(constants.hddPoweredStatus)
 
-    for drive in smalldrives:
+    for drive in drives:
         # Do command for drive
         consoleOutput = doConsoleCommand(constants.mountHardDrive.format(drive))
 
