@@ -839,7 +839,7 @@ def populateConfigBox():
 
         for element in whitelist:
             for line in filelines:
-                if element in line:
+                if element + " =" in line:
                     parsed = line.split(" = ")
                     outDict[parsed[0]] = parsed[1]
     else:
