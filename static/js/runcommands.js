@@ -904,7 +904,9 @@ $(document).ready(function () {
         document.body.removeChild(element);
     }
 
-    //Code for tab controls
+    /***************************************************/
+    /*                  TAB CONTROL                    */
+    /***************************************************/
     function changeTab(event) {
         var tabContent, tabControl;
         var contentName = event.data.contentName;
@@ -942,5 +944,4 @@ $(document).ready(function () {
     if (hostname.indexOf("EXT") == -1) {
         $('#data3Status').css('display', 'none');
     }
-    console.log(hostname.indexOf("EXT"))
 });

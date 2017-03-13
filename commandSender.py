@@ -364,7 +364,7 @@ def mountHDD():
     outputDict = {'/data1':"Drive #1", '/data2':"Drive #2", '/data3':"Drive #3"}
     smalldrives = ['/data1', '/data2']
     extdrives = ['/data1', '/data2', '/data3']
-    drives = []
+    drives = ['']
     feedbackOutput = ""
 
     hostname = getHostname()
@@ -406,9 +406,16 @@ def unmountHDD():
     outputDict = {'/data1':"Drive #1", '/data2':"Drive #2", '/data3':"Drive #3",}
     smalldrives = ['/data1', '/data2']
     extdrives = ['/data1', '/data2', '/data3']
+    drives = ['']
     feedbackOutput = ""
 
-    for drive in smalldrives:
+    hostname = getHostname()
+    if 'EXT' in hostname:
+        drives = list(extdrives)
+    else:
+        drives = list(smalldrives)
+
+    for drive in drives:
         # Do command
         consoleOutput = doConsoleCommand(constants.unmountHardDrive.format(drive))
 
