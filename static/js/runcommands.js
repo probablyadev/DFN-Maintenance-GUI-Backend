@@ -211,7 +211,11 @@ $(document).ready(function () {
 
     function getHostname() {
         $.getJSON('/gethostname', function(result) {
-            hostname = result.hostname
+            hostname = result.hostname;
+            //Modify GUI according to system type
+            if (hostname.indexOf("EXT") == -1) {
+                $('#data3Status').css('display', 'none');
+            }
         });
     }
 
@@ -940,8 +944,4 @@ $(document).ready(function () {
     systemStatusHandler();
     //Get camera hostname
     getHostname();
-    //Modify GUI according to system type
-    if (hostname.indexOf("EXT") == -1) {
-        $('#data3Status').css('display', 'none');
-    }
 });
