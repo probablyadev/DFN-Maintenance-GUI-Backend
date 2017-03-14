@@ -713,7 +713,7 @@ def internetStatus():
     status = False
     feedbackOutput = constants.internetCheckFailed
 
-    if "unknown" not in consoleOutput:
+    if "unknown" not in consoleOutput and "failure" not in consoleOutput:
         splitOutput = re.split(",", consoleOutput)
         if "0" not in splitOutput[1]:
             status = True

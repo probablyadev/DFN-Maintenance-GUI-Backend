@@ -1102,5 +1102,5 @@ class PrevIntervalTest:
 
 # Start of execution
 if __name__ == "__main__":
-    # os.chdir("/opt/dfn-software/GUI") # NB: Uncomment when GUI is put on system
+    os.chdir("/opt/dfn-software/GUI") # NB: Uncomment when GUI is put on system
     app.run()
