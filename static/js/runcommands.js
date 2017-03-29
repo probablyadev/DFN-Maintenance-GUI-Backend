@@ -448,8 +448,11 @@ $(document).ready(function () {
             doingCommand = true;
             //Feedback on button press
             $(webConsole).append("Disabling external hard drives...\n");
+            openSpinner("Powering off external drives, please wait...");
             //Request to enable HDDs
             $.getJSON("/disablehdd", function (result) {
+                closeSpinner();
+                consoleBlinkGreen();
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
                 //Set light colours
