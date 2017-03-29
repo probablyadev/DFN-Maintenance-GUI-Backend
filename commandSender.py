@@ -556,27 +556,35 @@ def hddStatus():
                 hdd3Status = 2
 
 
-    # Finding remaining space in HDDs according to /tmp/dfn_disk_usage
-    try:
-        with open(constants.diskUsagePath) as f:
-            lines = f.readlines()
-            for line in lines: # For each line in the file
-                fixedLine = re.sub(" +", ",", line) # Reduce whitespace down to 1
-                if line[0] == "/": # If the line is the title line, ignore it
-                    splitLine = re.split(",", fixedLine) # Split into terms
-                    device = splitLine[5] # Get mounted name
-                    spaceAvail = splitLine[4] # Get space for that mount
-                    # Check if the data applies, if so assign to variable
-                    if device == "/data0\n":
-                        hdd0Space = spaceAvail
-                    if device == "/data1\n":
-                        hdd1Space = spaceAvail
-                    if device == "/data2\n":
-                        hdd2Space = spaceAvail
-                    if device == "/data3\n":
-                        hdd3Space = spaceAvail
-    except IOError:
-        raise IOError(constants.diskUsageNotFound)
+    # Finding remaining space in HDDs
+    # If mounted, use df
+    if hdd1Status == 2 and hdd2Status == 2 and hdd3Status == 2:
+        outText = doConsoleCommand(constants.hddSpaceLive)
+        if outText:
+            lines = outText.split('\n')
+    # If not mounted, use disk usage file
+    else:
+        try:
+            with open(constants.diskUsagePath) as f:
+                lines = f.readlines()
+        except IOError:
+            raise IOError(constants.diskUsageNotFound)
+
+    for line in lines:  # For each line in the file
+        fixedLine = re.sub(" +", ",", line)  # Reduce whitespace down to 1
+        if line[0] == "/":  # If the line is the title line, ignore it
+            splitLine = re.split(",", fixedLine)  # Split into terms
+            device = splitLine[5]  # Get mounted name
+            spaceAvail = splitLine[4]  # Get space for that mount
+            # Check if the data applies, if so assign to variable
+            if "/data0" in device:
+                hdd0Space = spaceAvail
+            if "/data1" in device:
+                hdd1Space = spaceAvail
+            if "/data2" in device:
+                hdd2Space = spaceAvail
+            if "/data3" in device:
+                hdd3Space = spaceAvail
 
     feedbackOutput = constants.hddStatusString.format(hddStatusDict[hdd0Status], hdd0Space, hddStatusDict[hdd1Status], hdd1Space, hddStatusDict[hdd2Status], hdd2Space, hddStatusDict[hdd3Status], hdd3Space)
 

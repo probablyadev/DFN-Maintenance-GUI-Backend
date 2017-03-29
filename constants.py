@@ -42,6 +42,7 @@ hddPoweredStatusExt = "lsblk | grep 'sdb1\|sdc1\|sdd1'"
 data0PoweredStatus = "df | grep /data0 && echo SUCCESS"
 mountedStatus = "mount | grep {0} > /dev/null && echo 1"
 hddSpace = "cat /tmp/dfn_disk_usage"
+hddSpaceLive = "df -h | egrep 'Filesystem|data'"
 runSmartTest = "smartctl -d {0} -t short /dev/sdb;"
 checkSmartTest= "smartctl -d {0} -a /dev/sdb"
 
@@ -115,7 +116,7 @@ hddUnmountFailed = "{0} unmount error: {1}\n"
 hddAlreadyUnmountedError = "May have already been unmounted."
 
 scriptNotFound = "Script not found: {0}."
-diskUsageNotFound = "Error reading disk usage log file."
+diskUsageNotFound = "Error reading disk usage log file. Try mounting drives and getting live results instead."
 pictureNotFound = "Picture not found."
 
 # File paths
