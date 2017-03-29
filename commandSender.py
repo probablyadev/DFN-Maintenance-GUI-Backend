@@ -347,6 +347,10 @@ def hddOff():
     else:
         feedbackOutput = constants.hddOffFailed
 
+    # Sleep if EXT, needs time to remove drives.
+    if "EXT" in getHostname():
+        time.sleep(22)
+
     return feedbackOutput
 
 """""
