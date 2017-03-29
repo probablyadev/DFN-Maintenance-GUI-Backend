@@ -499,7 +499,6 @@ def hddStatus():
 
     # Do command
     command = constants.mountedStatus
-    poweredStatus = doConsoleCommand(constants.hddPoweredStatus)
     data1MountedStatus = doConsoleCommand(command.format("/data1"))
     data2MountedStatus = doConsoleCommand(command.format("/data2"))
     data3MountedStatus = doConsoleCommand(command.format("/data3"))
@@ -515,21 +514,43 @@ def hddStatus():
     hdd2Space = "N/A"
     hdd3Space = "N/A"
 
+
     if "SUCCESS" in doConsoleCommand(constants.data0PoweredStatus):
         hdd0Status = 2
 
-    #TODO: Account for new architecture
-    if "JMicron Technology Corp." in poweredStatus:
-        hdd1Status = 1
-        hdd2Status = 1
-        hdd3Status = 0
+    # Check if HDDs are powered. Depends on system architecture
+    # DFNSMALLs
+    if "EXT" not in getHostname():
+        poweredStatus = doConsoleCommand(constants.hddPoweredStatus)
+        if "JMicron Technology Corp." in poweredStatus:
+            hdd1Status = 1
+            hdd2Status = 1
+            hdd3Status = 0
 
-        if data1MountedStatus == "1":
-            hdd1Status = 2
-        if data2MountedStatus == "1":
-            hdd2Status = 2
-        if data3MountedStatus == "1":
-            hdd3Status = 2
+            if data1MountedStatus == "1":
+                hdd1Status = 2
+            if data2MountedStatus == "1":
+                hdd2Status = 2
+            if data3MountedStatus == "1":
+                hdd3Status = 2
+    #DFNEXTs
+    else:
+        poweredStatus = doConsoleCommand(constants.hddPoweredStatusExt)
+        if "sdb1" in poweredStatus:
+            hdd1Status = 1
+            if data1MountedStatus == "1":
+                hdd1Status = 2
+
+        if "sdc1" in poweredStatus:
+            hdd2Status = 1
+            if data2MountedStatus == "1":
+                hdd2Status = 2
+
+        if "sdd1" in poweredStatus:
+            hdd3Status = 1
+            if data3MountedStatus == "1":
+                hdd3Status = 2
+
 
     # Finding remaining space in HDDs according to /tmp/dfn_disk_usage
     try:
