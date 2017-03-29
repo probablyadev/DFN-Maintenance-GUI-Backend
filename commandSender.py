@@ -593,9 +593,9 @@ def hddStatus():
                 lines = f.readlines()
         except IOError:
             stack = inspect.stack()
-            callerClass = str(stack[1][0].f_locals["self"].__class__)
+            frame = stack[1][0]
 
-            if ".CheckHDD" in callerClass:
+            if hasattr(frame.f_locals, "self"):
                 raise IOError(constants.diskUsageNotFound)
             else:
                 feedbackOutput = constants.hddStatusString.format(hddStatusDict[hdd0Status], hdd0Space, hddStatusDict[hdd1Status], hdd1Space, hddStatusDict[hdd2Status], hdd2Space, hddStatusDict[hdd3Status], hdd3Space) + constants.diskUsageNotFound + '\n'
