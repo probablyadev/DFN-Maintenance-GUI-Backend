@@ -43,6 +43,7 @@ urls = ('/', 'Index',
         '/mounthdd', 'MountHDD',
         '/unmounthdd', 'UnmountHDD',
         '/probehdd', 'ProbeHDD',
+        '/movedata0', 'MoveData0',
         '/formathdd', 'FormatHDD',
         '/smarttest', 'SmartTest',
         '/hddcheck', 'CheckHDD',
@@ -602,6 +603,33 @@ class ProbeHDD:
                 raise web.InternalError(e.message)
 
             return outJSON
+
+class MoveData0:
+    """""
+     * Name:     MoveData0.GET
+     *
+     * Purpose:  Moves /data0 data to the external drives
+     *
+     * Params:   None
+     *
+     * Return:   A JSON object with the following variables:
+     *           consoleFeedback: An output string to give the user feedback
+     *
+     * Notes:    None
+    """""
+
+    def GET(self):
+        if LoginChecker.loggedIn():
+            try:
+                data = {
+                    'consoleFeedback': commandSender.moveData0()
+                }
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.InternalError(e.message)
+
+            return outJSON
+
 
 class FormatHDD:
 

@@ -111,6 +111,7 @@ $(document).ready(function () {
     $("#MountHDD").click(hddMountHandler);
     $("#UnmountHDD").click(hddUnmountHandler);
     $("#ProbeHDDs").click(hddProbeHandler);
+    $("#MoveData").click(hddMoveDataHandler);
     $("#formatData1Check").change(formatCheckboxChangedHandler);
     $("#formatData2Check").change(formatCheckboxChangedHandler);
     $("#formatData3Check").change(formatCheckboxChangedHandler);
@@ -518,6 +519,20 @@ $(document).ready(function () {
                     addToWebConsole("ERROR: No drives detected. Power on drives and try again.\n" + line)
                     doingCommand = false;
                 }
+            }).fail(ajaxFailed);
+        }
+    }
+
+    function hddMoveDataHandler() {
+        if (preCommandCheck()) {
+            doingCommand = true;
+            addToWebConsole("Moving /data0 data...\n");
+            openSpinner("Moving /data0 to external drives. This could take a while...");
+            $.getJSON("/movedata0", function (result) {
+                closeSpinner();
+                consoleBlinkGreen();
+                addToWebConsole(result.consoleFeedback);
+                doingCommand = false;
             }).fail(ajaxFailed);
         }
     }

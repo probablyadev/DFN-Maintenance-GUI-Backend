@@ -460,7 +460,31 @@ def probeHDD():
     return data
 
 """""
- * Name:     FormatHDD.GET
+ * Name:     moveData0
+ *
+ * Purpose:  Moves /data0 data to the external drives
+ *
+ * Params:   None
+ *
+ * Return:   A string for console output.
+ *
+ * Notes:    None
+"""""
+def moveData0():
+    command = constants.moveData0
+    if "EXT" in getHostname():
+        command = constants.moveData0Ext
+    consoleOutput = doConsoleCommand(command)
+    if "SUCCESS" in consoleOutput:
+        consoleFeedback = "Move command successful."
+    else:
+        raise IOError("Move command unsuccessful.")
+
+    return consoleFeedback
+
+
+"""""
+ * Name:     formatHDD
  *
  * Purpose:  Formats specified drives
  *
