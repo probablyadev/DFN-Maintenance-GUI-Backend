@@ -116,7 +116,7 @@ hddUnmountFailed = "{0} unmount error: {1}\n"
 hddAlreadyUnmountedError = "May have already been unmounted."
 
 scriptNotFound = "Script not found: {0}."
-diskUsageNotFound = "Error reading disk usage log file. Try mounting drives and getting live results instead."
+diskUsageNotFound = "Error reading disk usage log file. To see disk space, please power and mount external drives."
 pictureNotFound = "Picture not found."
 
 # File paths

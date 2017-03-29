@@ -10,9 +10,9 @@
  * * * * * * * * * *
 """""
 
-# Placeholder for now, this is where we send data to die.
 import constants
 import commands
+import inspect
 import re
 import time
 import datetime
@@ -568,7 +568,14 @@ def hddStatus():
             with open(constants.diskUsagePath) as f:
                 lines = f.readlines()
         except IOError:
-            raise IOError(constants.diskUsageNotFound)
+            stack = inspect.stack()
+            callerClass = str(stack[1][0].f_locals["self"].__class__)
+
+            if ".CheckHDD" in callerClass:
+                raise IOError(constants.diskUsageNotFound)
+            else:
+                feedbackOutput = constants.hddStatusString.format(hddStatusDict[hdd0Status], hdd0Space, hddStatusDict[hdd1Status], hdd1Space, hddStatusDict[hdd2Status], hdd2Space, hddStatusDict[hdd3Status], hdd3Space) + constants.diskUsageNotFound + '\n'
+                return feedbackOutput, hdd0Status, hdd0Space, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space
 
     for line in lines:  # For each line in the file
         fixedLine = re.sub(" +", ",", line)  # Reduce whitespace down to 1
