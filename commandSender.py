@@ -383,15 +383,16 @@ def mountHDD():
     else:
         drives = list(smalldrives)
 
-    poweredStatus = doConsoleCommand(constants.hddPoweredStatus)
+    temp, hdd0Status, hdd0Space, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space = hddStatus()
+    poweredArray = [hdd1Status, hdd2Status, hdd3Status]
 
-    for drive in drives:
+    for idx, drive in enumerate(drives):
         # Do command for drive
         consoleOutput = doConsoleCommand(constants.mountHardDrive.format(drive))
 
 
         if "SUCCESS" in consoleOutput:
-            if "JMicron Technology Corp." not in poweredStatus:
+            if poweredArray[idx] == 0:
                 feedbackOutput += constants.hddMountFailed.format(outputDict[drive], constants.hddNotPoweredError)
             else:
                 feedbackOutput += constants.hddMountPassed.format(outputDict[drive])
