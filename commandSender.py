@@ -316,7 +316,7 @@ def hddOn():
     if "\n2" in consoleOutput:
         raise IOError(constants.scriptNotFound)
 
-    time.sleep(20)
+    time.sleep(25)
 
     #For EXT, re-scan SATA/SCSI hotswap drives
     if "EXT" in getHostname():
@@ -337,10 +337,26 @@ def hddOn():
  * Notes:    None
 """""
 def hddOff():
-    # If hardrives already on, get outta here!
+    devices = ["sdb", "sdc", "sdd"] # Used for deleting devices in EXTs before powering off
+
+    # If hardrives already off or mounted, get outta here!
     feedbackOutput, hdd0Status, hdd0Space, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space = hddStatus()
-    if hdd1Status == 0 and hdd2Status == 0:
-        return constants.hddAlreadyOff
+    if hdd1Status != 1 and hdd2Status != 1:
+        return constants.hddNotOnPoweredState
+
+    #For EXT, delete the devices ONLY if they're all not solid state devices.
+    if "EXT" in getHostname():
+        for device in devices:
+            #Check if the device is a solid state or HDD
+            driveRotation = doConsoleCommand(constants.extDeleteDriveDevicesCheck.format(device))
+            if not re.search("[1-9]", driveRotation):
+                raise RuntimeError("External drives are not on correct device label. Use the command line to resolve this.")
+        #No exceptions have been raised by this point, so delete drives
+        for device in devices:
+            doConsoleCommand(constants.extDeleteDriveDevice.format(device))
+        time.sleep(1)
+    # Then proceed to power off as normal
+
 
     # Do command
     consoleOutput = doConsoleCommand(constants.disableHardDrive + constants.getExitStatus)
@@ -348,7 +364,7 @@ def hddOff():
     if "\n2" in consoleOutput:
         raise IOError(constants.hddOffScriptNotFound)
 
-    if consoleOutput == "":
+    if consoleOutput == "0":
         feedbackOutput = constants.hddCommandedOff
     else:
         feedbackOutput = constants.hddOffFailed

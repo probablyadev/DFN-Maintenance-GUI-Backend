@@ -512,6 +512,8 @@ class DisableHDD:
                 outJSON = json.dumps(data)
             except IOError as e:
                 raise web.InternalError(e.message)
+            except RuntimeError as e:
+                raise web.InternalError(e.message)
 
             return outJSON
 
@@ -1130,5 +1132,5 @@ class PrevIntervalTest:
 
 # Start of execution
 if __name__ == "__main__":
-    # os.chdir("/opt/dfn-software/GUI") # NB: Uncomment when GUI is put on system
+    os.chdir("/opt/dfn-software/GUI") # NB: Uncomment when GUI is put on system
     app.run()
