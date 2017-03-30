@@ -316,7 +316,13 @@ def hddOn():
     if "\n2" in consoleOutput:
         raise IOError(constants.scriptNotFound)
 
-    time.sleep(25)
+    time.sleep(20)
+
+    #For EXT, re-scan SATA/SCSI hotswap drives
+    if "EXT" in getHostname():
+        doConsoleCommand(constants.scanSATA)
+        time.sleep(2)
+
     return constants.hddCommandedOn
 
 """""

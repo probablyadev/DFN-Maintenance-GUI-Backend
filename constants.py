@@ -32,6 +32,7 @@ extractThumbnail = "mkdir /opt/dfn-software/GUI/static/downloads; exiv2 -ep3 -l 
 shutterCount = "exiv2 -pa {0} | grep Nikon3\.ShutterCount | grep -oP '[0-9]{5}'"
 
 enableHardDrive = "python /opt/dfn-software/enable_ext-hd.py;"
+scanSATA = "for i in $(find /sys/class/scsi_host/ -name host* ); do echo '- - -' > $i/scan; done"
 disableHardDrive = "python /opt/dfn-software/disable_ext-hd.py;"
 mountHardDrive = "mount {0} && echo SUCCESS"
 unmountHardDrive = "umount {0} && echo SUCCESS"
