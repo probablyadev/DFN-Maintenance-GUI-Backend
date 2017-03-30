@@ -59,6 +59,7 @@ vpnCheck = "ping -c 1 10.1.16.1"
 getVpnIP = "ifconfig | grep tun0 -A 1 | grep -o '\(addr:\|inet \)[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'| cut -c6-"
 restartVPN = "service openvpn restart; sleep 10; ifconfig tun0 && echo SUCCESS"
 
+cfcheck = "python /opt/dfn-software/camera_image_count.py"
 intervalTest = "/opt/dfn-software/interval_control_test.sh;"
 checkIntervalResults = "ls -lR /data0/latest_prev/*.NEF | wc -l"
 checkPrevIntervalStatus = "find /data0/latest -exec stat -c%y {} \; | sort -n -r | head -n 1"
@@ -138,6 +139,7 @@ hddOffScriptNotFound = scriptNotFound.format("disable_ext-hd.py")
 hddFormatScriptNotFound = scriptNotFound.format("dfn_setup_usb_hdds.sh")
 leostickStatusScriptNotFound = scriptNotFound.format("leostick_get_status.py")
 intervalControlTestScriptNotFound = scriptNotFound.format("interval_control_test.sh")
+cfCheckScriptNotFound = scriptNotFound.format("camera_image_count.py")
 
 
 # Whitelist for which config variables the user can modify

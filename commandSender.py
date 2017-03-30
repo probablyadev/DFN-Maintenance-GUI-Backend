@@ -349,7 +349,7 @@ def hddOff():
         for device in devices:
             #Check if the device is a solid state or HDD
             driveRotation = doConsoleCommand(constants.extDeleteDriveDevicesCheck.format(device))
-            if not re.search("[1-9]", driveRotation):
+            if not re.search("[0-9]", driveRotation):
                 raise RuntimeError("External drives are not on correct device label. Use the command line to resolve this.")
         #No exceptions have been raised by this point, so delete drives
         for device in devices:
@@ -976,6 +976,13 @@ def updateConfigFile(inProperty):
  *    INTERVAL TEST UTILITIES    *
  * * * * * * * * * * * * * * * * *
 """""
+
+def cfCheck():
+    consoleOutput = doConsoleCommand(constants.cfcheck)
+    if re.search("[0-9]", consoleOutput):
+        return consoleOutput
+    else:
+        raise IOError(constants.cfCheckScriptNotFound)
 
 """""
  * Name:     intervalTest

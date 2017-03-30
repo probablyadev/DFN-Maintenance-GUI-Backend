@@ -87,6 +87,7 @@ $(document).ready(function () {
     var formatData1Check = $('#formatData1Check');
     var formatData2Check = $('#formatData2Check');
     var formatData3Check = $('#formatData3Check');
+    var controlTestGreyScreen = $('.controlTestGreyScreen');
 
     //Useful globals + constants
     var hostname = "";
@@ -125,6 +126,8 @@ $(document).ready(function () {
     $("#GPSCheck").click(gpsCheckHandler);
     $("#ChangeTimezone").click(timezoneHandler);
     $("#OutputTime").click(outputTimeHandler);
+    $("#IntervalConfirm").click(openIntervalConfirmationMenu);
+    $("#IntervalCancel").click(closeIntervalConfirmationMenu);
     $("#IntervalCheck").click(intervalTestHandler);
     $("#PrevIntervalCheck").click(checkPrevIntervalHandler);
     $("#InternetCheck").click(internetCheckHandler);
@@ -202,6 +205,23 @@ $(document).ready(function () {
         $(formatDrivesConfirmation).css("display", "none");
     }
 
+    function openIntervalConfirmationMenu() {
+        addToWebConsole("Preparing for interval control...\n");
+        $.getJSON("/cfcheck", function(result) {
+            if (parseInt(result.images) > 150) {
+                $("#CFImages").text(result.images);
+                $(controlTestGreyScreen).css("display", "flex");
+            }
+            else {
+                intervalTestHandler();
+            }
+        }).ajaxFailed();
+    }
+
+    function closeIntervalConfirmationMenu() {
+        $(controlTestGreyScreen).css("display", "none");
+    }
+
     function preCommandCheck() {
         var approved = false;
         if (!doingCommand) {
@@ -255,7 +275,7 @@ $(document).ready(function () {
         if (preCommandCheck()) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("Switching camera on...\n");
+            addToWebConsole("Switching camera on...\n");
             openSpinner("Switching camera on, sit tight...");
             //Request to turn camera on
             $.getJSON("/cameraon", function (result) {
@@ -275,7 +295,7 @@ $(document).ready(function () {
         if (preCommandCheck()) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("Switching camera off...\n");
+            addToWebConsole("Switching camera off...\n");
             //Request to turn camera off
             $.getJSON("/cameraoff", function (result) {
                 //Set feedback text
@@ -292,7 +312,7 @@ $(document).ready(function () {
         if (preCommandCheck()) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("Switching video camera on...\n");
+            addToWebConsole("Switching video camera on...\n");
             //Request to turn camera on
             $.getJSON("/videocameraon", function (result) {
                 //Set feedback text
@@ -307,7 +327,7 @@ $(document).ready(function () {
         if (preCommandCheck()) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("Switching video camera off...\n");
+            addToWebConsole("Switching video camera off...\n");
             //Request to turn camera on
             $.getJSON("/videocameraoff", function (result) {
                 //Set feedback text
@@ -322,7 +342,7 @@ $(document).ready(function () {
         if (preCommandCheck()) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("Checking camera...\n");
+            addToWebConsole("Checking camera...\n");
             //Request to turn camera off
             $.getJSON("/camerastatus", function (result) {
                 //Set feedback text
@@ -428,7 +448,7 @@ $(document).ready(function () {
         if (preCommandCheck()) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("Powering on external hard drives...\n");
+            addToWebConsole("Powering on external hard drives...\n");
             openSpinner("Powering on external drives, please wait ~20 seconds...");
             //Request to enable HDDs
             $.getJSON("/enablehdd", function (result) {
@@ -448,7 +468,7 @@ $(document).ready(function () {
         if (preCommandCheck()) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("Disabling external hard drives...\n");
+            addToWebConsole("Disabling external hard drives...\n");
             openSpinner("Powering off external drives, please wait...");
             //Request to enable HDDs
             $.getJSON("/disablehdd", function (result) {
@@ -468,7 +488,7 @@ $(document).ready(function () {
         if (preCommandCheck()) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("Mounting external hard drives...\n");
+            addToWebConsole("Mounting external hard drives...\n");
             //Request to enable HDDs
             $.getJSON("/mounthdd", function (result) {
                 //Set feedback text
@@ -485,7 +505,7 @@ $(document).ready(function () {
         if (preCommandCheck()) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("Unmounting external hard drives...\n");
+            addToWebConsole("Unmounting external hard drives...\n");
             //Request to enable HDDs
             $.getJSON("/unmounthdd", function (result) {
                 //Set feedback text
@@ -570,7 +590,7 @@ $(document).ready(function () {
             closeFormatMenu();
             openSpinner("Formatting hard-drives, please wait ~2 minutes...")
             //Feedback on button press
-            $(webConsole).append("Formatting hard drives...\n");
+            addToWebConsole("Formatting hard drives...\n");
             //Get ticked checkboxes and put into a string
             var tickedString = "";
             if($(formatData1Check).is(":checked")) {
@@ -598,7 +618,7 @@ $(document).ready(function () {
         if (preCommandCheck()) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("Running smart test...\n");
+            addToWebConsole("Running smart test...\n");
             openSpinner("Performing smart test, please wait ~2 minutes...");
             //Request for smart test results
             $.getJSON("/smarttest", function (result) {
@@ -616,7 +636,7 @@ $(document).ready(function () {
         if (preCommandCheck()) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("Checking hard drives...\n");
+            addToWebConsole("Checking hard drives...\n");
             //Request to enable HDDs
             $.getJSON("/hddcheck", function (result) {
                 //Set feedback text
@@ -633,7 +653,7 @@ $(document).ready(function () {
         if (preCommandCheck()) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("Checking GPS status...\n");
+            addToWebConsole("Checking GPS status...\n");
             //Request to check GPS status
             $.getJSON("/gpscheck", function (result) {
                 //Set feedback text
@@ -650,7 +670,7 @@ $(document).ready(function () {
         if (preCommandCheck()) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("Changing time zone...\n");
+            addToWebConsole("Changing time zone...\n");
             $.getJSON("/timezonechange", {zone: timezoneCombobox.find(":selected").attr("value")}, function (result) {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
@@ -664,7 +684,7 @@ $(document).ready(function () {
         if (preCommandCheck()) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("CURRENT TIME:\n");
+            addToWebConsole("CURRENT TIME:\n");
             $.getJSON("/outputTime", function (result) {
                 //Set feedback text
                 addToWebConsole(result.consoleFeedback + "\n" + line);
@@ -678,7 +698,7 @@ $(document).ready(function () {
         if (preCommandCheck()) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("Checking internet connectivity...\n");
+            addToWebConsole("Checking internet connectivity...\n");
             //Request to check GPS status
             $.getJSON("/internetcheck", function (result) {
                 //Set feedback text
@@ -695,7 +715,7 @@ $(document).ready(function () {
         if (preCommandCheck()) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("Restarting modem...\n");
+            addToWebConsole("Restarting modem...\n");
             openSpinner("Restarting modem, just a minute...");
             //Request to check GPS status
             $.getJSON("/restartmodem", function (result) {
@@ -715,7 +735,7 @@ $(document).ready(function () {
         if (preCommandCheck()) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("Checking vpn connectivity...\n");
+            addToWebConsole("Checking vpn connectivity...\n");
             //Request to check GPS status
             $.getJSON("/vpncheck", function (result) {
                 //Set feedback text
@@ -732,7 +752,7 @@ $(document).ready(function () {
         if (preCommandCheck()) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("Restarting VPN...\n");
+            addToWebConsole("Restarting VPN...\n");
             openSpinner("Restarting VPN, just a minute...");
             //Request to check GPS status
             $.getJSON("/restartvpn", function (result) {
@@ -750,12 +770,13 @@ $(document).ready(function () {
 
     function intervalTestHandler() {
         if (preCommandCheck()) {
+            closeIntervalConfirmationMenu();
             $(window).bind("beforeunload",function(event) {
                 return "WARNING: Refreshing while interval test is running is NOT recommended.\n Please only do this if you are 100% sure.";
             });
             doingCommand = true;
             openSpinner("Performing interval test... Go grab some coffee!");
-            $(webConsole).append("Performing interval test...\n");
+            addToWebConsole("Performing interval test...\n");
             //Request to perform interval test
             $.getJSON("/intervaltest", function (result) {
                 closeSpinner();
@@ -775,7 +796,7 @@ $(document).ready(function () {
     function checkPrevIntervalHandler() {
         if (preCommandCheck()) {
             doingCommand = true;
-            $(webConsole).append("Retrieving previous interval test...\n");
+            addToWebConsole("Retrieving previous interval test...\n");
             //Request to perform interval test
             $.getJSON("/previntervaltest", function (result) {
                 //Set feedback text
@@ -899,7 +920,7 @@ $(document).ready(function () {
         if (preCommandCheck()) {
             doingCommand = true;
             //Feedback on button press
-            $(webConsole).append("Checking system status...\n");
+            addToWebConsole("Checking system status...\n");
             //Request for system status to be checked
             $.getJSON("/systemstatus", function (result) {
                 //Set feedback text

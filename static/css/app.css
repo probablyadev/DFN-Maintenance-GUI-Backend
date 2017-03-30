@@ -331,17 +331,9 @@ hr {
   margin-right: 5%;
   padding: 3px;
   float: left;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-justify-content: space-around;
-  -ms-flex-pack: distribute;
   justify-content: space-around;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -349,14 +341,8 @@ hr {
   .statusModule .statusElement {
     width: 85%;
     background-color: #660000;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
     align-items: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
     justify-content: center; }
     .statusModule .statusElement .statusLight {
       background-color: gray;
@@ -414,71 +400,35 @@ hr {
       background-color: #000; }
 
 .statusControl {
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center; }
   .statusControl #StatusCheck {
     font-size: 3.5vh; }
 
 .cameraControl {
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
   justify-content: space-between; }
   .cameraControl .cameraBasicFunctions {
     height: 100%;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    -webkit-align-content: center;
-    -ms-flex-line-pack: center;
     align-content: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
     justify-content: center;
     width: 50%;
     border-right: 3px solid #80000b; }
   .cameraControl .cameraAdvancedFunctions {
     height: 100%;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    -webkit-align-content: center;
-    -ms-flex-line-pack: center;
     align-content: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
     justify-content: center;
     width: 50%; }
     .cameraControl .cameraAdvancedFunctions .pictureDownloadWidget {
-      display: -webkit-flex;
-      display: -ms-flexbox;
       display: flex;
-      -webkit-flex-direction: column;
-      -ms-flex-direction: column;
       flex-direction: column;
-      -webkit-align-items: center;
-      -ms-flex-align: center;
       align-items: center;
-      -webkit-justify-content: center;
-      -ms-flex-pack: center;
       justify-content: center;
       width: 60%;
       margin-bottom: 3%;
@@ -492,28 +442,14 @@ hr {
         white-space: nowrap;
         text-align: center; }
       .cameraControl .cameraAdvancedFunctions .pictureDownloadWidget .downloadFormWrapper {
-        display: -webkit-flex;
-        display: -ms-flexbox;
         display: flex;
-        -webkit-flex-direction: column;
-        -ms-flex-direction: column;
         flex-direction: column;
-        -webkit-align-items: center;
-        -ms-flex-align: center;
         align-items: center;
-        -webkit-justify-content: center;
-        -ms-flex-pack: center;
         justify-content: center;
         padding: 5px; }
         .cameraControl .cameraAdvancedFunctions .pictureDownloadWidget .downloadFormWrapper div {
-          display: -webkit-flex;
-          display: -ms-flexbox;
           display: flex;
-          -webkit-align-items: center;
-          -ms-flex-align: center;
           align-items: center;
-          -webkit-justify-content: center;
-          -ms-flex-pack: center;
           justify-content: center;
           width: 100%;
           margin: 5px; }
@@ -537,59 +473,29 @@ hr {
           width: 80%; }
 
 .hddControl {
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
   justify-content: space-between; }
   .hddControl .hddBasicFunctions {
     height: 100%;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    -webkit-align-content: center;
-    -ms-flex-line-pack: center;
     align-content: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
     justify-content: center;
     width: 50%;
     border-right: 3px solid #80000b; }
   .hddControl .hddAdvancedFunctions {
     height: 100%;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
     flex-direction: column;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
     align-items: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
     justify-content: center;
     width: 50%; }
 
 .networkControl {
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
   align-content: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center; }
   .networkControl .commandButton {
     font-size: 2.8vh; }
@@ -611,60 +517,30 @@ hr {
       background: #80000b; }
 
 .gpsControl {
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
   justify-content: space-between; }
   .gpsControl .gpsBasicFunctions {
     height: 100%;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
     flex-direction: column;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
     align-items: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
     justify-content: center;
     width: 50%;
     border-right: 3px solid #80000b; }
     .gpsControl .gpsBasicFunctions .commandButton {
-      font-size: 3.0vh; }
+      font-size: 3vh; }
   .gpsControl .gpsAdvancedFunctions {
     height: 100%;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
     flex-direction: column;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
     align-items: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
     justify-content: center;
     width: 50%; }
     .gpsControl .gpsAdvancedFunctions .timezoneForm {
-      display: -webkit-flex;
-      display: -ms-flexbox;
       display: flex;
-      -webkit-flex-direction: column;
-      -ms-flex-direction: column;
       flex-direction: column;
-      -webkit-align-items: center;
-      -ms-flex-align: center;
       align-items: center;
-      -webkit-justify-content: center;
-      -ms-flex-pack: center;
       justify-content: center;
       width: 60%;
       margin-bottom: 3%;
@@ -686,46 +562,24 @@ hr {
         border-color: white; }
 
 .advancedControl {
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
   justify-content: space-between; }
   .advancedControl .commandButton {
     font-size: 2.8vh; }
   .advancedControl .advancedFirmware {
     height: 100%;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
     flex-direction: column;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
     align-items: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
     justify-content: center;
     width: 50%;
     border-right: 3px solid #80000b; }
   .advancedControl .advancedLogs {
     height: 100%;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
     flex-direction: column;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
     align-items: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
     justify-content: center;
     width: 50%; }
 
@@ -738,11 +592,7 @@ hr {
   z-index: 10;
   background-color: rgba(38, 38, 38, 0.9);
   display: none;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center; }
   .configEditGreyScreen .configPrompt {
     padding: 5px 15px;
@@ -751,14 +601,8 @@ hr {
     min-height: 160px;
     background-color: #95000C;
     display: inherit;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
     flex-direction: column;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
     align-items: center;
-    -webkit-justify-content: flex-start;
-    -ms-flex-pack: start;
     justify-content: flex-start;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -786,11 +630,7 @@ hr {
       font-size: 17px; }
     .configEditGreyScreen .configPrompt form {
       display: inherit;
-      -webkit-align-items: center;
-      -ms-flex-align: center;
       align-items: center;
-      -webkit-justify-content: center;
-      -ms-flex-pack: center;
       justify-content: center; }
       .configEditGreyScreen .configPrompt form #configSelector {
         display: inline-block;
@@ -821,24 +661,14 @@ hr {
   z-index: 10;
   background-color: rgba(38, 38, 38, 0.9);
   display: none;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center; }
   .spinnerGreyScreen .spinnerPrompt {
     padding: 15px;
     background-color: #95000C;
     display: inherit;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
     flex-direction: column;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
     align-items: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
     justify-content: center;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -857,7 +687,7 @@ hr {
       margin: 20px;
       display: inline-block; }
       .spinnerGreyScreen .spinnerPrompt .spinnerImage:after, .spinnerGreyScreen .spinnerPrompt .spinnerImage:before {
-        content: '';
+        content: "";
         display: block;
         width: 40px;
         height: 40px;
@@ -871,23 +701,7 @@ hr {
       left: -4px;
       border: 4px solid #FFF;
       border-bottom-color: transparent;
-      -webkit-animation: spinnerAnim 1.2s linear infinite;
       animation: spinnerAnim 1.2s linear infinite; }
-
-@-webkit-keyframes spinnerAnim {
-  0% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg); }
-  100% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg); } }
-
 @keyframes spinnerAnim {
   0% {
     -webkit-transform: rotate(0deg);
@@ -901,7 +715,6 @@ hr {
     -ms-transform: rotate(360deg);
     -o-transform: rotate(360deg);
     transform: rotate(360deg); } }
-
 @keyframes spinnerAnim {
   0% {
     -webkit-transform: rotate(0deg);
@@ -939,14 +752,8 @@ hr {
   z-index: 20;
   height: 20%;
   display: none;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -959,13 +766,9 @@ hr {
     text-align: center; }
   .formatDrivesConfirmation input {
     margin: 10px; }
-  .formatDrivesConfirmation .formatComfirmationButtonWrapper {
+  .formatDrivesConfirmation .formatConfirmationButtonWrapper {
     display: inherit;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
     align-items: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
     justify-content: center;
     margin: 10px; }
 
@@ -978,42 +781,24 @@ hr {
   z-index: 10;
   background-color: rgba(38, 38, 38, 0.9);
   display: none;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center; }
   .formatDrivesGreyScreen .formatDrivesPrompt {
     padding: 25px 0;
     background: linear-gradient(30deg, transparent 6.25%, #292325 6.25%, #292325 12.5%, transparent 12.5%, transparent 18.75%, #292325 18.75%, #292325 25%, transparent 25%, transparent 31.25%, #292325 31.25%, #292325 37.5%, transparent 37.5%, transparent 43.75%, #292325 43.75%, #292325 50%, transparent 50%, transparent 56.25%, #292325 56.25%, #292325 62.5%, transparent 62.5%, transparent 68.75%, #292325 68.75%, #292325 75%, transparent 75%, transparent 81.25%, #292325 81.25%, #292325 87.5%, transparent 87.5%, transparent 93.75%, #292325 93.75%);
     background-color: #EEBC0E;
     display: inherit;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
     flex-direction: column;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
     align-items: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
     justify-content: center;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
     border-radius: 5px; }
     .formatDrivesGreyScreen .formatDrivesPrompt .formatDrivesForm {
-      display: -webkit-flex;
-      display: -ms-flexbox;
       display: flex;
-      -webkit-flex-direction: column;
-      -ms-flex-direction: column;
       flex-direction: column;
-      -webkit-align-items: center;
-      -ms-flex-align: center;
       align-items: center;
-      -webkit-justify-content: center;
-      -ms-flex-pack: center;
       justify-content: center;
       background-color: #95000C;
       padding: 10px 0;
@@ -1028,17 +813,58 @@ hr {
       .formatDrivesGreyScreen .formatDrivesPrompt .formatDrivesForm .formatCheckboxWrapper {
         margin: 5px 0;
         display: none;
-        -webkit-align-items: center;
-        -ms-flex-align: center;
         align-items: center;
-        -webkit-justify-content: center;
-        -ms-flex-pack: center;
         justify-content: center; }
         .formatDrivesGreyScreen .formatDrivesPrompt .formatDrivesForm .formatCheckboxWrapper label {
           color: white;
           margin-left: 7px; }
       .formatDrivesGreyScreen .formatDrivesPrompt .formatDrivesForm .formatButtonPreConfirmationWrapper {
         margin: 0 10px; }
+
+.controlTestGreyScreen {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  background-color: rgba(38, 38, 38, 0.9);
+  display: none;
+  align-items: center;
+  justify-content: center; }
+  .controlTestGreyScreen .controlTestConfirmation {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    padding: 10px;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: #95000C;
+    z-index: 20;
+    height: 20%;
+    width: 50%;
+    display: inherit;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px; }
+    .controlTestGreyScreen .controlTestConfirmation p {
+      margin: 3px;
+      color: #FFF;
+      font-size: 1.2em;
+      text-align: center; }
+    .controlTestGreyScreen .controlTestConfirmation .controlTestConfirmationButtonWrapper {
+      display: inherit;
+      align-items: center;
+      justify-content: center;
+      margin: 10px; }
 
 .contentWrapper {
   height: 100vh;
@@ -1054,3 +880,5 @@ hr {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   font-size: 0; }
+
+/*# sourceMappingURL=app.css.map */

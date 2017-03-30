@@ -65,7 +65,7 @@ $def with (hostname)
         <div class="tabContent statusControl">
             <button type="button" class="commandButton" id="StatusCheck">Update Overall Status</button>
             <button type="button" class="commandButton" id="StatusConfig">Download Camera Config</button>
-            <button type="button" class="commandButton" id="IntervalCheck">Run Interval Control Test</button>
+            <button type="button" class="commandButton" id="IntervalConfirm">Run Interval Control Test</button>
             <button type="button" class="commandButton" id="PrevIntervalCheck">Check Prev. Interval</button>
         </div>
 
@@ -509,6 +509,16 @@ $def with (hostname)
             <input type="text" id="FormatConfirmationTextBox">
             <button type="button" class="commandButton disabled" id="FormatDrives" disabled>Format Drives</button>
             <button type="button" class="commandButton" id="ExitFormatConfirmation">Cancel</button>
+        </div>
+    </div>
+
+    <div class="controlTestGreyScreen">
+        <div class="controlTestConfirmation">
+            <p>WARNING: This will take a long time, as there are <span id="CFImages"></span> images on the CF card that need to be transferred. Are you sure?</p>
+            <div class="controlTestConfirmationButtonWrapper">
+                <button type="button" class="commandButton" id="IntervalCheck">Run Test</button>
+                <button type="button" class="commandButton" id="IntervalCancel">Cancel</button>
+            </div>
         </div>
     </div>
 

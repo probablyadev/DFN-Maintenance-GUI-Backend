@@ -36,6 +36,7 @@ urls = ('/', 'Index',
         '/gpscheck', 'GPSCheck',
         '/timezonechange', 'TimezoneChange',
         '/outputTime', 'OutputTime',
+        '/cfcheck', 'CFCheck',
         '/intervaltest', 'IntervalTest',
         '/previntervaltest', 'PrevIntervalTest',
         '/enablehdd', 'EnableHDD',
@@ -1076,6 +1077,19 @@ class SystemStatus:
             return outJSON
 
 # Interval Control Test
+class CFCheck:
+    def GET(self):
+        if LoginChecker.loggedIn():
+            data = {}
+
+            try:
+                data['images'] = commandSender.cfCheck()
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.InternalError(e.message)
+
+            return outJSON
+
 class IntervalTest:
 
     """""
