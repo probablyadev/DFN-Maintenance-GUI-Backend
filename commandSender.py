@@ -468,13 +468,15 @@ def unmountHDD():
 """""
 def probeHDD():
     # Do command
-    consoleOutput = doConsoleCommand(constants.probeHardDrives + constants.getExitStatus)
+    consoleOutput = doConsoleCommand(constants.probeHardDrives)
     data = {}
 
     # Parse results
-    if "\n127" in consoleOutput:
+    if "no such file or directory" in consoleOutput:
         raise IOError(constants.hddFormatScriptNotFound)
 
+    firstLine = consoleOutput.split("\n")
+    consoleOutput = firstLine[0]
     splitOutput = consoleOutput.split(" ")
     for idx, token in enumerate(splitOutput):
         if "/" in token:
