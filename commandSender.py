@@ -614,7 +614,7 @@ def hddStatus():
 
     # Finding remaining space in HDDs
     # If mounted, use df
-    if hdd1Status == 2 and hdd2Status == 2 and hdd3Status == 2:
+    if hdd1Status == 2 and hdd2Status == 2:
         outText = doConsoleCommand(constants.hddSpaceLive)
         if outText:
             lines = outText.split('\n')
