@@ -193,8 +193,8 @@ $(document).ready(function () {
         $(formatData1Wrapper).css('display', 'none');
         $(formatData2Check).prop('checked', false);
         $(formatData2Wrapper).css('display', 'none');
-        $(formatData3Wrapper).prop('checked', false);
-        $(formatData3Check).css('display', 'none');
+        $(formatData3Check).prop('checked', false);
+        $(formatData3Wrapper).css('display', 'none');
     }
 
     function openFormatConfirmationMenu() {

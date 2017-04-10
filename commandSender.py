@@ -522,9 +522,14 @@ def moveData0():
 def formatHDD(inDrives):
     consoleOutput = doConsoleCommand(constants.formatHardDrive.format(inDrives) + constants.getExitStatus)
 
-
     if "\n127" in consoleOutput:
-        raise IOError(constants.hddFormatScriptNotFound)
+        consoleOutput = doConsoleCommand(constants.formatHardDriveOLD(inDrives) + constants.getExitStatus)
+        if "\n127" in consoleOutput:
+            raise IOError(constants.hddFormatScriptNotFound)
+        elif "is mounted" in consoleOutput:
+            raise RuntimeError(constants.hddFormatFailed)
+        else:
+            feedbackOutput = constants.hddFormatPassed
     elif "is mounted" in consoleOutput:
         raise RuntimeError(constants.hddFormatFailed)
     else:
