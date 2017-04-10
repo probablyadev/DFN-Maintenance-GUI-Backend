@@ -473,7 +473,9 @@ def probeHDD():
 
     # Parse results
     if "no such file or directory" in consoleOutput:
-        raise IOError(constants.hddFormatScriptNotFound)
+        consoleOutput = doConsoleCommand(constants.probeHardDrivesOLD)
+        if "no such file or directory" in consoleOutput:
+            raise IOError(constants.hddFormatScriptNotFound)
 
     firstLine = consoleOutput.split("\n")
     consoleOutput = firstLine[0]
