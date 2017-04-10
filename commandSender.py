@@ -738,7 +738,7 @@ def gpsStatus():
     feedbackOutput = constants.gpsCheckFailed
 
     splitOutput = re.split(',|\n', consoleOutput)
-    if len(splitOutput) == 15:
+    if len(splitOutput) == 16:
         if splitOutput[6] == "1":
             status = True
         latitude = splitOutput[2].replace(".", "")
