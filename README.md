@@ -1,10 +1,10 @@
-#Desert Fireball Camera Network
-###Camera Maintenance GUI
+# Desert Fireball Camera Network
 
 This is the code for the GUI which will be used to maintain the camera network for the Fireballs in the Sky project.
 The GUI is a web-based interface, using web.py to serve both html and static files such as stylesheets, and to handle HTTP requests.
 
-New things learnt (and included in this project):
+## Things learnt
+
 * More Python tidbits, and learning the web.py framework
 * HTTP request fundamentals, including AJAX requests
 * Hashing and salt, using sha1
@@ -14,5 +14,6 @@ New things learnt (and included in this project):
 * AJAX with jQuery.
 * Bash commands + Linux stuff
 
-###REQUIRED PACKAGES
+## Required Packages
+
 * web.py
