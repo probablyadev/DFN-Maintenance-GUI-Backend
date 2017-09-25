@@ -63,6 +63,7 @@ app = web.application(urls, globals())
 # Custom http response messages
 def notfound():
     return web.notfound("The requested file(s) could not be found.")
+
 app.notfound = notfound
 
 # Initialising useful web.py framework variables
@@ -84,33 +85,28 @@ loginForm = form.Form(
 """""
 class Index:
 
-    """""
-     * Name:     Index.GET
-     *
-     * Purpose:  Serves the request for the login page
-     *
-     * Params:   None
-     *
-     * Return:   Rendered HTML of login template
-     *
-     * Notes:    None
-    """""
     def GET(self):
+        """
+        Servers the request for the login page.
+        
+        Returns:
+            The rendered HTML of the login template.
+        """
         f = loginForm()
+
         return render.login(f, '')
 
-    """""
-     * Name:     Index.POST
-     *
-     * Purpose:  Handles login form submission
-     *
-     * Params:   None (However, the login form data is extracted by web.py)
-     *
-     * Return:   Rendered HTML of the login page (for failure to login)
-     *
-     * Notes:    On success, calls Login.login to raise the HTML of the Maintenance GUI
-    """""
     def POST(self):
+        """
+        Handles login form submission.
+        
+        Returns:
+            The rendered HTML of the failed login page.
+        
+        On success, calls Login.login to raise the HTML of the Maintenance GUI.
+        
+        The login form data is extracted by web.py.
+        """
         f = loginForm()
 
         if f.validates():  # If form lambdas are valid
@@ -122,93 +118,72 @@ class Index:
             return render.login(f, 'ERROR: Form entry invalid.')
 
 class UI:
-    """""
-     * Name:     UI.GET
-     *
-     * Purpose:  Renders the Maintenance GUI
-     *
-     * Params:   None
-     *
-     * Return:   None
-     *
-     * Notes:    None
-    """""
     def GET(self):
+        """
+        Renders the maintenance GUI.
+        
+        Returns:
+            The rendered HTML of the maintenance GUI.
+        """
         if LoginChecker.loggedIn():
             hostname = commandSender.getHostname()
+
             return render.app(hostname)
 
 class Login:
-
-    """""
-     * Name:     Login.login
-     *
-     * Purpose:  Logs the user in, by manipulating their session
-     *
-     * Params:   None
-     *
-     * Return:   None, but raises the /app endpoint to the client
-     *
-     * Notes:    None
-    """""
     @staticmethod
     def login():
+        """
+        Logs the user in by manipulating their session.
+        
+        Raises:
+             web.seeother: Raises the '/app' endpoint to the client.
+        """
         session.logged_in = True
         raise web.seeother('/app')
 
 class Logout:
-    """""
-     * Name:     Logout.GET
-     *
-     * Purpose:  Logs the user out, by manipulating their session
-     *
-     * Params:   None
-     *
-     * Return:   None, but raises the / endpoint to the client
-     *
-     * Notes:    None
-    """""
     def GET(self):
+        """
+        Logs the user out by manipulating their session.
+        
+        
+        Raises:
+            web.seeother: Raises the '/' endpoint to the client.
+        """
         session.logged_in = False
         raise web.seeother('/')
 
 class LoginChecker:
-
-    """""
-     * Name:     LoginChecker.loggedIn
-     *
-     * Purpose:  Checks whether the user's session is logged in
-     *
-     * Params:   None
-     *
-     * Return:   Either returns True for logged in, or raises the / enpoint if not logged in.
-     *
-     * Notes:    None
-    """""
     @staticmethod
     def loggedIn():
+        """
+        Checks whether the user's session is logged in.
+        
+        Returns:
+            True for logged in, or raises the / endpoint if not logged in.
+        
+        Raises:
+            web.seeother: Raises the '/' endpoint if not logged in. 
+        """
         if session.get('logged_in', False):
             return True
         else:
             raise web.seeother('/')
 
 class GetHostname:
-
-    """""
-     * Name:     GetHostname.GET
-     *
-     * Purpose:  Gets the hostname of the current DFN Camera
-     *
-     * Params:   None
-     *
-     * Return:   A JSON object, in the form of
-     *           {hostname : "DFNXXX}
-     *
-     * Notes:    None
-    """""
     def GET(self):
+        """
+        Gets the hostname of the current DFN camera.
+        
+        Returns:
+            data (json): A JSON object representing the hostname with the format::
+            
+                {hostname : "DFNXXX"}
+        """
         data = {}
         data['hostname'] = commandSender.getHostname()
+
         return json.dumps(data)
 
 
@@ -221,21 +196,19 @@ class GetHostname:
 """""
 # Camera
 class CameraOn:
-
-    """""
-     * Name:     CameraOn.GET
-     *
-     * Purpose:  Switches the DSLR on
-     *
-     * Params:   None
-     *
-     * Return:   A JSON object with the following variables:
-     *           consoleFeedback: An output string to give the user feedback
-     *           cameraStatus: A boolean representing whether the DSLR is turned on or off
-     *
-     * Notes:    None
-    """""
     def GET(self):
+        """
+        Switches the DSLR camera on.
+        
+        Returns:
+            outJSON (json): A JSON object containing the consoleFeedback and cameraStatus with the format::
+                
+                consoleFeedback (str): Resulting feedback.
+                cameraStats (bool): Represents whether the DSLR camera is turned on or off.
+        
+        Raises:
+            web.InternalError
+        """
         if LoginChecker.loggedIn():
             data = {}
 
@@ -251,21 +224,19 @@ class CameraOn:
             return outJSON
 
 class CameraOff:
-
-    """""
-     * Name:     CameraOn.GET
-     *
-     * Purpose:  Switches the DSLR off
-     *
-     * Params:   None
-     *
-     * Return:   A JSON object with the following variables:
-     *           consoleFeedback: An output string to give the user feedback
-     *           cameraStatus: A boolean representing whether the DSLR is turned on or off
-     *
-     * Notes:    None
-    """""
     def GET(self):
+        """
+        Switches the DSLR camera off.
+        
+        Returns:
+            outJSON (json): A JSON object containing the consoleFeedback and cameraStatus with the format::
+                
+                consoleFeedback (str): Resulting feedback.
+                cameraStats (bool): Represents whether the DSLR camera is turned on or off.
+        
+        Raises:
+            web.InternalError
+        """
         if LoginChecker.loggedIn():
             data = {}
 
@@ -281,21 +252,20 @@ class CameraOff:
             return outJSON
 
 class VideoCameraOn:
-
-    """""
-     * Name:     VideoCameraOn
-     *
-     * Purpose:  Switches the video camera on
-     *
-     * Params:   None
-     *
-     * Return:   A JSON object with the following variables:
-     *           consoleFeedback: An output string to give the user feedback
-     *
-     * Notes:    Doesn't return a boolean yet, because a way to detect the video camera's
-     *           presence is still to be implemented.
-    """""
     def GET(self):
+        """
+        Switches the video camera on.
+        
+        Returns:
+            outJSON (json): A JSON object containing the consoleFeedback::
+                
+                consoleFeedback (str): Resulting feedback.
+        
+        Raises:
+            web.InternalError
+        
+        Doesn't return a boolean yet, because a way to detect the video camera's presence is still to be implemented.
+        """
         if LoginChecker.loggedIn():
             data = {}
 
@@ -308,21 +278,20 @@ class VideoCameraOn:
             return outJSON
 
 class VideoCameraOff:
-
-    """""
-     * Name:     VideoCameraOff.GET
-     *
-     * Purpose:  Switches the video camera off
-     *
-     * Params:   None
-     *
-     * Return:   A JSON object with the following variables:
-     *           consoleFeedback: An output string to give the user feedback
-     *
-     * Notes:    Doesn't return a boolean yet, because a way to detect the video camera's
-     *           presence is still to be implemented.
-    """""
     def GET(self):
+        """
+        Switches the video camera off.
+
+        Returns:
+            outJSON (json): A JSON object containing the consoleFeedback::
+
+                consoleFeedback (str): Resulting feedback.
+
+        Raises:
+            web.InternalError
+
+        Doesn't return a boolean yet, because a way to detect the video camera's presence is still to be implemented.
+        """
         if LoginChecker.loggedIn():
             data = {}
 
@@ -335,62 +304,55 @@ class VideoCameraOff:
             return outJSON
 
 class CameraStatus:
-
-    """""
-     * Name:     CameraStatus.GET
-     *
-     * Purpose:  Delivers a summary of the DSLR's status
-     *
-     * Params:   None
-     *
-     * Return:   A JSON object with the following variables:
-     *           consoleFeedback: An output string to give the user feedback
-     *           cameraStatus: A boolean representing whether the DSLR is turned on or off
-     *
-     * Notes:    None
-    """""
     def GET(self):
+        """
+        Delivers a summary of the DSLR's status..
+
+        Returns:
+            outJSON (json): A JSON object containing the consoleFeedback and cameraStatus with the format::
+
+                consoleFeedback (str): Resulting feedback.
+                cameraStats (bool): Represents whether the DSLR camera is turned on or off.
+        """
         if LoginChecker.loggedIn():
             data = {}
             data['consoleFeedback'], data['cameraStatus'] = commandSender.cameraStatus()
             outJSON = json.dumps(data)
+
             return outJSON
 
 class FindPictures:
-
-    """""
-     * Name:     FindPictures.GET
-     *
-     * Purpose:  Fetches the filenames of pictures taken on the date specified
-     *
-     * Params:   None, but web.input fetches the input date specified by the user
-     *
-     * Return:   A JSON object with many keys, with the following format:
-     *           {filecreationtime: filepath}
-     *
-     * Notes:    None
-    """""
     def GET(self):
+        """
+        Fetches the filenames of pictures taken on the date specified.
+        
+        Returns:
+            fileBankJSON (json): A JSON object with many keys, with the format::
+            
+                {filecreationtime : filepath}
+
+        web.input fetches the input date specified by the user.
+        """
         if LoginChecker.loggedIn():
-            data = {}
             fileBankJSON = commandSender.findPictures(web.input())
-            return json.dumps(fileBankJSON, sort_keys=True)
+
+            return json.dumps(fileBankJSON, sort_keys = True)
 
 class DownloadPicture:
-
-    """""
-     * Name:     DownloadPicture.GET
-     *
-     * Purpose:  Fetches the specified .NEF file for the user to download
-     *
-     * Params:   None, but web.input fetches the filepath for download
-     *
-     * Return:   A JSON object with the following format:
-     *           {success: boolean}
-     *
-     * Notes:    None
-    """""
     def GET(self):
+        """
+        Fetches the specified .NEF file for the user to download.
+        
+        Returns:
+            outJSON (json): Format::
+            
+                {success : boolean}
+        
+        Raises:
+            web.NotFound
+        
+        web.input fetches the filepath for download.
+        """
         if LoginChecker.loggedIn():
             data = {}
 
@@ -417,6 +379,19 @@ class DownloadThumbnail:
      * Notes:    None
     """""
     def GET(self):
+        """
+        Fetches the specified .jpg file for the user to download.
+
+        Returns:
+            outJSON (json): Format::
+
+                {success : boolean}
+
+        Raises:
+            web.NotFound
+
+        web.input fetches the filepath for jpg extraction.
+        """
         if LoginChecker.loggedIn():
             data = {}
 
@@ -429,20 +404,18 @@ class DownloadThumbnail:
             return outJSON
 
 class RemoveThumbnail:
-
-    """""
-     * Name:     RemoveThumbnail.GET
-     *
-     * Purpose:  Deletes the specified thumbnail from the camera's filesystem
-     *
-     * Params:   None, but web.input fetches the filepath to delete
-     *
-     * Return:   A JSON object with the following format:
-     *           {success: boolean}
-     *
-     * Notes:    None
-    """""
     def GET(self):
+        """
+        Deletes the specified thumbnail from the camera's filesystem.
+
+        Returns:
+            (int): 0.
+
+        Raises:
+            web.InternalError
+
+        web.input fetches the filepath to delete..
+        """
         if LoginChecker.loggedIn():
 
             try:
