@@ -22,34 +22,30 @@ from tempfile import mkstemp
 from shutil import move
 from os import remove, close
 
-"""""
- * Name:     doConsoleCommand
- *
- * Purpose:  Sends the system a console command to execute in bash
- *
- * Params:   command: A string specifying the console command to be done
- *
- * Return:   A string, the console output
- *
- * Notes:    None
-"""""
+
 def doConsoleCommand(command):
+    """
+    Sends the system a console command to execute in bash.
+    
+    Args:
+        command (str): A console command.
+    
+    Returns:
+        outputText (str): The console output.
+    """
     outputText = commands.getstatusoutput(command)[1]
+
     return outputText
 
-"""""
- * Name:     getHostname
- *
- * Purpose:  Gets the hostname of the system
- *
- * Params:   None
- *
- * Return:   A string, the hostname of the system
- *
- * Notes:    None
-"""""
 def getHostname():
+    """
+    Gets the hostname of the system.
+    
+    Returns:
+        consoleOutput (str): The hostname of the system.
+    """
     consoleOutput = doConsoleCommand(constants.getHostname)
+
     return consoleOutput
 
 """""
@@ -58,20 +54,19 @@ def getHostname():
  * * * * * * * * * * * *
 """""
 
-"""""
- * Name:     cameraOn
- *
- * Purpose:  Switches the DSLR on
- *
- * Params:   None
- *
- * Return:   feedbackOutput, an output string to give the user feedback
- *
- * Notes:    None
-"""""
 def cameraOn():
+    """
+    Swithes the DSLR camera on.
+    
+    Returns:
+        feedbackOutput (str): Resulting feedback.
+    
+    Raises:
+        IOError
+    """
     # Do command
     consoleOutput = doConsoleCommand(constants.cameraOn + constants.getExitStatus)
+
     if "2" in consoleOutput:
         raise IOError(constants.cameraOnScriptNotFound)
 
@@ -80,20 +75,19 @@ def cameraOn():
 
     return feedbackOutput
 
-"""""
- * Name:     cameraOff
- *
- * Purpose:  Switches the DSLR off
- *
- * Params:   None
- *
- * Return:   feedbackOutput, an output string to give the user feedback
- *
- * Notes:    None
-"""""
 def cameraOff():
+    """
+    Switches the DSLR camera off.
+    
+    Returns:
+        feedbackOutput (str): Resulting feedback.
+    
+    Raises:
+        IOError
+    """
     # Do command
     consoleOutput = doConsoleCommand(constants.cameraOff + constants.getExitStatus)
+
     if "2" in consoleOutput:
         raise IOError(constants.cameraOffScriptNotFound)
 
@@ -102,19 +96,19 @@ def cameraOff():
 
     return feedbackOutput
 
-"""""
- * Name:     videoCameraOn
- *
- * Purpose:  Switches the video camera on
- *
- * Params:   None
- *
- * Return:   consoleFeedback, an output string to give the user feedback
- *
- * Notes:    Doesn't return a boolean yet, because a way to detect the video camera's
- *           presence is still to be implemented.
-"""""
 def videoCameraOn():
+    """
+    Switches the video camera on.
+    
+    Returns:
+        feedbackOutput (str): Resulting feedback.
+        
+    Raises:
+        IOError
+       
+    Doesn't return a boolean yet, because a way to detect the video camera's presence is 
+    still to be implemented.
+    """
     # Do command
     consoleFeedback = doConsoleCommand(constants.videoCameraOn + constants.getExitStatus)
 
@@ -126,19 +120,19 @@ def videoCameraOn():
 
     return feedbackOutput
 
-"""""
- * Name:     videoCameraOff
- *
- * Purpose:  Switches the video camera off
- *
- * Params:   None
- *
- * Return:   consoleFeedback, an output string to give the user feedback
- *
- * Notes:    Doesn't return a boolean yet, because a way to detect the video camera's
- *           presence is still to be implemented.
-"""""
 def videoCameraOff():
+    """
+    Switches the video camera off.
+    
+    Returns:
+        feedbackOutput (str): Resulting feedback.
+    
+    Raises:
+        IOError
+    
+    Doesn't return a boolean yet, because a way to detect the video camera's presence is 
+    still to be implemented.
+    """
     # Do command
     consoleFeedback = doConsoleCommand(constants.videoCameraOff + constants.getExitStatus)
 
@@ -150,19 +144,14 @@ def videoCameraOff():
 
     return feedbackOutput
 
-"""""
- * Name:     cameraStatus
- *
- * Purpose:  Delivers a summary of the DSLR's status
- *
- * Params:   None
- *
- * Return:   feedbackOutput: An output string to give the user feedback
- *           status: A boolean representing whether the DSLR is turned on or off
- *
- * Notes:    None
-"""""
 def cameraStatus():
+    """
+    Delivers a summary of the DSLR's status.
+    
+    Returns:
+        feedbackOutput (str): Resulting feedback.
+        status (bool): On / off state of the DSLR camera.
+    """
     # Do command
     consoleOutput = doConsoleCommand(constants.cameraCheck)
 
@@ -177,19 +166,18 @@ def cameraStatus():
     # Encode to JSON
     return feedbackOutput, status
 
-"""""
- * Name:     findPictures
- *
- * Purpose:  Fetches the filenames of pictures taken on the date specified
- *
- * Params:   inDate: The date the requested pictures were taken
- *
- * Return:   A python dictionary with many keys, with the following format:
- *           {filecreationtime: filepath}
- *
- * Notes:    None
-"""""
 def findPictures(inDate):
+    """
+    Fetches the filenames of pictures taken on the date specified.
+    
+    Args:
+        inDate (date): The date the requested pictures were taken.
+
+    Returns:
+        dict. Picture file creation times and paths, the format::
+            
+            {filecreationtime : filepath}
+    """
     data = {}
     # Let's do some directory searching!
     day = inDate.day.zfill(2)
@@ -203,8 +191,10 @@ def findPictures(inDate):
     if directoriesList:
         # Find all dates + times for all directories
         data = {}
+
         for directory in directoriesList:
             fileList = doConsoleCommand("ls " + directory).split("\n")
+
             for fileName in fileList:
                 if ".NEF" in fileName:
                     #Get filepath for NEF file
@@ -212,6 +202,7 @@ def findPictures(inDate):
                     # Find timestamp of when photo was taken
                     regexSearch = re.search('(?<!\d)\d{6}(?!\d)', filePath)
                     fileCreationTime = ""
+
                     if regexSearch:
                         fileCreationTime = regexSearch.group(0)
                         fileCreationTime = fileCreationTime[:2] + ':' + fileCreationTime[2:]
@@ -226,62 +217,71 @@ def findPictures(inDate):
 
         return data
 
-"""""
- * Name:     downloadPicture
- *
- * Purpose:  Fetches the specified .NEF file for the user to download
- *
- * Params:   inPath: The filepath of the file to download
- *
- * Return:   success: A boolean which represents the success of the request
- *
- * Notes:    None
-"""""
 def downloadPicture(inPath):
+    """
+    Fetches the specified .NEF file for the user to download.
+    
+    Args:
+        inPath (str): The filepath of the file to download. 
+
+    Returns:
+        success (bool): Represents the success of the request.
+    
+    Raises:
+        IOError
+    """
     success = False
     consoleFeedback = doConsoleCommand(constants.copyFileToStatic.format(inPath.filepath))
-    print consoleFeedback
+    print(consoleFeedback)
+
     if "SUCCESS" in consoleFeedback:
         success = True
     else:
         raise IOError(constants.pictureNotFound)
+
     return success
 
-"""""
- * Name:     downloadThumbnail
- *
- * Purpose:  Extracts the thumbnail of the specified .NEF, and serves it to the user
- *
- * Params:   inPath: The filepath of the .NEF file to extract the thumbnail from
- *
- * Return:   success: A boolean representing the success of the operation
- *
- * Notes:    None
-"""""
 def downloadThumbnail(inPath):
+    """
+    Extracts the thumbnail of the specified .NEF, and serves it to the user.
+    
+    Args:
+        inPath (str): Filepath of the .NEF file to extract the thumbnail from.
+
+    Returns:
+        success (bool): Represents the success of the operation.
+
+    Raises:
+        IOError
+    """
     success = False
     consoleFeedback = doConsoleCommand(constants.extractThumbnail.format(inPath.filepath))
+
     if "SUCCESS" in consoleFeedback:
         success = True
     else:
         raise IOError(constants.pictureNotFound)
+
     return success
 
-"""""
- * Name:     removeThumbnail
- *
- * Purpose:  Deletes the specified thumbnail from the camera's filesystem
- *
- * Params:   inJSON: A JSON object with the following format:
- *           {filepath: (filepath)}
- *
- * Return:   success: A boolean relating to the success of the operation
- *
- * Notes:    None
-"""""
 def removeThumbnail(inJSON):
+    """
+    Deletes the specified thumbnail from the camera's filesystem.
+    
+    Args:
+        inJSON (json): A JSON object with the following format::
+        
+            {filepath : (filepath)}
+
+    Returns:
+        success (bool): Represents the success of the operation.
+
+    Raises:
+        IOError
+    """
     time.sleep(2)
     consoleOutput = doConsoleCommand("rm " + inJSON.filepath + ";" + constants.getExitStatus)
+
     if "\n1" in consoleOutput:
         raise IOError("Thumbnail file doesn't exist to delete. No worries though, it was going to be deleted anyway!")
 
@@ -293,20 +293,19 @@ def removeThumbnail(inJSON):
  * * * * * * * * * * * * * * * * *
 """""
 
-"""""
- * Name:     hddOn
- *
- * Purpose:  Switches the camera's external hard drives on
- *
- * Params:   None
- *
- * Return:   A string, relating to the success of the operation
- *
- * Notes:    None
-"""""
 def hddOn():
+    """
+    Switches the camera's external hard drives on.
+    
+    Returns:
+        constants.hddCommandedOn (str): Represents the success of the operation.
+    
+    Raises:
+        IOError
+    """
     # If hardrives already on, get outta here!
     feedbackOutput, hdd0Status, hdd0Space, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space = hddStatus()
+
     if hdd1Status != 0 and hdd2Status != 0:
         return constants.hddAlreadyOn
 
@@ -325,22 +324,21 @@ def hddOn():
 
     return constants.hddCommandedOn
 
-"""""
- * Name:     hddOff
- *
- * Purpose:  Switches the camera's external hard drives off
- *
- * Params:   None
- *
- * Return:   A string, relating to the success of the operation
- *
- * Notes:    None
-"""""
 def hddOff():
+    """
+    Switches the camera's external hard drives off.
+    
+    Returns:
+        feedbackOutput (str): Resulting feedback.
+    
+    Raises:
+        RuntimeError, IOError
+    """
     devices = ["sdb", "sdc", "sdd"] # Used for deleting devices in EXTs before powering off
 
     # If hardrives already off or mounted, get outta here!
     feedbackOutput, hdd0Status, hdd0Space, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space = hddStatus()
+
     if hdd1Status != 1 and hdd2Status != 1:
         return constants.hddNotOnPoweredState
 
@@ -349,8 +347,10 @@ def hddOff():
         for device in devices:
             #Check if the device is a solid state or HDD
             driveRotation = doConsoleCommand(constants.extDeleteDriveDevicesCheck.format(device))
+
             if not re.search("[0-9]", driveRotation):
                 raise RuntimeError("External drives are not on correct device label. Use the command line to resolve this.")
+
         #No exceptions have been raised by this point, so delete drives
         for device in devices:
             doConsoleCommand(constants.extDeleteDriveDevice.format(device))
@@ -375,18 +375,13 @@ def hddOff():
 
     return feedbackOutput
 
-"""""
- * Name:     mountHDD
- *
- * Purpose:  Mounts the external hard drives to the file system
- *
- * Params:   None
- *
- * Return:   A string, relating to the success of the operation
- *
- * Notes:    None
-"""""
 def mountHDD():
+    """
+    Mounts the external hard drive's to the file system.
+    
+    Returns:
+        feedbackOutput (str): Resulting feedback.
+    """
     outputDict = {'/data1':"Drive #1", '/data2':"Drive #2", '/data3':"Drive #3"}
     smalldrives = ['/data1', '/data2']
     extdrives = ['/data1', '/data2', '/data3']
@@ -394,6 +389,7 @@ def mountHDD():
     feedbackOutput = ""
 
     hostname = getHostname()
+
     if 'EXT' in hostname:
         drives = list(extdrives)
     else:
@@ -418,18 +414,13 @@ def mountHDD():
 
     return feedbackOutput
 
-"""""
- * Name:     unmountHDD
- *
- * Purpose:  Unmounts the external hard drives from the file system
- *
- * Params:   None
- *
- * Return:   A string, relating to the success of the operation
- *
- * Notes:    None
-"""""
 def unmountHDD():
+    """
+    Unmounts the external hard drive's from the file system.
+    
+    Returns:
+        feedbackOutput (str): Resulting feedback.
+    """
     outputDict = {'/data1':"Drive #1", '/data2':"Drive #2", '/data3':"Drive #3",}
     smalldrives = ['/data1', '/data2']
     extdrives = ['/data1', '/data2', '/data3']
@@ -437,6 +428,7 @@ def unmountHDD():
     feedbackOutput = ""
 
     hostname = getHostname()
+
     if 'EXT' in hostname:
         drives = list(extdrives)
     else:
@@ -454,19 +446,18 @@ def unmountHDD():
 
     return feedbackOutput
 
-"""""
- * Name:     probeHDD
- *
- * Purpose:  Searches for present drives to format
- *
- * Params:   None
- *
- * Return:   A python dictionary with many keys, with the following format;
- *           {/dev/sdxx: /datax /dev/sdxx}
- *
- * Notes:    None
-"""""
 def probeHDD():
+    """
+    Searches for present hard drive's to format.
+    
+    Returns:
+        data (dict): Format::
+        
+            {/dev/sdxx : /datax/dev/sdxx}
+    
+    Raises:
+        IOError
+    """
     # Do command
     consoleOutput = doConsoleCommand(constants.probeHardDrives)
     data = {}
@@ -474,34 +465,37 @@ def probeHDD():
     # Parse results
     if "no such file or directory" in consoleOutput:
         consoleOutput = doConsoleCommand(constants.probeHardDrivesOLD)
+
         if "no such file or directory" in consoleOutput:
             raise IOError(constants.hddFormatScriptNotFound)
 
     firstLine = consoleOutput.split("\n")
     consoleOutput = firstLine[0]
     splitOutput = consoleOutput.split(" ")
+
     for idx, token in enumerate(splitOutput):
         if "/" in token:
             data[splitOutput[idx + 1]] = token + " " + splitOutput[idx + 1]
 
     return data
 
-"""""
- * Name:     moveData0
- *
- * Purpose:  Moves /data0 data to the external drives
- *
- * Params:   None
- *
- * Return:   A string for console output.
- *
- * Notes:    None
-"""""
 def moveData0():
+    """
+    Moves /data0 data to the external drive's.
+    
+    Returns:
+        consoleFeedback (str): Resulting console feedback.
+    
+    Raises:
+        IOError
+    """
     command = constants.moveData0
+
     if "EXT" in getHostname():
         command = constants.moveData0Ext
+
     consoleOutput = doConsoleCommand(command)
+
     if "SUCCESS" in consoleOutput:
         consoleFeedback = "Move command successful."
     else:
@@ -509,23 +503,24 @@ def moveData0():
 
     return consoleFeedback
 
-
-"""""
- * Name:     formatHDD
- *
- * Purpose:  Formats specified drives
- *
- * Params:   inDrives, a string of arguments for the format hard drive script
- *
- * Return:   feedbackOutput, an output string to give the user feedback
- *
- * Notes:    None
-"""""
 def formatHDD(inDrives):
+    """
+    Formats the specified drives.
+    
+    Args:
+        inDrives (str): A string of arguments for the format hard drive script.
+
+    Returns:
+        feedbackOutput (str): Resulting feedback.
+    
+    Raises:
+        IOError, RuntimeError
+    """
     consoleOutput = doConsoleCommand(constants.formatHardDrive.format(inDrives) + constants.getExitStatus)
 
     if "\n127" in consoleOutput:
         consoleOutput = doConsoleCommand(constants.formatHardDriveOLD(inDrives) + constants.getExitStatus)
+
         if "\n127" in consoleOutput:
             raise IOError(constants.hddFormatScriptNotFound)
         elif "is mounted" in consoleOutput:
@@ -539,22 +534,18 @@ def formatHDD(inDrives):
 
     return feedbackOutput
 
-"""""
- * Name:     hddStatus
- *
- * Purpose:  Delivers a summary of the external hard drives' status
- *
- * Params:   None
- *
- * Return:   feedbackOutput: An output string to give the user feedback
- *           HDD0Status, HDD1Status, HDD2Status, HDD3Status: Integers representing the status
- *               of each external hard drive.
- *           HDD0Space, HDD1Space, HDD2Space, HDD3Space: Real numbers representing the occupied
- *               space of each external hard drive.
- *
- * Notes:    None
-"""""
 def hddStatus():
+    """
+    Delivers a summary of the external hard drive's status.
+    
+    Returns:
+        feedbackOutput (str): Resulting feedback.
+        HDD(0 - 3)Status (int): Represents the status of each external hard drive.
+        HDD(0 - 3)Space (float): Represents the occupied space of each external hard drive.
+    
+    Raises:
+        IOError
+    """
     hddStatusDict = {0: constants.hddStatusOff, 1: constants.hddStatusPowered, 2: constants.hddStatusMounted}
 
     # Do command
@@ -582,6 +573,7 @@ def hddStatus():
     # DFNSMALLs
     if "EXT" not in getHostname():
         poweredStatus = doConsoleCommand(constants.hddPoweredStatus)
+
         if "JMicron Technology Corp." in poweredStatus:
             hdd1Status = 1
             hdd2Status = 1
@@ -589,25 +581,31 @@ def hddStatus():
 
             if data1MountedStatus == "1":
                 hdd1Status = 2
+
             if data2MountedStatus == "1":
                 hdd2Status = 2
+
             if data3MountedStatus == "1":
                 hdd3Status = 2
     #DFNEXTs
     else:
         poweredStatus = doConsoleCommand(constants.hddPoweredStatusExt)
+
         if "sdb1" in poweredStatus:
             hdd1Status = 1
+
             if data1MountedStatus == "1":
                 hdd1Status = 2
 
         if "sdc1" in poweredStatus:
             hdd2Status = 1
+
             if data2MountedStatus == "1":
                 hdd2Status = 2
 
         if "sdd1" in poweredStatus:
             hdd3Status = 1
+
             if data3MountedStatus == "1":
                 hdd3Status = 2
 
@@ -616,6 +614,7 @@ def hddStatus():
     # If mounted, use df
     if hdd1Status == 2 and hdd2Status == 2:
         outText = doConsoleCommand(constants.hddSpaceLive)
+
         if outText:
             lines = outText.split('\n')
     # If not mounted, use disk usage file
@@ -631,14 +630,17 @@ def hddStatus():
                 raise IOError(constants.diskUsageNotFound)
             else:
                 feedbackOutput = constants.hddStatusString.format(hddStatusDict[hdd0Status], hdd0Space, hddStatusDict[hdd1Status], hdd1Space, hddStatusDict[hdd2Status], hdd2Space, hddStatusDict[hdd3Status], hdd3Space) + constants.diskUsageNotFound + '\n'
+
                 return feedbackOutput, hdd0Status, hdd0Space, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space
 
     for line in lines:  # For each line in the file
         fixedLine = re.sub(" +", ",", line)  # Reduce whitespace down to 1
+
         if line[0] == "/":  # If the line is the title line, ignore it
             splitLine = re.split(",", fixedLine)  # Split into terms
             device = splitLine[5]  # Get mounted name
             spaceAvail = splitLine[4]  # Get space for that mount
+
             # Check if the data applies, if so assign to variable
             if "/data0" in device:
                 hdd0Space = spaceAvail
@@ -653,18 +655,16 @@ def hddStatus():
 
     return feedbackOutput, hdd0Status, hdd0Space, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space
 
-"""""
- * Name:     smartTest
- *
- * Purpose:  Performs a smart test
- *
- * Params:   None
- *
- * Return:   feedbackOutput: An output string to give the user feedback
- *
- * Notes:    None
-"""""
 def smartTest():
+    """
+    Performs a smart test.
+    
+    Returns:
+        feedbackOutput (str): Resulting feedback.
+
+    Raises:
+        AssertionError, OSError
+    """
     smalldrives = ["usbjmicron,00", "usbjmicron,01"]
     successfuldrives = list(smalldrives)
     output = {}
@@ -672,6 +672,7 @@ def smartTest():
 
     # If hardrives off or not mounted, get outta here!
     feedbackOutput, hdd0Status, hdd0Space, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space = hddStatus()
+
     try:
         assert hdd1Status == 0 and hdd2Status == 0
     except AssertionError:
@@ -680,6 +681,7 @@ def smartTest():
     # Start all smart tests
     for drive in smalldrives:
         consoleOutput = doConsoleCommand(constants.runSmartTest.format(drive) + constants.getExitStatus)
+
         if "\n127" in consoleOutput:
             raise OSError(constants.smartTestCommandNotInstalled)
 
@@ -698,6 +700,7 @@ def smartTest():
         # Evaluate results
         for drive in successfuldrives:
             consoleOutput = doConsoleCommand(constants.checkSmartTest.format(drive))
+
             if "No Errors Logged" in consoleOutput:
                 output[drive] += constants.smartTestResultsPassed.format(drive)
             else:
@@ -714,19 +717,17 @@ def smartTest():
  * * * * * * * * * * * * * * * * *
 """""
 
-"""""
- * Name:     gpsStatus
- *
- * Purpose:  Delivers a summary of the GPS' status
- *
- * Params:   None
- *
- * Return:   feedbackOutput: An output string to give the user feedback
- *           gpstatus: A boolean representing the status of the GPS
- *
- * Notes:    None
-"""""
 def gpsStatus():
+    """
+    Delivers a summary of the GPS status.
+    
+    Returns:
+        feedbackOutput (str): Resulting feedback.
+        gpstatus (bool): Represents the status of the GPS.
+    
+    Raises:
+        IOError
+    """
     gpsStatusDict = {"1": "Locked", "0": "No lock"}
 
     # Do command
@@ -740,9 +741,11 @@ def gpsStatus():
     feedbackOutput = constants.gpsCheckFailed
 
     splitOutput = re.split(',|\n', consoleOutput)
+
     if len(splitOutput) == 16:
         if splitOutput[6] == "1":
             status = True
+
         latitude = splitOutput[2].replace(".", "")
         latitude = ("-" if "S" in splitOutput[3] else '') + latitude[:-6] + "." + latitude[-6:]
         longitude = splitOutput[4].replace(".", "")
@@ -751,36 +754,30 @@ def gpsStatus():
 
     return feedbackOutput, status
 
-"""""
- * Name:     timezoneChange
- *
- * Purpose:  Changes the system's timezone
- *
- * Params:   timezone: The timezone information to change the system's timezone to
- *
- * Return:   An output string to give the user feedback
- *
- * Notes:    None
-"""""
 def timezoneChange(timezone):
+    """
+    Changes the system's timezone.
+
+    Args:
+        timezone (str): Timezone information to change the system's timezone to.
+
+    Returns:
+        constants.timezoneChanged (str): Resulting feedback.
+    """
     command = constants.setTimezone
     doConsoleCommand(command.format(timezone))
+
     return constants.timezoneChanged.format(timezone)
 
-"""""
- * Name:     outputTime
- *
- * Purpose:  Outputs the current system time to the user
- *
- * Params:   None
- *
- * Return:   consoleOutput: The console output of the outputTime command
- *
- * Notes:    None
-"""""
 def outputTime():
-    #Do command
+    """
+    Outputs the current system time to the user.
+    
+    Returns:
+        consoleOutput (str): Resulting console feedback.
+    """
     consoleOutput = doConsoleCommand(constants.outputTime)
+
     return consoleOutput + "\n"
 
 """""
@@ -789,20 +786,14 @@ def outputTime():
  * * * * * * * * * * * * * * * * *
 """""
 
-"""""
- * Name:     internetStatus
- *
- * Purpose:  Delivers a summary of the internet connectivity of the system.
- *
- * Params:   None
- *
- * Return:   feedbackOutput: An output string to give the user feedback
- *           internetStatus: A boolean representing the internet connectivity of the system
- *
- * Notes:    None
-"""""
 def internetStatus():
-    #Do command
+    """
+    Delivers a summary of the internet connectivity of the system.
+    
+    Returns:
+        feedbackOutput (str): Resulting feedback.
+        internetStatus (bool): Represents the internet connectivity of the system.
+    """
     consoleOutput = doConsoleCommand(constants.internetCheck)
 
     # Parse output for results
@@ -811,6 +802,7 @@ def internetStatus():
 
     if "unknown" not in consoleOutput and "failure" not in consoleOutput:
         splitOutput = re.split(",", consoleOutput)
+
         if "0" not in splitOutput[1]:
             status = True
             ipAddress = doConsoleCommand(constants.getInternetIP)
@@ -818,19 +810,13 @@ def internetStatus():
 
     return feedbackOutput, status
 
-"""""
- * Name:     restartModem
- *
- * Purpose:  Restarts the modem network interface
- *
- * Params:   None
- *
- * Return:   feedbackOutput: An output string to give the user feedback
- *
- * Notes:    None
-"""""
 def restartModem():
-    # Do command
+    """
+    Restarts the modem network interface.
+    
+    Returns:
+        feedbackOutput (str): Resulting feedback.
+    """
     consoleOutput = doConsoleCommand(constants.restartModem)
     # Parse output for results
     feedbackOutput = constants.modemRestartFailed
@@ -840,20 +826,14 @@ def restartModem():
 
     return feedbackOutput
 
-"""""
- * Name:     vpnStatus
- *
- * Purpose:  Delivers a summary of the vpn connectivity of the system.
- *
- * Params:   None
- *
- * Return:   feedbackOutput: An output string to give the user feedback
- *           vpnStatus: A boolean representing the vpn connectivity of the system
- *
- * Notes:    None
-"""""
 def vpnStatus():
-    # Do command
+    """
+    Delivers a summary of the VPN connectivity of the system.
+    
+    Returns:
+        feedbackOutput (str): Resulting feedback.
+        vpnStatus (bool): Represents the VPN connectivity of the system.
+    """
     consoleOutput = doConsoleCommand(constants.vpnCheck)
 
     # Parse output for results
@@ -867,19 +847,13 @@ def vpnStatus():
 
     return feedbackOutput, status
 
-"""""
- * Name:     restartVPN
- *
- * Purpose:  Restarts the system's VPN daemon
- *
- * Params:   None
- *
- * Return:   feedbackOutput: An output string to give the user feedback
- *
- * Notes:    None
-"""""
 def restartVPN():
-    # Do command
+    """
+    Restarts the system's VPN daemon.
+    
+    Returns:
+        feedbackOutput (str): Resulting feedback.
+    """
     consoleOutput = doConsoleCommand(constants.restartVPN)
 
     # Parse output for results
@@ -896,35 +870,35 @@ def restartVPN():
  * * * * * * * * * * * * * * * * *
 """""
 
-"""""
- * Name:     getLog
- *
- * Purpose:  Fetches the file path of a text logfile on the file system
- *
- * Params:   directory: the directory (/data0/ + directory) to get the logfile from
- *
- * Return:   foundfile: the file path of the found logfile
- *
- * Notes:    None
-"""""
 def getLog(directory):
+    """
+    Fetches the file path of a text logfile on the file system.
+    
+    Args:
+        directory (str): The directory to get the logfile from. Format::
+        
+            /data0/ + directory
+
+    Returns:
+        foundFile (str): The file path of the found logfile.
+    """
     filenames = doConsoleCommand(constants.getLogfileName.format(directory))
     foundfile = filenames.split('\n')[0]
+
     return foundfile
 
-"""""
- * Name:     populateConfigBox
- *
- * Purpose:  Serves information to fill in the interface for changing the dfnstation.cfg file
- *
- * Params:   None
- *
- * Return:   A python dictionary with many keys the following format:
- *           {param: value}
- *
- * Notes:    None
-"""""
 def populateConfigBox():
+    """
+    Serves information to fill in the interface for changing the dfnstation.cfg file.
+    
+    Returns:
+        outDict (dict): Format::
+        
+            {param : value}
+    
+    Raises:
+        IOError
+    """
     whitelist = constants.configBoxWhitelist
     path = constants.dfnconfigPath
     outDict = {}
@@ -943,19 +917,21 @@ def populateConfigBox():
 
     return outDict
 
-"""""
- * Name:     updateConfigFile
- *
- * Purpose:  Updates the dfnstation.cfg file with a new value for a parameter
- *
- * Params:   inProperty, a JSON object in the format:
- *           {param: value}
- *
- * Return:   consoleFeedback: An output string to give the user feedback
- *
- * Notes:    None
-"""""
 def updateConfigFile(inProperty):
+    """
+    Updates the dfnstation.cfg file with a new value for a parameter.
+    
+    Args:
+        inProperty (json): JSON object representing a config. Format::
+         
+            {param : value}
+
+    Returns:
+        consoleFeedback (str): Resulting console feedback.
+    
+    Raises:
+        IOError
+    """
     path = "/opt/dfn-software/dfnstation.cfg"
     consoleFeedback = constants.configWriteFailed
 
@@ -966,6 +942,7 @@ def updateConfigFile(inProperty):
     if os.path.exists(path):
         # Create temp file
         fh, abs_path = mkstemp()
+
         with open(abs_path, 'w') as new_file:
             with open(path) as old_file:
                 for line in old_file:
@@ -987,27 +964,36 @@ def updateConfigFile(inProperty):
 """""
 
 def cfCheck():
+    """
+    Checks that a configuration file exists.
+    
+    Returns:
+        consoleOutput (str): Resulting console output.
+    
+    Raises:
+        IOError
+    """
     consoleOutput = doConsoleCommand(constants.cfcheck)
+
     if re.search("[0-9]", consoleOutput):
         return consoleOutput
     else:
         raise IOError(constants.cfCheckScriptNotFound)
 
-"""""
- * Name:     intervalTest
- *
- * Purpose:  Performs an interval control test on the system
- *
- * Params:   None
- *
- * Return:   feedbackOutput: An output string to give the user feedback
- *           status: A boolean representing if the test passed or failed
- *
- * Notes:    None
-"""""
 def intervalTest():
+    """
+    Performs an interval control test on the system.
+    
+    Returns:
+        feedbackOutput (str): Resulting feedback.
+        status (bool): Represents if the test passed or failed.
+    
+    Raises:
+        IOError
+    """
     # Do interval test command
     consoleOutput = doConsoleCommand(constants.intervalTest + constants.getExitStatus)
+
     if "\n127" in consoleOutput:
         raise IOError(constants.intervalControlTestScriptNotFound)
 
@@ -1016,25 +1002,20 @@ def intervalTest():
     feedbackOutput = constants.intervalTestFailed
 
     consoleOutput = doConsoleCommand(constants.checkIntervalResults)
+
     if consoleOutput in ["6", "7", "8"]: # NOTE: 7 +/- 1 is the required margin of error.
         status = True
         feedbackOutput = constants.intervalTestPassed
 
     return feedbackOutput, status
 
-"""""
- * Name:     prevIntervalTest
- *
- * Purpose:  Checks the /latest folder to see if the camera took
- *           pictures the last time interval control ran
- *
- * Params:   None
- *
- * Return:   consoleFeedback: An output string to give the user feedback
- *
- * Notes:    None
-"""""
 def prevIntervalTest():
+    """
+    Checks the /latest folder to see if the camera took pictures the last time the interval control ran.
+    
+    Returns:
+        consoleFeedback (str): Resulting console feedback.
+    """
     # Get current date
     currDate = datetime.datetime.now()
     consoleFeedback = constants.prevIntervalNotRun

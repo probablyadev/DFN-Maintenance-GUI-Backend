@@ -11,19 +11,20 @@
 import sqlite3
 import hashlib
 
-"""""
- * Name:     loginAuth
- *
- * Purpose:  Checks whether login credentials are correct according to the database
- *
- * Params:   username: A string; the input username
- *           password: A string; the input password
- *
- * Return:   A boolean, true if authorized successfully and false if invalid credentials
- *
- * Notes:    None
-"""""
 def loginAuth(username, password):
+    """
+    Checks whether login credentials are correct according to the database.
+    
+    Args:
+        username (str): The input username.
+        password (str): The input password.
+
+    Returns:
+        auth (bool): Format::
+        
+            True -- Authorized.
+            False -- Unauthorized / invalid credentials.
+    """
     auth = False
 
     # Connect to database
@@ -48,5 +49,6 @@ def loginAuth(username, password):
     # If query returned a result, return true. Otherwise, return false.
     if check.fetchone():
         auth = True
+
     return auth
 
