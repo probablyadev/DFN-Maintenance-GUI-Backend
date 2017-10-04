@@ -8,12 +8,19 @@
  *
  * * * * * * * * * *
 """""
-#!/usr/bin/env python
+# !/usr/bin/env python
+
+import base64
+import commandSender
+import datetime
+import json
+import model
+import os
 
 import web
-import constants
 from web import form
-import os, model, commandSender, json, base64, datetime
+
+import constants
 
 # Initialising web.py config variables
 web.config.debug = False
@@ -60,9 +67,11 @@ urls = ('/', 'Index',
 		'/updateconfigfile', 'UpdateConfigFile')
 app = web.application(urls, globals())
 
+
 # Custom http response messages
 def notfound():
 	return web.notfound("The requested file(s) could not be found.")
+
 
 app.notfound = notfound
 
@@ -72,14 +81,14 @@ session = web.session.Session(app, web.session.DiskStore('sessions/'))
 
 # Variable for the login form.
 loginForm = form.Form(
-	form.Textbox("username", description='Username:'),
-	form.Password("password", description='Password:'),
-	form.Button('Login'))
+		form.Textbox("username", description = 'Username:'),
+		form.Password("password", description = 'Password:'),
+		form.Button('Login'))
+
 
 # Classes for handling page requests and login
 
 class Index:
-
 	def GET(self):
 		"""
 		Servers the request for the login page.
@@ -112,6 +121,7 @@ class Index:
 		else:
 			return render.login(f, 'ERROR: Form entry invalid.')
 
+
 class UI:
 	def GET(self):
 		"""
@@ -125,6 +135,7 @@ class UI:
 
 			return render.app(hostname)
 
+
 class Login:
 	@staticmethod
 	def login():
@@ -137,6 +148,7 @@ class Login:
 		session.logged_in = True
 		raise web.seeother('/app')
 
+
 class Logout:
 	def GET(self):
 		"""
@@ -148,6 +160,7 @@ class Logout:
 		"""
 		session.logged_in = False
 		raise web.seeother('/')
+
 
 class LoginChecker:
 	@staticmethod
@@ -165,6 +178,7 @@ class LoginChecker:
 			return True
 		else:
 			raise web.seeother('/')
+
 
 class GetHostname:
 	def GET(self):
@@ -213,6 +227,7 @@ class CameraOn:
 
 			return outJSON
 
+
 class CameraOff:
 	def GET(self):
 		"""
@@ -241,6 +256,7 @@ class CameraOff:
 
 			return outJSON
 
+
 class VideoCameraOn:
 	def GET(self):
 		"""
@@ -266,6 +282,7 @@ class VideoCameraOn:
 				raise web.InternalError(e.message)
 
 			return outJSON
+
 
 class VideoCameraOff:
 	def GET(self):
@@ -293,6 +310,7 @@ class VideoCameraOff:
 
 			return outJSON
 
+
 class CameraStatus:
 	def GET(self):
 		"""
@@ -311,6 +329,7 @@ class CameraStatus:
 
 			return outJSON
 
+
 class FindPictures:
 	def GET(self):
 		"""
@@ -327,6 +346,7 @@ class FindPictures:
 			fileBankJSON = commandSender.findPictures(web.input())
 
 			return json.dumps(fileBankJSON, sort_keys = True)
+
 
 class DownloadPicture:
 	def GET(self):
@@ -354,6 +374,7 @@ class DownloadPicture:
 
 			return outJSON
 
+
 class DownloadThumbnail:
 	def GET(self):
 		"""
@@ -380,6 +401,7 @@ class DownloadThumbnail:
 
 			return outJSON
 
+
 class RemoveThumbnail:
 	def GET(self):
 		"""
@@ -402,6 +424,7 @@ class RemoveThumbnail:
 
 			return 0
 
+
 # Hard drives
 class EnableHDD:
 	def GET(self):
@@ -422,13 +445,15 @@ class EnableHDD:
 			data = {}
 			try:
 				data['consoleFeedback'] = commandSender.hddOn()
-				statusFeedback, data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
+				statusFeedback, data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data[
+					'HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
 				data['consoleFeedback'] += statusFeedback
 				outJSON = json.dumps(data)
 			except IOError as e:
 				raise web.InternalError(e.message)
 
 			return outJSON
+
 
 class DisableHDD:
 	def GET(self):
@@ -450,7 +475,8 @@ class DisableHDD:
 
 			try:
 				data['consoleFeedback'] = commandSender.hddOff()
-				statusFeedback, data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
+				statusFeedback, data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data[
+					'HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
 				data['consoleFeedback'] += statusFeedback
 				outJSON = json.dumps(data)
 			except IOError as e:
@@ -459,6 +485,7 @@ class DisableHDD:
 				raise web.InternalError(e.message)
 
 			return outJSON
+
 
 class MountHDD:
 	def GET(self):
@@ -480,13 +507,15 @@ class MountHDD:
 
 			try:
 				data['consoleFeedback'] = commandSender.mountHDD()
-				statusFeedback, data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
+				statusFeedback, data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data[
+					'HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
 				data['consoleFeedback'] += statusFeedback
 				outJSON = json.dumps(data)
 			except IOError as e:
 				raise web.InternalError(e.message)
 
 			return outJSON
+
 
 class UnmountHDD:
 	def GET(self):
@@ -508,13 +537,15 @@ class UnmountHDD:
 
 			try:
 				data['consoleFeedback'] = commandSender.unmountHDD()
-				statusFeedback, data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
+				statusFeedback, data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data[
+					'HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
 				data['consoleFeedback'] += statusFeedback
 				outJSON = json.dumps(data)
 			except IOError as e:
 				raise web.InternalError(e.message)
 
 			return outJSON
+
 
 class ProbeHDD:
 	def GET(self):
@@ -538,6 +569,7 @@ class ProbeHDD:
 				raise web.InternalError(e.message)
 
 			return outJSON
+
 
 class MoveData0:
 	def GET(self):
@@ -589,6 +621,7 @@ class FormatHDD:
 
 			return outJSON
 
+
 class CheckHDD:
 	def GET(self):
 		"""
@@ -608,12 +641,14 @@ class CheckHDD:
 			data = {}
 
 			try:
-				data['consoleFeedback'], data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
+				data['consoleFeedback'], data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], \
+				data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
 				outJSON = json.dumps(data)
 			except IOError as e:
 				raise web.InternalError(e.message)
 
 			return outJSON
+
 
 class SmartTest:
 	def GET(self):
@@ -643,6 +678,7 @@ class SmartTest:
 
 			return outJSON
 
+
 # GPS/Time
 class GPSCheck:
 	def GET(self):
@@ -669,6 +705,7 @@ class GPSCheck:
 
 			return outJSON
 
+
 class TimezoneChange:
 	def GET(self):
 		"""
@@ -688,6 +725,7 @@ class TimezoneChange:
 			outJSON = json.dumps(data)
 			return outJSON
 
+
 class OutputTime:
 	def GET(self):
 		"""
@@ -703,6 +741,7 @@ class OutputTime:
 			data['consoleFeedback'] = commandSender.outputTime()
 			outJSON = json.dumps(data)
 			return outJSON
+
 
 # Network
 class InternetCheck:
@@ -721,6 +760,7 @@ class InternetCheck:
 			data['consoleFeedback'], data['internetStatus'] = commandSender.internetStatus()
 			outJSON = json.dumps(data)
 			return outJSON
+
 
 class RestartModem:
 	def GET(self):
@@ -741,6 +781,7 @@ class RestartModem:
 			outJSON = json.dumps(data)
 			return outJSON
 
+
 class VPNCheck:
 	def GET(self):
 		"""
@@ -757,6 +798,7 @@ class VPNCheck:
 			data['consoleFeedback'], data['vpnStatus'] = commandSender.vpnStatus()
 			outJSON = json.dumps(data)
 			return outJSON
+
 
 class RestartVPN:
 	def GET(self):
@@ -776,6 +818,7 @@ class RestartVPN:
 			data['consoleFeedback'] = restartFeedback + statusFeedback
 			outJSON = json.dumps(data)
 			return outJSON
+
 
 # Status/Advanced
 class StatusConfig:
@@ -798,6 +841,7 @@ class StatusConfig:
 				return base64.standard_b64encode(getFile.read())
 			else:
 				raise web.notfound()
+
 
 class LatestLog:
 	def GET(self):
@@ -826,6 +870,7 @@ class LatestLog:
 			else:
 				raise web.notfound()
 
+
 class LatestPrevLog:
 	def GET(self):
 		"""
@@ -853,6 +898,7 @@ class LatestPrevLog:
 			else:
 				raise web.notfound()
 
+
 class PopulateConfigBox:
 	def GET(self):
 		"""
@@ -876,6 +922,7 @@ class PopulateConfigBox:
 
 			return outJSON
 
+
 class UpdateConfigFile:
 	def GET(self):
 		"""
@@ -898,6 +945,7 @@ class UpdateConfigFile:
 				raise web.InternalError(e.message)
 
 			return outJSON
+
 
 class SystemStatus:
 	def GET(self):
@@ -930,7 +978,8 @@ class SystemStatus:
 
 				# Encode to JSON
 				data = {}
-				data['consoleFeedback'] = constants.systemStatusHeader + datetime + cameraFeedback + extHDDFeedback + internetFeedback + vpnFeedback + gpsFeedback
+				data[
+					'consoleFeedback'] = constants.systemStatusHeader + datetime + cameraFeedback + extHDDFeedback + internetFeedback + vpnFeedback + gpsFeedback
 				data['cameraStatus'] = cameraBoolean
 				data['gpsStatus'] = gpsBoolean
 				data['internetStatus'] = internetBoolean
@@ -948,6 +997,7 @@ class SystemStatus:
 				raise web.InternalError(e.message)
 
 			return outJSON
+
 
 # Configuration File Check
 class CFCheck:
@@ -975,6 +1025,7 @@ class CFCheck:
 
 			return outJSON
 
+
 # Interval Control Test
 class IntervalTest:
 	def GET(self):
@@ -1000,6 +1051,7 @@ class IntervalTest:
 
 			return outJSON
 
+
 class PrevIntervalTest:
 	def GET(self):
 		"""
@@ -1023,7 +1075,8 @@ class PrevIntervalTest:
 
 			return outJSON
 
+
 # Start of execution
 if __name__ == "__main__":
-	os.chdir("/opt/dfn-software/GUI") # NB: Uncomment when GUI is put on system
+	os.chdir("/opt/dfn-software/GUI")  # NB: Uncomment when GUI is put on system
 	app.run()
