@@ -48,11 +48,7 @@ def getHostname():
 
     return consoleOutput
 
-"""""
- * * * * * * * * * * * *
- *   CAMERA UTILITIES  *
- * * * * * * * * * * * *
-"""""
+# CAMERA UTILITiES
 
 def cameraOn():
     """
@@ -287,11 +283,7 @@ def removeThumbnail(inJSON):
 
     return 0
 
-"""""
- * * * * * * * * * * * * * * * * *
- * EXTERNAL HARD DRIVE UTILITIES *
- * * * * * * * * * * * * * * * * *
-"""""
+# EXTERNAL HARD DRIVE UTILITIES
 
 def hddOn():
     """
@@ -317,7 +309,7 @@ def hddOn():
 
     time.sleep(25)
 
-    #For EXT, re-scan SATA/SCSI hotswap drives
+    # For EXT, re-scan SATA/SCSI hotswap drives
     if "EXT" in getHostname():
         doConsoleCommand(constants.scanSATA)
         time.sleep(2)
@@ -356,7 +348,6 @@ def hddOff():
             doConsoleCommand(constants.extDeleteDriveDevice.format(device))
         time.sleep(1)
     # Then proceed to power off as normal
-
 
     # Do command
     consoleOutput = doConsoleCommand(constants.disableHardDrive + constants.getExitStatus)
@@ -663,7 +654,8 @@ def smartTest():
         feedbackOutput (str): Resulting feedback.
 
     Raises:
-        AssertionError, OSError
+        AssertionError
+        OSError
     """
     smalldrives = ["usbjmicron,00", "usbjmicron,01"]
     successfuldrives = list(smalldrives)
@@ -711,11 +703,7 @@ def smartTest():
 
     return feedbackOutput
 
-"""""
- * * * * * * * * * * * * * * * * *
- *         GPS UTILITIES         *
- * * * * * * * * * * * * * * * * *
-"""""
+# GPS UTILITIES
 
 def gpsStatus():
     """
@@ -780,11 +768,7 @@ def outputTime():
 
     return consoleOutput + "\n"
 
-"""""
- * * * * * * * * * * * * * * * * *
- *       NETWORK UTILITIES       *
- * * * * * * * * * * * * * * * * *
-"""""
+# NETWORK UTILITIES
 
 def internetStatus():
     """
@@ -818,6 +802,7 @@ def restartModem():
         feedbackOutput (str): Resulting feedback.
     """
     consoleOutput = doConsoleCommand(constants.restartModem)
+
     # Parse output for results
     feedbackOutput = constants.modemRestartFailed
 
@@ -864,11 +849,7 @@ def restartVPN():
 
     return feedbackOutput
 
-"""""
- * * * * * * * * * * * * * * * * *
- *      ADVANCED UTILITIES       *
- * * * * * * * * * * * * * * * * *
-"""""
+# ADVANCED UTILITIES
 
 def getLog(directory):
     """
@@ -956,12 +937,7 @@ def updateConfigFile(inProperty):
 
     return consoleFeedback
 
-
-"""""
- * * * * * * * * * * * * * * * * *
- *    INTERVAL TEST UTILITIES    *
- * * * * * * * * * * * * * * * * *
-"""""
+# INTERVAL TEST UTILITIES
 
 def cfCheck():
     """
