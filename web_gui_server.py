@@ -1078,5 +1078,12 @@ class PrevIntervalTest:
 
 # Start of execution
 if __name__ == "__main__":
-	os.chdir("/opt/dfn-software/GUI")  # NB: Uncomment when GUI is put on system
+	# Gets the DEV_ENVIRONMENT variable set within pycharms environmeent variables configuration script
+	# If True then this script is being run on a dev machine, if false then it's running on a camera
+	# Defaults to false
+	environment = os.getenv('DEV_ENVIRONMENT', False)
+
+	if environment is False:
+		os.chdir("/opt/dfn-software/GUI")  # NB: Uncomment when GUI is put on system
+
 	app.run()
