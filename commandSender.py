@@ -15,6 +15,7 @@ import subprocess
 import datetime
 import inspect
 import os
+import sys
 import re
 import time
 from os import remove, close
@@ -22,6 +23,10 @@ from shutil import move
 from tempfile import mkstemp
 
 import constants
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+import dfn_functions
 
 
 def doConsoleCommand(command):
