@@ -11,7 +11,7 @@
 """""
 
 import calendar
-import commands
+import subprocess
 import datetime
 import inspect
 import os
@@ -34,7 +34,7 @@ def doConsoleCommand(command):
 	Returns:
 		outputText (str): The console output.
 	"""
-	outputText = commands.getstatusoutput(command)[1]
+	outputText = subprocess.getoutput(command)[1]
 
 	return outputText
 
