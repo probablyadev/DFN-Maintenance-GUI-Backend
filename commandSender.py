@@ -915,27 +915,21 @@ def populateConfigBox():
 		outDict (dict): Format::
 
 			{param : value}
-
-	Raises:
-		IOError
 	"""
-	whitelist = constants.configBoxWhitelist
+	white_list = constants.configBoxWhitelist
 	path = constants.dfnconfigPath
-	outDict = {}
+	conf_dict = dfn_functions.load_config(path)
+	result_dict = {}
 
-	if os.path.exists(path):
-		getFile = file(path, 'rb')
-		filelines = getFile.read().split("\n")
+	for whitelist_category in white_list:
+		for conf_category in conf_dict:
+			if whitelist_category == conf_category:
+				for whitelist_field in white_list[whitelist_category]:
+					for conf_field in conf_dict[conf_category]:
+						if whitelist_field == conf_field:
+							result_dict["[" + conf_category + "] " + conf_field] = conf_dict[conf_category][conf_field]
 
-		for element in whitelist:
-			for line in filelines:
-				if element + " =" in line:
-					parsed = line.split(" = ")
-					outDict[parsed[0]] = parsed[1]
-	else:
-		raise IOError(constants.configNotFound)
-
-	return outDict
+	print(result_dict)
 
 
 def updateConfigFile(inProperty):
@@ -949,10 +943,25 @@ def updateConfigFile(inProperty):
 
 	Returns:
 		consoleFeedback (str): Resulting console feedback.
-
-	Raises:
-		IOError
 	"""
+	consoleFeedback = constants.configWriteFailed
+	path = constants.dfnconfigPath
+	updated_conf_dict = dfn_functions.load_config(path)
+
+	for key in inProperty:
+		parsed = key.split("] ")
+		property_category = parsed[0].replace("[", "")
+		property_field = parsed[1]
+
+		updated_conf_dict[property_category][property_field] = inProperty[key]
+		consoleFeedback = constants.configWritePassed.format(key, inProperty[key])
+
+	dfn_functions.save_config_file("dfnstation.cfg", updated_conf_dict)
+
+	return consoleFeedback
+
+def updateConfigFileOld(inProperty):
+
 	path = "/opt/dfn-software/dfnstation.cfg"
 	consoleFeedback = constants.configWriteFailed
 

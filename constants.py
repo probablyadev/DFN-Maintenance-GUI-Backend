@@ -145,10 +145,32 @@ cfCheckScriptNotFound = scriptNotFound.format("camera_image_count.py")
 
 
 # Whitelist for which config variables the user can modify
-configBoxWhitelist = ["vid_lens", "vid_format", "camera_fstop", "still_lens", "vid_ser_no",
-                      "vid_camera", "camera_ser_no", "still_camera", "camera_iso",
-                      "camera_exposuretime", "location", "hostname", "lat", "lon",
-                      "altitude", "local_contact_email", "local_contact_name"]
+configBoxWhitelist = {}
+configBoxWhitelist["camera"] = {
+	"camera_exposuretime",
+	"camera_fstop",
+	"still_lens",
+	"vid_lens",
+	"vid_ser_no",
+	"vid_camera",
+	"camera_ser_no",
+	"vid_format",
+	"still_camera",
+	"camera_iso"
+}
+
+configBoxWhitelist["link"] = {
+	"local_contact_email",
+	"local_contact_name"
+}
+
+configBoxWhitelist["station"] = {
+    "location",
+	"lat",
+    "altitude",
+	"hostname",
+	"lon"
+}
 
 configNotFound = "Config file not found."
 configWriteFailed = "ERROR: Unable to write to config file (is internal drive mounted?)."
