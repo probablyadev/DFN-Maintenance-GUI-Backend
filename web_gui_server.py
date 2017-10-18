@@ -107,7 +107,7 @@ class Index:
 		Returns:
 			The rendered HTML of the failed login page.
 
-		On success, calls Login.login to raise the HTML of the Maintenance Desert-Fireball-Maintainence-GUI.
+		On success, calls Login.login to raise the HTML of the Maintenance GUI.
 
 		The login form data is extracted by web.py.
 		"""
@@ -125,10 +125,10 @@ class Index:
 class UI:
 	def GET(self):
 		"""
-		Renders the maintenance Desert-Fireball-Maintainence-GUI.
+		Renders the maintenance GUI.
 
 		Returns:
-			The rendered HTML of the maintenance Desert-Fireball-Maintainence-GUI.
+			The rendered HTML of the maintenance GUI.
 		"""
 		if LoginChecker.loggedIn():
 			hostname = commandSender.getHostname()
@@ -1078,12 +1078,12 @@ class PrevIntervalTest:
 
 # Start of execution
 if __name__ == "__main__":
-	# Gets the DEV_ENVIRONMENT variable set within pycharms environmeent variables configuration script
+	# Gets the DEV_ENVIRONMENT variable set within pycharms environment variables configuration script
 	# If True then this script is being run on a dev machine, if false then it's running on a camera
 	# Defaults to false
 	environment = os.getenv('DEV_ENVIRONMENT', False)
 
 	if environment is False:
-		os.chdir("/opt/dfn-software/Desert-Fireball-Maintainence-GUI")  # NB: Uncomment when Desert-Fireball-Maintainence-GUI is put on system
+		os.chdir("/opt/dfn-software/Desert-Fireball-Maintainence-GUI")
 
 	app.run()
