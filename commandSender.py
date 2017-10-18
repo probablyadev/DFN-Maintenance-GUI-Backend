@@ -39,7 +39,7 @@ def doConsoleCommand(command):
 	Returns:
 		outputText (str): The console output.
 	"""
-	outputText = subprocess.getoutput(command)[1]
+	outputText = subprocess.check_output(command)[1]
 
 	return outputText
 
