@@ -258,7 +258,7 @@ $(document).ready(function () {
             }
             else if (jqXHR.status == 500 && jqXHR.responseText === "internal server error") {
                 console.log(jqXHR);
-                addToWebConsole("HTTP ERROR 500: Unknown server error. Please report this bug to campbelljip@gmail.com.\n" + line);
+                addToWebConsole("HTTP ERROR 500: Unknown server error. \nPlease report this bug to 265815F@curtin.edu.au with the subject line 'Fireballs Error'.\n" + line);
             }
             else {
                 addToWebConsole(jqXHR.status + " " + jqXHR.statusText + ": " + jqXHR.responseText + "\n" + line);
