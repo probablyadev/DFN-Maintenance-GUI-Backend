@@ -16,4 +16,5 @@ The GUI is a web-based interface, using web.py to serve both html and static fil
 
 ## Required Packages
 
+* Python 2.7 (due to web.py)
 * web.py
