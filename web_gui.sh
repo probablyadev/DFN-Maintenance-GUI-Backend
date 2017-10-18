@@ -56,7 +56,7 @@ case "$1" in
 			echo "Warning: pid file ${pidfile} already exists"
 		fi
 
-		/usr/bin/python ${prg} > ${logFile} 2> ${errLogFile} &
+		/usr/bin/python ${prg}>${logFile}2>${errLogFile} &
 		### MCU note : returns 0 even if ${prg} not found.
 		RET=$?
 		sleep 1
@@ -86,18 +86,18 @@ case "$1" in
 			log_daemon_msg "Stopping  DFN camera web gui..." "" || true
 
 		# prg_pid=`pidof ${prg}`
-		prg_pid = `ps aux | grep "${prg}" | grep python | cut -c 10-14`
+		prg_pid=`ps aux | grep "${prg}" | grep python | cut -c 10-14`
 
 		if [ -z "${prg_pid}" ]
 		then
 			echo -n " not running "
-			RET = 1
+			RET=1
 		else
 			kill -TERM ${prg_pid}
 			RET=$?
 		fi
 
-		if [ ${RET} = 0 ]
+		if [ ${RET}=0 ]
 		then
 			log_end_msg 0 || true
 		else
