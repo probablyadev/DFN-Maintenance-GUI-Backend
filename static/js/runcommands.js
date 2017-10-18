@@ -233,7 +233,7 @@ $(document).ready(function () {
     function getHostname() {
         $.getJSON('/gethostname', function(result) {
             hostname = result.hostname;
-            //Modify GUI according to system type
+            //Modify Desert-Fireball-Maintainence-GUI according to system type
             if (hostname.indexOf("EXT") == -1) {
                 $('#data3Status').css('display', 'none');
             }
@@ -429,7 +429,7 @@ $(document).ready(function () {
                     document.body.appendChild(element);
                     element.click();
                     document.body.removeChild(element);
-                    $.get('/removethumbnail', {filepath: "/opt/dfn-software/GUI/static/downloads/" + jpgFilename}, function () {
+                    $.get('/removethumbnail', {filepath: "/opt/dfn-software/Desert-Fireball-Maintainence-GUI/static/downloads/" + jpgFilename}, function () {
                         $("#DownloadJPGPicture").removeAttr("disabled");
                     });
                 }

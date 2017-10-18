@@ -107,7 +107,7 @@ class Index:
 		Returns:
 			The rendered HTML of the failed login page.
 
-		On success, calls Login.login to raise the HTML of the Maintenance GUI.
+		On success, calls Login.login to raise the HTML of the Maintenance Desert-Fireball-Maintainence-GUI.
 
 		The login form data is extracted by web.py.
 		"""
@@ -125,10 +125,10 @@ class Index:
 class UI:
 	def GET(self):
 		"""
-		Renders the maintenance GUI.
+		Renders the maintenance Desert-Fireball-Maintainence-GUI.
 
 		Returns:
-			The rendered HTML of the maintenance GUI.
+			The rendered HTML of the maintenance Desert-Fireball-Maintainence-GUI.
 		"""
 		if LoginChecker.loggedIn():
 			hostname = commandSender.getHostname()
@@ -1084,6 +1084,6 @@ if __name__ == "__main__":
 	environment = os.getenv('DEV_ENVIRONMENT', False)
 
 	if environment is False:
-		os.chdir("/opt/dfn-software/GUI")  # NB: Uncomment when GUI is put on system
+		os.chdir("/opt/dfn-software/Desert-Fireball-Maintainence-GUI")  # NB: Uncomment when Desert-Fireball-Maintainence-GUI is put on system
 
 	app.run()
