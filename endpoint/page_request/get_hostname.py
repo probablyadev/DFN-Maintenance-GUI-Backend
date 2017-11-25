@@ -1,6 +1,6 @@
 import json
 
-from command.page_request import getHostname
+from command.page_request import get_hostname
 
 
 class GetHostname:
@@ -14,6 +14,6 @@ class GetHostname:
                 {hostname : "DFNXXX"}
         """
         data = {}
-        data['hostname'] = getHostname()
+        data['hostname'] = get_hostname()
 
         return json.dumps(data)

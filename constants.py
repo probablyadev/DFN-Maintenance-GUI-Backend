@@ -40,7 +40,7 @@ mountHardDrive = "mount {0} && echo SUCCESS"
 unmountHardDrive = "umount {0} && echo SUCCESS"
 probeHardDrives = "/root/bin/dfn_setup_data_hdds.sh -p"
 formatHardDrive = "/root/bin/dfn_setup_data_hdds.sh {0};"
-probeHardDrivesOLD =  "/root/bin/dfn_setup_usb_hdds.sh -p"
+probeHardDrivesOLD = "/root/bin/dfn_setup_usb_hdds.sh -p"
 formatHardDriveOLD = "/root/bin/dfn_setup_usb_hdds.sh {0};"
 hddPoweredStatus = "lsusb"
 hddPoweredStatusExt = "lsblk | grep 'sdb1\|sdc1\|sdd1'"
@@ -51,7 +51,7 @@ mountedStatus = "mount | grep {0} > /dev/null && echo 1"
 hddSpace = "cat /tmp/dfn_disk_usage"
 hddSpaceLive = "df -h | egrep 'Filesystem|data'"
 runSmartTest = "smartctl -d {0} -t short /dev/sdb;"
-checkSmartTest= "smartctl -d {0} -a /dev/sdb"
+checkSmartTest = "smartctl -d {0} -a /dev/sdb"
 
 internetCheck = "ping -c 1 www.google.com"
 getInternetIP = "ifconfig | grep eth1 -A 1 | grep -o '\(addr:\|inet \)[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' | cut -c6-"
@@ -93,7 +93,7 @@ vpnRestartFailed = "\nERROR: VPN unable to restart successfully. Please try agai
 intervalTestPassed = "\nINTERVAL TEST RESULTS:\nInterval test passed.\n"
 intervalTestFailed = "\nINTERVAL TEST RESULTS:\nInterval test failed.\n"
 prevIntervalDidRun = "\nINTERVAL CONTROL RAN SUCCESSFULLY LAST NIGHT.\n"
-prevIntervalNotRun ="\nINTERVAL CONTROL DID NOT RUN SUCCESSFULLY LAST NIGHT.\n"
+prevIntervalNotRun = "\nINTERVAL CONTROL DID NOT RUN SUCCESSFULLY LAST NIGHT.\n"
 
 hddStatusString = "\nHARD DRIVE STATUS:\nSystem Drive: {0}, {1} full.\nDrive #1: {2}, {3} full.\nDrive #2: {4}, {5} full.\nDrive #3: {6}, {7} full.\n"
 hddStatusOff = "Not detected"
@@ -101,7 +101,6 @@ hddStatusPowered = "Powered"
 hddStatusMounted = "Mounted"
 hddFormatPassed = "\nHarddrives formatted successfully.\n"
 hddFormatFailed = "Some drives still mounted, or didn't format properly. Please make sure drives are unmounted and safe to format."
-
 
 hddCommandedOn = "Hard drive power on command executed.\n"
 hddCommandedOff = "Hard drive power off successful.\n"
@@ -143,33 +142,32 @@ leostickStatusScriptNotFound = scriptNotFound.format("leostick_get_status.py")
 intervalControlTestScriptNotFound = scriptNotFound.format("interval_control_test.sh")
 cfCheckScriptNotFound = scriptNotFound.format("camera_image_count.py")
 
-
 # Whitelist for which config variables the user can modify
 configBoxWhitelist = {}
 configBoxWhitelist["camera"] = {
-	"camera_exposuretime",
-	"camera_fstop",
-	"still_lens",
-	"vid_lens",
-	"vid_ser_no",
-	"vid_camera",
-	"camera_ser_no",
-	"vid_format",
-	"still_camera",
-	"camera_iso"
+    "camera_exposuretime",
+    "camera_fstop",
+    "still_lens",
+    "vid_lens",
+    "vid_ser_no",
+    "vid_camera",
+    "camera_ser_no",
+    "vid_format",
+    "still_camera",
+    "camera_iso"
 }
 
 configBoxWhitelist["link"] = {
-	"local_contact_email",
-	"local_contact_name"
+    "local_contact_email",
+    "local_contact_name"
 }
 
 configBoxWhitelist["station"] = {
     "location",
-	"lat",
+    "lat",
     "altitude",
-	"hostname",
-	"lon"
+    "hostname",
+    "lon"
 }
 
 configNotFound = "Config file not found."

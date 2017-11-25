@@ -207,7 +207,7 @@ $(document).ready(function () {
 
     function openIntervalConfirmationMenu() {
         addToWebConsole("Preparing for interval control...\n");
-        $.getJSON("/cfcheck", function(result) {
+        $.getJSON("/cfcheck", function (result) {
             if (parseInt(result.images) > 150) {
                 $("#CFImages").text(result.images);
                 $(controlTestGreyScreen).css("display", "flex");
@@ -231,7 +231,7 @@ $(document).ready(function () {
     }
 
     function getHostname() {
-        $.getJSON('/gethostname', function(result) {
+        $.getJSON('/gethostname', function (result) {
             hostname = result.hostname;
             //Modify Desert-Fireball-Maintainence-GUI according to system type
             if (hostname.indexOf("EXT") == -1) {
@@ -269,6 +269,7 @@ $(document).ready(function () {
 
     /***************************************************/
     /* CODE FOR BUTTON PRESS HANDLERS, AJAX REQUESTERS */
+
     /***************************************************/
 
     function cameraOnHandler() {
@@ -582,7 +583,7 @@ $(document).ready(function () {
 
     function hddFormatHandler() {
         if (preCommandCheck()) {
-            $(window).bind("beforeunload",function(event) {
+            $(window).bind("beforeunload", function (event) {
                 return "WARNING: Refreshing while formatting is NOT recommended.\n Please only do this if you are 100% sure.";
             });
             doingCommand = true;
@@ -593,13 +594,13 @@ $(document).ready(function () {
             addToWebConsole("Formatting hard drives...\n");
             //Get ticked checkboxes and put into a string
             var tickedString = "";
-            if($(formatData1Check).is(":checked")) {
+            if ($(formatData1Check).is(":checked")) {
                 tickedString += $(formatData1Check).val() + " ";
             }
-            if($(formatData2Check).is(":checked")) {
+            if ($(formatData2Check).is(":checked")) {
                 tickedString += $(formatData2Check).val() + " ";
             }
-            if($(formatData3Check).is(":checked")) {
+            if ($(formatData3Check).is(":checked")) {
                 tickedString += $(formatData3Check).val();
             }
             $.getJSON("/formathdd", {args: tickedString}, function (result) {
@@ -771,7 +772,7 @@ $(document).ready(function () {
     function intervalTestHandler() {
         if (preCommandCheck()) {
             closeIntervalConfirmationMenu();
-            $(window).bind("beforeunload",function(event) {
+            $(window).bind("beforeunload", function (event) {
                 return "WARNING: Refreshing while interval test is running is NOT recommended.\n Please only do this if you are 100% sure.";
             });
             doingCommand = true;
@@ -787,7 +788,7 @@ $(document).ready(function () {
                 intervalLight.css("background-color", simpleColorMapping[result.intervalTestResult]);
                 //Open up for other commands to be run
                 doingCommand = false;
-            $(window).unbind('beforeunload');
+                $(window).unbind('beforeunload');
 
             }).fail(ajaxFailed);
         }
@@ -949,6 +950,7 @@ $(document).ready(function () {
 
     /***************************************************/
     /*                  TAB CONTROL                    */
+
     /***************************************************/
     function changeTab(event) {
         var tabContent, tabControl;

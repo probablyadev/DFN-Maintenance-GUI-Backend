@@ -1,22 +1,23 @@
 import json
 
-from command.gps_time import output_time
+from command.network import check_vpn
 from endpoint.page_request.login_checker import LoginChecker
 
 
-class OutputTime:
+class CheckVPN:
     def GET(self):
         """
-        Outputs the current system time to the user.
+        Delivers a summary of the VPN connectivity of the system.
 
         Returns:
             A JSON object with the following variables::
 
-                consoleFeedback (str): User feedback including the current system time.
+                consoleFeedback (str): User feedback.
+                vpnStatus (bool): VPN connectivity of the system.
         """
         if LoginChecker.loggedIn():
             data = {}
-            data['consoleFeedback'] = output_time()
+            data['consoleFeedback'], data['vpnStatus'] = check_vpn()
             outJSON = json.dumps(data)
 
             return outJSON

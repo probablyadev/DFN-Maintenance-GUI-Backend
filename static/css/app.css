@@ -1,11 +1,13 @@
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 html {
-  font-family: sans-serif;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%; }
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
 
 body {
-  margin: 0; }
+    margin: 0;
+}
 
 article,
 aside,
@@ -20,350 +22,447 @@ menu,
 nav,
 section,
 summary {
-  display: block; }
+    display: block;
+}
 
 audio,
 canvas,
 progress,
 video {
-  display: inline-block;
-  vertical-align: baseline; }
+    display: inline-block;
+    vertical-align: baseline;
+}
 
 audio:not([controls]) {
-  display: none;
-  height: 0; }
+    display: none;
+    height: 0;
+}
 
 [hidden],
 template {
-  display: none; }
+    display: none;
+}
 
 a {
-  background-color: transparent; }
+    background-color: transparent;
+}
 
 a:active,
 a:hover {
-  outline: 0; }
+    outline: 0;
+}
 
 abbr[title] {
-  border-bottom: 1px dotted; }
+    border-bottom: 1px dotted;
+}
 
 b,
 strong {
-  font-weight: bold; }
+    font-weight: bold;
+}
 
 dfn {
-  font-style: italic; }
+    font-style: italic;
+}
 
 h1 {
-  font-size: 2em;
-  margin: 0.67em 0; }
+    font-size: 2em;
+    margin: 0.67em 0;
+}
 
 mark {
-  background: #ff0;
-  color: #000; }
+    background: #ff0;
+    color: #000;
+}
 
 small {
-  font-size: 80%; }
+    font-size: 80%;
+}
 
 sub,
 sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline; }
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
 
 sup {
-  top: -0.5em; }
+    top: -0.5em;
+}
 
 sub {
-  bottom: -0.25em; }
+    bottom: -0.25em;
+}
 
 img {
-  border: 0; }
+    border: 0;
+}
 
 svg:not(:root) {
-  overflow: hidden; }
+    overflow: hidden;
+}
 
 figure {
-  margin: 1em 40px; }
+    margin: 1em 40px;
+}
 
 hr {
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  height: 0; }
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    height: 0;
+}
 
 pre {
-  overflow: auto; }
+    overflow: auto;
+}
 
 code,
 kbd,
 pre,
 samp {
-  font-family: monospace, monospace;
-  font-size: 1em; }
+    font-family: monospace, monospace;
+    font-size: 1em;
+}
 
 button,
 input,
 optgroup,
 select {
-  color: inherit;
-  font: inherit;
-  margin: 0; }
+    color: inherit;
+    font: inherit;
+    margin: 0;
+}
 
 button {
-  overflow: visible; }
+    overflow: visible;
+}
 
 button,
 select {
-  text-transform: none; }
+    text-transform: none;
+}
 
 button,
 html input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-  -webkit-appearance: button;
-  cursor: pointer; }
+    -webkit-appearance: button;
+    cursor: pointer;
+}
 
 button[disabled],
 html input[disabled] {
-  cursor: default; }
+    cursor: default;
+}
 
 button::-moz-focus-inner,
 input::-moz-focus-inner {
-  border: 0;
-  padding: 0; }
+    border: 0;
+    padding: 0;
+}
 
 input {
-  line-height: normal; }
+    line-height: normal;
+}
 
 input[type="checkbox"],
 input[type="radio"] {
-  box-sizing: border-box;
-  padding: 0; }
+    box-sizing: border-box;
+    padding: 0;
+}
 
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-  height: auto; }
+    height: auto;
+}
 
 input[type="search"] {
-  -webkit-appearance: textfield;
-  -moz-box-sizing: content-box;
-  -webkit-box-sizing: content-box;
-  box-sizing: content-box; }
+    -webkit-appearance: textfield;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
 
 input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none; }
+    -webkit-appearance: none;
+}
 
 fieldset {
-  border: 1px solid #c0c0c0;
-  margin: 0 2px;
-  padding: 0.35em 0.625em 0.75em; }
+    border: 1px solid #c0c0c0;
+    margin: 0 2px;
+    padding: 0.35em 0.625em 0.75em;
+}
 
 legend {
-  border: 0;
-  padding: 0; }
+    border: 0;
+    padding: 0;
+}
 
 textarea {
-  overflow: auto; }
+    overflow: auto;
+}
 
 optgroup {
-  font-weight: bold; }
+    font-weight: bold;
+}
 
 table {
-  border-collapse: collapse;
-  border-spacing: 0; }
+    border-collapse: collapse;
+    border-spacing: 0;
+}
 
 td,
 th {
-  padding: 0; }
+    padding: 0;
+}
 
 html, body {
-  height: 100%;
-  width: 100%; }
+    height: 100%;
+    width: 100%;
+}
 
 body {
-  background-size: cover;
-  margin: 0px; }
+    background-size: cover;
+    margin: 0px;
+}
 
 a {
-  color: #FFFFFF;
-  text-decoration: none;
-  outline: 0; }
-  a:hover, a:focus {
-    color: white; }
+    color: #FFFFFF;
+    text-decoration: none;
+    outline: 0;
+}
+
+a:hover, a:focus {
+    color: white;
+}
 
 .gigantic, .huge, .large, .bigger, .big,
 h1, h2, h3, h4, h5, h6 {
-  color: #FFF;
-  font-weight: bold;
-  margin: 0; }
+    color: #FFF;
+    font-weight: bold;
+    margin: 0;
+}
 
 .gigantic {
-  font-size: 110px;
-  line-height: 1.09;
-  letter-spacing: -2px; }
+    font-size: 110px;
+    line-height: 1.09;
+    letter-spacing: -2px;
+}
 
 .huge, h1 {
-  font-size: 68px;
-  line-height: 1.05;
-  letter-spacing: -1px; }
+    font-size: 68px;
+    line-height: 1.05;
+    letter-spacing: -1px;
+}
 
 .large, h2 {
-  font-size: 42px;
-  line-height: 1.14; }
+    font-size: 42px;
+    line-height: 1.14;
+}
 
 .bigger, h3 {
-  font-size: 26px;
-  line-height: 1.38; }
+    font-size: 26px;
+    line-height: 1.38;
+}
 
 .big, h4 {
-  font-size: 22px;
-  line-height: 1.38; }
+    font-size: 22px;
+    line-height: 1.38;
+}
 
 .small, small {
-  font-size: 10px;
-  line-height: 1.2; }
+    font-size: 10px;
+    line-height: 1.2;
+}
 
 p {
-  margin: 0 0 20px 0; }
+    margin: 0 0 20px 0;
+}
 
 em {
-  font-style: italic; }
+    font-style: italic;
+}
 
 strong {
-  font-weight: bold; }
+    font-weight: bold;
+}
 
 hr {
-  border: solid #ddd;
-  border-width: 1px 0 0;
-  clear: both;
-  margin: 10px 0 30px;
-  height: 0; }
+    border: solid #ddd;
+    border-width: 1px 0 0;
+    clear: both;
+    margin: 10px 0 30px;
+    height: 0;
+}
 
 .tab a {
-  color: #330006; }
+    color: #330006;
+}
 
 .tabContent label, .tabContent span, .tabContent select, .statusModule label, .statusModule span, .statusModule select {
-  color: white; }
+    color: white;
+}
 
 .commandButton {
-  background-color: #CC4600;
-  border: none;
-  color: #FFF;
-  padding: 5px 10px;
-  text-align: center;
-  font-size: 2.5vh;
-  margin: 5px; }
-  .commandButton:hover {
-    background-color: #FF4100; }
+    background-color: #CC4600;
+    border: none;
+    color: #FFF;
+    padding: 5px 10px;
+    text-align: center;
+    font-size: 2.5vh;
+    margin: 5px;
+}
+
+.commandButton:hover {
+    background-color: #FF4100;
+}
 
 .disabled {
-  background-color: #660000;
-  color: #AAA; }
-  .disabled:hover {
-    background-color: #660000; }
+    background-color: #660000;
+    color: #AAA;
+}
+
+.disabled:hover {
+    background-color: #660000;
+}
 
 .linebreak {
-  width: 100%;
-  content: ""; }
+    width: 100%;
+    content: "";
+}
 
 .controlModule {
-  background-color: #95000C;
-  width: 72vw;
-  height: 46vh;
-  min-width: 750px;
-  margin: 2vh auto 2vh auto; }
-  .controlModule .tabControl {
+    background-color: #95000C;
+    width: 72vw;
+    height: 46vh;
+    min-width: 750px;
+    margin: 2vh auto 2vh auto;
+}
+
+.controlModule .tabControl {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    height: 13%; }
-    .controlModule .tabControl li {
-      height: 100%;
-      float: left;
-      width: 16.66667%;
-      background-color: #660000; }
-      .controlModule .tabControl li .tabIcon {
-        display: inline; }
-      .controlModule .tabControl li a {
-        height: 100%;
-        display: block;
-        padding: 2vh 0;
-        transition: 0.2s;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-        text-align: center;
-        white-space: nowrap;
-        overflow: hidden; }
-        .controlModule .tabControl li a svg {
-          height: 2.2vh;
-          width: 2.2vh;
-          margin-right: 0.1em;
-          vertical-align: middle; }
-          .controlModule .tabControl li a svg path {
-            fill: #AAA !important; }
-        .controlModule .tabControl li a span {
-          vertical-align: middle;
-          font-size: 2.2vh;
-          color: #AAA; }
-    .controlModule .tabControl li:hover, .controlModule .tabControl .active, .controlModule .tabControl :focus {
-      background-color: #95000C; }
-      .controlModule .tabControl li:hover span, .controlModule .tabControl .active span, .controlModule .tabControl :focus span {
-        color: #FFF; }
-      .controlModule .tabControl li:hover svg path, .controlModule .tabControl .active svg path, .controlModule .tabControl :focus svg path {
-        fill: #FFF !important; }
-  .controlModule .tabContent {
+    height: 13%;
+}
+
+.controlModule .tabControl li {
+    height: 100%;
+    float: left;
+    width: 16.66667%;
+    background-color: #660000;
+}
+
+.controlModule .tabControl li .tabIcon {
+    display: inline;
+}
+
+.controlModule .tabControl li a {
+    height: 100%;
+    display: block;
+    padding: 2vh 0;
+    transition: 0.2s;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.controlModule .tabControl li a svg {
+    height: 2.2vh;
+    width: 2.2vh;
+    margin-right: 0.1em;
+    vertical-align: middle;
+}
+
+.controlModule .tabControl li a svg path {
+    fill: #AAA !important;
+}
+
+.controlModule .tabControl li a span {
+    vertical-align: middle;
+    font-size: 2.2vh;
+    color: #AAA;
+}
+
+.controlModule .tabControl li:hover, .controlModule .tabControl .active, .controlModule .tabControl :focus {
+    background-color: #95000C;
+}
+
+.controlModule .tabControl li:hover span, .controlModule .tabControl .active span, .controlModule .tabControl :focus span {
+    color: #FFF;
+}
+
+.controlModule .tabControl li:hover svg path, .controlModule .tabControl .active svg path, .controlModule .tabControl :focus svg path {
+    fill: #FFF !important;
+}
+
+.controlModule .tabContent {
     display: none;
     padding: 2vh;
     width: 100%;
     height: 87%;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
-    box-sizing: border-box; }
+    box-sizing: border-box;
+}
 
 .statusModule {
-  background-color: #95000C;
-  width: 25%;
-  height: 100%;
-  margin-right: 5%;
-  padding: 3px;
-  float: left;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box; }
-  .statusModule .statusElement {
+    background-color: #95000C;
+    width: 25%;
+    height: 100%;
+    margin-right: 5%;
+    padding: 3px;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.statusModule .statusElement {
     width: 85%;
     background-color: #660000;
     display: flex;
     align-items: center;
-    justify-content: center; }
-    .statusModule .statusElement .statusLight {
-      background-color: gray;
-      -webkit-border-radius: 1vmin;
-      -moz-border-radius: 1vmin;
-      border-radius: 1vmin;
-      height: 1vmin;
-      width: 1vmin;
-      margin: 3px; }
-    .statusModule .statusElement label {
-      margin: 2px 5px 2px 5px;
-      font-size: 2vh; }
-    .statusModule .statusElement span {
-      font-size: 2vh; }
+    justify-content: center;
+}
+
+.statusModule .statusElement .statusLight {
+    background-color: gray;
+    -webkit-border-radius: 1vmin;
+    -moz-border-radius: 1vmin;
+    border-radius: 1vmin;
+    height: 1vmin;
+    width: 1vmin;
+    margin: 3px;
+}
+
+.statusModule .statusElement label {
+    margin: 2px 5px 2px 5px;
+    font-size: 2vh;
+}
+
+.statusModule .statusElement span {
+    font-size: 2vh;
+}
 
 .consoleModule {
-  width: 70%;
-  height: 100%;
-  display: inline-block;
-  position: relative; }
-  .consoleModule .webConsole {
+    width: 70%;
+    height: 100%;
+    display: inline-block;
+    position: relative;
+}
+
+.consoleModule .webConsole {
     resize: none;
     width: 100%;
     height: 100%;
@@ -375,226 +474,293 @@ hr {
     background-color: #2B2B2B;
     border-color: #1B1B1B;
     color: #00FF00;
-    font: 15px Courier, monospace; }
+    font: 15px Courier, monospace;
+}
 
 .pageHeader {
-  height: 4vh; }
-  .pageHeader::after {
+    height: 4vh;
+}
+
+.pageHeader::after {
     clear: both;
     content: "";
-    display: table; }
-  .pageHeader img {
+    display: table;
+}
+
+.pageHeader img {
     height: 100%;
-    float: right; }
+    float: right;
+}
 
 .pageFooter {
-  height: 2vh; }
-  .pageFooter::after {
+    height: 2vh;
+}
+
+.pageFooter::after {
     clear: both;
     content: "";
-    display: table; }
-  .pageFooter .commandButton {
+    display: table;
+}
+
+.pageFooter .commandButton {
     float: right;
-    background-color: #000; }
-    .pageFooter .commandButton:hover {
-      background-color: #000; }
+    background-color: #000;
+}
+
+.pageFooter .commandButton:hover {
+    background-color: #000;
+}
 
 .statusControl {
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; }
-  .statusControl #StatusCheck {
-    font-size: 3.5vh; }
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.statusControl #StatusCheck {
+    font-size: 3.5vh;
+}
 
 .cameraControl {
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between; }
-  .cameraControl .cameraBasicFunctions {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cameraControl .cameraBasicFunctions {
     height: 100%;
     display: flex;
     flex-wrap: wrap;
     align-content: center;
     justify-content: center;
     width: 50%;
-    border-right: 3px solid #80000b; }
-  .cameraControl .cameraAdvancedFunctions {
+    border-right: 3px solid #80000b;
+}
+
+.cameraControl .cameraAdvancedFunctions {
     height: 100%;
     display: flex;
     flex-wrap: wrap;
     align-content: center;
     justify-content: center;
-    width: 50%; }
-    .cameraControl .cameraAdvancedFunctions .pictureDownloadWidget {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 60%;
-      margin-bottom: 3%;
-      padding: 3%;
-      background-color: #660000;
-      -webkit-border-radius: 3%;
-      -moz-border-radius: 3%;
-      -ms-border-radius: 3%;
-      border-radius: 3%; }
-      .cameraControl .cameraAdvancedFunctions .pictureDownloadWidget h4 {
-        white-space: nowrap;
-        text-align: center; }
-      .cameraControl .cameraAdvancedFunctions .pictureDownloadWidget .downloadFormWrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 5px; }
-        .cameraControl .cameraAdvancedFunctions .pictureDownloadWidget .downloadFormWrapper div {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 100%;
-          margin: 5px; }
-        .cameraControl .cameraAdvancedFunctions .pictureDownloadWidget .downloadFormWrapper label {
-          margin-right: 5px; }
-        .cameraControl .cameraAdvancedFunctions .pictureDownloadWidget .downloadFormWrapper input {
-          -webkit-box-sizing: border-box;
-          -moz-box-sizing: border-box;
-          box-sizing: border-box;
-          color: #000;
-          width: 80%; }
-        .cameraControl .cameraAdvancedFunctions .pictureDownloadWidget .downloadFormWrapper select {
-          display: inline-block;
-          max-width: 80%;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          word-wrap: normal;
-          background-color: inherit;
-          border-color: white;
-          width: 80%; }
+    width: 50%;
+}
+
+.cameraControl .cameraAdvancedFunctions .pictureDownloadWidget {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    margin-bottom: 3%;
+    padding: 3%;
+    background-color: #660000;
+    -webkit-border-radius: 3%;
+    -moz-border-radius: 3%;
+    -ms-border-radius: 3%;
+    border-radius: 3%;
+}
+
+.cameraControl .cameraAdvancedFunctions .pictureDownloadWidget h4 {
+    white-space: nowrap;
+    text-align: center;
+}
+
+.cameraControl .cameraAdvancedFunctions .pictureDownloadWidget .downloadFormWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+.cameraControl .cameraAdvancedFunctions .pictureDownloadWidget .downloadFormWrapper div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 5px;
+}
+
+.cameraControl .cameraAdvancedFunctions .pictureDownloadWidget .downloadFormWrapper label {
+    margin-right: 5px;
+}
+
+.cameraControl .cameraAdvancedFunctions .pictureDownloadWidget .downloadFormWrapper input {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #000;
+    width: 80%;
+}
+
+.cameraControl .cameraAdvancedFunctions .pictureDownloadWidget .downloadFormWrapper select {
+    display: inline-block;
+    max-width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    background-color: inherit;
+    border-color: white;
+    width: 80%;
+}
 
 .hddControl {
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between; }
-  .hddControl .hddBasicFunctions {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hddControl .hddBasicFunctions {
     height: 100%;
     display: flex;
     flex-wrap: wrap;
     align-content: center;
     justify-content: center;
     width: 50%;
-    border-right: 3px solid #80000b; }
-  .hddControl .hddAdvancedFunctions {
+    border-right: 3px solid #80000b;
+}
+
+.hddControl .hddAdvancedFunctions {
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 50%; }
+    width: 50%;
+}
 
 .networkControl {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: center;
-  justify-content: center; }
-  .networkControl .commandButton {
-    font-size: 2.8vh; }
-  .networkControl #visibleLinebreak {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.networkControl .commandButton {
+    font-size: 2.8vh;
+}
+
+.networkControl #visibleLinebreak {
     position: relative;
-    margin-bottom: 5px; }
-    .networkControl #visibleLinebreak::after {
-      content: "";
-      position: absolute;
-      bottom: -4px;
-      left: 50%;
-      -webkit-transform: translate(-50%, 0);
-      -moz-transform: translate(-50%, 0);
-      -ms-transform: translate(-50%, 0);
-      -o-transform: translate(-50%, 0);
-      transform: translate(-50%, 0);
-      width: 40%;
-      height: 3px;
-      background: #80000b; }
+    margin-bottom: 5px;
+}
+
+.networkControl #visibleLinebreak::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    -webkit-transform: translate(-50%, 0);
+    -moz-transform: translate(-50%, 0);
+    -ms-transform: translate(-50%, 0);
+    -o-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+    width: 40%;
+    height: 3px;
+    background: #80000b;
+}
 
 .gpsControl {
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between; }
-  .gpsControl .gpsBasicFunctions {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.gpsControl .gpsBasicFunctions {
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 50%;
-    border-right: 3px solid #80000b; }
-    .gpsControl .gpsBasicFunctions .commandButton {
-      font-size: 3vh; }
-  .gpsControl .gpsAdvancedFunctions {
+    border-right: 3px solid #80000b;
+}
+
+.gpsControl .gpsBasicFunctions .commandButton {
+    font-size: 3vh;
+}
+
+.gpsControl .gpsAdvancedFunctions {
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 50%; }
-    .gpsControl .gpsAdvancedFunctions .timezoneForm {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 60%;
-      margin-bottom: 3%;
-      padding: 3%;
-      background-color: #660000;
-      -webkit-border-radius: 3%;
-      -moz-border-radius: 3%;
-      -ms-border-radius: 3%;
-      border-radius: 3%; }
-      .gpsControl .gpsAdvancedFunctions .timezoneForm select {
-        display: inline-block;
-        max-width: 80%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        word-wrap: normal;
-        margin: 3%;
-        background-color: inherit;
-        border-color: white; }
+    width: 50%;
+}
+
+.gpsControl .gpsAdvancedFunctions .timezoneForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    margin-bottom: 3%;
+    padding: 3%;
+    background-color: #660000;
+    -webkit-border-radius: 3%;
+    -moz-border-radius: 3%;
+    -ms-border-radius: 3%;
+    border-radius: 3%;
+}
+
+.gpsControl .gpsAdvancedFunctions .timezoneForm select {
+    display: inline-block;
+    max-width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    margin: 3%;
+    background-color: inherit;
+    border-color: white;
+}
 
 .advancedControl {
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between; }
-  .advancedControl .commandButton {
-    font-size: 2.8vh; }
-  .advancedControl .advancedFirmware {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.advancedControl .commandButton {
+    font-size: 2.8vh;
+}
+
+.advancedControl .advancedFirmware {
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 50%;
-    border-right: 3px solid #80000b; }
-  .advancedControl .advancedLogs {
+    border-right: 3px solid #80000b;
+}
+
+.advancedControl .advancedLogs {
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 50%; }
+    width: 50%;
+}
 
 .configEditGreyScreen {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 10;
-  background-color: rgba(38, 38, 38, 0.9);
-  display: none;
-  align-items: center;
-  justify-content: center; }
-  .configEditGreyScreen .configPrompt {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    background-color: rgba(38, 38, 38, 0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.configEditGreyScreen .configPrompt {
     padding: 5px 15px;
     padding-top: 0;
     height: 18%;
@@ -608,62 +774,81 @@ hr {
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
     border-radius: 5px;
-    position: relative; }
-    .configEditGreyScreen .configPrompt h4 {
-      margin: 10px 0; }
-    .configEditGreyScreen .configPrompt #ConfigPopupSave {
-      position: absolute;
-      bottom: 0;
-      right: 18%;
-      font-size: 17px; }
-    .configEditGreyScreen .configPrompt #ConfigPopupExit {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      font-size: 17px; }
-    .configEditGreyScreen .configPrompt span {
-      position: absolute;
-      bottom: 5%;
-      left: 5%;
-      width: 55%;
-      color: #000000;
-      font-size: 17px; }
-    .configEditGreyScreen .configPrompt form {
-      display: inherit;
-      align-items: center;
-      justify-content: center; }
-      .configEditGreyScreen .configPrompt form #configSelector {
-        display: inline-block;
-        max-width: 80%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        word-wrap: normal;
-        background-color: inherit;
-        border-color: white;
-        color: white; }
-      .configEditGreyScreen .configPrompt form input {
-        width: 100px;
-        margin-left: 10px;
-        white-space: nowrap; }
-      .configEditGreyScreen .configPrompt form #submitConfigChange {
-        position: absolute;
-        left: -9999px;
-        width: 1px;
-        height: 1px; }
+    position: relative;
+}
+
+.configEditGreyScreen .configPrompt h4 {
+    margin: 10px 0;
+}
+
+.configEditGreyScreen .configPrompt #ConfigPopupSave {
+    position: absolute;
+    bottom: 0;
+    right: 18%;
+    font-size: 17px;
+}
+
+.configEditGreyScreen .configPrompt #ConfigPopupExit {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 17px;
+}
+
+.configEditGreyScreen .configPrompt span {
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    width: 55%;
+    color: #000000;
+    font-size: 17px;
+}
+
+.configEditGreyScreen .configPrompt form {
+    display: inherit;
+    align-items: center;
+    justify-content: center;
+}
+
+.configEditGreyScreen .configPrompt form #configSelector {
+    display: inline-block;
+    max-width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    background-color: inherit;
+    border-color: white;
+    color: white;
+}
+
+.configEditGreyScreen .configPrompt form input {
+    width: 100px;
+    margin-left: 10px;
+    white-space: nowrap;
+}
+
+.configEditGreyScreen .configPrompt form #submitConfigChange {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+}
 
 .spinnerGreyScreen {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 10;
-  background-color: rgba(38, 38, 38, 0.9);
-  display: none;
-  align-items: center;
-  justify-content: center; }
-  .spinnerGreyScreen .spinnerPrompt {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    background-color: rgba(38, 38, 38, 0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.spinnerGreyScreen .spinnerPrompt {
     padding: 15px;
     background-color: #95000C;
     display: inherit;
@@ -674,116 +859,143 @@ hr {
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
     border-radius: 5px;
-    position: relative; }
-    .spinnerGreyScreen .spinnerPrompt .spinnerImage {
-      width: 40px;
-      height: 40px;
-      border: 4px solid #660000;
-      -webkit-border-radius: 50%;
-      -moz-border-radius: 50%;
-      -ms-border-radius: 50%;
-      border-radius: 50%;
-      position: relative;
-      margin: 20px;
-      display: inline-block; }
-      .spinnerGreyScreen .spinnerPrompt .spinnerImage:after, .spinnerGreyScreen .spinnerPrompt .spinnerImage:before {
-        content: "";
-        display: block;
-        width: 40px;
-        height: 40px;
-        -webkit-border-radius: 50%;
-        -moz-border-radius: 50%;
-        -ms-border-radius: 50%;
-        border-radius: 50%; }
-    .spinnerGreyScreen .spinnerPrompt .spinnerImage:after {
-      position: absolute;
-      top: -4px;
-      left: -4px;
-      border: 4px solid #FFF;
-      border-bottom-color: transparent;
-      animation: spinnerAnim 1.2s linear infinite; }
+    position: relative;
+}
+
+.spinnerGreyScreen .spinnerPrompt .spinnerImage {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #660000;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+    position: relative;
+    margin: 20px;
+    display: inline-block;
+}
+
+.spinnerGreyScreen .spinnerPrompt .spinnerImage:after, .spinnerGreyScreen .spinnerPrompt .spinnerImage:before {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 40px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.spinnerGreyScreen .spinnerPrompt .spinnerImage:after {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    border: 4px solid #FFF;
+    border-bottom-color: transparent;
+    animation: spinnerAnim 1.2s linear infinite;
+}
+
 @keyframes spinnerAnim {
-  0% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg); }
-  100% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg); } }
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
 @keyframes spinnerAnim {
-  0% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg); }
-  50% {
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    transform: rotate(180deg); }
-  100% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg); } }
-  .spinnerGreyScreen .spinnerSpan {
-    color: #FFF; }
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    50% {
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        transform: rotate(180deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.spinnerGreyScreen .spinnerSpan {
+    color: #FFF;
+}
 
 .formatDrivesConfirmation {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-right: -50%;
-  padding: 10px;
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  background-color: #330006;
-  z-index: 20;
-  height: 20%;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  border-radius: 5px; }
-  .formatDrivesConfirmation p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    padding: 10px;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: #330006;
+    z-index: 20;
+    height: 20%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.formatDrivesConfirmation p {
     margin: 3px;
     color: #FFF;
     font-size: 1.2em;
-    text-align: center; }
-  .formatDrivesConfirmation input {
-    margin: 10px; }
-  .formatDrivesConfirmation .formatConfirmationButtonWrapper {
+    text-align: center;
+}
+
+.formatDrivesConfirmation input {
+    margin: 10px;
+}
+
+.formatDrivesConfirmation .formatConfirmationButtonWrapper {
     display: inherit;
     align-items: center;
     justify-content: center;
-    margin: 10px; }
+    margin: 10px;
+}
 
 .formatDrivesGreyScreen {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 10;
-  background-color: rgba(38, 38, 38, 0.9);
-  display: none;
-  align-items: center;
-  justify-content: center; }
-  .formatDrivesGreyScreen .formatDrivesPrompt {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    background-color: rgba(38, 38, 38, 0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.formatDrivesGreyScreen .formatDrivesPrompt {
     padding: 25px 0;
     background: linear-gradient(30deg, transparent 6.25%, #292325 6.25%, #292325 12.5%, transparent 12.5%, transparent 18.75%, #292325 18.75%, #292325 25%, transparent 25%, transparent 31.25%, #292325 31.25%, #292325 37.5%, transparent 37.5%, transparent 43.75%, #292325 43.75%, #292325 50%, transparent 50%, transparent 56.25%, #292325 56.25%, #292325 62.5%, transparent 62.5%, transparent 68.75%, #292325 68.75%, #292325 75%, transparent 75%, transparent 81.25%, #292325 81.25%, #292325 87.5%, transparent 87.5%, transparent 93.75%, #292325 93.75%);
     background-color: #EEBC0E;
@@ -794,45 +1006,58 @@ hr {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
-    border-radius: 5px; }
-    .formatDrivesGreyScreen .formatDrivesPrompt .formatDrivesForm {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background-color: #95000C;
-      padding: 10px 0;
-      border-top: 2px solid black;
-      border-bottom: 2px solid black;
-      -webkit-border-radius: 3px;
-      -moz-border-radius: 3px;
-      -ms-border-radius: 3px;
-      border-radius: 3px; }
-      .formatDrivesGreyScreen .formatDrivesPrompt .formatDrivesForm h4 {
-        color: white; }
-      .formatDrivesGreyScreen .formatDrivesPrompt .formatDrivesForm .formatCheckboxWrapper {
-        margin: 5px 0;
-        display: none;
-        align-items: center;
-        justify-content: center; }
-        .formatDrivesGreyScreen .formatDrivesPrompt .formatDrivesForm .formatCheckboxWrapper label {
-          color: white;
-          margin-left: 7px; }
-      .formatDrivesGreyScreen .formatDrivesPrompt .formatDrivesForm .formatButtonPreConfirmationWrapper {
-        margin: 0 10px; }
+    border-radius: 5px;
+}
+
+.formatDrivesGreyScreen .formatDrivesPrompt .formatDrivesForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #95000C;
+    padding: 10px 0;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.formatDrivesGreyScreen .formatDrivesPrompt .formatDrivesForm h4 {
+    color: white;
+}
+
+.formatDrivesGreyScreen .formatDrivesPrompt .formatDrivesForm .formatCheckboxWrapper {
+    margin: 5px 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.formatDrivesGreyScreen .formatDrivesPrompt .formatDrivesForm .formatCheckboxWrapper label {
+    color: white;
+    margin-left: 7px;
+}
+
+.formatDrivesGreyScreen .formatDrivesPrompt .formatDrivesForm .formatButtonPreConfirmationWrapper {
+    margin: 0 10px;
+}
 
 .controlTestGreyScreen {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 10;
-  background-color: rgba(38, 38, 38, 0.9);
-  display: none;
-  align-items: center;
-  justify-content: center; }
-  .controlTestGreyScreen .controlTestConfirmation {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    background-color: rgba(38, 38, 38, 0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.controlTestGreyScreen .controlTestConfirmation {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -854,31 +1079,38 @@ hr {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
-    border-radius: 5px; }
-    .controlTestGreyScreen .controlTestConfirmation p {
-      margin: 3px;
-      color: #FFF;
-      font-size: 1.2em;
-      text-align: center; }
-    .controlTestGreyScreen .controlTestConfirmation .controlTestConfirmationButtonWrapper {
-      display: inherit;
-      align-items: center;
-      justify-content: center;
-      margin: 10px; }
+    border-radius: 5px;
+}
+
+.controlTestGreyScreen .controlTestConfirmation p {
+    margin: 3px;
+    color: #FFF;
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.controlTestGreyScreen .controlTestConfirmation .controlTestConfirmationButtonWrapper {
+    display: inherit;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}
 
 .contentWrapper {
-  height: 100vh;
-  width: 100vw; }
+    height: 100vh;
+    width: 100vw;
+}
 
 .feedbackWrapper {
-  width: 72vw;
-  height: 40vh;
-  min-width: 750px;
-  margin: 0 auto 0 auto;
-  padding: 2vh 0;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  font-size: 0; }
+    width: 72vw;
+    height: 40vh;
+    min-width: 750px;
+    margin: 0 auto 0 auto;
+    padding: 2vh 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 0;
+}
 
 /*# sourceMappingURL=app.css.map */

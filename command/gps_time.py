@@ -1,71 +1,72 @@
 # GPS UTILITIES
 import re
+
 import constants
 from command import exec_console_command
 
 
-def gpsStatus():
-	"""
-	Delivers a summary of the GPS status.
+def gps_check():
+    """
+    Delivers a summary of the GPS status.
 
-	Returns:
-		feedbackOutput (str): Resulting feedback.
-		gpstatus (bool): Represents the status of the GPS.
+    Returns:
+        feedbackOutput (str): Resulting feedback.
+        gpstatus (bool): Represents the status of the GPS.
 
-	Raises:
-		IOError
-	"""
-	gpsStatusDict = {"1": "Locked", "0": "No lock"}
+    Raises:
+        IOError
+    """
+    gpsStatusDict = {"1": "Locked", "0": "No lock"}
 
-	# Do command
-	consoleOutput = exec_console_command(constants.gpsCheck + constants.getExitStatus)
+    # Do command
+    consoleOutput = exec_console_command(constants.gpsCheck + constants.getExitStatus)
 
-	if "\n2" in consoleOutput:
-		raise IOError(constants.leostickStatusScriptNotFound)
+    if "\n2" in consoleOutput:
+        raise IOError(constants.leostickStatusScriptNotFound)
 
-	# Parse output for results
-	status = False
-	feedbackOutput = constants.gpsCheckFailed
+    # Parse output for results
+    status = False
+    feedbackOutput = constants.gpsCheckFailed
 
-	splitOutput = re.split(',|\n', consoleOutput)
+    splitOutput = re.split(',|\n', consoleOutput)
 
-	if len(splitOutput) == 16:
-		if splitOutput[6] == "1":
-			status = True
+    if len(splitOutput) == 16:
+        if splitOutput[6] == "1":
+            status = True
 
-		latitude = splitOutput[2].replace(".", "")
-		latitude = ("-" if "S" in splitOutput[3] else '') + latitude[:-6] + "." + latitude[-6:]
-		longitude = splitOutput[4].replace(".", "")
-		longitude = ("-" if "W" in splitOutput[5] else '') + longitude[:-6] + "." + longitude[-6:]
-		feedbackOutput = constants.gpsOnline.format(gpsStatusDict[splitOutput[6]], splitOutput[7], latitude, longitude,
-													splitOutput[9])
+        latitude = splitOutput[2].replace(".", "")
+        latitude = ("-" if "S" in splitOutput[3] else '') + latitude[:-6] + "." + latitude[-6:]
+        longitude = splitOutput[4].replace(".", "")
+        longitude = ("-" if "W" in splitOutput[5] else '') + longitude[:-6] + "." + longitude[-6:]
+        feedbackOutput = constants.gpsOnline.format(gpsStatusDict[splitOutput[6]], splitOutput[7], latitude, longitude,
+                                                    splitOutput[9])
 
-	return feedbackOutput, status
-
-
-def outputTime():
-	"""
-	Outputs the current system time to the user.
-
-	Returns:
-		consoleOutput (str): Resulting console feedback.
-	"""
-	consoleOutput = exec_console_command(constants.outputTime)
-
-	return consoleOutput + "\n"
+    return feedbackOutput, status
 
 
-def timezoneChange(timezone):
-	"""
-	Changes the system's timezone.
+def output_time():
+    """
+    Outputs the current system time to the user.
 
-	Args:
-		timezone (str): Timezone information to change the system's timezone to.
+    Returns:
+        consoleOutput (str): Resulting console feedback.
+    """
+    consoleOutput = exec_console_command(constants.outputTime)
 
-	Returns:
-		constants.timezoneChanged (str): Resulting feedback.
-	"""
-	command = constants.setTimezone
-	exec_console_command(command.format(timezone))
+    return consoleOutput + "\n"
 
-	return constants.timezoneChanged.format(timezone)
+
+def timezone_change(timezone):
+    """
+    Changes the system's timezone.
+
+    Args:
+        timezone (str): Timezone information to change the system's timezone to.
+
+    Returns:
+        constants.timezoneChanged (str): Resulting feedback.
+    """
+    command = constants.setTimezone
+    exec_console_command(command.format(timezone))
+
+    return constants.timezoneChanged.format(timezone)

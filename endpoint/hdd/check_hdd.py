@@ -1,32 +1,32 @@
 import json
 
-from command.hdd import hddStatus
+from command.hdd import check_hdd
 from endpoint.page_request.login_checker import LoginChecker
 
 
 class CheckHDD:
-	def GET(self):
-		"""
-		Delivers a summary of the external hard drive's status.
+    def GET(self):
+        """
+        Delivers a summary of the external hard drive's status.
 
-		Returns:
-			A JSON object with the following variables::
+        Returns:
+            A JSON object with the following variables::
 
-				consoleFeedback (str): User feedback.
-				HDD(0 - 3)Status (int): Status of each external hard drive.
-				HDD(0 - 3)Space (int): Represents occupied space of each external hard drive.
+                consoleFeedback (str): User feedback.
+                HDD(0 - 3)Status (int): Status of each external hard drive.
+                HDD(0 - 3)Space (int): Represents occupied space of each external hard drive.
 
-		Raises:
-			web.InternalError
-		"""
-		if LoginChecker.loggedIn():
-			data = {}
+        Raises:
+            web.InternalError
+        """
+        if LoginChecker.loggedIn():
+            data = {}
 
-			try:
-				data['consoleFeedback'], data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], \
-				data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = hddStatus()
-				outJSON = json.dumps(data)
-			except IOError as e:
-				raise web.InternalError(e.message)
+            try:
+                data['consoleFeedback'], data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], \
+                data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = check_hdd()
+                outJSON = json.dumps(data)
+            except IOError as e:
+                raise web.InternalError(e.message)
 
-			return outJSON
+            return outJSON
