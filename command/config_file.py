@@ -1,3 +1,9 @@
+import re
+
+import constants
+from command import doConsoleCommand
+
+
 def cfCheck():
 	"""
 	Checks that a configuration file exists.

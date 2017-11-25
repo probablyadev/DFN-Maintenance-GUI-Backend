@@ -1,3 +1,7 @@
+import constants
+from command import doConsoleCommand
+
+
 def getHostname():
 	"""
 	Gets the hostname of the system.

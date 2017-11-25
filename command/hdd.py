@@ -1,4 +1,9 @@
 # EXTERNAL HARD DRIVE UTILITIES
+import time
+import re
+import constants
+from command import doConsoleCommand
+from constants import getHostname
 
 
 def hddOff():
@@ -32,6 +37,7 @@ def hddOff():
 			# No exceptions have been raised by this point, so delete drives
 		for device in devices:
 			doConsoleCommand(constants.extDeleteDriveDevice.format(device))
+
 		time.sleep(1)
 	# Then proceed to power off as normal
 

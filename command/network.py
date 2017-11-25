@@ -1,4 +1,8 @@
 # NETWORK UTILITIES
+import re
+import constants
+from command import doConsoleCommand
+
 
 def internetStatus():
 	"""

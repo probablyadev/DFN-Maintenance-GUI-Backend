@@ -1,4 +1,8 @@
 # ADVANCED UTILITIES
+import constants
+import dfn_functions
+from command import doConsoleCommand
+
 
 def getLog(directory):
 	"""
