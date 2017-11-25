@@ -12,7 +12,7 @@ import hashlib
 import sqlite3
 
 
-def loginAuth(username, password):
+def login_auth(username, password):
     """
     Checks whether login credentials are correct according to the database.
 

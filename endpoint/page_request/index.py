@@ -29,7 +29,7 @@ class Index:
         form = loginForm()
 
         if form.validates():  # If form lambdas are valid
-            if model.loginAuth(form.d.username, form.d.password):
+            if model.login_auth(form.d.username, form.d.password):
                 Login.login()
             else:
                 return render.login(form, 'ERROR: Incorrect credentials.')

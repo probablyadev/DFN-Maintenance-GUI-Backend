@@ -12,7 +12,6 @@
 
 # Start of execution
 import os
-
 from endpoint import app
 
 if __name__ == "__main__":
