@@ -1,5 +1,5 @@
 import constants
-from command import doConsoleCommand
+from command import exec_console_command
 
 
 def getHostname():
@@ -9,6 +9,6 @@ def getHostname():
 	Returns:
 		consoleOutput (str): The hostname of the system.
 	"""
-	consoleOutput = doConsoleCommand(constants.getHostname)
+	consoleOutput = exec_console_command(constants.getHostname)
 
 	return consoleOutput

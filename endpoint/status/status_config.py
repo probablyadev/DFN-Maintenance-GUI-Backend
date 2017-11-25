@@ -1,9 +1,7 @@
 # Status/Advanced
 import base64
 import os
-
 from __builtin__ import file
-
 import constants
 from endpoint.page_request.login_checker import LoginChecker
 

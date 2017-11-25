@@ -1,6 +1,6 @@
 import json
 
-import commandSender
+from command.camera import videoCameraOff
 from endpoint.page_request.login_checker import LoginChecker
 
 
@@ -23,7 +23,7 @@ class VideoCameraOff:
 			data = {}
 
 			try:
-				data['consoleFeedback'] = commandSender.videoCameraOff()
+				data['consoleFeedback'] = videoCameraOff()
 				outJSON = json.dumps(data)
 			except IOError as e:
 				raise web.InternalError(e.message)

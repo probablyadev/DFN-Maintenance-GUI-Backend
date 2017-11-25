@@ -1,6 +1,6 @@
 import json
 
-import commandSender
+from command.camera import findPictures
 from endpoint.page_request.login_checker import LoginChecker
 
 
@@ -17,6 +17,6 @@ class FindPictures:
 		web.input fetches the input date specified by the user.
 		"""
 		if LoginChecker.loggedIn():
-			fileBankJSON = commandSender.findPictures(web.input())
+			fileBankJSON = findPictures(web.input())
 
 			return json.dumps(fileBankJSON, sort_keys = True)

@@ -1,7 +1,9 @@
 import json
-
-import commandSender
 import constants
+from command.camera import cameraStatus
+from command.gps_time import outputTime, gpsStatus
+from command.hdd import hddStatus
+from command.network import internetStatus, vpnStatus
 from endpoint.page_request.login_checker import LoginChecker
 
 
@@ -27,12 +29,12 @@ class SystemStatus:
 		if LoginChecker.loggedIn():
 			# Check status of system
 			try:
-				datetime = commandSender.outputTime()
-				cameraFeedback, cameraBoolean = commandSender.cameraStatus()
-				gpsFeedback, gpsBoolean = commandSender.gpsStatus()
-				internetFeedback, internetBoolean = commandSender.internetStatus()
-				extHDDFeedback, hdd0Boolean, hdd0Space, hdd1Boolean, hdd2Boolean, hdd3Boolean, hdd1Space, hdd2Space, hdd3Space = commandSender.hddStatus()
-				vpnFeedback, vpnBoolean = commandSender.vpnStatus()
+				datetime = outputTime()
+				cameraFeedback, cameraBoolean = cameraStatus()
+				gpsFeedback, gpsBoolean = gpsStatus()
+				internetFeedback, internetBoolean = internetStatus()
+				extHDDFeedback, hdd0Boolean, hdd0Space, hdd1Boolean, hdd2Boolean, hdd3Boolean, hdd1Space, hdd2Space, hdd3Space = hddStatus()
+				vpnFeedback, vpnBoolean = vpnStatus()
 
 				# Encode to JSON
 				data = {}

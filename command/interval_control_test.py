@@ -2,7 +2,7 @@
 import re
 import datetime
 import constants
-from command import doConsoleCommand
+from command import exec_console_command
 
 
 def intervalTest():
@@ -17,7 +17,7 @@ def intervalTest():
 		IOError
 	"""
 	# Do interval test command
-	consoleOutput = doConsoleCommand(constants.intervalTest + constants.getExitStatus)
+	consoleOutput = exec_console_command(constants.intervalTest + constants.getExitStatus)
 
 	if "\n127" in consoleOutput:
 		raise IOError(constants.intervalControlTestScriptNotFound)
@@ -26,7 +26,7 @@ def intervalTest():
 	status = False
 	feedbackOutput = constants.intervalTestFailed
 
-	consoleOutput = doConsoleCommand(constants.checkIntervalResults)
+	consoleOutput = exec_console_command(constants.checkIntervalResults)
 
 	if consoleOutput in ["6", "7", "8"]:  # NOTE: 7 +/- 1 is the required margin of error.
 		status = True
@@ -47,7 +47,7 @@ def prevIntervalTest():
 	consoleFeedback = constants.prevIntervalNotRun
 
 	# Do console command to find mod date of latest
-	latestDateUnparsed = doConsoleCommand(constants.checkPrevIntervalStatus)
+	latestDateUnparsed = exec_console_command(constants.checkPrevIntervalStatus)
 	latestDateParsed = re.search('\d{4}-\d{2}-\d{2}', latestDateUnparsed).group(0)
 	latestDateSplit = re.split("-", latestDateParsed)
 

@@ -1,7 +1,7 @@
 import re
 
 import constants
-from command import doConsoleCommand
+from command import exec_console_command
 
 
 def cfCheck():
@@ -14,7 +14,7 @@ def cfCheck():
 	Raises:
 		IOError
 	"""
-	consoleOutput = doConsoleCommand(constants.cfcheck)
+	consoleOutput = exec_console_command(constants.cfcheck)
 
 	if re.search("[0-9]", consoleOutput):
 		return consoleOutput

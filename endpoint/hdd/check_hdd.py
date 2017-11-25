@@ -1,6 +1,6 @@
 import json
 
-import commandSender
+from command.hdd import hddStatus
 from endpoint.page_request.login_checker import LoginChecker
 
 
@@ -24,7 +24,7 @@ class CheckHDD:
 
 			try:
 				data['consoleFeedback'], data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], \
-				data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
+				data['HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = hddStatus()
 				outJSON = json.dumps(data)
 			except IOError as e:
 				raise web.InternalError(e.message)

@@ -1,6 +1,6 @@
 import json
 
-import commandSender
+from command.camera import downloadThumbnail
 from endpoint.page_request.login_checker import LoginChecker
 
 
@@ -23,7 +23,7 @@ class DownloadThumbnail:
 			data = {}
 
 			try:
-				data['success'] = commandSender.downloadThumbnail(web.input())
+				data['success'] = downloadThumbnail(web.input())
 				outJSON = json.dumps(data)
 			except IOError as e:
 				raise web.NotFound(e.message)

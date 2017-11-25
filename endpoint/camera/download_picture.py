@@ -1,6 +1,6 @@
 import json
 
-import commandSender
+from command.camera import downloadPicture
 from endpoint.page_request.login_checker import LoginChecker
 
 
@@ -23,7 +23,7 @@ class DownloadPicture:
 			data = {}
 
 			try:
-				data['success'] = commandSender.downloadPicture(web.input())
+				data['success'] = downloadPicture(web.input())
 				outJSON = json.dumps(data)
 			except IOError as e:
 				raise web.NotFound(e.message)

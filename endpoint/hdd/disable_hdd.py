@@ -1,6 +1,6 @@
 import json
 
-import commandSender
+from command.hdd import hddStatus
 from endpoint.page_request.login_checker import LoginChecker
 
 
@@ -25,7 +25,7 @@ class DisableHDD:
 			try:
 				data['consoleFeedback'] = commandSender.hddOff()
 				statusFeedback, data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data[
-					'HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = commandSender.hddStatus()
+					'HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = hddStatus()
 				data['consoleFeedback'] += statusFeedback
 				outJSON = json.dumps(data)
 			except IOError as e:

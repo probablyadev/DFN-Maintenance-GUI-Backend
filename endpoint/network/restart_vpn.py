@@ -1,6 +1,6 @@
 import json
 
-import commandSender
+from command.network import vpnStatus
 from endpoint.page_request.login_checker import LoginChecker
 
 
@@ -18,7 +18,7 @@ class RestartVPN:
 		if LoginChecker.loggedIn():
 			data = {}
 			restartFeedback = commandSender.restartVPN()
-			statusFeedback, data['vpnStatus'] = commandSender.vpnStatus()
+			statusFeedback, data['vpnStatus'] = vpnStatus()
 			data['consoleFeedback'] = restartFeedback + statusFeedback
 			outJSON = json.dumps(data)
 

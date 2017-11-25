@@ -1,6 +1,6 @@
 import json
 
-import commandSender
+from command.gps_time import gpsStatus
 from endpoint.page_request.login_checker import LoginChecker
 
 
@@ -22,7 +22,7 @@ class GPSCheck:
 			data = {}
 
 			try:
-				data['consoleFeedback'], data['gpsStatus'] = commandSender.gpsStatus()
+				data['consoleFeedback'], data['gpsStatus'] = gpsStatus()
 				outJSON = json.dumps(data)
 			except IOError as e:
 				raise web.InternalError(e.message)

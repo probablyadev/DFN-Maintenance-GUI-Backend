@@ -1,6 +1,6 @@
 import json
 
-import commandSender
+from command.hdd import smartTest
 from endpoint.page_request.login_checker import LoginChecker
 
 
@@ -22,7 +22,7 @@ class SmartTest:
 			data = {}
 
 			try:
-				data['consoleFeedback'] = commandSender.smartTest()
+				data['consoleFeedback'] = smartTest()
 				outJSON = json.dumps(data)
 			except IOError as e:
 				raise web.InternalError(e.message)

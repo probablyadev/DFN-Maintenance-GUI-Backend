@@ -1,7 +1,7 @@
 # NETWORK UTILITIES
 import re
 import constants
-from command import doConsoleCommand
+from command import exec_console_command
 
 
 def internetStatus():
@@ -12,7 +12,7 @@ def internetStatus():
 		feedbackOutput (str): Resulting feedback.
 		internetStatus (bool): Represents the internet connectivity of the system.
 	"""
-	consoleOutput = doConsoleCommand(constants.internetCheck)
+	consoleOutput = exec_console_command(constants.internetCheck)
 
 	# Parse output for results
 	status = False
@@ -23,7 +23,7 @@ def internetStatus():
 
 		if "0" not in splitOutput[1]:
 			status = True
-			ipAddress = doConsoleCommand(constants.getInternetIP)
+			ipAddress = exec_console_command(constants.getInternetIP)
 			feedbackOutput = constants.internetCheckPassed.format(ipAddress)
 
 	return feedbackOutput, status
@@ -36,7 +36,7 @@ def restartModem():
 	Returns:
 		feedbackOutput (str): Resulting feedback.
 	"""
-	consoleOutput = doConsoleCommand(constants.restartModem)
+	consoleOutput = exec_console_command(constants.restartModem)
 
 	# Parse output for results
 	feedbackOutput = constants.modemRestartFailed
@@ -54,7 +54,7 @@ def restartVPN():
 	Returns:
 		feedbackOutput (str): Resulting feedback.
 	"""
-	consoleOutput = doConsoleCommand(constants.restartVPN)
+	consoleOutput = exec_console_command(constants.restartVPN)
 
 	# Parse output for results
 	feedbackOutput = constants.vpnRestartFailed
@@ -73,7 +73,7 @@ def vpnStatus():
 		feedbackOutput (str): Resulting feedback.
 		vpnStatus (bool): Represents the VPN connectivity of the system.
 	"""
-	consoleOutput = doConsoleCommand(constants.vpnCheck)
+	consoleOutput = exec_console_command(constants.vpnCheck)
 
 	# Parse output for results
 	status = False
@@ -81,7 +81,7 @@ def vpnStatus():
 
 	if "0" not in re.split(",", consoleOutput)[1]:
 		status = True
-		ipAddress = doConsoleCommand(constants.getVpnIP)
+		ipAddress = exec_console_command(constants.getVpnIP)
 		feedbackOutput = constants.vpnCheckPassed.format(ipAddress)
 
 	return feedbackOutput, status

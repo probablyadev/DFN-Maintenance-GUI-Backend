@@ -3,7 +3,7 @@ import calendar
 import re
 import time
 import constants
-from command import doConsoleCommand
+from command import exec_console_command
 
 
 def cameraOff():
@@ -17,7 +17,7 @@ def cameraOff():
 		IOError
 	"""
 	# Do command
-	consoleOutput = doConsoleCommand(constants.cameraOff + constants.getExitStatus)
+	consoleOutput = exec_console_command(constants.cameraOff + constants.getExitStatus)
 
 	if "2" in consoleOutput:
 		raise IOError(constants.cameraOffScriptNotFound)
@@ -39,7 +39,7 @@ def cameraOn():
 		IOError
 	"""
 	# Do command
-	consoleOutput = doConsoleCommand(constants.cameraOn + constants.getExitStatus)
+	consoleOutput = exec_console_command(constants.cameraOn + constants.getExitStatus)
 
 	if "2" in consoleOutput:
 		raise IOError(constants.cameraOnScriptNotFound)
@@ -59,7 +59,7 @@ def cameraStatus():
 		status (bool): On / off state of the DSLR camera.
 	"""
 	# Do command
-	consoleOutput = doConsoleCommand(constants.cameraCheck)
+	consoleOutput = exec_console_command(constants.cameraCheck)
 
 	# Parse output for results
 	status = False
@@ -87,7 +87,7 @@ def downloadPicture(inPath):
 		IOError
 	"""
 	success = False
-	consoleFeedback = doConsoleCommand(constants.copyFileToStatic.format(inPath.filepath))
+	consoleFeedback = exec_console_command(constants.copyFileToStatic.format(inPath.filepath))
 	print(consoleFeedback)
 
 	if "SUCCESS" in consoleFeedback:
@@ -112,7 +112,7 @@ def downloadThumbnail(inPath):
 		IOError
 	"""
 	success = False
-	consoleFeedback = doConsoleCommand(constants.extractThumbnail.format(inPath.filepath))
+	consoleFeedback = exec_console_command(constants.extractThumbnail.format(inPath.filepath))
 
 	if "SUCCESS" in consoleFeedback:
 		success = True
@@ -141,7 +141,7 @@ def findPictures(inDate):
 	year = inDate.year
 	commandTemplate = constants.findPictures
 	command = commandTemplate.format(year, month, day)
-	foundDirectories = doConsoleCommand(command)
+	foundDirectories = exec_console_command(command)
 	directoriesList = foundDirectories.split('\n')
 
 	if directoriesList:
@@ -149,7 +149,7 @@ def findPictures(inDate):
 		data = {}
 
 		for directory in directoriesList:
-			fileList = doConsoleCommand("ls " + directory).split("\n")
+			fileList = exec_console_command("ls " + directory).split("\n")
 
 			for fileName in fileList:
 				if ".NEF" in fileName:
@@ -191,7 +191,7 @@ def removeThumbnail(inJSON):
 		IOError
 	"""
 	time.sleep(2)
-	consoleOutput = doConsoleCommand("rm " + inJSON.filepath + ";" + constants.getExitStatus)
+	consoleOutput = exec_console_command("rm " + inJSON.filepath + ";" + constants.getExitStatus)
 
 	if "\n1" in consoleOutput:
 		raise IOError("Thumbnail file doesn't exist to delete. No worries though, it was going to be deleted anyway!")
@@ -213,7 +213,7 @@ def videoCameraOff():
 	still to be implemented.
 	"""
 	# Do command
-	consoleFeedback = doConsoleCommand(constants.videoCameraOff + constants.getExitStatus)
+	consoleFeedback = exec_console_command(constants.videoCameraOff + constants.getExitStatus)
 
 	# Parse output
 	if "2" in consoleFeedback:
@@ -238,7 +238,7 @@ def videoCameraOn():
 	still to be implemented.
 	"""
 	# Do command
-	consoleFeedback = doConsoleCommand(constants.videoCameraOn + constants.getExitStatus)
+	consoleFeedback = exec_console_command(constants.videoCameraOn + constants.getExitStatus)
 
 	# Parse output
 	if "2" in consoleFeedback:

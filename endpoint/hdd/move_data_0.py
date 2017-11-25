@@ -1,6 +1,6 @@
 import json
 
-import commandSender
+from command.hdd import moveData0
 from endpoint.page_request.login_checker import LoginChecker
 
 
@@ -19,7 +19,7 @@ class MoveData0:
 		"""
 		if LoginChecker.loggedIn():
 			try:
-				data = {'consoleFeedback': commandSender.moveData0()}
+				data = {'consoleFeedback': moveData0()}
 				outJSON = json.dumps(data)
 			except IOError as e:
 				raise web.InternalError(e.message)

@@ -1,6 +1,6 @@
 import json
 
-import commandSender
+from command.config_file import cfCheck
 from endpoint.page_request.login_checker import LoginChecker
 
 
@@ -22,7 +22,7 @@ class CFCheck:
 		if LoginChecker.loggedIn():
 			try:
 				data = {}
-				data['images'] = commandSender.cfCheck()
+				data['images'] = cfCheck()
 				outJSON = json.dumps(data)
 			except IOError as e:
 				raise web.InternalError(e.message)

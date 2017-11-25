@@ -1,6 +1,6 @@
 import json
 
-import commandSender
+from command.interval_control_test import intervalTest
 from endpoint.page_request.login_checker import LoginChecker
 
 
@@ -21,7 +21,7 @@ class IntervalTest:
 		if LoginChecker.loggedIn():
 			try:
 				data = {}
-				data['consoleFeedback'], data['intervalTestResult'] = commandSender.intervalTest()
+				data['consoleFeedback'], data['intervalTestResult'] = intervalTest()
 				outJSON = json.dumps(data)
 			except IOError as e:
 				raise web.InternalError(e.message)

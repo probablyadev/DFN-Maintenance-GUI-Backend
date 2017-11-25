@@ -1,6 +1,6 @@
 import json
 
-import commandSender
+from command.hdd import probeHDD
 from endpoint.page_request.login_checker import LoginChecker
 
 
@@ -20,7 +20,7 @@ class ProbeHDD:
 		if LoginChecker.loggedIn():
 
 			try:
-				data = commandSender.probeHDD()
+				data = probeHDD()
 				outJSON = json.dumps(data)
 			except IOError as e:
 				raise web.InternalError(e.message)

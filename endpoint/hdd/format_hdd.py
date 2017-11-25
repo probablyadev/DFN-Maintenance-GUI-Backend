@@ -1,6 +1,6 @@
 import json
 
-import commandSender
+from command.hdd import formatHDD
 from endpoint.page_request.login_checker import LoginChecker
 
 
@@ -20,7 +20,7 @@ class FormatHDD:
 		if LoginChecker.loggedIn():
 			data = {}
 			try:
-				data['consoleFeedback'] = commandSender.formatHDD(web.input().args)
+				data['consoleFeedback'] = formatHDD(web.input().args)
 				outJSON = json.dumps(data)
 			except IOError as e:
 				raise web.InternalError(e.message)

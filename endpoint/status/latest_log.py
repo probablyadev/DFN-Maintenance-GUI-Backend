@@ -1,11 +1,8 @@
 import json
 import os
-
 import datetime
-
 from __builtin__ import file
-
-import commandSender
+from command.status import getLog
 from endpoint.page_request.login_checker import LoginChecker
 
 
@@ -24,7 +21,7 @@ class LatestLog:
 			web.notfound
 		"""
 		if LoginChecker.loggedIn():
-			path = "/data0/latest/" + commandSender.getLog("latest")
+			path = "/data0/latest/" + getLog("latest")
 
 			if os.path.exists(path):
 				data = {}

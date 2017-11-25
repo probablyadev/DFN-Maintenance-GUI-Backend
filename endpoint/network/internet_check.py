@@ -1,6 +1,6 @@
 import json
 
-import commandSender
+from command.network import internetStatus
 from endpoint.page_request.login_checker import LoginChecker
 
 
@@ -17,7 +17,7 @@ class InternetCheck:
 		"""
 		if LoginChecker.loggedIn():
 			data = {}
-			data['consoleFeedback'], data['internetStatus'] = commandSender.internetStatus()
+			data['consoleFeedback'], data['internetStatus'] = internetStatus()
 			outJSON = json.dumps(data)
 
 			return outJSON

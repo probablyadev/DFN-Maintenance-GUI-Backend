@@ -1,6 +1,6 @@
 import json
 
-import commandSender
+from command.interval_control_test import prevIntervalTest
 from endpoint.page_request.login_checker import LoginChecker
 
 
@@ -20,7 +20,7 @@ class PrevIntervalTest:
 		if LoginChecker.loggedIn():
 			try:
 				data = {}
-				data['consoleFeedback'] = commandSender.prevIntervalTest()
+				data['consoleFeedback'] = prevIntervalTest()
 				outJSON = json.dumps(data)
 			except AttributeError as e:
 				raise web.InternalError('Latest photo directory (/data0/latest) corrupt or not present.')

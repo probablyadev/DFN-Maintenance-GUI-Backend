@@ -1,7 +1,7 @@
 # ADVANCED UTILITIES
 import constants
 import dfn_functions
-from command import doConsoleCommand
+from command import exec_console_command
 
 
 def getLog(directory):

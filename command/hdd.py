@@ -2,7 +2,7 @@
 import time
 import re
 import constants
-from command import doConsoleCommand
+from command import exec_console_command
 from constants import getHostname
 
 
@@ -28,7 +28,7 @@ def hddOff():
 	if "EXT" in getHostname():
 		for device in devices:
 			# Check if the device is a solid state or HDD
-			driveRotation = doConsoleCommand(constants.extDeleteDriveDevicesCheck.format(device))
+			driveRotation = exec_console_command(constants.extDeleteDriveDevicesCheck.format(device))
 
 			if not re.search("[0-9]", driveRotation):
 				raise RuntimeError(
@@ -36,13 +36,13 @@ def hddOff():
 
 			# No exceptions have been raised by this point, so delete drives
 		for device in devices:
-			doConsoleCommand(constants.extDeleteDriveDevice.format(device))
+            exec_console_command(constants.extDeleteDriveDevice.format(device))
 
 		time.sleep(1)
 	# Then proceed to power off as normal
 
 	# Do command
-	consoleOutput = doConsoleCommand(constants.disableHardDrive + constants.getExitStatus)
+	consoleOutput = exec_console_command(constants.disableHardDrive + constants.getExitStatus)
 
 	if "\n2" in consoleOutput:
 		raise IOError(constants.hddOffScriptNotFound)
@@ -76,7 +76,7 @@ def hddOn():
 		return constants.hddAlreadyOn
 
 	# Do command
-	consoleOutput = doConsoleCommand(constants.enableHardDrive + constants.getExitStatus)
+	consoleOutput = exec_console_command(constants.enableHardDrive + constants.getExitStatus)
 
 	if "\n2" in consoleOutput:
 		raise IOError(constants.scriptNotFound)
@@ -85,7 +85,7 @@ def hddOn():
 
 	# For EXT, re-scan SATA/SCSI hotswap drives
 	if "EXT" in getHostname():
-		doConsoleCommand(constants.scanSATA)
+		exec_console_command(constants.scanSATA)
 		time.sleep(2)
 
 	return constants.hddCommandedOn
@@ -104,10 +104,10 @@ def formatHDD(inDrives):
 	Raises:
 		IOError, RuntimeError
 	"""
-	consoleOutput = doConsoleCommand(constants.formatHardDrive.format(inDrives) + constants.getExitStatus)
+	consoleOutput = exec_console_command(constants.formatHardDrive.format(inDrives) + constants.getExitStatus)
 
 	if "\n127" in consoleOutput:
-		consoleOutput = doConsoleCommand(constants.formatHardDriveOLD(inDrives) + constants.getExitStatus)
+		consoleOutput = exec_console_command(constants.formatHardDriveOLD(inDrives) + constants.getExitStatus)
 
 		if "\n127" in consoleOutput:
 			raise IOError(constants.hddFormatScriptNotFound)
@@ -148,7 +148,7 @@ def mountHDD():
 
 	for idx, drive in enumerate(drives):
 		# Do command for drive
-		consoleOutput = doConsoleCommand(constants.mountHardDrive.format(drive))
+		consoleOutput = exec_console_command(constants.mountHardDrive.format(drive))
 
 		if "SUCCESS" in consoleOutput:
 			if poweredArray[idx] == 0:
@@ -183,7 +183,7 @@ def unmountHDD():
 
 	for drive in drives:
 		# Do command
-		consoleOutput = doConsoleCommand(constants.unmountHardDrive.format(drive))
+		consoleOutput = exec_console_command(constants.unmountHardDrive.format(drive))
 
 		# Parse results
 		if "SUCCESS" in consoleOutput:
@@ -207,12 +207,12 @@ def probeHDD():
 		IOError
 	"""
 	# Do command
-	consoleOutput = doConsoleCommand(constants.probeHardDrives)
+	consoleOutput = exec_console_command(constants.probeHardDrives)
 	data = {}
 
 	# Parse results
 	if "no such file or directory" in consoleOutput:
-		consoleOutput = doConsoleCommand(constants.probeHardDrivesOLD)
+		consoleOutput = exec_console_command(constants.probeHardDrivesOLD)
 
 		if "no such file or directory" in consoleOutput:
 			raise IOError(constants.hddFormatScriptNotFound)
@@ -269,9 +269,9 @@ def hddStatus():
 
 	# Do command
 	command = constants.mountedStatus
-	data1MountedStatus = doConsoleCommand(command.format("/data1"))
-	data2MountedStatus = doConsoleCommand(command.format("/data2"))
-	data3MountedStatus = doConsoleCommand(command.format("/data3"))
+	data1MountedStatus = exec_console_command(command.format("/data1"))
+	data2MountedStatus = exec_console_command(command.format("/data2"))
+	data3MountedStatus = exec_console_command(command.format("/data3"))
 
 	# Parse output for results
 	# NB: Status 0 = Unpowered, Status 1 = Powered, but not mounted, Status 2 = Powered + Mounted
@@ -284,13 +284,13 @@ def hddStatus():
 	hdd2Space = "N/A"
 	hdd3Space = "N/A"
 
-	if "SUCCESS" in doConsoleCommand(constants.data0PoweredStatus):
+	if "SUCCESS" in exec_console_command(constants.data0PoweredStatus):
 		hdd0Status = 2
 
 	# Check if HDDs are powered. Depends on system architecture
 	# DFNSMALLs
 	if "EXT" not in getHostname():
-		poweredStatus = doConsoleCommand(constants.hddPoweredStatus)
+		poweredStatus = exec_console_command(constants.hddPoweredStatus)
 
 		if "JMicron Technology Corp." in poweredStatus:
 			hdd1Status = 1
@@ -307,7 +307,7 @@ def hddStatus():
 				hdd3Status = 2
 			# DFNEXTs
 	else:
-		poweredStatus = doConsoleCommand(constants.hddPoweredStatusExt)
+		poweredStatus = exec_console_command(constants.hddPoweredStatusExt)
 
 		if "sdb1" in poweredStatus:
 			hdd1Status = 1
@@ -330,7 +330,7 @@ def hddStatus():
 	# Finding remaining space in HDDs
 	# If mounted, use df
 	if hdd1Status == 2 and hdd2Status == 2:
-		outText = doConsoleCommand(constants.hddSpaceLive)
+		outText = exec_console_command(constants.hddSpaceLive)
 
 		if outText:
 			lines = outText.split('\n')
@@ -405,7 +405,7 @@ def smartTest():
 
 	# Start all smart tests
 	for drive in smalldrives:
-		consoleOutput = doConsoleCommand(constants.runSmartTest.format(drive) + constants.getExitStatus)
+		consoleOutput = exec_console_command(constants.runSmartTest.format(drive) + constants.getExitStatus)
 
 		if "\n127" in consoleOutput:
 			raise OSError(constants.smartTestCommandNotInstalled)
@@ -424,7 +424,7 @@ def smartTest():
 
 		# Evaluate results
 		for drive in successfuldrives:
-			consoleOutput = doConsoleCommand(constants.checkSmartTest.format(drive))
+			consoleOutput = exec_console_command(constants.checkSmartTest.format(drive))
 
 			if "No Errors Logged" in consoleOutput:
 				output[drive] += constants.smartTestResultsPassed.format(drive)

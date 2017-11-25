@@ -1,4 +1,4 @@
-import commandSender
+from command.camera import removeThumbnail
 from endpoint.page_request.login_checker import LoginChecker
 
 
@@ -18,7 +18,7 @@ class RemoveThumbnail:
 		if LoginChecker.loggedIn():
 
 			try:
-				commandSender.removeThumbnail(web.input())
+				removeThumbnail(web.input())
 			except IOError as e:
 				raise web.InternalError(e.message)
 

@@ -1,6 +1,6 @@
 import json
 
-import commandSender
+from command.gps_time import outputTime
 from endpoint.page_request.login_checker import LoginChecker
 
 
@@ -16,7 +16,7 @@ class OutputTime:
 		"""
 		if LoginChecker.loggedIn():
 			data = {}
-			data['consoleFeedback'] = commandSender.outputTime()
+			data['consoleFeedback'] = outputTime()
 			outJSON = json.dumps(data)
 
 			return outJSON

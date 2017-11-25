@@ -1,6 +1,6 @@
 import json
 
-import commandSender
+from command.camera import cameraOff, cameraStatus
 from endpoint.page_request.login_checker import LoginChecker
 
 class CameraOff:
@@ -21,8 +21,8 @@ class CameraOff:
 			data = {}
 
 			try:
-				data['consoleFeedback'] = commandSender.cameraOff()
-				statusFeedback, statusBoolean = commandSender.cameraStatus()
+				data['consoleFeedback'] = cameraOff()
+				statusFeedback, statusBoolean = cameraStatus()
 				data['consoleFeedback'] += statusFeedback
 				data['cameraStatus'] = statusBoolean
 				outJSON = json.dumps(data)

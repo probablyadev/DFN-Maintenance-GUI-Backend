@@ -1,6 +1,5 @@
 import json
-
-import commandSender
+from command.status import updateConfigFile
 from endpoint.page_request.login_checker import LoginChecker
 
 
@@ -20,7 +19,7 @@ class UpdateConfigFile:
 		if LoginChecker.loggedIn():
 			try:
 				data = {}
-				data['consoleFeedback'] = commandSender.updateConfigFile(web.input())
+				data['consoleFeedback'] = updateConfigFile(web.input())
 				outJSON = json.dumps(data)
 			except IOError as e:
 				raise web.InternalError(e.message)

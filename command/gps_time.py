@@ -1,7 +1,7 @@
 # GPS UTILITIES
 import re
 import constants
-from command import doConsoleCommand
+from command import exec_console_command
 
 
 def gpsStatus():
@@ -18,7 +18,7 @@ def gpsStatus():
 	gpsStatusDict = {"1": "Locked", "0": "No lock"}
 
 	# Do command
-	consoleOutput = doConsoleCommand(constants.gpsCheck + constants.getExitStatus)
+	consoleOutput = exec_console_command(constants.gpsCheck + constants.getExitStatus)
 
 	if "\n2" in consoleOutput:
 		raise IOError(constants.leostickStatusScriptNotFound)
@@ -50,7 +50,7 @@ def outputTime():
 	Returns:
 		consoleOutput (str): Resulting console feedback.
 	"""
-	consoleOutput = doConsoleCommand(constants.outputTime)
+	consoleOutput = exec_console_command(constants.outputTime)
 
 	return consoleOutput + "\n"
 
@@ -66,6 +66,6 @@ def timezoneChange(timezone):
 		constants.timezoneChanged (str): Resulting feedback.
 	"""
 	command = constants.setTimezone
-	doConsoleCommand(command.format(timezone))
+	exec_console_command(command.format(timezone))
 
 	return constants.timezoneChanged.format(timezone)
