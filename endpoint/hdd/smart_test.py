@@ -1,3 +1,9 @@
+import json
+
+import commandSender
+from endpoint.page_request.login_checker import LoginChecker
+
+
 class SmartTest:
 	def GET(self):
 		"""
@@ -14,6 +20,7 @@ class SmartTest:
 		"""
 		if LoginChecker.loggedIn():
 			data = {}
+
 			try:
 				data['consoleFeedback'] = commandSender.smartTest()
 				outJSON = json.dumps(data)

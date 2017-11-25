@@ -1,3 +1,8 @@
+import model
+from endpoint import loginForm, render
+from endpoint.page_request.login import Login
+
+
 class Index:
     def GET(self):
         """
@@ -6,9 +11,9 @@ class Index:
         Returns:
             The rendered HTML of the login template.
         """
-        f = loginForm()
+        form = loginForm()
 
-        return render.login(f, '')
+        return render.login(form, '')
 
     def POST(self):
         """
@@ -21,12 +26,12 @@ class Index:
 
         The login form data is extracted by web.py.
         """
-        f = loginForm()
+        form = loginForm()
 
-        if f.validates():  # If form lambdas are valid
-            if model.loginAuth(f.d.username, f.d.password):
+        if form.validates():  # If form lambdas are valid
+            if model.loginAuth(form.d.username, form.d.password):
                 Login.login()
             else:
-                return render.login(f, 'ERROR: Incorrect credentials.')
+                return render.login(form, 'ERROR: Incorrect credentials.')
         else:
-            return render.login(f, 'ERROR: Form entry invalid.')
+            return render.login(form, 'ERROR: Form entry invalid.')

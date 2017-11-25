@@ -1,3 +1,9 @@
+import json
+
+import commandSender
+from endpoint.page_request.login_checker import LoginChecker
+
+
 class TimezoneChange:
 	def GET(self):
 		"""
@@ -15,4 +21,5 @@ class TimezoneChange:
 			timezone = web.input().zone
 			data['consoleFeedback'] = commandSender.timezoneChange(timezone)
 			outJSON = json.dumps(data)
+
 			return outJSON

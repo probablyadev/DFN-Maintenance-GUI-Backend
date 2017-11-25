@@ -1,3 +1,14 @@
+import json
+import os
+
+import datetime
+
+from __builtin__ import file
+
+import commandSender
+from endpoint.page_request.login_checker import LoginChecker
+
+
 class LatestLog:
 	def GET(self):
 		"""
@@ -14,6 +25,7 @@ class LatestLog:
 		"""
 		if LoginChecker.loggedIn():
 			path = "/data0/latest/" + commandSender.getLog("latest")
+
 			if os.path.exists(path):
 				data = {}
 				getFile = file(path, 'rb')
@@ -21,6 +33,7 @@ class LatestLog:
 				filestate = os.stat(path)
 				data['timestamp'] = datetime.datetime.fromtimestamp(filestate.st_mtime).strftime('%d-%m-%Y %H:%M:%S')
 				outJSON = json.dumps(data)
+
 				return outJSON
 			else:
 				raise web.notfound()

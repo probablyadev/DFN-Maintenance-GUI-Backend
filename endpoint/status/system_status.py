@@ -1,3 +1,10 @@
+import json
+
+import commandSender
+import constants
+from endpoint.page_request.login_checker import LoginChecker
+
+
 class SystemStatus:
 	def GET(self):
 		"""
@@ -29,8 +36,7 @@ class SystemStatus:
 
 				# Encode to JSON
 				data = {}
-				data[
-					'consoleFeedback'] = constants.systemStatusHeader + datetime + cameraFeedback + extHDDFeedback + internetFeedback + vpnFeedback + gpsFeedback
+				data['consoleFeedback'] = constants.systemStatusHeader + datetime + cameraFeedback + extHDDFeedback + internetFeedback + vpnFeedback + gpsFeedback
 				data['cameraStatus'] = cameraBoolean
 				data['gpsStatus'] = gpsBoolean
 				data['internetStatus'] = internetBoolean

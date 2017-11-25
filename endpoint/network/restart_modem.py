@@ -1,3 +1,9 @@
+import json
+
+import commandSender
+from endpoint.page_request.login_checker import LoginChecker
+
+
 class RestartModem:
 	def GET(self):
 		"""
@@ -15,4 +21,5 @@ class RestartModem:
 			statusFeedback, data['internetStatus'] = commandSender.internetStatus()
 			data['consoleFeedback'] = restartFeedback + statusFeedback
 			outJSON = json.dumps(data)
+
 			return outJSON

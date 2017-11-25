@@ -1,3 +1,9 @@
+import json
+
+import commandSender
+from endpoint.page_request.login_checker import LoginChecker
+
+
 class RestartVPN:
 	def GET(self):
 		"""
@@ -15,4 +21,5 @@ class RestartVPN:
 			statusFeedback, data['vpnStatus'] = commandSender.vpnStatus()
 			data['consoleFeedback'] = restartFeedback + statusFeedback
 			outJSON = json.dumps(data)
+
 			return outJSON

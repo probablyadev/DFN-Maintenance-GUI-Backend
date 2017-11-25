@@ -1,3 +1,7 @@
+import commandSender
+from endpoint.page_request.login_checker import LoginChecker
+
+
 class RemoveThumbnail:
 	def GET(self):
 		"""

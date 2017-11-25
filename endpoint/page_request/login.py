@@ -1,3 +1,6 @@
+from endpoint import session
+
+
 class Login:
 	@staticmethod
 	def login():
@@ -8,4 +11,5 @@ class Login:
 			 web.seeother: Raises the '/app' endpoint to the client.
 		"""
 		session.logged_in = True
+
 		raise web.seeother('/app')                                  

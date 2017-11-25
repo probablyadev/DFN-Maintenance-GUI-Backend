@@ -1,3 +1,6 @@
+from endpoint import session
+
+
 class LoginChecker:
     @staticmethod
     def loggedIn():

@@ -1,3 +1,9 @@
+import json
+
+import commandSender
+from endpoint.page_request.login_checker import LoginChecker
+
+
 class PopulateConfigBox:
 	def GET(self):
 		"""
@@ -13,7 +19,6 @@ class PopulateConfigBox:
 		"""
 		if LoginChecker.loggedIn():
 			try:
-				data = {}
 				data = commandSender.populateConfigBox()
 				outJSON = json.dumps(data)
 			except IOError as e:

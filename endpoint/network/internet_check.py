@@ -1,4 +1,9 @@
-# Network
+import json
+
+import commandSender
+from endpoint.page_request.login_checker import LoginChecker
+
+
 class InternetCheck:
 	def GET(self):
 		"""
@@ -14,4 +19,5 @@ class InternetCheck:
 			data = {}
 			data['consoleFeedback'], data['internetStatus'] = commandSender.internetStatus()
 			outJSON = json.dumps(data)
+
 			return outJSON

@@ -1,4 +1,13 @@
 # Status/Advanced
+import base64
+import os
+
+from __builtin__ import file
+
+import constants
+from endpoint.page_request.login_checker import LoginChecker
+
+
 class StatusConfig:
 	def GET(self):
 		"""
@@ -12,10 +21,12 @@ class StatusConfig:
 		"""
 		if LoginChecker.loggedIn():
 			path = constants.dfnconfigPath
+
 			if os.path.exists(path):
 				getFile = file(path, 'rb')
 				web.header('Content-type', 'application/octet-stream')
 				web.header('Content-transfer-encoding', 'base64')
+
 				return base64.standard_b64encode(getFile.read())
 			else:
 				raise web.notfound()
