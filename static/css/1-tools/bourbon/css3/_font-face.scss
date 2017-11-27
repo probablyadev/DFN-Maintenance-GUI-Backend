@@ -14,11 +14,11 @@
     font-weight: $weight;
 
     src: font-source-declaration(
-      $font-family,
-      $file-path,
-      $asset-pipeline,
-      $file-formats,
-      $font-url-prefix
+                    $font-family,
+                    $file-path,
+                    $asset-pipeline,
+                    $file-formats,
+                    $font-url-prefix
     );
   }
 }

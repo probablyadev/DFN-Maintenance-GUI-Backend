@@ -2,26 +2,26 @@ $def with (form, error)
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Camera Maintenance Login</title>
-        <link rel="stylesheet" type="text/css" href="static/css/loginStyle.css">
-    </head>
-    <body>
-        <div class="header">
-            <img src="/static/img/fireballLogo.png">
-        </div>
-        <div class="contentWrapper">
-            <div class="loginHeading">
-                <h1 class="heading">User Login</h1>
-            </div>
-            <div class="loginForm">
-                <form method="POST">
-                    <!--Renders form with web.py import object. Thanks framework!-->
-                    $:form.render()
-                </form>
-            </div>
-            <h4>$error</h4>
-        </div>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <title>Camera Maintenance Login</title>
+    <link rel="stylesheet" type="text/css" href="static/css/loginStyle.css">
+</head>
+<body>
+<div class="header">
+    <img src="/static/img/fireballLogo.png">
+</div>
+<div class="contentWrapper">
+    <div class="loginHeading">
+        <h1 class="heading">User Login</h1>
+    </div>
+    <div class="loginForm">
+        <form method="POST">
+            <!--Renders form with web.py import object. Thanks framework!-->
+            $:form.render()
+        </form>
+    </div>
+    <h4>$error</h4>
+</div>
+</body>
 </html>

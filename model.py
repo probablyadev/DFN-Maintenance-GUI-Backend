@@ -8,20 +8,21 @@
  *
  * * * * * * * * * *
 """""
-import sqlite3
 import hashlib
+import sqlite3
 
-def loginAuth(username, password):
+
+def login_auth(username, password):
     """
     Checks whether login credentials are correct according to the database.
-    
+
     Args:
         username (str): The input username.
         password (str): The input password.
 
     Returns:
         auth (bool): Format::
-        
+
             True -- Authorized.
             False -- Unauthorized / invalid credentials.
     """
@@ -51,4 +52,3 @@ def loginAuth(username, password):
         auth = True
 
     return auth
-
