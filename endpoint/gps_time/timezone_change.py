@@ -1,7 +1,8 @@
 import json
+import web
 
 from command.gps_time import timezone_change
-from endpoint.page_request.login_checker import LoginChecker
+from endpoint.login_checker import LoginChecker
 
 
 class TimezoneChange:

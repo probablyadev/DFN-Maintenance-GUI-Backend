@@ -1,7 +1,9 @@
 import json
 
-from command.hdd import check_hdd
-from endpoint.page_request.login_checker import LoginChecker
+import web
+
+from command.hdd import check_hdd, mount_hdd
+from endpoint.login_checker import LoginChecker
 
 
 class MountHDD:
@@ -23,7 +25,7 @@ class MountHDD:
             data = {}
 
             try:
-                data['consoleFeedback'] = commandSender.mountHDD()
+                data['consoleFeedback'] = mount_hdd()
                 statusFeedback, data['HDD0Status'], data['HDD0Space'], data['HDD1Status'], data['HDD2Status'], data[
                     'HDD3Status'], data['HDD1Space'], data['HDD2Space'], data['HDD3Space'] = check_hdd()
                 data['consoleFeedback'] += statusFeedback

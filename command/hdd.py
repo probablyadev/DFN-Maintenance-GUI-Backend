@@ -1,4 +1,5 @@
 # EXTERNAL HARD DRIVE UTILITIES
+import inspect
 import re
 import time
 
@@ -303,7 +304,7 @@ def move_data_0():
     if "EXT" in getHostname():
         command = constants.moveData0Ext
 
-    consoleOutput = doConsoleCommand(command)
+    consoleOutput = exec_console_command(command)
 
     if "SUCCESS" in consoleOutput:
         consoleFeedback = "Move command successful."

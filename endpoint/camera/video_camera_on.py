@@ -1,7 +1,8 @@
 import json
+import web
 
 from command.camera import video_camera_on
-from endpoint.page_request.login_checker import LoginChecker
+from endpoint.login_checker import LoginChecker
 
 
 class VideoCameraOn:

@@ -1,7 +1,9 @@
 import json
 
+import web
+
 from command.hdd import move_data_0
-from endpoint.page_request.login_checker import LoginChecker
+from endpoint.login_checker import LoginChecker
 
 
 class MoveData0:

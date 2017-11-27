@@ -1,7 +1,7 @@
 import json
 
 from command.network import check_vpn
-from endpoint.page_request.login_checker import LoginChecker
+from endpoint.login_checker import LoginChecker
 
 
 class CheckVPN:

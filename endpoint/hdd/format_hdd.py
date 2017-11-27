@@ -1,7 +1,8 @@
 import json
+import web
 
 from command.hdd import format_hdd
-from endpoint.page_request.login_checker import LoginChecker
+from endpoint.login_checker import LoginChecker
 
 
 class FormatHDD:

@@ -1,5 +1,7 @@
+import web
+
 from command.camera import remove_thumbnail
-from endpoint.page_request.login_checker import LoginChecker
+from endpoint.login_checker import LoginChecker
 
 
 class RemoveThumbnail:

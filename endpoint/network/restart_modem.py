@@ -1,7 +1,7 @@
 import json
 
-from command.network import internet_check
-from endpoint.page_request.login_checker import LoginChecker
+from command.network import internet_check, restart_modem
+from endpoint.login_checker import LoginChecker
 
 
 class RestartModem:
@@ -17,7 +17,7 @@ class RestartModem:
         """
         if LoginChecker.loggedIn():
             data = {}
-            restartFeedback = commandSender.restartModem()
+            restartFeedback = restart_modem()
             statusFeedback, data['internetStatus'] = internet_check()
             data['consoleFeedback'] = restartFeedback + statusFeedback
             outJSON = json.dumps(data)

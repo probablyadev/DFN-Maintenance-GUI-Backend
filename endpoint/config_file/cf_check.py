@@ -1,7 +1,8 @@
 import json
+import web
 
 from command.config_file import cf_check
-from endpoint.page_request.login_checker import LoginChecker
+from endpoint.login_checker import LoginChecker
 
 
 class CFCheck:

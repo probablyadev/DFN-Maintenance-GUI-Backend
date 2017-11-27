@@ -1,7 +1,7 @@
 import json
 
 from command.network import internet_check
-from endpoint.page_request.login_checker import LoginChecker
+from endpoint.login_checker import LoginChecker
 
 
 class InternetCheck:
