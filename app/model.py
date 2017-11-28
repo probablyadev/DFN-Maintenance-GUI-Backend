@@ -1,8 +1,12 @@
 import hashlib
 import sqlite3
 
+# TODO: Review this, global reference to db could be null.
+from app import db
+
 # https://medium.com/@perwagnernielsen/getting-started-with-flask-login-can-be-a-bit-daunting-in-this-tutorial-i-will-use-d68791e9b5b5
 # Additional info for registering new users.
+
 
 class User(db.model):
     username = db.Column(db.String(80), primary_key=True, unique=True)
@@ -25,6 +29,7 @@ class User(db.model):
 
     def get_id(self):
         return str(self.username)
+
 
 def login_auth(username, password):
     """
