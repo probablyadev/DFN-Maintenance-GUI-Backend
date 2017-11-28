@@ -2,12 +2,12 @@ from flask import Response, current_app, request, redirect, abort
 from flask_login import login_required, login_user, logout_user, login_manager
 
 from app import create_app
-from app.endpoint.camera_endpoint import camera_endpoints
+from app.endpoint.camera import camera_api
 from app.model import login_auth
 
 app = create_app()
 
-app.register_blueprint(camera_endpoints)
+app.register_blueprint(camera_api)
 
 @app.route("/")
 @login_required
