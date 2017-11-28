@@ -1,14 +1,3 @@
-"""""
- * * * * * * * * * *
- * Filename:    constants.py
- *
- * Purpose:     A set of strings used throughout the DFN Maintenance GUI
- *
- * Copyright:   2017 Fireballs in the Sky, all rights reserved
- *
- * * * * * * * * * *
-"""""
-
 # This file stores all constants used on the server-side of the Desert-Fireball-Maintainence-GUI.
 # The major constants here are different bash commands, executed server-side.
 getExitStatus = "echo $?"
