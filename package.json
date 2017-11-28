@@ -1,0 +1,12 @@
+{
+  "name": "dfn-maintenance-gui",
+  "productName": "Desert Fireball Maintenance GUI",
+  "version": "1.0.0",
+  "description": "GUI for maintaining the camera network for the Fireballs in the Sky project.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CPedersen3245/Desert-Fireball-Maintainence-GUI/"
+  },
+  "author": "Ryan Scott Day <265815F@curtin.edu.au>",
+  "license": "MIT"
+}
