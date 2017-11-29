@@ -1,4 +1,5 @@
 import React from 'react';
+import ThemeProvider from 'styled-components';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Redirect, browserHistory } from 'react-router';
@@ -7,9 +8,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 
 import configureStore from './store/configureStore';
 import routes from './routes';
-
-// Import the bootstrap style, figure out how to package with app.
-// import './style.scss';
+import theme from './colours';
 
 require('expose?$!expose?jQuery!jquery');
 require('bootstrap-webpack');
@@ -19,11 +18,13 @@ const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
 ReactDOM.render(
-    <Provider store={store}>
-        <Router history={history}>
-            <Redirect from="/" to="main" />
-            {routes}
-        </Router>
-    </Provider>,
+    <ThemeProvider theme={lightTheme}>
+        <Provider store={store}>
+            <Router history={history}>
+                <Redirect from="/" to="main" />
+                {routes}
+            </Router>
+        </Provider>
+    </ThemeProvider>,
     document.getElementById('root')
 );
