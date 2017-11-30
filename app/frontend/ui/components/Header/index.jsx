@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
-import Divider from 'material-ui/Divider';
 
 import * as actionCreators from '../../actions/auth';
 
@@ -21,7 +20,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-export class Header extends Component {
+export default class Header extends Component {
     constructor(props) {
         super(props);
     }

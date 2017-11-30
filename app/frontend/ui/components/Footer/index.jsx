@@ -12,7 +12,7 @@ const Footer = styled.footer`
     width: 100%;
 `;
 
-export class Footer extends Component {
+export default class Footer extends Component {
     render() {
         return (
             <Footer>
