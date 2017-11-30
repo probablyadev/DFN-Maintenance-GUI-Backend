@@ -1,14 +1,11 @@
-from flask import Response, Blueprint
+from flask import Blueprint, jsonify
 
 error_handlers = Blueprint("error_handlers", __name__)
 
-@error_handlers.app_errorhandler(401)
-def page_not_found(error):
-    """
-    Handle login failed.
-
-    :param error:
-
-    :return:
-    """
-    return Response('<p>Login failed</p>')
+# Catch exceptions thrown by python and send off a response to the web app.
+@error_handlers.app_errorhandler(IOError)
+def handle_io_error(error):
+    return jsonify(
+        error = True,
+        message = "Error while performing IO with hardware"
+    ), 500
