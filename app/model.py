@@ -1,70 +1,25 @@
-import hashlib
-import sqlite3
-
-# https://medium.com/@perwagnernielsen/getting-started-with-flask-login-can-be-a-bit-daunting-in-this-tutorial-i-will-use-d68791e9b5b5
-# Additional info for registering new users.
+from index import db, bcrypt
 
 
-class User(db.model):
-    username = db.Column(db.String(80), primary_key=True, unique=True)
-    password = db.Column(db.String(80))
+class User(db.Model):
+    id = db.Column(db.Integer(), primary_key = True)
+    email = db.Column(db.String(255), unique = True)
+    password = db.Column(db.String(255))
+
     def __init__(self, email, password):
-        self.username = email
-        self.password = password
+        self.email = email
+        self.active = True
+        self.password = User.hashed_password(password)
 
-    def __repr__(self):
-        return '<User %r>' % self.username
+    @staticmethod
+    def hashed_password(password):
+        return bcrypt.generate_password_hash(password).decode("utf-8")
 
-    def is_authenticated(self):
-        return True
+    @staticmethod
+    def get_user_with_email_and_password(email, password):
+        user = User.query.filter_by(email = email).first()
 
-    def is_active(self):
-        return True
-
-    def is_anonymous(self):
-        return False
-
-    def get_id(self):
-        return str(self.username)
-
-
-def login_auth(username, password):
-    """
-    Checks whether login credentials are correct according to the database.
-
-    Args:
-        username (str): The input username.
-        password (str): The input password.
-
-    Returns:
-        auth (bool): Format::
-
-            True -- Authorized.
-            False -- Unauthorized / invalid credentials.
-    """
-    auth = False
-
-    # Connect to database
-    authdb = sqlite3.connect('db/auth.db')
-    curs = authdb.cursor()
-
-    # Get salt
-    curs.execute("SELECT salt FROM Authdata WHERE username =?", (username,))
-
-    salt = curs.fetchone()
-
-    # Hash entered PW with salt
-    if salt is not None:
-        hashedpw = hashlib.sha1(salt[0] + password).hexdigest()
-    else:
-        hashedpw = ' '
-
-    # Query database
-    dataarray = (username, hashedpw)
-    check = curs.execute("SELECT * FROM Authdata WHERE username=? AND password=?", dataarray)
-
-    # If query returned a result, return true. Otherwise, return false.
-    if check.fetchone():
-        auth = True
-
-    return auth
+        if user and bcrypt.check_password_hash(user.password, password):
+            return user
+        else:
+            return None
