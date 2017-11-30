@@ -7,5 +7,24 @@ error_handlers = Blueprint("error_handlers", __name__)
 def handle_io_error(error):
     return jsonify(
         error = True,
-        message = "Error while performing IO with hardware"
+        generic = "Error while performing IO with hardware",
+        message = error.message
     ), 500
+
+
+@error_handlers.app_errorhandler(RuntimeError)
+def handle_runtime_error(error):
+    return jsonify(
+        error = True,
+        generic = "A runtime error occurred",
+        message = error.message
+    ), 500
+
+
+@error_handlers.app_errorhandler(AssertionError)
+def handle_assertion_error(error):
+    return jsonify(
+        error = True,
+        generic = "Error while asserting state",
+        message = error.message
+    ), 409
