@@ -28,3 +28,12 @@ def handle_assertion_error(error):
         generic = "Error while asserting state",
         message = error.message
     ), 409
+
+
+@error_handlers.app_errorhandler(AttributeError)
+def handle_attribute_error(error):
+    return jsonify(
+        error = True,
+        generic = "Attribute not found",
+        message = error.message
+    ), 500
