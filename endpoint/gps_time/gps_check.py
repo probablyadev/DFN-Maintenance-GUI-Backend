@@ -1,7 +1,7 @@
 import json
 import web
 
-from command.gps_time import gps_check
+from command.gps import gps_check
 from endpoint.login_checker import LoginChecker
 
 

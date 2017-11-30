@@ -1,6 +1,6 @@
 import json
 
-from command.gps_time import output_time
+from command.gps import output_time
 from endpoint.login_checker import LoginChecker
 
 
