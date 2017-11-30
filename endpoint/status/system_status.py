@@ -2,7 +2,7 @@ import json
 
 import constants
 from command.camera import camera_status
-from command.gps_time import output_time, gps_check
+from command.gps import output_time, gps_check
 from command.hdd import check_hdd
 from command.network import internet_check, check_vpn
 from endpoint.page_request.login_checker import LoginChecker
