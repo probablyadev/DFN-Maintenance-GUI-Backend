@@ -2,6 +2,8 @@ from flask import render_template, request, jsonify
 from sqlalchemy.exc import IntegrityError
 
 from app.api.config_file import config_file_endpoints
+from app.api.gps import gps_endpoints
+from app.api.time import time_endpoints
 from app.exceptions import error_handlers
 from app.model import User
 from app.utils.auth import generate_token, verify_token, requires_auth
@@ -10,6 +12,8 @@ from api.camera import camera_endpoints
 
 app.register_blueprint(camera_endpoints)
 app.register_blueprint(config_file_endpoints)
+app.register_blueprint(gps_endpoints)
+app.register_blueprint(time_endpoints)
 app.register_blueprint(error_handlers)
 
 
