@@ -1,3 +1,4 @@
+import os
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from app.app import app, db
@@ -5,7 +6,7 @@ from app.app import app, db
 migrate = Migrate(app, db)
 manager = Manager(app)
 
-# migrations
+# Migrations.
 manager.add_command('db', MigrateCommand)
 
 
@@ -16,4 +17,12 @@ def create_db():
 
 
 if __name__ == '__main__':
+    # Gets the DEV_ENVIRONMENT variable set within pycharms environment variables configuration script
+    # If True then this script is being run on a dev machine, if false then it's running on a camera
+    # Defaults to false
+    environment = os.getenv('DEV_ENVIRONMENT', False)
+
+    if environment is False:
+        os.chdir("/opt/dfn-software/Desert-Fireball-Maintainence-GUI")
+
     manager.run()
