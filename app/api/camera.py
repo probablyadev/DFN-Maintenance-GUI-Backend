@@ -1,8 +1,6 @@
 from flask import Blueprint, jsonify, request
-
 from app.utils.auth import requires_auth
-from command.camera import turn_camera_off, turn_camera_on, camera_status, download_thumbnail, download_picture, \
-    find_pictures, remove_thumbnail, turn_video_camera_off, turn_video_camera_on
+from command.camera import *
 
 camera_endpoints = Blueprint("camera_api", __name__)
 

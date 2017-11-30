@@ -1,11 +1,17 @@
 from flask import render_template, request, jsonify
 from sqlalchemy.exc import IntegrityError
+
+from app.api.config_file import config_file_endpoints
+from app.exceptions import error_handlers
 from app.model import User
 from app.utils.auth import generate_token, verify_token, requires_auth
 from index import app, db
 from api.camera import camera_endpoints
 
 app.register_blueprint(camera_endpoints)
+app.register_blueprint(config_file_endpoints)
+app.register_blueprint(error_handlers)
+
 
 @app.route('/', methods=['GET'])
 def index():
