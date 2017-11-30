@@ -1,66 +1,31 @@
-from flask import Response, current_app, request, redirect, abort
-from flask_login import login_required, login_user, logout_user, login_manager
-
-from app import create_app
-from app.endpoint.camera import camera_api
-from app.model import login_auth
-
 app = create_app()
 
-app.register_blueprint(camera_api)
-
-@app.route("/")
-@login_required
-def home():
-    """
-    Default home page.
-
-    :return:
-        A HTML response to load.
-    """
-    return Response("Home Page (TODO: Remove this")
+@app.route('/', methods=['GET'])
+def index():
+    return render_template('index.html')
 
 
-# somewhere to login
-@app.route("/login", methods = ["GET", "POST"])
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        if login_auth(username, password):
-            return redirect(request.args.get("next"))
-        else:
-            return abort(401)
+@app.route('/<path:path>', methods=['GET'])
+def any_root_path(path):
+    return render_template('index.html')
+
+
+@app.route("/api/get_token", methods=["POST"])
+def get_token():
+    incoming = request.get_json()
+    user = User.get_user_with_email_and_password(incoming["email"], incoming["password"])
+    if user:
+        return jsonify(token=generate_token(user))
+
+    return jsonify(error=True), 403
+
+
+@app.route("/api/is_token_valid", methods=["POST"])
+def is_token_valid():
+    incoming = request.get_json()
+    is_valid = verify_token(incoming["token"])
+
+    if is_valid:
+        return jsonify(token_is_valid=True)
     else:
-        # TODO: Return response that is the login page.
-        return Response('''
-        <form action="" method="post">
-            <p><input type=text name=username>
-            <p><input type=password name=password>
-            <p><input type=submit value=Login>
-        </form>
-        ''')
-
-
-@app.route("/logout")
-@login_required
-def logout():
-    """
-    Somewhere to logout.
-
-    :return:
-    """
-    logout_user()
-    # TODO: Update the response.
-    return Response('<p>Logged out</p>')
-
-
-@login_manager.user_loader
-def load_user(userid):
-    """
-    Callback to reload the user object.
-
-    :param userid:
-    :return:
-    """
-    return User(userid)
+        return jsonify(token_is_valid=False), 403

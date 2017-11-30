@@ -18,7 +18,6 @@ class DevelopmentConfig(Config):
     """
     DEBUG = True
     MAIL_SUPPRESS_SEND = True
-    DATABASE_URI = "sqlite:////db/auth.db"
 
 
 class TestingConfig(Config):
@@ -35,6 +34,7 @@ class ProductionConfig(Config):
     """
     DEBUG = False
     TESTING = False
+    DATABASE_URI = "sqlite:////db/auth.db"
 
 
 app_config = {
