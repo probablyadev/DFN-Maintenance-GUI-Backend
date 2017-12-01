@@ -1,5 +1,5 @@
 import axios from 'axios';
-import tokenConfig from '../http_functions';
+import tokenConfig from '../axios';
 
 // TODO: Rename functions to reflect api endpoint.
 export function data_about_user(token) {

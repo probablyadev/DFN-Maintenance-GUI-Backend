@@ -1,5 +1,5 @@
 import axios from 'axios';
-import tokenConfig from '../http_functions';
+import tokenConfig from '../axios';
 
 export function camera_off(token) {
     return axios.get('/api/camera/camera_off', tokenConfig(token));
