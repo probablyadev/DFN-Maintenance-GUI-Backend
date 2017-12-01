@@ -1,5 +1,8 @@
 import React from 'react';
-import ThemeProvider from 'styled-components';
+
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Redirect, browserHistory } from 'react-router';
@@ -8,7 +11,6 @@ import { syncHistoryWithStore } from 'react-router-redux';
 
 import configureStore from './store/configureStore';
 import routes from './routes';
-import theme from './colours';
 
 require('expose?$!expose?jQuery!jquery');
 require('bootstrap-webpack');
@@ -18,13 +20,13 @@ const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
 ReactDOM.render(
-    <ThemeProvider theme={lightTheme}>
-        <Provider store={store}>
-            <Router history={history}>
-                <Redirect from="/" to="main" />
+    <MuiThemeProvider muiTheme = {getMuiTheme()}> 
+        <Provider store = {store}>
+            <Router history = {history}>
+                <Redirect from = "/" to = "main" />
                 {routes}
             </Router>
         </Provider>
-    </ThemeProvider>,
+    </MuiThemeProvider>,
     document.getElementById('root')
 );

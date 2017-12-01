@@ -20,7 +20,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(actionCreators, dispatch);
 }
 
-const Paper = styled.paper`
+const StyledPaper = styled.paper`
     marginTop: 50;
     paddingBottom: 50;
     paddingTop: 25;
@@ -29,7 +29,7 @@ const Paper = styled.paper`
     display: 'inline-block';
 `;
 
-const RaisedButton = styled.raisedbutton`
+const StyledRaisedButton = styled.raisedbutton`
     marginTop: 50;
 `;
 
@@ -112,7 +112,7 @@ export default class LoginView extends React.Component {
     render() {
         return (
             <div className="col-md-6 col-md-offset-3" onKeyPress={(e) => this._handleKeyPress(e)}>
-                <Paper>
+                <StyledPaper>
                     <form role="form">
                         <div className="text-center">
                             <h2>Login to view protected content!</h2>
@@ -142,14 +142,14 @@ export default class LoginView extends React.Component {
                                 />
                             </div>
 
-                            <RaisedButton
+                            <StyledRaisedButton
                               disabled={this.state.disabled}
                               label="Submit"
                               onClick={(e) => this.login(e)}
                             />
                         </div>
                     </form>
-                </Paper>
+                </StyledPaper>
             </div>
         );
 
