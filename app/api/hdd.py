@@ -60,7 +60,7 @@ def move_data_0_endpoint():
 
 @hdd_endpoints.route("/api/hdd/probe_hdd", methods = ["GET"])
 @requires_auth
-def probe_endpoint():
+def probe_hdd_endpoint():
     """Searches for present drives to format."""
     return jsonify(drives = probe_hdd())
 
