@@ -54,8 +54,8 @@ def create_user():
     new_user = User.query.filter_by(email = incoming["email"]).first()
 
     return jsonify(
-        id=user.id,
-        token=generate_token(new_user)
+        id = user.id,
+        token = generate_token(new_user)
     )
 
 
