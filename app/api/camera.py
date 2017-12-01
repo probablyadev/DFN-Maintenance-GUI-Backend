@@ -20,7 +20,7 @@ def camera_off_endpoint():
 
 @camera_endpoints.route("/api/camera/camera_on", methods = ["GET"])
 @requires_auth
-def camera_off_endpoint():
+def camera_on_endpoint():
     """Switches the DSLR camera on."""
     message = turn_camera_on()
     cam_message, status = camera_status()
