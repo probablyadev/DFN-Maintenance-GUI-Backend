@@ -1,6 +1,9 @@
 from flask import Blueprint, jsonify
+from sqlalchemy.exc import IntegrityError
+
 
 error_handlers = Blueprint("error_handlers", __name__)
+
 
 # Catch exceptions thrown by python and send off a response to the web app.
 @error_handlers.app_errorhandler(IOError)
@@ -37,3 +40,13 @@ def handle_attribute_error(error):
         generic = "Attribute not found",
         message = error.message
     ), 500
+
+
+@error_handlers.app_errorhandler(IntegrityError)
+def handle_integrity_error(error):
+    # TODO: Insert generic integrity error message.
+    return jsonify(
+        error = True,
+        generic = "",
+        message = error.message
+    ), 409
