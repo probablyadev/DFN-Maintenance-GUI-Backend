@@ -8,7 +8,7 @@ import {
     REGISTER_USER_FAILURE,
     REGISTER_USER_REQUEST,
     REGISTER_USER_SUCCESS,
-} from '../constants/index';
+} from '../constants/constants';
 
 import { parseJSON } from '../utils/misc';
 import { get_token, create_user } from '../utils/http_functions';
