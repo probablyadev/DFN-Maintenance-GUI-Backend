@@ -19,8 +19,11 @@ injectTapEventPlugin();
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
+// https://material-ui-1dab0.firebaseapp.com/customization/themes/#configuration-variables
+const theme = createMuiTheme();
+
 ReactDOM.render(
-    <MuiThemeProvider muiTheme = {getMuiTheme()}> 
+    <MuiThemeProvider muiTheme = {theme}> 
         <Provider store = {store}>
             <Router history = {history}>
                 <Redirect from = "/" to = "main" />
