@@ -2,7 +2,7 @@ from app import constants
 from command import exec_console_command
 
 
-def output_time():
+def system_time():
     """
     Outputs the current system time to the user.
 
@@ -14,7 +14,7 @@ def output_time():
     return consoleOutput + "\n"
 
 
-def timezone_change(timezone):
+def change_timezone(timezone):
     """
     Changes the system's timezone.
 

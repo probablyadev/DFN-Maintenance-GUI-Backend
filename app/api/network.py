@@ -10,11 +10,11 @@ network_endpoints = Blueprint("network_api", __name__)
 @requires_auth
 def check_vpn_endpoint():
     """Delivers a summary of the VPN connectivity of the system."""
-    message, vpn_status = check_vpn()
+    check_vpn_message, check_vpn_status = check_vpn()
 
     return jsonify(
-        vpn_status = vpn_status,
-        message = message
+        check_vpn_status = check_vpn_status,
+        check_vpn_message = check_vpn_message
     )
 
 
@@ -22,11 +22,11 @@ def check_vpn_endpoint():
 @requires_auth
 def internet_check_endpoint():
     """Delivers a summary of the internet connectivity of the system."""
-    message, internet_status = check_vpn()
+    check_internet_message, check_internet_status = check_internet()
 
     return jsonify(
-        internet_status = internet_status,
-        message = message
+        check_internet_status = check_internet_status,
+        check_internet_message = check_internet_message
     )
 
 
@@ -34,12 +34,13 @@ def internet_check_endpoint():
 @requires_auth
 def restart_modem_endpoint():
     """Restarts the modem network interface."""
-    restart_message = restart_modem()
-    internet_message, internet_status = internet_check()
+    restart_modem_message = restart_modem()
+    check_internet_message, check_internet_status = check_internet()
 
     return jsonify(
-        internet_status = internet_status,
-        message = restart_message + internet_message
+        check_internet_status = check_internet_status,
+        restart_modem_message = restart_modem_message,
+        check_internet_message = check_internet_message
     )
 
 
@@ -47,10 +48,11 @@ def restart_modem_endpoint():
 @requires_auth
 def restart_vpn_endpoint():
     """Restarts the system's VPN daemon."""
-    restart_message = restart_vpn()
-    internet_message, vpn_status = check_vpn()
+    restart_vpn_message = restart_vpn()
+    check_vpn_message, check_vpn_status = check_vpn()
 
     return jsonify(
-        vpn_status = vpn_status,
-        message = restart_message + internet_message
+        check_vpn_status = check_vpn_status,
+        restart_vpn_message = restart_vpn_message,
+        check_vpn_message = check_vpn_message
     )

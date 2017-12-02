@@ -10,13 +10,13 @@ time_endpoints = Blueprint("time_api", __name__)
 @requires_auth
 def output_time_endpoint():
     """Outputs the current system time to the user."""
-    return jsonify(system_time = output_time())
+    return jsonify(system_time = system_time())
 
 
-@time_endpoints.route("/api/time/timezone_change", methods = ["POST"])
+@time_endpoints.route("/api/time/change_timezone", methods = ["POST"])
 @requires_auth
-def timezone_change_endpoint():
-    """Outputs the current system time to the user."""
+def change_timezone_endpoint():
+    """Changes the system's timezone."""
     incoming = request.get_json()
 
-    return jsonify(timezone = timezone_change(incoming.timezone))
+    return jsonify(timezone = change_timezone(incoming.timezone))

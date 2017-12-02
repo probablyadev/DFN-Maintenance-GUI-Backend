@@ -12,17 +12,19 @@ user_endpoints = Blueprint("user_api", __name__)
 @user_endpoints.route("/api/user/get_user", methods = ["GET"])
 @requires_auth
 def get_user():
-    return jsonify(result = g.current_user)
+    return jsonify(user = g.current_user)
 
 
 @user_endpoints.route("/api/user/create_user", methods = ["POST"])
 def create_user():
     """Currently only used when testing the backend system."""
     incoming = request.get_json()
+
     user = User(
         email = incoming["email"],
         password = incoming["password"]
     )
+
     db.session.add(user)
 
     try:
@@ -33,7 +35,7 @@ def create_user():
     new_user = User.query.filter_by(email = incoming["email"]).first()
 
     return jsonify(
-        id = user.id,
+        user_id = user.id,
         token = generate_token(new_user)
     )
 
