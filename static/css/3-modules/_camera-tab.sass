@@ -1,64 +1,64 @@
 .cameraControl
-  flex-direction: row
-  align-items: center
-  justify-content: space-between
+    flex-direction: row
+    align-items: center
+    justify-content: space-between
 
-  .cameraBasicFunctions
-    height: 100%
-    display: flex
-    flex-wrap: wrap
-    align-content: center
-    justify-content: center
-    width: 50%
-    border-right: 3px solid $lightred
-
-  .cameraAdvancedFunctions
-    height: 100%
-    display: flex
-    flex-wrap: wrap
-    align-content: center
-    justify-content: center
-    width: 50%
-
-    .pictureDownloadWidget
-      display: flex
-      flex-direction: column
-      align-items: center
-      justify-content: center
-      width: 60%
-      margin-bottom: 3%
-      padding: 3%
-      background-color: $darkred
-      +border-radius(3%)
-
-      h4
-        white-space: nowrap
-        text-align: center
-
-      .downloadFormWrapper
+    .cameraBasicFunctions
+        height: 100%
         display: flex
-        flex-direction: column
-        align-items: center
+        flex-wrap: wrap
+        align-content: center
         justify-content: center
-        padding: 5px
+        width: 50%
+        border-right: 3px solid $lightred
 
-        div
-          display: flex
-          align-items: center
-          justify-content: center
-          width: 100%
-          margin: 5px
+    .cameraAdvancedFunctions
+        height: 100%
+        display: flex
+        flex-wrap: wrap
+        align-content: center
+        justify-content: center
+        width: 50%
 
-        label
-          margin-right: 5px
+        .pictureDownloadWidget
+            display: flex
+            flex-direction: column
+            align-items: center
+            justify-content: center
+            width: 60%
+            margin-bottom: 3%
+            padding: 3%
+            background-color: $darkred
+            +border-radius(3%)
 
-        input
-          +box-sizing(border-box)
-          color: #000
-          width: 80%
+            h4
+                white-space: nowrap
+                text-align: center
 
-        select
-          +ellipsis(80%)
-          background-color: inherit
-          border-color: white
-          width: 80%
+            .downloadFormWrapper
+                display: flex
+                flex-direction: column
+                align-items: center
+                justify-content: center
+                padding: 5px
+
+                div
+                    display: flex
+                    align-items: center
+                    justify-content: center
+                    width: 100%
+                    margin: 5px
+
+                label
+                    margin-right: 5px
+
+                input
+                    +box-sizing(border-box)
+                    color: #000
+                    width: 80%
+
+                select
+                    +ellipsis(80%)
+                    background-color: inherit
+                    border-color: white
+                    width: 80%

@@ -1,11 +1,12 @@
-from unittest import TestCase
-from app.app import app, db
 import json
+from unittest import TestCase
+
+from app.app import app, db
 
 
 class BaseTestConfig(TestCase):
     default_user = {
-        "email": "default@gmail.com",
+        "email":    "default@gmail.com",
         "password": "something2"
     }
 
@@ -18,9 +19,9 @@ class BaseTestConfig(TestCase):
         db.create_all()
 
         res = self.app.post(
-                "/api/create_user",
-                data = json.dumps(self.default_user),
-                content_type = 'application/json'
+            "/api/create_user",
+            data = json.dumps(self.default_user),
+            content_type = 'application/json'
         )
 
         self.token = json.loads(res.data.decode("utf-8"))["token"]

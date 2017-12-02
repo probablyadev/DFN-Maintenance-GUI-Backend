@@ -1,7 +1,9 @@
 from functools import wraps
+
 from flask import request, g, jsonify
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from itsdangerous import SignatureExpired, BadSignature
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+
 from index import app
 
 TWO_WEEKS = 1209600
@@ -10,7 +12,7 @@ TWO_WEEKS = 1209600
 def generate_token(user, expiration = TWO_WEEKS):
     s = Serializer(app.config['SECRET_KEY'], expires_in = expiration)
     token = s.dumps({
-        'id': user.id,
+        'id':    user.id,
         'email': user.email,
     }).decode('utf-8')
     return token

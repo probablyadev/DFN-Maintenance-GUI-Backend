@@ -38,7 +38,7 @@ class ProductionConfig(Config):
 
 
 app_config = {
-    'dev': DevelopmentConfig,
+    'dev':  DevelopmentConfig,
     'test': TestingConfig,
     'prod': ProductionConfig,
 }

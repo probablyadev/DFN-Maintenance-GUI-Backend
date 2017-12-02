@@ -1,11 +1,12 @@
 # EXTERNAL HARD DRIVE UTILITIES
 import inspect
 import re
-import time
 
 import constants
-from command import exec_console_command
 from constants import getHostname
+
+import time
+from command import exec_console_command
 
 
 def check_hdd():
@@ -104,10 +105,10 @@ def check_hdd():
                 raise IOError(constants.diskUsageNotFound)
             else:
                 feedback_output = constants.hddStatusString.format(hddStatusDict[hdd0Status], hdd0Space,
-                                                                  hddStatusDict[hdd1Status], hdd1Space,
-                                                                  hddStatusDict[hdd2Status], hdd2Space,
-                                                                  hddStatusDict[hdd3Status],
-                                                                  hdd3Space) + constants.diskUsageNotFound + '\n'
+                                                                   hddStatusDict[hdd1Status], hdd1Space,
+                                                                   hddStatusDict[hdd2Status], hdd2Space,
+                                                                   hddStatusDict[hdd3Status],
+                                                                   hdd3Space) + constants.diskUsageNotFound + '\n'
 
                 return feedback_output, hdd0Status, hdd0Space, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space
 
@@ -130,28 +131,28 @@ def check_hdd():
                 hdd3Space = spaceAvail
 
     feedback_output = constants.hddStatusString.format(hddStatusDict[hdd0Status], hdd0Space, hddStatusDict[hdd1Status],
-                                                      hdd1Space, hddStatusDict[hdd2Status], hdd2Space,
-                                                      hddStatusDict[hdd3Status], hdd3Space)
+                                                       hdd1Space, hddStatusDict[hdd2Status], hdd2Space,
+                                                       hddStatusDict[hdd3Status], hdd3Space)
 
     hdd_status = []
     hdd_status = (
         {
-            "name" : "HDD 0",
-            "status" : hdd0Status,
-            "space" : hdd0Space
+            "name":   "HDD 0",
+            "status": hdd0Status,
+            "space":  hdd0Space
         },
         {
-            "name": "HDD 1",
+            "name":   "HDD 1",
             "status": hdd1Status,
             "space":  hdd1Space
         },
         {
-            "name": "HDD 2",
+            "name":   "HDD 2",
             "status": hdd2Status,
             "space":  hdd2Space
         },
         {
-            "name": "HDD 3",
+            "name":   "HDD 3",
             "status": hdd3Status,
             "space":  hdd3Space
         }
@@ -186,7 +187,7 @@ def disable_hdd():
 
             if not re.search("[0-9]", driveRotation):
                 raise RuntimeError(
-                        "External drives are not on correct device label. Use the command line to resolve this.")
+                    "External drives are not on correct device label. Use the command line to resolve this.")
 
                 # No exceptions have been raised by this point, so delete drives
         for device in devices:

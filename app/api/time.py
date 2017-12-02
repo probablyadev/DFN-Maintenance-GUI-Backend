@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
+
 from app.utils.auth import requires_auth
 from command.time import *
-
 
 time_endpoints = Blueprint("time_api", __name__)
 

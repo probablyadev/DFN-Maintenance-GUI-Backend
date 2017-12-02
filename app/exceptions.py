@@ -1,7 +1,6 @@
 from flask import Blueprint, jsonify
 from sqlalchemy.exc import IntegrityError
 
-
 error_handlers = Blueprint("error_handlers", __name__)
 
 

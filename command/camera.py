@@ -1,8 +1,8 @@
 # CAMERA UTILITiES
 import calendar
 import re
-import time
 
+import time
 from app import constants
 from command import exec_console_command
 
@@ -167,7 +167,7 @@ def find_pictures(inDate):
                         h, m, s = fileCreationTime.split(':')
                         seconds = int(h) * 3600 + int(m) * 60 + int(s)
                         offset = calendar.timegm(time.localtime()) - calendar.timegm(
-                                time.gmtime(time.mktime(time.localtime())))
+                            time.gmtime(time.mktime(time.localtime())))
                         fileCreationTimeSeconds = seconds + offset
                         fileCreationTimeReadable = time.strftime('%H:%M:%S', time.gmtime(fileCreationTimeSeconds))
 

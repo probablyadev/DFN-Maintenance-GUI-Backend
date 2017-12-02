@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
+
 from app.utils.auth import requires_auth
 from command.hdd import *
-
 
 hdd_endpoints = Blueprint("hdd_api", __name__)
 
