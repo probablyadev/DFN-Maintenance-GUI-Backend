@@ -10,9 +10,9 @@ gps_endpoints = Blueprint("gps_api", __name__)
 @requires_auth
 def gps_check_endpoint():
     """Delivers a summary of the GPS status."""
-    message, status = gps_check()
+    gps_check_message, gps_check_status = gps_check()
 
     return jsonify(
-        status= status,
-        message = message
+        gps_check_status = gps_check_status,
+        gps_check_message = gps_check_message
     )

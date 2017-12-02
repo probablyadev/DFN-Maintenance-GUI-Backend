@@ -5,7 +5,7 @@ import constants
 from command import exec_console_command
 
 
-def internet_check():
+def check_internet():
     """
     Delivers a summary of the internet connectivity of the system.
 

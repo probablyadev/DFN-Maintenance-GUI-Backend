@@ -4,7 +4,7 @@ import constants
 from command.camera import camera_status
 from command.gps import output_time, gps_check
 from command.hdd import check_hdd
-from command.network import internet_check, check_vpn
+from command.network import check_internet, check_vpn
 from endpoint.page_request.login_checker import LoginChecker
 
 
@@ -33,7 +33,7 @@ class SystemStatus:
                 datetime = output_time()
                 cameraFeedback, cameraBoolean = camera_status()
                 gpsFeedback, gpsBoolean = gps_check()
-                internetFeedback, internetBoolean = internet_check()
+                internetFeedback, internetBoolean = check_internet()
                 extHDDFeedback, hdd0Boolean, hdd0Space, hdd1Boolean, hdd2Boolean, hdd3Boolean, hdd1Space, hdd2Space, hdd3Space = check_hdd()
                 vpnFeedback, vpnBoolean = check_vpn()
 
