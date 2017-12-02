@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {browserHistory} from 'react-router';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 
@@ -38,12 +38,12 @@ export default class Header extends Component {
         return (
             <header>
                 <AppBar
-                    title="Desert Fireball Maintenance GUI"
-                    iconElementRight={
+                  title="Desert Fireball Maintenance GUI"
+                  iconElementRight={
                         !this.props.isAuthenticated ?
-                            <FlatButton label="Login" onClick={() => this.dispatchNewRoute('/login')}/>
-                            :
-                            <FlatButton label="Logout" onClick={(e) => this.logout(e)}/>
+                            <FlatButton label="Login" onClick={() => this.dispatchNewRoute('/login')} />
+                        :
+                            <FlatButton label="Logout" onClick={(e) => this.logout(e)} />                        
                     }
                 />
             </header>

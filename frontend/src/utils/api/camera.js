@@ -14,16 +14,16 @@ export function camera_status(token) {
 }
 
 export function download_picture(token, file) {
-    return axios.post('/api/camera/download_picture',
+    return axios.post('/api/camera/download_picture', 
         {
             file
-        },
+        },    
         tokenConfig(token)
     );
 }
 
 export function download_thumbnail(token) {
-    return axios.post('/api/camera/download_thumbnail',
+    return axios.post('/api/camera/download_thumbnail', 
         {
             file
         },
@@ -32,7 +32,7 @@ export function download_thumbnail(token) {
 }
 
 export function find_pictures(token) {
-    return axios.post('/api/camera/find_pictures',
+    return axios.post('/api/camera/find_pictures', 
         {
             date
         },
@@ -41,7 +41,7 @@ export function find_pictures(token) {
 }
 
 export function remove_thumbnail(token) {
-    return axios.post('/api/camera/remove_thumbnail',
+    return axios.post('/api/camera/remove_thumbnail', 
         {
             path
         },
