@@ -44,9 +44,8 @@ def handle_attribute_error(error):
 
 @error_handlers.app_errorhandler(IntegrityError)
 def handle_integrity_error(error):
-    # TODO: Insert generic integrity error message.
     return jsonify(
         error = True,
-        generic = "",
+        generic = "Raised when the execution of a database operation fails.",
         message = error.message
     ), 409
