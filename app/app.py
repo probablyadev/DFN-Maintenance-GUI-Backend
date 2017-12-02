@@ -2,6 +2,7 @@ from flask import render_template, request, jsonify
 
 from app.api.network import network_endpoints
 from app.api.misc import misc_endpoints
+from app.api.status import status_endpoints
 from index import app
 from app.api.config_file import config_file_endpoints
 from app.api.gps import gps_endpoints
@@ -20,6 +21,7 @@ app.register_blueprint(hdd_endpoints)
 app.register_blueprint(interval_control_test_endpoints)
 app.register_blueprint(misc_endpoints)
 app.register_blueprint(network_endpoints)
+app.register_blueprint(status_endpoints)
 app.register_blueprint(time_endpoints)
 app.register_blueprint(user_endpoints)
 
