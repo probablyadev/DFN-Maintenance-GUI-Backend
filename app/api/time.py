@@ -2,7 +2,9 @@ from flask import Blueprint, jsonify, request
 from app.utils.auth import requires_auth
 from command.time import *
 
+
 time_endpoints = Blueprint("time_api", __name__)
+
 
 @time_endpoints.route("/api/time/output_time", methods = ["GET"])
 @requires_auth
