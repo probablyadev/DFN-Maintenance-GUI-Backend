@@ -44,11 +44,9 @@ checkSmartTest = "smartctl -d {0} -a /dev/sdb"
 
 internetCheck = "ping -c 1 www.google.com"
 getInternetIP = "ifconfig | grep eth1 -A 1 | grep -o '\(addr:\|inet \)[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' | cut -c6-"
-restartModem = "ifdown ppp0; sleep 8; ifup ppp0; sleep 8; ifconfig ppp0 && echo SUCCESS"
 
 vpnCheck = "ping -c 1 10.1.16.1"
 getVpnIP = "ifconfig | grep tun0 -A 1 | grep -o '\(addr:\|inet \)[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'| cut -c6-"
-restartVPN = "service openvpn restart; sleep 10; ifconfig tun0 && echo SUCCESS"
 
 cfcheck = "python /opt/dfn-software/camera_image_count.py"
 intervalTest = "/opt/dfn-software/interval_control_test.sh;"
@@ -71,13 +69,9 @@ timezoneChanged = "\nTime zone changed to {0}.\n"
 
 internetCheckPassed = "\nINTERNET STATUS:\nInternet access available at {0}.\n"
 internetCheckFailed = "\nINTERNET STATUS:\nNo internet access.\n"
-modemRestartPassed = "\nModem restarted successfully.\n"
-modemRestartFailed = "\nERROR: modem unable to restart successfully. Please try again.\n"
 
 vpnCheckPassed = "\nVPN STATUS:\nVPN connection available at {0}.\n"
 vpnCheckFailed = "\nVPN STATUS:\nNo VPN connection available.\n"
-vpnRestartPassed = "\nVPN restarted successfully.\n"
-vpnRestartFailed = "\nERROR: VPN unable to restart successfully. Please try again.\n"
 
 intervalTestPassed = "\nINTERVAL TEST RESULTS:\nInterval test passed.\n"
 intervalTestFailed = "\nINTERVAL TEST RESULTS:\nInterval test failed.\n"

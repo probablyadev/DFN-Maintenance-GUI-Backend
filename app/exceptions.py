@@ -1,6 +1,8 @@
 from flask import Blueprint, jsonify
 from sqlalchemy.exc import IntegrityError
 
+from command.command_exception import CommandError
+
 error_handlers = Blueprint("error_handlers", __name__)
 
 
@@ -48,3 +50,15 @@ def handle_integrity_error(error):
         generic = "Raised when the execution of a database operation fails.",
         message = error.message
     ), 409
+
+
+@error_handlers.app_errorhandler(CommandError)
+def handle_command_error(error):
+    return jsonify(
+        error = True,
+        generic = "Error while executing a subprocess command.",
+        return_code = error.return_code,
+        method = error.method,
+        cmd = error.cmd,
+        output = error.output
+    ), 500
