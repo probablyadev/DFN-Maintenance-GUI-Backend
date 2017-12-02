@@ -1,8 +1,10 @@
-import pytest
-from basedir import basedir
 import os
 import shutil
 import sys
+
+import pytest
+
+from basedir import basedir
 
 
 def main():

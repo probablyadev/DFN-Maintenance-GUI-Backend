@@ -1,4 +1,4 @@
-import { browserHistory } from 'react-router';
+import {browserHistory} from 'react-router';
 
 import {
     LOGIN_USER_SUCCESS,
@@ -10,8 +10,8 @@ import {
     REGISTER_USER_SUCCESS,
 } from '../constants/constants';
 
-import { parseJSON } from '../utils/misc';
-import { get_token, create_user } from '../utils/http_functions';
+import {parseJSON} from '../utils/misc';
+import {get_token, create_user} from '../utils/http_functions';
 
 
 export function loginUserSuccess(token) {
@@ -49,16 +49,22 @@ export function logout() {
 }
 
 export function logoutAndRedirect() {
-    return (dispatch) => {
+    return (dispatch) =
+>
+    {
         dispatch(logout());
         browserHistory.push('/');
-    };
+    }
+    ;
 }
 
 export function redirectToRoute(route) {
-    return () => {
+    return () =
+>
+    {
         browserHistory.push(route);
-    };
+    }
+    ;
 }
 
 export function loginUser(email, password) {
@@ -66,28 +72,36 @@ export function loginUser(email, password) {
         dispatch(loginUserRequest());
         return get_token(email, password)
             .then(parseJSON)
-            .then(response => {
-                try {
-                    dispatch(loginUserSuccess(response.token));
-                    browserHistory.push('/main');
-                } catch (e) {
-                    alert(e);
-                    dispatch(loginUserFailure({
-                        response: {
-                            status: 403,
-                            statusText: 'Invalid token',
-                        },
-                    }));
-                }
-            })
-            .catch(error => {
-                dispatch(loginUserFailure({
-                    response: {
-                        status: 403,
-                        statusText: 'Invalid username or password',
-                    },
-                }));
-            });
+            .then(response = > {
+            try {
+                dispatch(loginUserSuccess(response.token)
+    )
+        ;
+        browserHistory.push('/main');
+    } catch
+        (e)
+        {
+            alert(e);
+            dispatch(loginUserFailure({
+                response: {
+                    status: 403,
+                    statusText: 'Invalid token',
+                },
+            }));
+        }
+    })
+    .
+        catch(error = > {
+            dispatch(loginUserFailure({
+            response: {
+                status: 403,
+                statusText: 'Invalid username or password',
+            },
+        })
+    )
+        ;
+    })
+        ;
     };
 }
 
@@ -123,27 +137,35 @@ export function registerUser(email, password) {
         dispatch(registerUserRequest());
         return create_user(email, password)
             .then(parseJSON)
-            .then(response => {
-                try {
-                    dispatch(registerUserSuccess(response.token));
-                    browserHistory.push('/main');
-                } catch (e) {
-                    dispatch(registerUserFailure({
-                        response: {
-                            status: 403,
-                            statusText: 'Invalid token',
-                        },
-                    }));
-                }
-            })
-            .catch(error => {
-                dispatch(registerUserFailure({
-                    response: {
-                        status: 403,
-                        statusText: 'User with that email already exists',
-                    },
-                }
-                ));
-            });
+            .then(response = > {
+            try {
+                dispatch(registerUserSuccess(response.token)
+    )
+        ;
+        browserHistory.push('/main');
+    } catch
+        (e)
+        {
+            dispatch(registerUserFailure({
+                response: {
+                    status: 403,
+                    statusText: 'Invalid token',
+                },
+            }));
+        }
+    })
+    .
+        catch(error = > {
+            dispatch(registerUserFailure({
+                response: {
+                    status: 403,
+                    statusText: 'User with that email already exists',
+                },
+            }
+        )
+    )
+        ;
+    })
+        ;
     };
 }

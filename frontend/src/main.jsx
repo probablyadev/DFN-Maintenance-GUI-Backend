@@ -1,13 +1,11 @@
 import React from 'react';
-
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { Router, Redirect, browserHistory } from 'react-router';
+import {Provider} from 'react-redux';
+import {browserHistory, Redirect, Router} from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import { syncHistoryWithStore } from 'react-router-redux';
+import {syncHistoryWithStore} from 'react-router-redux';
 
 import configureStore from './store/configureStore';
 import routes from './routes';
@@ -23,10 +21,10 @@ const history = syncHistoryWithStore(browserHistory, store);
 const theme = createMuiTheme();
 
 ReactDOM.render(
-    <MuiThemeProvider muiTheme = {theme}> 
-        <Provider store = {store}>
-            <Router history = {history}>
-                <Redirect from = "/" to = "main" />
+    <MuiThemeProvider muiTheme={theme}>
+        <Provider store={store}>
+            <Router history={history}>
+                <Redirect from="/" to="main"/>
                 {routes}
             </Router>
         </Provider>

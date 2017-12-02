@@ -1,69 +1,69 @@
 .configEditGreyScreen
-  width: 100%
-  height: 100%
-  position: absolute
-  left: 0
-  top: 0
-  z-index: 10
-  background-color: rgba(38, 38, 38, 0.9)
-  display: none
-  align-items: center
-  justify-content: center
-
-  .configPrompt
-    padding: 5px 15px
-    padding-top: 0
-    height: 18%
-    min-height: 160px
-    background-color: $regularred
-    display: inherit
-    flex-direction: column
+    width: 100%
+    height: 100%
+    position: absolute
+    left: 0
+    top: 0
+    z-index: 10
+    background-color: rgba(38, 38, 38, 0.9)
+    display: none
     align-items: center
-    justify-content: flex-start
-    +border-radius(5px)
-    position: relative
+    justify-content: center
 
-    h4
-      margin: 10px 0
+    .configPrompt
+        padding: 5px 15px
+        padding-top: 0
+        height: 18%
+        min-height: 160px
+        background-color: $regularred
+        display: inherit
+        flex-direction: column
+        align-items: center
+        justify-content: flex-start
+        +border-radius(5px)
+        position: relative
 
-    #ConfigPopupSave
-      position: absolute
-      bottom: 0
-      right: 18%
-      font-size: 17px
+        h4
+            margin: 10px 0
 
-    #ConfigPopupExit
-      position: absolute
-      bottom: 0
-      right: 0
-      font-size: 17px
+        #ConfigPopupSave
+            position: absolute
+            bottom: 0
+            right: 18%
+            font-size: 17px
 
-    span
-      position: absolute
-      bottom: 5%
-      left: 5%
-      width: 55%
-      color: #FFF
-      font-size: 17px
+        #ConfigPopupExit
+            position: absolute
+            bottom: 0
+            right: 0
+            font-size: 17px
 
-    form
-      display: inherit
-      align-items: center
-      justify-content: center
+        span
+            position: absolute
+            bottom: 5%
+            left: 5%
+            width: 55%
+            color: #FFF
+            font-size: 17px
 
-      #configSelector
-        +ellipsis(80%)
-        background-color: inherit
-        border-color: white
-        color: white
+        form
+            display: inherit
+            align-items: center
+            justify-content: center
 
-      input
-        width: 100px
-        margin-left: 10px
-        white-space: nowrap
+            #configSelector
+                +ellipsis(80%)
+                background-color: inherit
+                border-color: white
+                color: white
 
-      #submitConfigChange
-        position: absolute
-        left: -9999px
-        width: 1px
-        height: 1px
+            input
+                width: 100px
+                margin-left: 10px
+                white-space: nowrap
+
+            #submitConfigChange
+                position: absolute
+                left: -9999px
+                width: 1px
+                height: 1px

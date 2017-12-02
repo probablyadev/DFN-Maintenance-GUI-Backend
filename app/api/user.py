@@ -1,10 +1,9 @@
 from flask import Blueprint, jsonify, request, g
 from sqlalchemy.exc import IntegrityError
-from index import db
-from app.utils.auth import requires_auth
+
 from app.model import User
 from app.utils.auth import generate_token, verify_token, requires_auth
-
+from index import db
 
 user_endpoints = Blueprint("user_api", __name__)
 

@@ -2,11 +2,9 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-import Paper from 'material-ui/Paper';
 import * as actionCreators from '../actions/auth';
 
 function mapStateToProps(state) {
@@ -118,34 +116,34 @@ export default class LoginView extends React.Component {
                             <h2>Login to view protected content!</h2>
                             {
                                 this.props.statusText &&
-                                    <div className="alert alert-info">
-                                        {this.props.statusText}
-                                    </div>
+                                <div className="alert alert-info">
+                                    {this.props.statusText}
+                                </div>
                             }
 
                             <div className="col-md-12">
                                 <TextField
-                                  hintText="Username"
-                                  floatingLabelText="Username"
-                                  type="Username"
-                                  errorText={this.state.username_error_text}
-                                  onChange={(e) => this.changeValue(e, 'Username')}
+                                    hintText="Username"
+                                    floatingLabelText="Username"
+                                    type="Username"
+                                    errorText={this.state.username_error_text}
+                                    onChange={(e) => this.changeValue(e, 'Username')}
                                 />
                             </div>
                             <div className="col-md-12">
                                 <TextField
-                                  hintText="Password"
-                                  floatingLabelText="Password"
-                                  type="password"
-                                  errorText={this.state.password_error_text}
-                                  onChange={(e) => this.changeValue(e, 'password')}
+                                    hintText="Password"
+                                    floatingLabelText="Password"
+                                    type="password"
+                                    errorText={this.state.password_error_text}
+                                    onChange={(e) => this.changeValue(e, 'password')}
                                 />
                             </div>
 
                             <StyledRaisedButton
-                              disabled={this.state.disabled}
-                              label="Submit"
-                              onClick={(e) => this.login(e)}
+                                disabled={this.state.disabled}
+                                label="Submit"
+                                onClick={(e) => this.login(e)}
                             />
                         </div>
                     </form>

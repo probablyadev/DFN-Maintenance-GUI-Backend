@@ -10,7 +10,7 @@ export function enable_hdd(token) {
 }
 
 export function format_hdd(token, args) {
-    return axios.post('/api/hdd/format_hdd', 
+    return axios.post('/api/hdd/format_hdd',
         {
             args
         },

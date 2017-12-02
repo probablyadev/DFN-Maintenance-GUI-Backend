@@ -6,7 +6,7 @@ export function output_time(token) {
 }
 
 export function timezone_change(token) {
-    return axios.post('/api/time/timezone_change', 
+    return axios.post('/api/time/timezone_change',
         {
             timezone
         },

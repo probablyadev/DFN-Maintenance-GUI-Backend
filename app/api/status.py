@@ -1,9 +1,10 @@
-import os
 import datetime
+import os
+
 from flask import Blueprint, jsonify
+
 from app.utils.auth import requires_auth
 from command.status import *
-
 
 status_endpoints = Blueprint("status_api", __name__)
 
