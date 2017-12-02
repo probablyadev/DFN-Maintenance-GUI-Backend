@@ -2,7 +2,9 @@ from flask import Blueprint, jsonify
 from app.utils.auth import requires_auth
 from command.interval_control_test import interval_test, prev_interval_test
 
+
 interval_control_test_endpoints = Blueprint("interval_control_test_api", __name__)
+
 
 @interval_control_test_endpoints.route("/api/interval_control_test/interval_test", methods = ["GET"])
 @requires_auth

@@ -2,7 +2,9 @@ from flask import Blueprint, jsonify, request
 from app.utils.auth import requires_auth
 from command.hdd import *
 
+
 hdd_endpoints = Blueprint("hdd_api", __name__)
+
 
 @hdd_endpoints.route("/api/hdd/check_hdd", methods = ["GET"])
 @requires_auth
