@@ -93,6 +93,14 @@ This project is capable of running with either Python 2 or 3, however
 it is highly recommended to stick with Python 3, as Python 2 is used
 only as a backup to fall back on.
 
+Note that all Python related commands after this section assume the 
+command to invoke the Python interpreter is `python`, if that is not 
+the case on your system then substitute `python` with whatever your 
+system makes use of. If you are not sure what the python command is 
+on your system, then sift through the Python 3 and 2 instructions 
+below, and try each alias followed by the version flag e.g. 
+`python3 --version`, `python2.7 --version`, etc.
+
 #### Python 3
 
 These instructions are taken from [Python 3 installation docs](http://docs.python-guide.org/en/latest/starting/install3/linux/).
@@ -236,4 +244,85 @@ directory and use:
 
 ```{r, engine='shell', count_lines}
 $ pip3 install -r requirements.txt
+```
+
+# Running
+
+The following instructions require a seperate terminal instance for 
+running the back-end and the front-end at the same time.
+
+If you haven't setup the database connection before now, complete the 
+[database](#database) section first and return back here when you're done.
+
+## Run Back-End
+
+```{r, engine='shell', count_lines}
+$ python manage.py runserver
+```
+
+If all goes well, you should see:
+
+```{r, engine='shell', count_lines}
+* Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+```
+
+## Run Front-End
+
+```{r, engine='shell', count_lines}
+$ cd frontend
+$ npm start
+```
+
+Open your browser to http://localhost:3000/ and the maintenance GUI 
+should appear, from here you can log in using your account and 
+continue without errors (hopefully).
+
+# Database
+
+If you decide on MySQL, install the free community edition of [MySQL](https://dev.mysql.com/downloads/mysql/), 
+and [MySQL Workbench](https://www.mysql.com/products/workbench/).
+
+1. Start MySQL from the System Preferences.
+2. Open MySQL Workbench and [create a database](http://stackoverflow.com/questions/5515745/create-a-new-database-with-mysql-workbench) 
+    called mydatabase but don't create the tables since Python will 
+    do that for you.
+3. Install the MySQL connector for Python, add the DATABASE_URL 
+    configuration, and create the database and tables.
+
+    > **Note:** You do not need to run `python manage.py db upgrade` 
+    > or `python manage.py db migrate` if its your first go at it.
+
+```{r, engine='shell', count_lines}
+$ sudo pip install mysql-connector-python-rf
+$ export DATABASE_URL="mysql+mysqlconnector://username:password@localhost/mydatabase"
+$ python manage.py create_db
+```
+
+## Database Types
+
+If you're using a different database than mysql, or even if you are using 
+mysql, you must first export the database url. Here are some examples:
+
+```{r, engine='shell', count_lines}
+$ export DATABASE_URL="postgresql://username:password@localhost/mydatabase"
+
+or
+
+$ export DATABASE_URL="mysql+mysqlconnector://username:password@localhost/mydatabase"
+
+or
+
+$ export DATABASE_URL="sqlite:///your.db"
+```
+
+# Testing
+
+## Test Front-End
+
+TBA (To Be Added).
+
+## Test Back-End
+
+```{r, engine='shell', count_lines}
+$ python test.py --cov-report=term --cov-report=html --cov=application/ tests/
 ```
