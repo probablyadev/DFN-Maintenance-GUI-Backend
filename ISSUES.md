@@ -1,5 +1,8 @@
 # ISSUES
 
-## Corrupting Configuration File
+## Issue List
 
-- [ ] Import config from dfnfunctions.py
+## GitHub Issue List
+
+- [x] Import config from dfnfunctions.py
+- [ ]
