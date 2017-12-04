@@ -10,9 +10,9 @@ from command.status import config_whitelist, update_config_file
 config_file_endpoints = Blueprint("config_file_api", __name__)
 
 
-@config_file_endpoints.route("/api/config_file/config_file_check", methods = ["GET"])
+@config_file_endpoints.route("/api/config_file/check_config_file", methods = ["GET"])
 @requires_auth
-def config_file_check_endpoint():
+def check_config_file_endpoint():
     """Performs a configuration file check."""
     return jsonify(images = cf_check())
 
