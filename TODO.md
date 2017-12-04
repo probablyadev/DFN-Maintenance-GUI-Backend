@@ -1,7 +1,7 @@
 # TODO
 
 - [x] Requirements file.
-- [ ] Documentation.
+- [ ] Documentation: https://milmazz.uno/article/2014/08/27/how-to-document-your-javascript-code/
 - [ ] Simulate backend to allow for execution and testing on dev machines.
 - [ ] Unit testing.
 - [ ] Automated installation script.

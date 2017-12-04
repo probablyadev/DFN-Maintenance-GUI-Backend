@@ -1,7 +1,7 @@
 {
   "name": "dfn-maintenance-gui",
   "productName": "Desert Fireball Maintenance GUI",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "GUI for maintaining the camera network for the Fireballs in the Sky project.",
   "scripts": {
     "clean": "rimraf dist",
