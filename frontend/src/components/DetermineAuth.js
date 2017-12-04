@@ -15,11 +15,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(actionCreators, dispatch);
 }
 
-
 export function DetermineAuth(Component) {
-
     class AuthenticatedComponent extends React.Component {
-
         componentWillMount() {
             this.checkAuth();
             this.state = {
@@ -65,10 +62,7 @@ export function DetermineAuth(Component) {
         render() {
             return (
                 <div>
-                    {this.state.loaded_if_needed
-                        ? <Component {...this.props} />
-                        : null
-                    }
+                    {this.state.loaded_if_needed ? <Component {...this.props} /> : null}
                 </div>
             );
 
@@ -80,5 +74,4 @@ export function DetermineAuth(Component) {
     };
 
     return connect(mapStateToProps, mapDispatchToProps)(AuthenticatedComponent);
-
 }
