@@ -18,9 +18,9 @@ def check_vpn_endpoint():
     )
 
 
-@network_endpoints.route("/api/network/internet_check", methods = ["GET"])
+@network_endpoints.route("/api/network/check_internet", methods = ["GET"])
 @requires_auth
-def internet_check_endpoint():
+def check_internet_endpoint():
     """Delivers a summary of the internet connectivity of the system."""
     check_internet_message, check_internet_status = check_internet()
 
