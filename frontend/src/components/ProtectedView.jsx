@@ -12,7 +12,6 @@ function mapStateToProps(state) {
     };
 }
 
-
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(actionCreators, dispatch);
 }
@@ -32,9 +31,7 @@ export default class ProtectedView extends React.Component {
     render() {
         return (
             <div>
-                {!this.props.loaded
-                    ? <h1>Loading data...</h1>
-                    :
+                {!this.props.loaded ? <h1>Loading data...</h1> :
                     <div>
                         <h1>Welcome back,
                             {this.props.userName}!</h1>

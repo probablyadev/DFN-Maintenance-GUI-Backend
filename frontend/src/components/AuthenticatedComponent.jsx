@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { browserHistory } from 'react-router';
 import * as actionCreators from '../actions/auth';
 
 function mapStateToProps(state) {
@@ -15,7 +16,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(actionCreators, dispatch);
 }
 
-export function DetermineAuth(Component) {
+export function requireAuthentication(Component) {
     class AuthenticatedComponent extends React.Component {
         componentWillMount() {
             this.checkAuth();
@@ -31,7 +32,10 @@ export function DetermineAuth(Component) {
         checkAuth(props = this.props) {
             if (!props.isAuthenticated) {
                 const token = localStorage.getItem('token');
-                if (token) {
+
+                if (!token) {
+                    browserHistory.push('/home');
+                } else {
                     fetch('/api/is_token_valid', {
                         method: 'post',
                         credentials: 'include',
@@ -41,17 +45,17 @@ export function DetermineAuth(Component) {
                         },
                         body: JSON.stringify({ token }),
                     })
-                        .then(res => {
-                            if (res.status === 200) {
-                                this.props.loginUserSuccess(token);
-                                this.setState({
-                                    loaded_if_needed: true,
-                                });
-
-                            }
-                        });
+                    .then(res => {
+                        if (res.status === 200) {
+                            this.props.loginUserSuccess(token);
+                            this.setState({
+                                loaded_if_needed: true,
+                            });
+                        } else {
+                            browserHistory.push('/home');
+                        }
+                    });
                 }
-
             } else {
                 this.setState({
                     loaded_if_needed: true,
@@ -62,15 +66,15 @@ export function DetermineAuth(Component) {
         render() {
             return (
                 <div>
-                    {this.state.loaded_if_needed ? <Component {...this.props} /> : null}
+                    {this.props.isAuthenticated && this.state.loaded_if_needed ? <Component {...this.props} /> : null}
                 </div>
             );
-
         }
     }
 
     AuthenticatedComponent.propTypes = {
         loginUserSuccess: React.PropTypes.func,
+        isAuthenticated: React.PropTypes.bool,
     };
 
     return connect(mapStateToProps, mapDispatchToProps)(AuthenticatedComponent);
