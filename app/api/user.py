@@ -10,12 +10,13 @@ user_endpoints = Blueprint("user_api", __name__)
 
 @user_endpoints.route("/api/user/get_user", methods = ["GET"])
 @requires_auth
-def get_user():
+def get_user_endpoint():
+    """Gets the currently logged in user."""
     return jsonify(user = g.current_user)
 
 
 @user_endpoints.route("/api/user/create_user", methods = ["POST"])
-def create_user():
+def create_user_endpoint():
     """Currently only used when testing the backend system."""
     incoming = request.get_json()
 
@@ -40,7 +41,8 @@ def create_user():
 
 
 @user_endpoints.route("/api/user/get_token", methods = ["POST"])
-def get_token():
+def get_token_endpoint():
+    """Generates a token for the users session if email and password is valid."""
     incoming = request.get_json()
     user = User.get_user_with_email_and_password(incoming["email"], incoming["password"])
 
@@ -51,7 +53,8 @@ def get_token():
 
 
 @user_endpoints.route("/api/user/is_token_valid", methods = ["POST"])
-def is_token_valid():
+def is_token_valid_endpoint():
+    """Checks that a given token is valid."""
     incoming = request.get_json()
     is_valid = verify_token(incoming["token"])
 
