@@ -1,7 +1,6 @@
 import json
 from unittest import TestCase
-
-from app.app import app, db
+from index import app, db
 
 
 class BaseTestConfig(TestCase):
