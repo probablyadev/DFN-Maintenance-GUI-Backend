@@ -235,6 +235,14 @@ for using Pythons virtual environment, if you wish to make use of it.
 
 ### Install Back-end Requirements
 
+Before any of the Python backend requirements can be installed, in
+order for the bccrypt library to work you must first make sure that
+the follow libraries are installed, use:
+
+```{r, engine='shell', count_lines}
+sudo apt-get install build-essential libffi-dev python-dev
+```
+
 All the Python dependencies are located in [requirements.txt]. To
 install them, open a command prompt, navigate to the projects root
 directory and use:
