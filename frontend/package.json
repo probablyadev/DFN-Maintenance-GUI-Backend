@@ -23,7 +23,6 @@
         "test": "karma start"
     },
     "devDependencies": {
-        "autoprefixer": "6.5.3",
         "axios": "^0.15.3",
         "babel-core": "^6.4.5",
         "babel-eslint": "^7.1.1",
@@ -74,7 +73,6 @@
         "mocha": "^3.0.2",
         "morgan": "^1.6.1",
         "node-sass": "^3.4.2",
-        "postcss-import": "^9.0.0",
         "postcss-loader": "^1.1.1",
         "q": "^1.4.1",
         "qs": "^6.1.0",

@@ -2,7 +2,9 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
+    debug: true,
     devtool: 'cheap-module-eval-source-map',
+
     entry: [
         'bootstrap-loader',
         'webpack-hot-middleware/client',
