@@ -1,6 +1,6 @@
 import { FETCH_PROTECTED_DATA_REQUEST, RECEIVE_PROTECTED_DATA } from '../constants/constants';
 import { parseJSON } from '../utils/misc';
-import { data_about_user } from '../utils/http_functions';
+import { get_user } from '../utils/api/user';
 import { logoutAndRedirect } from './auth';
 
 export function receiveProtectedData(data) {
@@ -21,7 +21,7 @@ export function fetchProtectedDataRequest() {
 export function fetchProtectedData(token) {
     return (dispatch) => {
         dispatch(fetchProtectedDataRequest());
-        data_about_user(token)
+        get_user(token)
             .then(parseJSON)
             .then(response => {
                 dispatch(receiveProtectedData(response.result));

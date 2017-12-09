@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-const Footer = styled.footer`
+const StyledFooter = styled.footer`
     padding-top: 35px;
     padding-bottom: 30px;
     text-align: center;
@@ -15,7 +15,7 @@ const Footer = styled.footer`
 export default class Footer extends Component {
     render() {
         return (
-            <Footer>
+            <StyledFooter>
                 <div className="container">
                     <div className="row">
                         <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -23,7 +23,7 @@ export default class Footer extends Component {
                         </div>
                     </div>
                 </div>
-            </Footer>
+            </StyledFooter>
         );
     }
 }
