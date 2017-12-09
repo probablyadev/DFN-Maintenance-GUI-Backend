@@ -1,4 +1,4 @@
-import { RECEIVE_PROTECTED_DATA, FETCH_PROTECTED_DATA_REQUEST } from '../constants';
+import { RECEIVE_PROTECTED_DATA, FETCH_PROTECTED_DATA_REQUEST } from '../constants/constants';
 import { createReducer } from '../utils/misc';
 
 const initialState = {
