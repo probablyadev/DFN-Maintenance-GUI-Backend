@@ -55,7 +55,7 @@ const common = {
             test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
             loader: 'url?limit=10000&mimetype=image/svg+xml',
         }, {
-            test: /\.js$/,
+            test: /\.jsx?$/,
             loaders: ['babel-loader'],
             exclude: /node_modules/,
         }, {
