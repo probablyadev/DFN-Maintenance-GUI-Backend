@@ -1,7 +1,6 @@
 /* eslint camelcase: 0, no-underscore-dangle: 0 */
 
 import React from 'react';
-import styled from 'styled-components';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
@@ -20,18 +19,18 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(actionCreators, dispatch);
 }
 
-const StyledPaper = styled.paper`
-    marginTop: 50;
-    paddingBottom: 50;
-    paddingTop: 25;
-    width: '100%';
-    textAlign: 'center';
-    display: 'inline-block';
-`;
+const paperStyle = {
+    marginTop: 50,
+    paddingBottom: 50,
+    paddingTop: 25,
+    width: '100%',
+    textAlign: 'center',
+    display: 'inline-block',
+};
 
-const StyledRaisedButton = styled.raisedbutton`
-    marginTop: 50;
-`;
+const raisedButtonStyle = {
+    marginTop: 50,
+};
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class LoginView extends React.Component {
@@ -111,45 +110,46 @@ export default class LoginView extends React.Component {
 
     render() {
         return (
-            <div className="col-md-6 col-md-offset-3" onKeyPress={(e) => this._handleKeyPress(e)}>
-                <StyledPaper>
-                    <form role="form">
-                        <div className="text-center">
+            <div className = "col-md-6 col-md-offset-3" onKeyPress={(e) => this._handleKeyPress(e)}>
+                <Paper style = {paperStyle}>
+                    <form role = "form">
+                        <div className = "text-center">
                             <h2>Login to view protected content!</h2>
                             {
                                 this.props.statusText &&
-                                    <div className="alert alert-info">
+                                    <div className = "alert alert-info">
                                         {this.props.statusText}
                                     </div>
                             }
 
-                            <div className="col-md-12">
+                            <div className = "col-md-12">
                                 <TextField
-                                  hintText="Username"
-                                  floatingLabelText="Username"
-                                  type="Username"
-                                  errorText={this.state.username_error_text}
-                                  onChange={(e) => this.changeValue(e, 'Username')}
+                                  hintText = "Username"
+                                  floatingLabelText = "Username"
+                                  type = "Username"
+                                  errorText = {this.state.username_error_text}
+                                  onChange = {(e) => this.changeValue(e, 'Username')}
                                 />
                             </div>
-                            <div className="col-md-12">
+                            <div className = "col-md-12">
                                 <TextField
-                                  hintText="Password"
-                                  floatingLabelText="Password"
-                                  type="password"
-                                  errorText={this.state.password_error_text}
-                                  onChange={(e) => this.changeValue(e, 'password')}
+                                  hintText = "Password"
+                                  floatingLabelText = "Password"
+                                  type = "password"
+                                  errorText = {this.state.password_error_text}
+                                  onChange = {(e) => this.changeValue(e, 'password')}
                                 />
                             </div>
 
-                            <StyledRaisedButton
-                              disabled={this.state.disabled}
-                              label="Submit"
-                              onClick={(e) => this.login(e)}
+                            <RaisedButton
+                              disabled = {this.state.disabled}
+                              style = {raisedButtonStyle}
+                              label = "Submit"
+                              onClick = {(e) => this.login(e)}
                             />
                         </div>
                     </form>
-                </StyledPaper>
+                </Paper>
             </div>
         );
 
