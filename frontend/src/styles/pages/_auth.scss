@@ -1,0 +1,117 @@
+$reverse: #fff;
+$font-size-small: 12px;
+$screen-sm: 768px;
+
+.body-auth {
+  background-color: $body-bg;
+  // background: url('#{$image_path}/background/1.png') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover; 
+}
+
+.page-auth,
+.page-login,
+.page-signup,
+.page-forgot {
+  padding: 0 10px;
+
+  .main-body {
+    max-width: 480px;
+    margin: 0 auto;
+    padding-top: 50px;
+    @media (min-width: map-get($grid-breakpoints, md)) {
+      padding-top: 150px;
+    }
+  }
+  .body-inner {
+    position: relative;
+    padding: 20px;
+    &:before {
+      z-index: 0;
+      content: ' ';
+      line-height: 0;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color:theme-color("primary");
+      height: 220px;
+    }
+  }
+  .additional-info {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    font-size: $font-size-small;
+    a {
+      color: $bright;
+    }
+    .divider-h {
+      border-right: 1px solid $bright;
+      margin: 0 15px;
+    }
+  }
+
+
+  h1 {
+    font-weight: normal;
+    color:theme-color("primary");
+    font-size: 38px;
+    margin-bottom: 40px;
+    a {
+      color:theme-color("primary");
+    }
+  }
+
+  .card {
+    @include z-depth-2;
+    .card-content {
+      padding: 30px 20px;
+    }
+  }
+
+  .ui-input-group {
+    .form-control {
+      color: $gray-700;
+    }
+  }
+
+  .form-group {
+    position: relative;
+    margin: 0;
+  }
+
+  .wrapper {
+    margin-top: 50px;
+    @media (min-width: $screen-sm) {
+      margin-top: 150px;
+    }
+  }
+
+  .logo {
+    font-size: 26px;
+    font-weight: normal;
+    // text-transform: uppercase;
+    a {
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+//
+.page-confirm-email {
+  .logo {
+    font-size: 24px;
+    margin-bottom: .8em;
+  }
+  .confirm-mail-icon {
+    text-align: center;
+    .material-icons {
+      color: $gray-600;
+      font-size: 100px;
+    }
+  }
+}

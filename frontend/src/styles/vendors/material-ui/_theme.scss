@@ -1,0 +1,37 @@
+
+.theme-dark,
+.theme-gray {
+  .app-header {
+    .bg-color-light,
+    .bg-color-warning {
+      .header-btn {
+        color: #fff !important;
+      }
+    }
+  }
+
+  .quickview-wrapper {
+    .customizer-layout-options label {
+      color: $theme_dark_text_color !important;
+    }
+  }
+}
+
+.quickview-wrapper {
+  .customizer-layout-options {
+    label {
+      color: $body-color !important;
+    }
+
+    .sidebar-width-select > div {
+      // select text
+      > div > div {
+        color: $body-color !important;
+      }
+
+      > hr {
+        border-color: rgba(#000, .15) !important;
+      }
+    }
+  }
+}

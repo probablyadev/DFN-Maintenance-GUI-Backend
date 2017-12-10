@@ -1,0 +1,62 @@
+
+// Layout fix
+#app-container,
+#app-inner,
+.main-app-container {
+  height: 100%;
+}
+
+// React logo, #67DAF9
+.logo-react {
+  .react-dot,
+  .react-curve {
+    opacity: .9;
+  }
+  .react-dot {
+    fill: #fff;
+  }
+  .react-curve {
+    stroke: #fff;
+  }
+}
+.bg-color-warning,
+.bg-color-light {
+  > .logo-react {
+    .react-dot {
+      fill: $body-color;
+    }
+    .react-curve {
+      stroke: $body-color;
+    }
+  }
+}
+.theme-gray,
+.theme-dark {
+  .bg-color-warning,
+  .bg-color-light {
+    > .logo-react {
+      .react-dot,
+      .react-curve {
+        opacity: .7;
+      }
+      .react-dot {
+        fill: #fff;
+      }
+      .react-curve {
+        stroke: #fff;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $l_screen_md_min) {
+  .nav-collapsed .app-sidebar{
+    .sidebar-header {
+      .logo-react {
+        margin-bottom: -5px;
+      }
+    }
+  }
+}
+
+

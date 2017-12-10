@@ -1,0 +1,117 @@
+.page-dashboard {
+  .metrics {
+    margin-top: 50px;
+
+    .metric-box {
+      margin-bottom: 15px;
+    }
+
+    .metric {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 26px;
+      color: theme-color("info");
+    }
+
+    .metric-info {
+      text-transform: uppercase;
+      font-size: 16px;
+      color: #aaa;
+    }
+  }
+
+  .box {
+    position: relative;
+    border-radius: $border-radius-lg;
+
+    .box-top,
+    .box-bottom {
+      height: 100px;
+      padding: 32px 15px;
+      font-size: 40px;
+      line-height: 40px;
+      text-align: center;
+      font-weight: $display1-weight;
+      .size-h5 {
+        font-size: 24px;
+        margin-left: 2px;
+      }
+      .material-icons {
+        font-size: 40px;
+        line-height: 40px;
+      }
+    }
+
+    .box-bottom {
+      border-top: 1px solid rgba(0,0,0,.15);
+      @media only screen and (min-width: map-get($grid-breakpoints, md)) {
+        padding-left: 15%;
+        padding-right: 15%;
+      }
+    }
+
+    .box-info {
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      margin-top: -12px;
+      text-align: center;
+
+      span {
+        height: 24px;
+        display: inline-block;
+        padding: 4px 10px;
+        text-transform: uppercase;
+        line-height: 14px;
+        background-color: #fff;
+        border: 1px solid rgba(0,0,0,.15);
+        font-size: 12px;
+        color: $text-muted;
+        border-radius: 1em;
+        .material-icons {
+          line-height: 14px;
+          font-size: 11px;
+        }
+      }
+    }
+  }
+}
+
+// Dark theme
+// --------------------------------------------------
+.theme-gray,
+.theme-dark {
+  .box-info {
+    .box-icon {
+      .material-icons {
+        color: rgba($theme_dark_text_color, .54);
+      }
+    }
+    .box-num {
+      color: rgba($theme_dark_text_color, .54);
+    }
+  }
+}
+
+.theme-gray {
+  .page-dashboard {
+    .box {
+      .box-info {
+        span {
+          background-color: $theme_gray_page_bg;
+        }
+      }
+    }
+  }
+}
+.theme-dark {
+  .page-dashboard {
+    .box {
+      .box-info {
+        span {
+          background-color: $theme_dark_page_bg;
+        }
+      }
+    }
+  }
+}

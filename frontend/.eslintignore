@@ -1,5 +1,6 @@
-db/
-docs/
-tests/
-build/
-src/dist/
+# /node_modules/* and /bower_components/* ignored by default
+
+# Ignore built files except build/index.js
+dist/*
+src/styles/*
+src/vendors/*
