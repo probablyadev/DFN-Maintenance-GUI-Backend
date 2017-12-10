@@ -1,161 +1,12 @@
-# React frontend
-
-node_modules/
-app/frontend/dist
-dist/
-cache/
-build/dist
-
-npm-debug.log
-.eslintcache
-
-# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
-# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
-
-# User-specific stuff:
-.idea/workspace.xml
-.idea/tasks.xml
-
-# Sensitive or high-churn files:
-.idea/dataSources.ids
-.idea/dataSources.xml
-.idea/dataSources.local.xml
-.idea/sqlDataSources.xml
-.idea/dynamic.xml
-.idea/uiDesigner.xml
-
-# Gradle:
-.idea/gradle.xml
-.idea/libraries
-
-# Mongo Explorer plugin:
-.idea/mongoSettings.xml
-
-## File-based project format:
-*.iws
-
-## Plugin-specific files:
-
-# IntelliJ
-/out/
-
-# mpeltonen/sbt-idea plugin
-.idea_modules/
-
-# JIRA plugin
-atlassian-ide-plugin.xml
-
-# Crashlytics plugin (for Android Studio and IntelliJ)
-com_crashlytics_export_strings.xml
-crashlytics.properties
-crashlytics-build.properties
-fabric.properties
-
-# web.py + environment
-webpy/
-env/
-__pycache__/
-.idea/
-.DS_Store
-*.pyc
-sessions/
-intoDB.py
-*.db
-*.config
-
-### Linux template
-*~
-
-# temporary files which can be created if a process still has a handle open of a deleted file
-.fuse_hidden*
-
-# KDE directory preferences
-.directory
-
-# Linux trash folder which might appear on any partition or disk
-.Trash-*
-
-# .nfs files are created when an open file is removed but is still being accessed
-.nfs*
-### JetBrains template
-# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
-# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
-
-# User-specific stuff:
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/dictionaries
-
-# Sensitive or high-churn files:
-.idea/**/dataSources/
-.idea/**/dataSources.ids
-.idea/**/dataSources.xml
-.idea/**/dataSources.local.xml
-.idea/**/sqlDataSources.xml
-.idea/**/dynamic.xml
-.idea/**/uiDesigner.xml
-
-# Gradle:
-.idea/**/gradle.xml
-.idea/**/libraries
-
-# CMake
-cmake-build-debug/
-
-# Mongo Explorer plugin:
-.idea/**/mongoSettings.xml
-
-## File-based project format:
-
-## Plugin-specific files:
-
-# IntelliJ
-out/
-
-# mpeltonen/sbt-idea plugin
-
-# JIRA plugin
-
-# Cursive Clojure plugin
-.idea/replstate.xml
-
-# Crashlytics plugin (for Android Studio and IntelliJ)
-### macOS template
-# General
-.AppleDouble
-.LSOverride
-
-# Icon must end with two \r
-Icon
-
-# Thumbnails
-._*
-
-# Files that might appear in the root of a volume
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-.com.apple.timemachine.donotpresent
-
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
-
-### Python template
-# Byte-compiled / optimized / DLL files
+# Python template
+## Byte-compiled / optimized / DLL files
 *.py[cod]
 *$py.class
 
-# C extensions
+## C extensions
 *.so
 
-# Distribution / packaging
+## Distribution / packaging
 .Python
 build/
 develop-eggs/
@@ -173,18 +24,17 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
+__pycache__/
 
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+## PyInstaller
 *.manifest
 *.spec
 
-# Installer logs
+## Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Unit test / coverage reports
+## Unit test / coverage reports
 htmlcov/
 .tox/
 .coverage
@@ -195,87 +45,99 @@ coverage.xml
 *.cover
 .hypothesis/
 
-# Translations
+## Translations
 *.mo
 *.pot
 
-# Django stuff:
+## Django stuff:
 *.log
 .static_storage/
 .media/
 local_settings.py
 
-# Flask stuff:
+## Flask stuff:
 instance/
 .webassets-cache
+sessions/
 
-# Scrapy stuff:
+## Scrapy stuff:
 .scrapy
 
-# Sphinx documentation
+## Sphinx documentation
 docs/_build/
 
-# PyBuilder
+## PyBuilder
 target/
 
-# Jupyter Notebook
+## Jupyter Notebook
 .ipynb_checkpoints
 
-# pyenv
+## pyenv
 .python-version
 
-# celery beat schedule file
+## Celery beat schedule file
 celerybeat-schedule
 
-# SageMath parsed files
+## SageMath parsed files
 *.sage.py
 
-# Environments
+## Environments
 .env
 .venv
+env/
 venv/
 ENV/
 env.bak/
 venv.bak/
 
-# Spyder project settings
+## Spyder project settings
 .spyderproject
 .spyproject
 
-# Rope project settings
+## Rope project settings
 .ropeproject
 
-# mkdocs documentation
+## mkdocs documentation
 /site
 
-# mypy
+## mypy
 .mypy_cache/
 
-### Windows template
-# Windows thumbnail cache files
-Thumbs.db
-ehthumbs.db
-ehthumbs_vista.db
 
-# Dump file
-*.stackdump
 
-# Folder config file
-Desktop.ini
 
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
 
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
+# React frontend
+## Logs
+logs
 
-# Windows shortcuts
-*.lnk
+## System Files
+.DS_Store
+._.DS_Store
 
-### Mercurial template
+## Dependency directory
+node_modules
+bower_components/
+
+## Linter
+linters/
+
+## Testing
+/coverage
+
+## Compiled output
+/build
+/Release
+/dist
+/dll
+.tmp
+documentation/*.html
+
+
+
+
+
+# Mercurial template
 .hg/
 .hgignore
 .hgsigs
@@ -283,6 +145,145 @@ $RECYCLE.BIN/
 .hgsubstate
 .hgtags
 
-### Sass template
+
+
+
+
+# Sass template
 .sass-cache/
 *.css.map
+
+
+
+
+
+# JetBrains template
+
+## User-specific stuff:
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/dictionaries
+
+## Sensitive or high-churn files:
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.xml
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+
+## Gradle:
+.idea/**/gradle.xml
+.idea/**/libraries
+
+## CMake
+cmake-build-debug/
+
+## Mongo Explorer plugin:
+.idea/**/mongoSettings.xml
+
+## IntelliJ
+out/
+
+## Cursive Clojure plugin
+.idea/replstate.xml
+
+## mpeltonen/sbt-idea plugin
+.idea_modules/
+
+## File-based project format:
+*.iws
+
+## JIRA plugin
+atlassian-ide-plugin.xml
+
+## Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+## Mongo Explorer plugin:
+.idea/mongoSettings.xml
+
+## Markdown Navigator
+.idea/markdown-navigator*
+
+
+
+
+
+# Linux template
+*~
+
+## Temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+## KDE directory preferences
+.directory
+
+## Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+## .nfs files are created when an open file is removed but is still being accessed
+.nfs*
+
+
+
+
+
+# Windows template
+## Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+
+## Dump file
+*.stackdump
+
+## Folder config file
+Desktop.ini
+
+## Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+## Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+## Windows shortcuts
+*.lnk
+
+
+
+
+
+# macOS template
+## General
+.AppleDouble
+.LSOverride
+
+## Icon must end with two \r
+Icon
+
+## Thumbnails
+._*
+
+## Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+## Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
