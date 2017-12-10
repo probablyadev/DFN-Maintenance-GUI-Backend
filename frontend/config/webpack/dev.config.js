@@ -4,7 +4,7 @@
  * Default dev server configuration.
  */
 const webpack = require('webpack');
-const WebpackBaseConfig = require('./Base');
+const WebpackBaseConfig = require('./common.config');
 
 class WebpackDevConfig extends WebpackBaseConfig {
 

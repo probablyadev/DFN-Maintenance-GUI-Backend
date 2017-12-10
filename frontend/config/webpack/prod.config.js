@@ -5,7 +5,7 @@
  * final output when running npm run dist.
  */
 const webpack = require('webpack');
-const WebpackBaseConfig = require('./Base');
+const WebpackBaseConfig = require('./common.config');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const path = require('path');

@@ -13,14 +13,14 @@
   },
   "scripts": {
     "clean": "rimraf dist/*",
-    "build": "npm run clean && webpack --progress --bail --env dist -p",
+    "build": "npm run clean && webpack --progress --bail --env prod -p",
     "lint": "eslint ./src",
     "lint-fix": "eslint ./src --fix",
     "lint-sass": "sass-lint -c .sass-lint.yml 'src/styles/**/*.scss' -v -q",
     "posttest": "npm run lint",
     "reinstall": "rimraf node_modules && rm -f package-lock.json && npm install",
     "serve:dev": "webpack-dev-server --open --env dev",
-    "serve:dist": "webpack-dev-server --open --env dist -p --progress",
+    "serve:prod": "webpack-dev-server --open --env prod -p --progress",
     "start": "npm run serve:dev"
   },
   "dependencies": {
@@ -64,7 +64,7 @@
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.7",
     "eslint": "^4.6.0",
-    "eslint-config-airbnb": "^15.0.1",
+    "eslint-config-airbnb": "^16.1.0",
     "eslint-loader": "^1.7.1",
     "eslint-plugin-import": "^2.3.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
