@@ -3,8 +3,8 @@ const year = date.getFullYear();
 
 const APPCONFIG = {
     brand: 'Fireballs',
-    brandFull: 'Fireballs in the Sky',
-    user: 'Scott',
+    brandLong: 'Fireballs in the Sky',
+    user: 'Scott Day',
     year: 2017,
     productLink: 'http://fireballsinthesky.com.au/',
     AutoCloseMobileNav: true,                         // true, false. Automatically close sidenav on route change (Mobile only)
