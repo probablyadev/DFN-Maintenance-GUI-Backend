@@ -20,7 +20,6 @@ const StyledMenuItem = styled(MenuItem)`
 const StyledIconButton = styled(IconButton)`
 	width: 60px;
 	height: 60px;
-	paddingTop: 18px;
 `;
 
 const listItemStyle = {
@@ -38,7 +37,7 @@ class NavRightList extends React.Component {
                 <StyledListItem>
                     <IconMenu
                         iconButtonElement={
-                            <StyledIconButton>
+                            <StyledIconButton style={{paddingTop: '18px'}}>
                                 <MoreVertIcon />
                             </StyledIconButton>
                         }
