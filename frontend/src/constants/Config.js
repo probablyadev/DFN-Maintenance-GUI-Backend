@@ -2,10 +2,10 @@ const date = new Date();
 const year = date.getFullYear();
 
 const APPCONFIG = {
-  brand: 'Material',
-  user: 'Lisa',
+  brand: 'DFN',
+  user: 'Scott',
   year,
-  productLink: 'https://themeforest.net/item/material-design-reactjs-admin-web-app-with-bootstrap-4/19582625',
+  productLink: 'http://fireballsinthesky.com.au/',
   AutoCloseMobileNav: true,                         // true, false. Automatically close sidenav on route change (Mobile only)
   color: {
     primary: '#00BCD4',
