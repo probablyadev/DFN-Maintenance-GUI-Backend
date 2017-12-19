@@ -11,6 +11,9 @@
     "react-hot-loader/babel"
   ],
   "env": {
+    "production": {
+      "plugins": ["transform-react-remove-prop-types"]
+    },
     "test": {
       "plugins": [
         "transform-decorators-legacy",

@@ -21,7 +21,7 @@ class WebpackDistConfig extends WebpackBaseConfig {
     super();
     this.config = {
       cache: false,
-      devtool: 'cheap-module-source-map',
+      devtool: 'cheap-module-source-map', // cheap-source-map will not work with UglifyJsPlugin.
       entry: [
         './client.js'
       ],

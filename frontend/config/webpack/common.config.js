@@ -7,6 +7,9 @@ const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 
+const CompressionPlugin = require('compression-webpack-plugin');
+const OfflinePlugin = require('offline-plugin');
+
 const npmBase = path.join(__dirname, '../../node_modules');
 
 class WebpackBaseConfig {
@@ -191,23 +194,14 @@ class WebpackBaseConfig {
                 return module.context && module.context.indexOf('node_modules') >= 0;
             }
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false,
-                screw_ie8: true,
-                conditionals: true,
-                unused: true,
-                comparisons: true,
-                sequences: true,
-                dead_code: true,
-                evaluate: true,
-                if_return: true,
-                join_vars: true
-            },
-            output: {
-                comments: false
-            }
-        })
+        new CompressionPlugin({
+            asset: '[path].gz[query]',
+            algorithm: 'gzip',
+            test: /\.js$|\.css$|\.html$|\.eot?.+$|\.ttf?.+$|\.woff?.+$|\.svg?.+$/,
+            threshold: 10240,
+            minRatio: 0.8
+        }),
+        new OfflinePlugin()
       ],
       resolve: {
         alias: {
