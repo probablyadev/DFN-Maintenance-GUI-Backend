@@ -5,9 +5,9 @@
  */
 const webpack = require('webpack');
 const WebpackBaseConfig = require('./common.config');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 class WebpackDevConfig extends WebpackBaseConfig {
-
   constructor() {
     super();
     this.config = {
@@ -24,8 +24,27 @@ class WebpackDevConfig extends WebpackBaseConfig {
         new webpack.ProvidePlugin({
           $: "jquery",
           jQuery: "jquery",
-          "window.jQuery": "jquery"
-        })
+          "window.jQuery": "jquery",
+          Popper: ['popper.js', 'default']
+        }),
+        new BrowserSyncPlugin(
+            // BrowserSync options
+            {
+                // browse to http://localhost:3100/ during development
+                host: 'localhost',
+                port: 3100,
+                // proxy the Webpack Dev Server endpoint
+                // (which should be serving on http://localhost:3000/)
+                // through BrowserSync
+                proxy: 'http://localhost:3000/'
+            },
+            // plugin options
+            {
+                // prevent BrowserSync from reloading the page
+                // and let Webpack Dev Server take care of this
+                reload: false
+            }
+        )
       ]
     };
 
