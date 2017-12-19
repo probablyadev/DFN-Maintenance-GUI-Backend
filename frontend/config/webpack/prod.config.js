@@ -21,7 +21,7 @@ class WebpackDistConfig extends WebpackBaseConfig {
     super();
     this.config = {
       cache: false,
-      devtool: 'source-map',
+      devtool: 'cheap-module-source-map',
       entry: [
         './client.js'
       ],
