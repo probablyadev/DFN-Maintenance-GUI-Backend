@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton/IconButton';
@@ -8,19 +7,16 @@ import AccountCircleIcon from 'material-ui/svg-icons/action/account-circle';
 import ForwardIcon from 'material-ui/svg-icons/content/forward';
 import { withRouter } from 'react-router-dom';
 
-const StyledListItem = styled.li`
-	marginRight: 10px;
-`;
+const iconButtonStyle = {
+    width: '60px',
+    height: '60px',
+    paddingTop: '20px'
+};
 
-const StyledMenuItem = styled(MenuItem)`
-	fontSize: 14px;
-	lineHeight: 48px;
-`;
-
-const StyledIconButton = styled(IconButton)`
-	width: 60px;
-	height: 60px;
-`;
+const menuItemStyle = {
+    fontSize: '14px',
+    lineHeight: '48px'
+};
 
 const listItemStyle = {
   paddingLeft: '50px' // Align with sub list.
@@ -34,32 +30,30 @@ class NavRightList extends React.Component {
     render() {
         return (
             <ul className="list-unstyled float-right">
-                <StyledListItem>
+                <li style={{marginRight: '10px'}}>
                     <IconMenu
-                        iconButtonElement={
-                            <StyledIconButton style={{paddingTop: '18px'}}>
-                                <MoreVertIcon />
-                            </StyledIconButton>
-                        }
+                        iconButtonElement={<IconButton style={iconButtonStyle}><MoreVertIcon /></IconButton>}
                         onChange={this.handleChange}
                         anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
                         targetOrigin={{horizontal: 'right', vertical: 'top'}}
                         menuStyle={{minWidth: '150px'}}
                     >
-                        <StyledMenuItem
+                        <MenuItem
                             value="/app/profile"
                             primaryText="Profile"
+                            style={menuItemStyle}
                             innerDivStyle={listItemStyle}
                             leftIcon={<AccountCircleIcon />}
                         />
-                        <StyledMenuItem
+                        <MenuItem
                             value="/login"
                             primaryText="Log Out"
+                            style={menuItemStyle}
                             innerDivStyle={listItemStyle}
                             leftIcon={<ForwardIcon />}
                         />
                     </IconMenu>
-                </StyledListItem>
+                </li>
             </ul>
         );
     }
