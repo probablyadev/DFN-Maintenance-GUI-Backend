@@ -5,6 +5,7 @@
  */
 const webpack = require('webpack');
 const WebpackBaseConfig = require('./common.config');
+
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 class WebpackDevConfig extends WebpackBaseConfig {
@@ -19,6 +20,7 @@ class WebpackDevConfig extends WebpackBaseConfig {
         './client.js'
       ],
       plugins: [
+        new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.ProvidePlugin({
@@ -44,7 +46,8 @@ class WebpackDevConfig extends WebpackBaseConfig {
                 // and let Webpack Dev Server take care of this
                 reload: false
             }
-        )
+        ),
+        new webpack.NamedModulesPlugin()
       ]
     };
 

@@ -19,7 +19,7 @@
     "lint-sass": "sass-lint -c .sass-lint.yml 'src/styles/**/*.scss' -v -q",
     "posttest": "npm run lint",
     "reinstall": "rimraf node_modules && rm -f package-lock.json && npm install",
-    "serve:dev": "webpack-dev-server --open --env dev",
+    "serve:dev": "webpack-dev-server --env dev",
     "serve:prod": "webpack-dev-server --open --env prod -p --progress",
     "start": "npm run serve:dev"
   },

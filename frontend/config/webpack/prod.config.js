@@ -49,6 +49,7 @@ class WebpackDistConfig extends WebpackBaseConfig {
           {from: root('src/assets/images'), to: root('dist/assets/images') },
           {from: root('src/assets/images-demo'), to: root('dist/assets/images-demo') },
         ]),
+        new webpack.HashedModuleIdsPlugin()
       ]
     };
 

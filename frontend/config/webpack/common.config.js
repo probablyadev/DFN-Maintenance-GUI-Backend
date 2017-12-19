@@ -5,11 +5,11 @@
  */
 const fs = require('fs');
 const path = require('path');
+const webpack = require('webpack');
 
 const npmBase = path.join(__dirname, '../../node_modules');
 
 class WebpackBaseConfig {
-
   constructor() {
     this._config = {};
   }
@@ -183,7 +183,32 @@ class WebpackBaseConfig {
         filename: 'app.js',
         publicPath: './assets/'
       },
-      plugins: [],
+      plugins: [
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            filename: 'vendor.[chunkhash].js',
+            minChunks (module) {
+                return module.context && module.context.indexOf('node_modules') >= 0;
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false,
+                screw_ie8: true,
+                conditionals: true,
+                unused: true,
+                comparisons: true,
+                sequences: true,
+                dead_code: true,
+                evaluate: true,
+                if_return: true,
+                join_vars: true
+            },
+            output: {
+                comments: false
+            }
+        })
+      ],
       resolve: {
         alias: {
           actions: `${this.srcPathAbsolute}/actions/`,
