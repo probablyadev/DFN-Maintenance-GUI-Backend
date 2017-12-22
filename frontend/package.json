@@ -9,7 +9,7 @@
   "main": "src/client.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/CPedersen3245/Desert-Fireball-Maintainence-GUI/"
+    "url": "https://github.com/ScottDay/Desert-Fireball-Maintainence-GUI"
   },
   "scripts": {
     "clean": "rimraf dist/*",
