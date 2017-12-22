@@ -46,8 +46,7 @@ class WebpackDevConfig extends WebpackBaseConfig {
                 // and let Webpack Dev Server take care of this
                 reload: false
             }
-        ),
-        new webpack.NamedModulesPlugin()
+        )
       ]
     };
 

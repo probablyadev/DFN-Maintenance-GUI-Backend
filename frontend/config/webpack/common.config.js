@@ -8,7 +8,6 @@ const path = require('path');
 const webpack = require('webpack');
 
 const CompressionPlugin = require('compression-webpack-plugin');
-const OfflinePlugin = require('offline-plugin');
 
 const npmBase = path.join(__dirname, '../../node_modules');
 
@@ -201,7 +200,7 @@ class WebpackBaseConfig {
             threshold: 10240,
             minRatio: 0.8
         }),
-        new OfflinePlugin()
+        new webpack.HashedModuleIdsPlugin()
       ],
       resolve: {
         alias: {
