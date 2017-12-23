@@ -1,4 +1,6 @@
-# Table of Contents
+# Documentation
+
+## Table of Contents
 
 - [General](general)
     - [Requirements](general/REQUIREMENTS.md)
