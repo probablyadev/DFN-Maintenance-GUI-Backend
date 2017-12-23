@@ -10,22 +10,25 @@
 <br />
 
 <div align="center">
-  <!-- Dependency Status -->
-  <a href="https://david-dm.org/ScottDay/Desert-Fireball-Maintainence-GUI">
-    <img src="https://david-dm.org/ScottDay/Desert-Fireball-Maintainence-GUI.svg" alt="Dependency Status" />
-  </a>
-  <!-- devDependency Status -->
-  <a href="https://david-dm.org/ScottDay/Desert-Fireball-Maintainence-GUI#info=devDependencies">
-    <img src="https://david-dm.org/ScottDay/Desert-Fireball-Maintainence-GUI.svg" alt="devDependency Status" />
-  </a>
-  <!-- Build Status -->
-  <a href="https://travis-ci.org/ScottDay/Desert-Fireball-Maintainence-GUI">
-    <img src="https://travis-ci.org/ScottDay/Desert-Fireball-Maintainence-GUI.svg" alt="Build Status" />
-  </a>
-  <!-- Test Coverage -->
-  <a href="https://coveralls.io/repos/ScottDay/Desert-Fireball-Maintainence-GUI">
-    <img src="https://coveralls.io/repos/github/ScottDay/Desert-Fireball-Maintainence-GUI/badge.svg" alt="Test Coverage" />
-  </a>
+    <!-- Dependency Status -->
+    <a href="https://david-dm.org/ScottDay/Desert-Fireball-Maintainence-GUI">
+        <img src="https://david-dm.org/ScottDay/Desert-Fireball-Maintainence-GUI.svg" alt="Dependency Status" />
+    </a>
+    <!-- devDependency Status -->
+    <a href="https://david-dm.org/ScottDay/Desert-Fireball-Maintainence-GUI#info=devDependencies">
+        <img src="https://david-dm.org/ScottDay/Desert-Fireball-Maintainence-GUI.svg" alt="devDependency Status" />
+    </a>
+    <!-- Build Status -->
+    <a href="https://travis-ci.org/ScottDay/Desert-Fireball-Maintainence-GUI">
+        <img src="https://travis-ci.org/ScottDay/Desert-Fireball-Maintainence-GUI.svg" alt="Build Status" />
+    </a>
+    <!-- Test Coverage -->
+    <a href="https://coveralls.io/repos/ScottDay/Desert-Fireball-Maintainence-GUI">
+        <img src="https://coveralls.io/repos/github/ScottDay/Desert-Fireball-Maintainence-GUI/badge.svg" alt="Test Coverage" />
+    </a>
+    <a href="https://app.fossa.io/projects/git%2Bgithub.com%2FScottDay%2FDesert-Fireball-Maintainence-GUI?ref=badge_shield" alt="FOSSA Status">
+        <img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2FScottDay%2FDesert-Fireball-Maintainence-GUI.svg?type=shield"/>
+    </a>
 </div>
 
 <br />
