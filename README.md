@@ -1,4 +1,6 @@
 # Desert Fireball Camera Network
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FScottDay%2FDesert-Fireball-Maintainence-GUI.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FScottDay%2FDesert-Fireball-Maintainence-GUI?ref=badge_shield)
+
 
 This is the code for the GUI which will be used to maintain the camera network for the Fireballs in the Sky project.
 The GUI is a web-based interface, using web.py to serve both html and static files such as stylesheets, and to handle HTTP requests.
@@ -18,3 +20,7 @@ The GUI is a web-based interface, using web.py to serve both html and static fil
 
 * Python 2.7 (due to web.py)
 * web.py
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FScottDay%2FDesert-Fireball-Maintainence-GUI.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FScottDay%2FDesert-Fireball-Maintainence-GUI?ref=badge_large)
