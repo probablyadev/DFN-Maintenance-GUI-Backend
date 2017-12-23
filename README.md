@@ -49,9 +49,9 @@ simulated to run without the camera as of yet.
 
 # Documentation
 
-See [docs/README.md] for all project documentation.
+See [docs/README.md](docs/README.md) for all project documentation.
 
 # License
 
 This project is licensed under the MIT license, Copyright (c) 2017
-Ryan Scott Day. For more information see [LICENSE.md].
+Ryan Scott Day. For more information see [LICENSE.md](LICENSE.md).

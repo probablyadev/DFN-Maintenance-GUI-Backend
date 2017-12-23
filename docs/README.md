@@ -8,7 +8,9 @@
 
 # Contributing
 
+- [Contributing](contributing/CONTRIBUTING.md)
 - [Maintainers](contributing/MAINTAINERS.md)
+- [Code of Conduct](contributing/CODE_OF_CONDUCT.md)
 - [Issue Template](contributing/ISSUE_TEMPLATE.md)
 - [Pull Request Template](contributing/PULL_REQUEST_TEMPLATE.md)
 
