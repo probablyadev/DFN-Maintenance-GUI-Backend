@@ -1,12 +1,10 @@
 import 'jquery-slimscroll/jquery.slimscroll.min';
 import React from 'react';
-import APPCONFIG from 'constants/Config';
 import LayoutOptions from './LayoutOptions';
 import ColorOptions from './ColorOptions';
 import ThemeOptions from './ThemeOptions';
 
 class Customizer extends React.Component {
-
   componentDidMount() {
     const quickviewInner = this.quickview;
     $(quickviewInner).slimscroll({
@@ -17,13 +15,12 @@ class Customizer extends React.Component {
   toggleCustomizer = () => {
     const $body = $('#body');
     $body.toggleClass('quickview-open-customizer');
-  }
+  };
 
   closeCustomizer = () => {
     const $body = $('#body');
     $body.removeClass('quickview-open-customizer');
-  }
-
+  };
 
   render() {
     return (
@@ -50,11 +47,6 @@ class Customizer extends React.Component {
 
           <div className="divider divider-lg divider-solid" />
           <ThemeOptions />
-
-          <div className="divider divider-lg divider-solid" />
-          <div className="text-right">
-            <a target="_blank" href={APPCONFIG.productLink}>Download it Now</a>
-          </div>
         </div>
       </section>
     );

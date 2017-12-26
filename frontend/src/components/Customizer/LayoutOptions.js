@@ -1,13 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Toggle from 'material-ui/Toggle';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import {
-  toggleBoxedLayout,
-  toggleCollapsedNav,
-  toggleNavBehind,
-  toggleFixedHeader,
   changeSidebarWidth
 } from '../../actions';
 
@@ -19,34 +14,13 @@ const sideWidthSelectStyle = {
 };
 
 class LayoutOptions extends React.Component {
-
-  onToggleFixedHeader = (e, val) => {
-    const { handleToggleFixedHeader } = this.props;
-    handleToggleFixedHeader(val);
-  }
-
-  onToggleCollapsedNav = (e, val) => {
-    const { handleToggleCollapsedNav } = this.props;
-    handleToggleCollapsedNav(val);
-  }
-
-  onToggleNavBehind = (e, val) => {
-    const { handleToggleNavBehind } = this.props;
-    handleToggleNavBehind(val);
-  }
-
-  onToggleBoxedLayout = (e, val) => {
-    const { handleToggleBoxedLayout } = this.props;
-    handleToggleBoxedLayout(val);
-  }
-
   onSidebarWidthChange = (e, i, val) => {
     const { handleSidebarWidthChange } = this.props;
     handleSidebarWidthChange(val);
-  }
+  };
 
   render() {
-    const { layoutBoxed, navCollapsed, navBehind, fixedHeader, sidebarWidth } = this.props;
+    const { sidebarWidth } = this.props;
 
     return (
       <section className="customizer-layout-options">
@@ -54,14 +28,6 @@ class LayoutOptions extends React.Component {
         <div className="divider" />
 
         <div>
-          <Toggle label="Fixed Header" defaultToggled={fixedHeader} onToggle={this.onToggleFixedHeader} />
-          <div className="divider divider-xs" />
-          <Toggle label="Collapsed Sidebar" toggled={navCollapsed} onToggle={this.onToggleCollapsedNav} />
-          <div className="divider divider-xs" />
-          <Toggle label="Full Width Header" defaultToggled={navBehind} onToggle={this.onToggleNavBehind} />
-          <div className="divider divider-xs" />
-          <Toggle label="Boxed Layout" defaultToggled={layoutBoxed} onToggle={this.onToggleBoxedLayout} />
-          <div className="divider divider-xs" />
           <div>
             <SelectField
               className="sidebar-width-select"
@@ -90,18 +56,6 @@ const mapStateToProps = state => ({
   sidebarWidth: state.settings.sidebarWidth
 });
 const mapDispatchToProps = dispatch => ({
-  handleToggleFixedHeader: (isFixedHeader) => {
-    dispatch(toggleFixedHeader(isFixedHeader));
-  },
-  handleToggleCollapsedNav: (isNavCollapsed) => {
-    dispatch(toggleCollapsedNav(isNavCollapsed));
-  },
-  handleToggleNavBehind: (isNavBehind) => {
-    dispatch(toggleNavBehind(isNavBehind));
-  },
-  handleToggleBoxedLayout: (isLayoutBoxed) => {
-    dispatch(toggleBoxedLayout(isLayoutBoxed));
-  },
   handleSidebarWidthChange: (sidebarWidth) => {
     dispatch(changeSidebarWidth(sidebarWidth));
   }

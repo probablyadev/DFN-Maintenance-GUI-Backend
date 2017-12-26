@@ -5,7 +5,6 @@ import 'jquery-slimscroll/jquery.slimscroll.min';
 
 
 class SidebarContent extends React.Component {
-
   componentDidMount() {
     const { history } = this.props;
     const nav = this.nav;
@@ -33,10 +32,10 @@ class SidebarContent extends React.Component {
 
     // Accordion nav
     $nav.on('click', (e) => {
-
       const target = e.target;
       const $parentLi = $(target).closest('li'); // closest, insead of parent, so it still works when click on i icons
-      if (!$parentLi.length) return; // return if doesn't click on li
+
+        if (!$parentLi.length) return; // return if doesn't click on li
       const $subUl = $parentLi.children('ul');
 
 
@@ -50,20 +49,21 @@ class SidebarContent extends React.Component {
         }
         return false;
       });
+
       allAtDepth.slideUp(slideTime).closest('li').removeClass('open');
 
       // Toggle target
       if ($parentLi.has('ul').length) {
         $parentLi.toggleClass('open');
       }
+
       $subUl.stop().slideToggle(slideTime);
-
     });
-
 
     // HighlightActiveItems
     const $links = $nav.find('a');
     const currentLocation = history.location;
+
     function highlightActive(pathname) {
       const path = `#${pathname}`;
 
@@ -81,6 +81,7 @@ class SidebarContent extends React.Component {
         }
       });
     }
+
     highlightActive(currentLocation.pathname);
     history.listen((location) => {
       highlightActive(location.pathname);
@@ -89,7 +90,6 @@ class SidebarContent extends React.Component {
 
 
   render() {
-
     return (
       <ul className="nav" ref={(c) => { this.nav = c; }}>
         <li className="nav-header"><span>Navigation</span></li>
@@ -165,49 +165,6 @@ class SidebarContent extends React.Component {
             <li><FlatButton className="prepend-icon" href="#/app/ecommerce/invoice"><span>Invoice</span></FlatButton></li>
           </ul>
         </li>
-        <li className="nav-divider" />
-        <li><FlatButton href="#/app/extra"><i className="nav-icon material-icons">more_horiz</i><span className="nav-text">Extra Pages</span></FlatButton>
-          <ul>
-            <li><FlatButton className="prepend-icon" href="#/login"><span>Login</span></FlatButton></li>
-            <li><FlatButton className="prepend-icon" href="#/sign-up"><span>Sign Up</span></FlatButton></li>
-            <li><FlatButton className="prepend-icon" href="#/forgot-password"><span>Forgot Password</span></FlatButton></li>
-            <li><FlatButton className="prepend-icon" href="#/confirm-email"><span>Confirm Email</span></FlatButton></li>
-            <li><FlatButton className="prepend-icon" href="#/lock-screen"><span>Lock Screen</span></FlatButton></li>
-            <li><FlatButton className="prepend-icon" href="#/404"><span>404 Error</span></FlatButton></li>
-            <li><FlatButton className="prepend-icon" href="#/500"><span>500 Error</span></FlatButton></li>
-          </ul>
-        </li>
-        <li>
-          <FlatButton href="#/app/pglayout"><i className="nav-icon material-icons">desktop_windows</i><span className="nav-text">Page Layouts</span></FlatButton>
-          <ul>
-            <li><FlatButton className="prepend-icon" href="#/app/pglayout/full-width"><span>Full Width</span></FlatButton></li>
-            <li><FlatButton className="prepend-icon" href="#/app/pglayout/centered"><span>Centered</span></FlatButton></li>
-            <li><FlatButton className="prepend-icon" href="#/fullscreen"><span>Fullscreen</span></FlatButton></li>
-          </ul>
-        </li>
-        <li>
-          <FlatButton href="#/app/menu"><i className="nav-icon material-icons">sort</i><span className="nav-text">Menu Levels</span></FlatButton>
-          <ul>
-            <li><FlatButton className="prepend-icon" href="javascript:;"><span>Level 1</span></FlatButton></li>
-            <li>
-              <FlatButton className="prepend-icon" href="javascript:;"><span>Level 1</span></FlatButton>
-              <ul>
-                <li><FlatButton href="javascript:;"><span>Level 2</span></FlatButton></li>
-                <li>
-                  <FlatButton href="javascript:;"><span>Level 2</span></FlatButton>
-                  <ul>
-                    <li><FlatButton href="javascript:;"><span>Level 3</span></FlatButton></li>
-                    <li><FlatButton href="javascript:;"><span>Level 3</span></FlatButton></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li className="nav-divider" />
-        <li className="nav-header"><span>Material Design</span></li>
-        <li className="li-small"><FlatButton href="#/app/form/components"><i className="nav-icon nav-dot material-icons color-success">fiber_manual_record</i><span className="nav-text">Form Components</span></FlatButton></li>
-        <li className="li-small"><FlatButton href="#/app/ui/components"><i className="nav-icon nav-dot material-icons color-info">fiber_manual_record</i><span className="nav-text">UI Components</span></FlatButton></li>
       </ul>
     );
   }
