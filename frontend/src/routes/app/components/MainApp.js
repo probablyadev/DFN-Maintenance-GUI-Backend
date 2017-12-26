@@ -6,16 +6,6 @@ import Sidenav from 'components/Sidenav';
 import Footer from 'components/Footer';
 import Customizer from 'components/Customizer';
 
-
-// import Dashboard from '../routes/dashboard/'
-// import Chart from '../routes/chart/'
-// import ECommerce from '../routes/ecommerce/'
-// import Form from '../routes/form/'
-// import Page from '../routes/page/'
-// import PageLayout from '../routes/page-layout/'
-// import Table from '../routes/table/'
-// import UI from '../routes/ui/'
-
 function LoadingComponent() {
   return <div></div>;
 }
@@ -23,38 +13,57 @@ function LoadingComponent() {
 let AsyncDashboard = loadable({
   loader: () => import('../routes/dashboard/'),
   loading: LoadingComponent
-})
+});
+
 let AsyncChart = loadable({
   loader: () => import('../routes/chart/'),
   loading: LoadingComponent
-})
+});
+
 let AsyncECommerce = loadable({
   loader: () => import('../routes/ecommerce/'),
   loading: LoadingComponent
-})
+});
+
 let AsyncForm = loadable({
   loader: () => import('../routes/form/'),
   loading: LoadingComponent
-})
+});
+
 let AsyncPage = loadable({
   loader: () => import('../routes/page/'),
   loading: LoadingComponent
-})
+});
+
 let AsyncPageLayout = loadable({
   loader: () => import('../routes/page-layout/'),
   loading: LoadingComponent
-})
+});
+
 let AsyncTable = loadable({
   loader: () => import('../routes/table/'),
   loading: LoadingComponent
-})
+});
+
 let AsyncUI = loadable({
   loader: () => import('../routes/ui/'),
   loading: LoadingComponent
-})
+});
 
 
 class MainApp extends React.Component {
+  componentDidMount(){
+    const ele = document.getElementById('ipl-progress-indicator');
+
+    if(ele) {
+      setTimeout(() => {
+        ele.classList.add('available');
+        setTimeout(() => {
+          ele.outerHTML = '';
+        }, 2000)
+      }, 1000)
+    }
+  }
 
   render() {
     const { match, location } = this.props;
