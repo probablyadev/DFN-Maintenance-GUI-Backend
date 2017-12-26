@@ -7,7 +7,7 @@ import Footer from 'components/Footer';
 import Customizer from 'components/Customizer';
 
 
-import Dashboard from '../routes/dashboard/'
+// import Dashboard from '../routes/dashboard/'
 // import Chart from '../routes/chart/'
 // import ECommerce from '../routes/ecommerce/'
 // import Form from '../routes/form/'
@@ -20,6 +20,10 @@ function LoadingComponent() {
   return <div></div>;
 }
 
+let AsyncDashboard = loadable({
+  loader: () => import('../routes/dashboard/'),
+  loading: LoadingComponent
+})
 let AsyncChart = loadable({
   loader: () => import('../routes/chart/'),
   loading: LoadingComponent
@@ -65,7 +69,7 @@ class MainApp extends React.Component {
           <div className="app-content-wrapper">
             <div className="app-content">
               <div className="full-height">
-                  <Route path={`${match.url}/dashboard`} component={Dashboard} />
+                  <Route path={`${match.url}/dashboard`} component={AsyncDashboard} />
                   <Route path={`${match.url}/chart`} component={AsyncChart} />
                   <Route path={`${match.url}/ecommerce`} component={AsyncECommerce} />
                   <Route path={`${match.url}/form`} component={AsyncForm} />
