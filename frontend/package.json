@@ -23,9 +23,6 @@
         "serve:prod": "webpack-dev-server --open --env prod -p --progress",
         "start": "npm run serve:dev"
     },
-    "lint-staged": {
-        "*.{js, jsx}": ["lint", "git add"]
-    },
     "pre-commit": "lint:staged",
     "dependencies": {
         "classnames": "~2.2.5",
