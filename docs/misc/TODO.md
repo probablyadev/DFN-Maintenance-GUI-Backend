@@ -15,3 +15,9 @@
 1. https://hackernoon.com/optimising-your-application-bundle-size-with-webpack-e85b00bab579
 2. https://serverless-stack.com/chapters/code-splitting-in-create-react-app.html
 3. https://github.com/thejameskyle/react-loadable
+
+# Node startup messages
+
+- [ ] Check if python backend started (insert tick or cross)
+    - Launch if possible
+- [ ] Server started
