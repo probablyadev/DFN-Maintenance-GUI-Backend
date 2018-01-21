@@ -79,7 +79,6 @@
         "lint-staged": "^6.0.0",
         "node-sass": "^4.5.3",
         "null-loader": "^0.1.1",
-        "phantomjs-prebuilt": "^2.1.15",
         "postcss-loader": "^2.0.5",
         "rimraf": "^2.6.1",
         "sass-lint": "^1.11.1",
