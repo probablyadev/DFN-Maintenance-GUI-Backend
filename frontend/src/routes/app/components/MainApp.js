@@ -35,6 +35,11 @@ let AsyncLocation = loadable({
   loading: LoadingComponent
 });
 
+let AsyncAdvanced = loadable({
+  loader: () => import('../routes/advanced/'),
+  loading: LoadingComponent
+});
+
 class MainApp extends React.Component {
   componentDidMount(){
     const ele = document.getElementById('ipl-progress-indicator');
@@ -50,7 +55,7 @@ class MainApp extends React.Component {
   }
 
   render() {
-    const { match, location } = this.props;
+    const { match } = this.props;
 
     return (
       <div className="main-app-container">
@@ -61,13 +66,14 @@ class MainApp extends React.Component {
 
           <div className="app-content-wrapper">
             <div className="app-content">
-              <div className="full-height">
-                  <Route path={`${match.url}/dashboard`} component={AsyncDashboard} />
-                  <Route path={`${match.url}/camera`} component={AsyncCamera} />
-                  <Route path={`${match.url}/storage`} component={AsyncStorage} />
-                  <Route path={`${match.url}/network`} component={AsyncNetwork} />
-                  <Route path={`${match.url}/location`} component={AsyncLocation} />
-              </div>
+                <div className="full-height">
+                    <Route path={`${match.url}/dashboard`} component={AsyncDashboard} />
+                    <Route path={`${match.url}/camera`} component={AsyncCamera} />
+                    <Route path={`${match.url}/storage`} component={AsyncStorage} />
+                    <Route path={`${match.url}/network`} component={AsyncNetwork} />
+                    <Route path={`${match.url}/location`} component={AsyncLocation} />
+                    <Route path={`${match.url}/advanced`} component={AsyncAdvanced} />
+                </div>
             </div>
 
             <Footer />
