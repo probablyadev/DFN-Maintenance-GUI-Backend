@@ -15,41 +15,25 @@ let AsyncDashboard = loadable({
   loading: LoadingComponent
 });
 
-let AsyncChart = loadable({
-  loader: () => import('../routes/chart/'),
+let AsyncCamera = loadable({
+  loader: () => import('../routes/camera/'),
   loading: LoadingComponent
 });
 
-let AsyncECommerce = loadable({
-  loader: () => import('../routes/ecommerce/'),
+let AsyncStorage = loadable({
+  loader: () => import('../routes/storage/'),
   loading: LoadingComponent
 });
 
-let AsyncForm = loadable({
-  loader: () => import('../routes/form/'),
+let AsyncNetwork = loadable({
+  loader: () => import('../routes/network/'),
   loading: LoadingComponent
 });
 
-let AsyncPage = loadable({
-  loader: () => import('../routes/page/'),
+let AsyncLocation = loadable({
+  loader: () => import('../routes/location/'),
   loading: LoadingComponent
 });
-
-let AsyncPageLayout = loadable({
-  loader: () => import('../routes/page-layout/'),
-  loading: LoadingComponent
-});
-
-let AsyncTable = loadable({
-  loader: () => import('../routes/table/'),
-  loading: LoadingComponent
-});
-
-let AsyncUI = loadable({
-  loader: () => import('../routes/ui/'),
-  loading: LoadingComponent
-});
-
 
 class MainApp extends React.Component {
   componentDidMount(){
@@ -79,13 +63,10 @@ class MainApp extends React.Component {
             <div className="app-content">
               <div className="full-height">
                   <Route path={`${match.url}/dashboard`} component={AsyncDashboard} />
-                  <Route path={`${match.url}/chart`} component={AsyncChart} />
-                  <Route path={`${match.url}/ecommerce`} component={AsyncECommerce} />
-                  <Route path={`${match.url}/form`} component={AsyncForm} />
-                  <Route path={`${match.url}/page`} component={AsyncPage} />
-                  <Route path={`${match.url}/pglayout`} component={AsyncPageLayout} />
-                  <Route path={`${match.url}/table`} component={AsyncTable} />
-                  <Route path={`${match.url}/ui`} component={AsyncUI} />
+                  <Route path={`${match.url}/camera`} component={AsyncCamera} />
+                  <Route path={`${match.url}/storage`} component={AsyncStorage} />
+                  <Route path={`${match.url}/network`} component={AsyncNetwork} />
+                  <Route path={`${match.url}/location`} component={AsyncLocation} />
               </div>
             </div>
 

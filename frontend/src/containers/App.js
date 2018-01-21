@@ -3,17 +3,13 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 import MainApp from 'routes/app/'
 import Page404 from 'routes/404/'
 import Page500 from 'routes/500/'
-import PageConfirmEmail from 'routes/confirm-email/'
 import PageForgotPassword from 'routes/forgot-password/'
-import PageFullscreen from 'routes/fullscreen/'
-import PageLockScreen from 'routes/lock-screen/'
 import PageLogin from 'routes/login/'
-import PageSignUp from 'routes/sign-up/'
 
 // = styles =
 // 3rd
@@ -70,12 +66,8 @@ class App extends Component {
             <Route path={`${match.url}app`} component={MainApp} />
             <Route exact path="/404" component={Page404} />
             <Route exact path="/500" component={Page500} />
-            <Route exact path="/confirm-email" component={PageConfirmEmail} />
             <Route exact path="/forgot-password" component={PageForgotPassword} />
-            <Route exact path="/fullscreen" component={PageFullscreen} />
-            <Route exact path="/lock-screen" component={PageLockScreen} />
             <Route exact path="/login" component={PageLogin} />
-            <Route exact path="/sign-up" component={PageSignUp} />
           </div>
         </div>
       </MuiThemeProvider>
