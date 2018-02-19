@@ -1,5 +1,4 @@
 import React from 'react';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
 const tableData = [
     {
@@ -38,6 +37,39 @@ class HDDTable extends React.Component {
         this.setState({height: event.target.value});
     };
 
+    render() {
+        return (
+            <article className="article">
+                <h2 className="article-title">HDD Status</h2>
+                <div className="box box-default table-box table-responsive mdl-shadow--2dp">
+                    <table className="mdl-data-table">
+                        <thead>
+                            <tr>
+                                <th className="mdl-data-table__cell--non-numeric">#</th>
+                                <th className="mdl-data-table__cell--non-numeric">Name</th>
+                                <th className="mdl-data-table__cell--non-numeric">Capacity</th>
+                                <th className="mdl-data-table__cell--non-numeric">Usage</th>
+                                <th className="mdl-data-table__cell--non-numeric">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {tableData.map((row, index) => (
+                                <tr key={index}>
+                                    <td className="mdl-data-table__cell--non-numeric">{index}</td>
+                                    <td className="mdl-data-table__cell--non-numeric">{row.name}</td>
+                                    <td className="mdl-data-table__cell--non-numeric">TODO - bar (spin template)</td>
+                                    <td className="mdl-data-table__cell--non-numeric">{row.space}</td>
+                                    <td className="mdl-data-table__cell--non-numeric">{row.status}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+        );
+    }
+
+    /*
     render() {
         return (
             <div className="row">
@@ -81,7 +113,7 @@ class HDDTable extends React.Component {
                 </div>
             </div>
         );
-    }
+    } */
 }
 
 module.exports = HDDTable;
