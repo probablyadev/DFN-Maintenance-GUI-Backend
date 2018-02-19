@@ -1,14 +1,13 @@
-// import QueueAnim from 'rc-queue-anim';
+import React from 'react';
+import QueueAnim from 'rc-queue-anim';
 import HDDTable from './HDDTable';
 
-/*
 const Storage = () => (
-  <div className="container-fluid with-maxwidth chapter">
-    <QueueAnim type="bottom" className="ui-animate">
-      <div key="1"><HDDTable /></div>
-    </QueueAnim>
-  </div>
+    <div className="container-fluid no-breadcrumbs">
+        <QueueAnim type="bottom" className="ui-animate">
+            <HDDTable/>
+        </QueueAnim>
+    </div>
 );
-*/
 
-module.exports = HDDTable;
+module.exports = Storage;
