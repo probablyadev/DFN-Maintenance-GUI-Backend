@@ -60,7 +60,6 @@ class MainApp extends React.Component {
     return (
       <div className="main-app-container">
         <Sidenav />
-
         <section id="page-container" className="app-page-container">
           <Header />
 
@@ -75,11 +74,9 @@ class MainApp extends React.Component {
                     <Route path={`${match.url}/advanced`} component={AsyncAdvanced} />
                 </div>
             </div>
-
             <Footer />
           </div>
         </section>
-
         <Customizer />
       </div>
     );
