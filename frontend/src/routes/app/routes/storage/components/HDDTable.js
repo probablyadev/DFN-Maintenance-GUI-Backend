@@ -51,12 +51,13 @@ class HDDTable extends React.Component {
                                     adjustForCheckbox={this.state.showCheckboxes}
                                 >
                                     <TableRow>
-                                        <TableHeaderColumn tooltip="The ID (Number in List)">ID</TableHeaderColumn>
+                                        <TableHeaderColumn tooltip="The ID (Number in List)">#</TableHeaderColumn>
                                         <TableHeaderColumn tooltip="The Drive Name">Name</TableHeaderColumn>
+                                        <TableHeaderColumn tooltip="The Drive Capacity">Capacity</TableHeaderColumn>
+                                        <TableHeaderColumn
+                                            tooltip="The Drive Disk Usage (Used / Total)">Usage</TableHeaderColumn>
                                         <TableHeaderColumn
                                             tooltip="The Status (Mounted or Not and if it is Powered)">Status</TableHeaderColumn>
-                                        <TableHeaderColumn
-                                            tooltip="The Occupied Space on the Drive">Space</TableHeaderColumn>
                                     </TableRow>
                                 </TableHeader>
 
@@ -68,8 +69,9 @@ class HDDTable extends React.Component {
                                         <TableRow key={index}>
                                             <TableRowColumn>{index}</TableRowColumn>
                                             <TableRowColumn>{row.name}</TableRowColumn>
-                                            <TableRowColumn>{row.status}</TableRowColumn>
+                                            <TableRowColumn>TODO</TableRowColumn>
                                             <TableRowColumn>{row.space}</TableRowColumn>
+                                            <TableRowColumn>{row.status}</TableRowColumn>
                                         </TableRow>
                                     ))}
                                 </TableBody>
