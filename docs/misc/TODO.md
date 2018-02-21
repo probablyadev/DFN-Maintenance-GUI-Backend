@@ -11,6 +11,12 @@
 - [x] Async loading of front end components
 - [ ] Front end HDD table needs used and total space. Make backend reflect this.
 
+# HDD
+
+- [ ] Check if possible to get live speed stats.
+- [ ] Check for best type of graph to represent each data type.
+- [ ] Is drive space usage over period of time needed? useful? Stretch goal.
+
 # Async loading of front end components
 
 1. https://hackernoon.com/optimising-your-application-bundle-size-with-webpack-e85b00bab579
