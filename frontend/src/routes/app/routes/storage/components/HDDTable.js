@@ -1,5 +1,7 @@
 import React from 'react';
 
+import LinearProgress from 'material-ui/LinearProgress';
+
 const tableData = [
     {
         name: 'HDD 0',
@@ -7,18 +9,35 @@ const tableData = [
     },
     {
         name: 'HDD 1',
+        capacity: '50',
+        size: '2G',
+        used: '1G',
+        available: '1G',
         status: 'Powered. Not Mounted',
-        space: '1GB',
     },
     {
         name: 'HDD 2',
+        capacity: '0',
+        size: '5T',
+        used: '0',
+        available: '5T',
         status: 'Mounted',
-        space: '3TB',
     },
     {
         name: 'HDD 3',
+        capacity: '15',
+        size: '256M',
+        used: '37M',
+        available: '220M',
         status: 'Mounted',
-        space: '500MB',
+    },
+    {
+        name: 'HDD 4',
+        capacity: '90',
+        size: '1M',
+        used: '900M',
+        available: '100M',
+        status: 'Mounted',
     },
 ];
 
@@ -40,24 +59,32 @@ class HDDTable extends React.Component {
                 <div className="box box-default table-box table-responsive mdl-shadow--2dp">
                     <table className="mdl-data-table">
                         <thead>
-                            <tr>
-                                <th className="mdl-data-table__cell--non-numeric">#</th>
-                                <th className="mdl-data-table__cell--non-numeric">Name</th>
-                                <th className="mdl-data-table__cell--non-numeric">Capacity</th>
-                                <th className="mdl-data-table__cell--non-numeric">Usage</th>
-                                <th className="mdl-data-table__cell--non-numeric">Status</th>
-                            </tr>
+                        <tr>
+                            <th className="mdl-data-table__cell--non-numeric">#</th>
+                            <th className="mdl-data-table__cell--non-numeric">Name</th>
+                            <th className="mdl-data-table__cell--non-numeric">Capacity</th>
+                            <th className="mdl-data-table__cell--non-numeric">Size</th>
+                            <th className="mdl-data-table__cell--non-numeric">Used</th>
+                            <th className="mdl-data-table__cell--non-numeric">Available</th>
+                            <th className="mdl-data-table__cell--non-numeric">Status</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            {tableData.map((row, index) => (
-                                <tr key={index}>
-                                    <td className="mdl-data-table__cell--non-numeric">{index}</td>
-                                    <td className="mdl-data-table__cell--non-numeric">{row.name}</td>
-                                    <td className="mdl-data-table__cell--non-numeric">TODO - bar (spin template)</td>
-                                    <td className="mdl-data-table__cell--non-numeric">{row.space}</td>
-                                    <td className="mdl-data-table__cell--non-numeric">{row.status}</td>
-                                </tr>
-                            ))}
+                        {tableData.map((row, index) => (
+                            <tr key={index}>
+                                <td className="mdl-data-table__cell--non-numeric">{index}</td>
+                                <td className="mdl-data-table__cell--non-numeric">{row.name}</td>
+                                <td className="mdl-data-table__cell--non-numeric">
+                                    <LinearProgress mode="determinate"
+                                                    color={row.capacity < 90 ? "green" : "red"}
+                                                    value={row.capacity}/>
+                                </td>
+                                <td className="mdl-data-table__cell--non-numeric">{row.size}</td>
+                                <td className="mdl-data-table__cell--non-numeric">{row.used}</td>
+                                <td className="mdl-data-table__cell--non-numeric">{row.available}</td>
+                                <td className="mdl-data-table__cell--non-numeric">{row.status}</td>
+                            </tr>
+                        ))}
                         </tbody>
                     </table>
                 </div>
