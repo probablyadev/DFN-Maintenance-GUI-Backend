@@ -1,4 +1,5 @@
 import React from 'react';
+import ActionsToolbar from './ActionsToolbar';
 import LinearProgress from 'material-ui/LinearProgress';
 
 const tableData = [
@@ -55,6 +56,7 @@ class HDDTable extends React.Component {
         return (
             <article className="article">
                 <h2 className="article-title">HDD Status</h2>
+                <ActionsToolbar/>
                 <div className="box box-default table-box table-responsive mdl-shadow--2dp">
                     <table className="mdl-data-table">
                         <thead>
