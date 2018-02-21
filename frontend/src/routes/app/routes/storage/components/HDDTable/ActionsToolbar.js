@@ -1,7 +1,7 @@
 import React from 'react';
-import MenuItem from 'material-ui/MenuItem';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import RaisedButton from 'material-ui/RaisedButton';
+import PowerDialog from './PowerDialog';
+import MountDialog from './MountDialog';
+import FontIcon from 'material-ui/FontIcon';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 
 class ActionsToolbar extends React.Component {
@@ -12,25 +12,17 @@ class ActionsToolbar extends React.Component {
     render() {
         return (
             <Toolbar>
-                <ToolbarGroup firstChild>
-                    <DropDownMenu>
-                        <MenuItem primaryText="Power On"/>
-                        <MenuItem primaryText="Power Off"/>
-                    </DropDownMenu>
-                </ToolbarGroup>
                 <ToolbarGroup>
-                    <DropDownMenu>
-                        <MenuItem primaryText="Mount"/>
-                        <MenuItem primaryText="Unmount"/>
-                    </DropDownMenu>
-                </ToolbarGroup>
+                    <ToolbarTitle text="Options"/>
 
-                <ToolbarSeparator/>
+                    <ToolbarSeparator/>
+                    <FontIcon className="muidocs-icon-custom-sort" />
 
-                <ToolbarGroup>
-                    <RaisedButton label="Format Drives"/>
-                    <RaisedButton label="Transfer /data0"/>
-                    <RaisedButton label="Smart Test"/>
+                    <ToolbarSeparator/>
+                    <PowerDialog/>
+
+                    <ToolbarSeparator/>
+                    <MountDialog/>
                 </ToolbarGroup>
             </Toolbar>
         );
