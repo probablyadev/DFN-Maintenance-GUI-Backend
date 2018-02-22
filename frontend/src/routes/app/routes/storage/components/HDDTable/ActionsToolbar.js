@@ -25,7 +25,7 @@ class ActionsToolbar extends React.Component {
                     <ToolbarSeparator/>
                     <MountDialog/>
                 </ToolbarGroup>
-                
+
                 <ToolbarGroup>
                     <RaisedButton label="Format Drives"/>
                     <RaisedButton label="Transfer /data0"/>
