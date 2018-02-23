@@ -3,7 +3,7 @@ import React from 'react';
 class LocationMap extends React.Component {
     render() {
         return (
-            <div>Location Map</div>
+            <div>Place content here</div>
         );
     }
 }

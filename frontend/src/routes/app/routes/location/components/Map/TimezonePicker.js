@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-OuterDiv = styled.div`
+const OuterDiv = styled.div`
     display: inline-block;
     font: 13px sans-serif;
     position: relative;
+    width: 100%;
 `;
 
-TextField = styled.input`
+const TextField = styled.input`
     width: 100%;
     padding: 9px 12px;
     font: inherit;
@@ -19,7 +20,7 @@ TextField = styled.input`
     border-radius: 2px;
 `;
 
-List = styled.ul`
+const List = styled.ul`
   position: relative;
   top: 100%;
   left: 0;
@@ -34,7 +35,7 @@ List = styled.ul`
   display: ${props => props.isOpen ? 'block' : 'none'};
 `;
 
-ListButton = styled.button`
+const ListButton = styled.button`
     color: ${props => props.isSelected ? '#474747' : '#444444'};
     padding: 5px 12px;
     cursor: pointer;
@@ -45,6 +46,7 @@ ListButton = styled.button`
     text-align: left;
     border-radius: 0;
     font: inherit;
+    
     &:active {
         background: #ececec;
     }
