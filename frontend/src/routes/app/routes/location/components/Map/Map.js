@@ -1,6 +1,8 @@
 import React from 'react';
 import LocationMap from './LocationMap';
-import TimeZonePicker from './TimeZonePicker';
+import TimezonePicker from './TimezonePicker';
+
+// https://github.com/vahnag/react-timezone
 
 class Map extends React.Component {
     render() {
@@ -11,7 +13,13 @@ class Map extends React.Component {
                     <div className="col-xl-3">
                         <div className="box box-default">
                             <div className="box-body">
-                                <TimeZonePicker/>
+                                <TimezonePicker
+                                    defaultValue="Australia/Perth"
+                                    inputProps={{
+                                        placeholder: 'Select Timezone...',
+                                        name: 'timezone',
+                                    }}
+                                />
                             </div>
                         </div>
                     </div>
