@@ -37,6 +37,7 @@ const List = styled.ul`
 
 const ListButton = styled.button`
     color: ${props => props.isSelected ? '#474747' : '#444444'};
+    background: white;
     padding: 5px 12px;
     cursor: pointer;
     outline: none;
@@ -46,11 +47,9 @@ const ListButton = styled.button`
     text-align: left;
     border-radius: 0;
     font: inherit;
-    
-    &:active {
-        background: #ececec;
-    }
 `;
+
+/* TODO: Implement on hover and on change functionality */
 
 class TimezonePicker extends React.Component {
     constructor(props) {
@@ -69,12 +68,15 @@ class TimezonePicker extends React.Component {
         if (nextProps.value !== this.props.value) {
             const newValue = this.getTimezone(nextProps.value);
             this.field.value = newValue || '';
+
             this.setState({value: newValue});
         }
     }
 
     getTimezone(query) {
-        if (!query) return null;
+        if (!query)
+            return null;
+
         return this.timezones.find(zone => query === this.props.timezones[zone] || query === zone);
     }
 
@@ -83,7 +85,9 @@ class TimezonePicker extends React.Component {
     }
 
     filterItems(filter) {
-        if (!filter.trim() === '') return () => true;
+        if (!filter.trim() === '')
+            return () => true;
+
         return zone => zone.toLowerCase().includes(filter.toLowerCase().replace(/\s/g, ''));
     }
 
@@ -107,6 +111,7 @@ class TimezonePicker extends React.Component {
 
     handleFilterChange(e) {
         const filter = this.field.value.trim();
+
         this.setState({
             filter,
             focused: 0,
@@ -119,21 +124,29 @@ class TimezonePicker extends React.Component {
 
     handleKeyPress(e) {
         const filteredTimezones = this.filteredTimezones();
+
         if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
             e.preventDefault();
-
             let {focused} = this.state;
+
             if (e.key === 'ArrowUp') {
                 focused -= 1;
-                if (focused < 1) focused = filteredTimezones.length;
+
+                if (focused < 1)
+                    focused = filteredTimezones.length;
             } else {
                 focused += 1;
-                if (focused > filteredTimezones.length) focused = 1;
+
+                if (focused > filteredTimezones.length)
+                    focused = 1;
             }
+
             this.setState({focused});
+
             this.options.children[focused % this.options.children.length].scrollIntoView();
         } else if (e.key === 'Enter') {
             const zone = filteredTimezones[this.state.focused % filteredTimezones.length];
+
             if (zone) {
                 this.handleSelect(zone);
                 e.target.blur();
@@ -154,6 +167,7 @@ class TimezonePicker extends React.Component {
             this.props.onChange(this.props.timezones[zone]);
         } else {
             this.field.value = zone;
+
             this.setState({value: zone});
         }
     }
@@ -164,7 +178,9 @@ class TimezonePicker extends React.Component {
 
     value() {
         const currentValue = this.state.value;
-        if (!currentValue) return null;
+
+        if (!currentValue)
+            return null;
 
         return this.props.timezones[currentValue];
     }
@@ -210,6 +226,7 @@ class TimezonePicker extends React.Component {
                                 onMouseOver={() => this.handleItemFocus(index)}
                                 onFocus={() => this.handleItemFocus(index)}
                                 isSelected={isSelected}
+                                isFocused={focused}
                             >
                                 {zone}
                             </ListButton>
