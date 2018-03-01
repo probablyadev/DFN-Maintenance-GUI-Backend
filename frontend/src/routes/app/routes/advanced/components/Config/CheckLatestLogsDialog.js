@@ -33,7 +33,7 @@ class EditConfigDialog extends React.Component {
 
         return (
             <div>
-                <RaisedButton style={this.props.minWidthStyle} label="Check /latest Logs" onClick={this.handleOpen}/>
+                <RaisedButton style={this.props.minWidthStyle} label="Check /latest Logs" onClick={this.handleOpen} primary/>
                 <Dialog
                     title="Check the latest log files in /latest"
                     actions={actions}

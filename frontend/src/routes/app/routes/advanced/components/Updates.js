@@ -15,6 +15,7 @@ class Updates extends React.Component {
                         <div className="box-body text-center">
                             <RaisedButton style={minWidthStyle} label="Update Leostick Firmware" primary/>
                             <div className="divider"/>
+
                             <RaisedButton style={minWidthStyle} label="Update Python Software" primary/>
                             <div className="divider"/>
                         </div>

@@ -38,7 +38,7 @@ class EditConfigDialog extends React.Component {
 
         return (
             <div>
-                <RaisedButton style={this.props.minWidthStyle} label="Edit Config File" onClick={this.handleOpen}/>
+                <RaisedButton style={this.props.minWidthStyle} label="Edit Config File" onClick={this.handleOpen} primary/>
                 <Dialog
                     title="Edit Configuration File"
                     actions={actions}
