@@ -1,7 +1,7 @@
 import React from 'react';
 import QueueAnim from 'rc-queue-anim';
 import Updates from 'Updates';
-import Config from 'Config';
+import Config from './Config/Config';
 
 const Advanced = () => (
     <div className="container-fluid with-maxwidth chapter">

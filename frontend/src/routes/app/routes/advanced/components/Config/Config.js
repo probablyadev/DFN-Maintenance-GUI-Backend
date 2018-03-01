@@ -1,4 +1,7 @@
 import React from 'react';
+import EditConfigDialog from 'EditConfigDialog';
+import CheckLatestLogsDialog from './CheckLatestLogsDialog';
+import CheckSecondLatestLogsDialog from './CheckSecondLatestLogsDialog';
 
 const minWidthStyle = {
   minWidth: '135px'
@@ -13,11 +16,13 @@ class Config extends React.Component {
                     <div className="box box-default">
                         <div className="box-header">Config</div>
                         <div className="box-body text-center">
-                            <RaisedButton style={minWidthStyle} label="Edit Config File" primary/>
+                            <EditConfigDialog minWidthStyle={minWidthStyle}/>
                             <div className="divider"/>
-                            <RaisedButton style={minWidthStyle} label="Check /latest Logs" primary/>
+
+                            <CheckLatestLogsDialog minWidthStyle={minWidthStyle}/>
                             <div className="divider"/>
-                            <RaisedButton style={minWidthStyle} label="Check Second /latest Logs" primary/>
+
+                            <CheckSecondLatestLogsDialog minWidthStyle={minWidthStyle}/>
                             <div className="divider"/>
                         </div>
                     </div>
