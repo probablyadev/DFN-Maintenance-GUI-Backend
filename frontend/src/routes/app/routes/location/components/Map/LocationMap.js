@@ -16,7 +16,7 @@ const MapWithAMarker = withScriptjs(withGoogleMap((props) =>
             position={{lat: -34.397, lng: 150.644}}
         />
     </GoogleMap>
-)
+));
 
 class LocationMap extends React.Component {
     render() {
