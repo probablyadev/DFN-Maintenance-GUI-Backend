@@ -11,13 +11,17 @@ class StatusPanel extends React.Component {
                                 <div className="box-header">Status Panel</div>
                                 <div className="box-body">
                                     <div className="row text-center metrics">
-                                        <div className="col-xs-6 col-md-6 metric-box">
+                                        <div className="col-xs-6 col-md-4 metric-box">
                                             <span className="metric">192.444N, 139.222E</span>
                                             <span className="metric-info">Location</span>
                                         </div>
-                                        <div className="col-xs-6 col-md-6 metric-box">
+                                        <div className="col-xs-6 col-md-4 metric-box">
                                             <span className="metric">(GMT+08:00) Western Time - Perth: Australia/Perth</span>
-                                            <span className="metric-info">TimeZone</span>
+                                            <span className="metric-info">Time Zone</span>
+                                        </div>
+                                        <div className="col-xs-6 col-md-4 metric-box">
+                                            <span className="metric">3:04 PM</span>
+                                            <span className="metric-info">Current Time</span>
                                         </div>
                                     </div>
                                 </div>
