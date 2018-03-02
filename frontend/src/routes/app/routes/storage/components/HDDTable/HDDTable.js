@@ -5,7 +5,7 @@ import LinearProgress from 'material-ui/LinearProgress';
 const tableData = [
     {
         name: 'HDD 0',
-        status: 'Unpowered',
+        status: 'Off',
     },
     {
         name: 'HDD 1',
@@ -13,7 +13,7 @@ const tableData = [
         size: '2G',
         used: '1G',
         available: '1G',
-        status: 'Powered. Not Mounted',
+        status: 'On',
     },
     {
         name: 'HDD 2',
