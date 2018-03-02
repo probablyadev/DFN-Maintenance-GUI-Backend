@@ -1,6 +1,6 @@
 import React from 'react';
 import QueueAnim from 'rc-queue-anim';
-import Updates from 'Updates';
+import Updates from './Updates';
 import Config from './Config/Config';
 
 const Advanced = () => (

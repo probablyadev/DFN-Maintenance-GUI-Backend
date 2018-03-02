@@ -1,7 +1,7 @@
 import React from 'react';
 import QueueAnim from 'rc-queue-anim';
-import Internet from 'Internet';
-import VPN from 'VPN';
+import Internet from './Internet';
+import VPN from './VPN';
 
 const Network = () => (
     <div className="container-fluid with-maxwidth chapter">

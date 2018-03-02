@@ -1,5 +1,5 @@
 import React from 'react';
-import EditConfigDialog from 'EditConfigDialog';
+import EditConfigDialog from './EditConfigDialog';
 import CheckLatestLogsDialog from './CheckLatestLogsDialog';
 import CheckSecondLatestLogsDialog from './CheckSecondLatestLogsDialog';
 
