@@ -4,7 +4,7 @@ import StatusPanel from './StatusPanel';
 import Map from './Map/Map';
 
 const Location = () => (
-    <div className="container-fluid with-maxwidth chapter">
+    <div className="container-fluid with-maxwidth no-breadcrumbs chapter">
         <QueueAnim type="bottom" className="ui-animate">
             <div key="1"><StatusPanel/></div>
             <div key="2"><Map/></div>
