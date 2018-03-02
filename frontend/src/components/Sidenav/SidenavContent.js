@@ -99,7 +99,7 @@ class SidebarContent extends React.Component {
         <li><FlatButton href="#/app/storage"><i className="nav-icon material-icons">storage</i><span className="nav-text">Storage</span></FlatButton></li>
         <li><FlatButton href="#/app/network"><i className="nav-icon material-icons">network_cell</i><span className="nav-text">Network</span></FlatButton></li>
         <li><FlatButton href="#/app/location"><i className="nav-icon material-icons">my_location</i><span className="nav-text">Location</span></FlatButton></li>
-        <li><FlatButton href="#/app/applications"><i className="nav-icon material-icons">settings_applications</i><span className="nav-text">Advanced</span></FlatButton></li>
+        <li><FlatButton href="#/app/advanced"><i className="nav-icon material-icons">settings_applications</i><span className="nav-text">Advanced</span></FlatButton></li>
         <li className="nav-divider" />
       </ul>
     );
