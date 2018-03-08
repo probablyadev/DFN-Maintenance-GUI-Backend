@@ -3,12 +3,11 @@ import {connect} from 'react-redux';
 import {changeTheme} from '../../actions/settings';
 
 class ThemeOptions extends React.Component {
-
     onChange = (e) => {
         const {handleChange} = this.props;
         const newThemeOption = e.target.value;
         handleChange(newThemeOption);
-    }
+    };
 
     render() {
         const {theme} = this.props;

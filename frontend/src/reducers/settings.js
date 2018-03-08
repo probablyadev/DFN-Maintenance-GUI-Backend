@@ -1,3 +1,4 @@
+import {createReducer} from '../utils/misc';
 import APPCONFIG from 'constants/Config';
 import {
     CHANGE_COLOR_OPTION,
@@ -9,49 +10,35 @@ import {
     TOGGLE_NAV_BEHIND
 } from '../constants/ActionTypes';
 
-const initialSettings = APPCONFIG.settings;
+const initialState = APPCONFIG.settings;
 
-const settings = (state = initialSettings, action) => {
-    // console.log(action)
-    switch (action.type) {
-        case TOGGLE_BOXED_LAYOUT:
-            return {
-                ...state,
-                layoutBoxed: action.isLayoutBoxed
-            };
-        case TOGGLE_COLLAPSED_NAV:
-            return {
-                ...state,
-                navCollapsed: action.isNavCollapsed
-            };
-        case TOGGLE_NAV_BEHIND:
-            return {
-                ...state,
-                navBehind: action.isNavBehind
-            };
-        case TOGGLE_FIXED_HEADER:
-            return {
-                ...state,
-                fixedHeader: action.isFixedHeader
-            };
-        case CHANGE_SIDEBAR_WIDTH:
-            return {
-                ...state,
-                sidebarWidth: action.sidebarWidth
-            };
-        case CHANGE_COLOR_OPTION:
-            return {
-                ...state,
-                colorOption: action.colorOption
-            };
-        case CHANGE_THEME:
-            return {
-                ...state,
-                theme: action.theme
-            };
-        default:
-            return state;
-    }
-};
-
-module.exports = settings;
+export default createReducer(initialState, {
+    [TOGGLE_BOXED_LAYOUT]: (state, payload) =>
+        Object.assign({}, state, {
+            layoutBoxed: payload.isLayoutBoxed
+        }),
+    [TOGGLE_COLLAPSED_NAV]: (state, payload) =>
+        Object.assign({}, state, {
+            navCollapsed: payload.isNavCollapsed
+        }),
+    [TOGGLE_NAV_BEHIND]: (state, payload) =>
+        Object.assign({}, state, {
+            navBehind: payload.isNavBehind
+        }),
+    [TOGGLE_FIXED_HEADER]: (state, payload) =>
+        Object.assign({}, state, {
+            fixedHeader: payload.isFixedHeader
+        }),
+    [CHANGE_SIDEBAR_WIDTH]: (state, payload) =>
+        Object.assign({}, state, {
+            sidebarWidth: payload.sidebarWidth
+        }),
+    [CHANGE_COLOR_OPTION]: (state, payload) =>
+        Object.assign({}, state, {
+            colorOption: payload.colorOption
+        }),
+    [CHANGE_THEME]: (state, payload) =>
+        Object.assign({}, state, {
+            theme: payload.theme
+        })
+});
