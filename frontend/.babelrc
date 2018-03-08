@@ -5,8 +5,8 @@
     "stage-2"
   ],
   "plugins": [
-    "syntax-dynamic-import",
     "transform-decorators-legacy",
+    "syntax-dynamic-import",
     "transform-object-rest-spread",
     "react-hot-loader/babel"
   ],
