@@ -16,7 +16,8 @@ class StatusPanel extends React.Component {
                                             <span className="metric-info">Location</span>
                                         </div>
                                         <div className="col-xs-6 col-md-6 metric-box">
-                                            <span className="metric">(GMT+08:00) Western Time - Perth: Australia/Perth</span>
+                                            <span
+                                                className="metric">(GMT+08:00) Western Time - Perth: Australia/Perth</span>
                                             <span className="metric-info">Time Zone</span>
                                         </div>
                                         <div className="col-xs-6 col-md-3 metric-box">

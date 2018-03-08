@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 @import "../variables";
 @import "../mixins";
 
@@ -40,14 +39,14 @@
             }
         }
         &--full-width {
-          padding: 0 0 8px 0;
-          > * {
-            height: 48px;
-            flex: 0 0 100%;
-            padding-right: 16px;
-            margin-right: 0;
-            text-align: right;
-          }
+            padding: 0 0 8px 0;
+            > * {
+                height: 48px;
+                flex: 0 0 100%;
+                padding-right: 16px;
+                margin-right: 0;
+                text-align: right;
+            }
         }
     }
     &__content {

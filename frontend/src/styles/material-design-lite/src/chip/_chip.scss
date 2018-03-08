@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 @import "../variables";
 @import "../mixins";
 
@@ -55,7 +54,7 @@
         outline: none;
         overflow: hidden;
     }
-    
+
     &__contact {
         height: $chip-height;
         width: $chip-height;
@@ -68,20 +67,20 @@
         font-size: 18px;
         line-height: 32px;
     }
-    
+
     &:focus {
         outline: 0;
         @include shadow-2dp();
     }
-    
+
     &:active {
         background-color: $chip-bg-active-color;
     }
-    
+
     &--deletable {
         padding-right: 4px;
     }
-    
+
     &--contact {
         padding-left: 0;
     }

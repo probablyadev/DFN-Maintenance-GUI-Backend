@@ -15,41 +15,41 @@
  */
 
 .demo-page--palette.demo-preview-block {
-  display: inline-block;
+    display: inline-block;
 }
 
 .demo-palette {
-  margin-top: 15px;
-  width: 360px;
-  float: left;
+    margin-top: 15px;
+    width: 360px;
+    float: left;
 }
 
 @media screen and (max-width: 360px ) {
-  .demo-palette {
-    width: 272px;
-  }
+    .demo-palette {
+        width: 272px;
+    }
 }
 
 .demo-palette-color, .demo-palette-heading {
-  max-width: 300px;
-  padding: 15px;
-  color: white;
+    max-width: 300px;
+    padding: 15px;
+    color: white;
 }
 
 .demo-palette .demo-palette--dark-text,
 .demo-palette-heading.demo-palette--dark-text .demo-palette-name {
-  color: #000;
+    color: #000;
 }
 
 .demo-palette-name {
-  padding: 0 0 60px 0;
+    padding: 0 0 60px 0;
 }
 
 .demo-palette-single {
-  padding: 15px 15px 25px;
+    padding: 15px 15px 25px;
 }
 
 .demo-palette-single .demo-palette-name {
-  padding: 0;
-  float: left;
+    padding: 0;
+    float: left;
 }

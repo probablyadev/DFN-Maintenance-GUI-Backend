@@ -1,7 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import classnames from 'classnames';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import APPCONFIG from 'constants/Config';
 import NavRightList from './NavRightList';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
@@ -20,7 +20,7 @@ class Header extends React.Component {
     }
 
     render() {
-        const { isFixedHeader, colorOption } = this.props;
+        const {isFixedHeader, colorOption} = this.props;
 
         return (
             <section className="app-header">
@@ -36,8 +36,10 @@ class Header extends React.Component {
                     })}
                 >
                     <div className="d-lg-none d-xl-none float-left">
-                        <a href="javascript:;" className="md-button header-icon toggle-sidebar-btn" ref={(c) => { this.sidebarBtn = c; }}>
-                            <MenuIcon />
+                        <a href="javascript:;" className="md-button header-icon toggle-sidebar-btn" ref={(c) => {
+                            this.sidebarBtn = c;
+                        }}>
+                            <MenuIcon/>
                         </a>
                     </div>
 
@@ -48,7 +50,7 @@ class Header extends React.Component {
                     </div>
 
                     <div className="top-nav-right">
-                        <NavRightList />
+                        <NavRightList/>
                     </div>
                 </div>
             </section>

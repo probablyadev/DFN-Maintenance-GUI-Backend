@@ -4,7 +4,7 @@ import CheckLatestLogsDialog from './CheckLatestLogsDialog';
 import CheckSecondLatestLogsDialog from './CheckSecondLatestLogsDialog';
 
 const minWidthStyle = {
-  minWidth: '135px'
+    minWidth: '135px'
 };
 
 class Config extends React.Component {

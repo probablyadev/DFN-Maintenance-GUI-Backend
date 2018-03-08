@@ -2,7 +2,7 @@ import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 
 const minWidthStyle = {
-  minWidth: '135px'
+    minWidth: '135px'
 };
 
 class Internet extends React.Component {

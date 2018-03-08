@@ -5,7 +5,7 @@ import IconButton from 'material-ui/IconButton/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import AccountCircleIcon from 'material-ui/svg-icons/action/account-circle';
 import ForwardIcon from 'material-ui/svg-icons/content/forward';
-import { withRouter } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 const iconButtonStyle = {
     width: '60px',
@@ -19,7 +19,7 @@ const menuItemStyle = {
 };
 
 const listItemStyle = {
-  paddingLeft: '50px' // Align with sub list.
+    paddingLeft: '50px' // Align with sub list.
 };
 
 class NavRightList extends React.Component {
@@ -32,7 +32,7 @@ class NavRightList extends React.Component {
             <ul className="list-unstyled float-right">
                 <li style={{marginRight: '10px'}}>
                     <IconMenu
-                        iconButtonElement={<IconButton style={iconButtonStyle}><MoreVertIcon /></IconButton>}
+                        iconButtonElement={<IconButton style={iconButtonStyle}><MoreVertIcon/></IconButton>}
                         onChange={this.handleChange}
                         anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
                         targetOrigin={{horizontal: 'right', vertical: 'top'}}
@@ -43,14 +43,14 @@ class NavRightList extends React.Component {
                             primaryText="Profile"
                             style={menuItemStyle}
                             innerDivStyle={listItemStyle}
-                            leftIcon={<AccountCircleIcon />}
+                            leftIcon={<AccountCircleIcon/>}
                         />
                         <MenuItem
                             value="/login"
                             primaryText="Log Out"
                             style={menuItemStyle}
                             innerDivStyle={listItemStyle}
-                            leftIcon={<ForwardIcon />}
+                            leftIcon={<ForwardIcon/>}
                         />
                     </IconMenu>
                 </li>

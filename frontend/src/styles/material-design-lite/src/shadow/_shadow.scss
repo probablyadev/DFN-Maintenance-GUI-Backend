@@ -13,34 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 @import "../variables";
 @import "../mixins";
 
 .mdl-shadow--2dp {
-  @include shadow-2dp();
+    @include shadow-2dp();
 }
 
 .mdl-shadow--3dp {
-  @include shadow-3dp();
+    @include shadow-3dp();
 }
 
 .mdl-shadow--4dp {
-  @include shadow-4dp();
+    @include shadow-4dp();
 }
 
 .mdl-shadow--6dp {
-  @include shadow-6dp();
+    @include shadow-6dp();
 }
 
 .mdl-shadow--8dp {
-  @include shadow-8dp();
+    @include shadow-8dp();
 }
 
 .mdl-shadow--16dp {
-  @include shadow-16dp();
+    @include shadow-16dp();
 }
 
 .mdl-shadow--24dp {
-  @include shadow-24dp();
+    @include shadow-24dp();
 }

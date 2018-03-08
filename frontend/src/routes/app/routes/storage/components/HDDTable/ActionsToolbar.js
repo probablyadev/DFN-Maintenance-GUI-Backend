@@ -17,7 +17,7 @@ class ActionsToolbar extends React.Component {
                     <ToolbarTitle text="Actions"/>
 
                     <ToolbarSeparator/>
-                    <FontIcon className="muidocs-icon-custom-sort" />
+                    <FontIcon className="muidocs-icon-custom-sort"/>
 
                     <ToolbarSeparator/>
                     <PowerDialog/>

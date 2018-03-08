@@ -76,11 +76,11 @@ class HDDTable extends React.Component {
                                 <td className="mdl-data-table__cell--non-numeric">{index}</td>
                                 <td className="mdl-data-table__cell--non-numeric">{row.name}</td>
                                 <td className="mdl-data-table__cell--non-numeric">
-                                    { row.capacity >= 0 ?
+                                    {row.capacity >= 0 ?
                                         <LinearProgress mode="determinate"
-                                                    color={row.capacity < 90 ? "green" : "red"}
-                                                    value={row.capacity}/>
-                                        : "" }
+                                                        color={row.capacity < 90 ? "green" : "red"}
+                                                        value={row.capacity}/>
+                                        : ""}
                                 </td>
                                 <td className="mdl-data-table__cell--non-numeric">{row.size}</td>
                                 <td className="mdl-data-table__cell--non-numeric">{row.used}</td>
