@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import classnames from 'classnames';
 import {Link, withRouter} from 'react-router-dom';
 import APPCONFIG from 'constants/Config';
-import {toggleCollapsedNav} from '../../actions';
+import {toggleCollapsedNav} from '../../actions/settings';
 import SidenavContent from './SidenavContent';
 
 class Sidebar extends React.Component {

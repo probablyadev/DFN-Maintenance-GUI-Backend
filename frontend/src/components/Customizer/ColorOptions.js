@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {changeColorOption} from '../../actions';
+import {changeColorOption} from '../../actions/settings';
 
 class ColorSchemeOptions extends React.Component {
     constructor(props) {

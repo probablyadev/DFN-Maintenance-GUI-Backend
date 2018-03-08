@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {changeTheme} from '../../actions';
+import {changeTheme} from '../../actions/settings';
 
 class ThemeOptions extends React.Component {
 

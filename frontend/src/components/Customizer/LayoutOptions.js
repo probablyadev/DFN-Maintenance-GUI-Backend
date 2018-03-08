@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import {changeSidebarWidth} from '../../actions';
+import {changeSidebarWidth} from '../../actions/settings';
 
 
 const sideWidthSelectStyle = {
