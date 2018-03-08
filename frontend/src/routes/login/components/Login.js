@@ -1,24 +1,126 @@
 import React from 'react';
-import APPCONFIG from 'constants/Config';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import APPCONFIG from 'constants/Config';
 import QueueAnim from 'rc-queue-anim';
+import * as actionCreators from '../../../actions/auth';
+import {validateEmail} from '../../../utils/misc';
 
+function mapStateToProps(state) {
+    return {
+        isAuthenticating: state.auth.isAuthenticating,
+        statusText: state.auth.statusText,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(actionCreators, dispatch);
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
 class Login extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+
         this.state = {
-            brand: APPCONFIG.brand
+            email: '',
+            password: '',
+            emailErrorText: '',
+            passwordErrorText: '',
+            redirectTo: '/dashboard',
+            disabled: true,
         };
+    }
+
+    isDisabled() {
+        let emailIsValid = false;
+        let passwordIsValid = false;
+
+        if (this.state.email === '') {
+            this.setState({
+                emailErrorText: '',
+            });
+        } else if (validateEmail(this.state.email)) {
+            emailIsValid = true;
+
+            this.setState({
+                emailErrorText: '',
+            })
+        } else {
+            this.setState({
+                emailErrorText: 'Your email must be a valid email address'
+            })
+        }
+
+        if (this.state.password === '' || !this.state.password) {
+            this.setState({
+                passwordErrorText: null,
+            });
+        } else if (this.state.password.length >= 6) {
+            passwordIsValid = true;
+
+            this.setState({
+                passwordErrorText: null,
+            });
+        } else {
+            this.setState({
+                passwordErrorText: 'Your password must be at least 6 characters',
+            });
+        }
+
+        if (emailIsValid && passwordIsValid) {
+            this.setState({
+                disabled: false
+            });
+        } else if (!this.state.disabled) {
+            this.setState({
+                disabled: true
+            });
+        }
+    }
+
+    changeValue(e, type) {
+        const value = e.target.value;
+        const nextState = {};
+        nextState[type] = value;
+
+        this.setState(nextState, () => {
+            this.isDisabled();
+        });
+    }
+
+    handleKeyPress(e) {
+        if (e.key === 'Enter') {
+            if (!this.state.disabled) {
+                this.login(e);
+            } else if (this.state.email === '') {
+                this.setState({
+                    emailErrorText: 'Email cannot be empty'
+                });
+            } else if (this.state.password === '') {
+                this.setState({
+                    passwordErrorText: 'Password cannot be empty'
+                });
+            }
+        }
+    }
+
+    login(e) {
+        e.preventDefault();
+
+        this.props.loginUser(this.state.username, this.state.password, this.state.redirectTo);
     }
 
     render() {
         return (
-            <div className="body-inner">
+            <div className="body-inner" onKeyPress={(e) => this.handleKeyPress(e)}>
                 <div className="card bg-white">
                     <div className="card-content">
 
                         <section className="logo text-center">
-                            <h1><a href="#/">{this.state.brand}</a></h1>
+                            <h1><a href="#/">{APPCONFIG.brandLong}</a></h1>
                         </section>
 
                         <form className="form-horizontal">
@@ -26,6 +128,9 @@ class Login extends React.Component {
                                 <div className="form-group">
                                     <TextField
                                         floatingLabelText="Email"
+                                        type="email"
+                                        errorText={this.state.emailErrorText}
+                                        onChange={(e) => this.changeValue(e, 'email')}
                                         fullWidth
                                     />
                                 </div>
@@ -33,6 +138,8 @@ class Login extends React.Component {
                                     <TextField
                                         floatingLabelText="Password"
                                         type="password"
+                                        errorText={this.state.passwordErrorText}
+                                        onChange={(e) => this.changeValue(e, 'password')}
                                         fullWidth
                                     />
                                 </div>
@@ -40,7 +147,11 @@ class Login extends React.Component {
                         </form>
                     </div>
                     <div className="card-action no-border text-right">
-                        <a href="#/" className="color-primary">Login</a>
+                        <RaisedButton
+                            disabled={this.state.disabled}
+                            label="Login"
+                            onClick={(e) => this.login(e)}
+                        />
                     </div>
                 </div>
 
