@@ -7,7 +7,7 @@ export function receiveProtectedData(data) {
     return {
         type: RECEIVE_PROTECTED_DATA,
         payload: {
-            data,
+            data
         },
     };
 }
