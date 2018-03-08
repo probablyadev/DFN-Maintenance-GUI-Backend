@@ -1,18 +1,18 @@
 import axios from 'axios';
 import tokenConfig from '../axios';
 
-export function check_vpn(token) {
+export function checkVPN(token) {
     return axios.get('/api/network/check_vpn', tokenConfig(token));
 }
 
-export function check_internet(token) {
+export function checkInternet(token) {
     return axios.get('/api/network/check_internet', tokenConfig(token));
 }
 
-export function restart_modem(token) {
+export function restartModem(token) {
     return axios.get('/api/network/restart_modem', tokenConfig(token));
 }
 
-export function restart_vpn(token) {
+export function restartVPN(token) {
     return axios.get('/api/network/restart_vpn', tokenConfig(token));
 }
