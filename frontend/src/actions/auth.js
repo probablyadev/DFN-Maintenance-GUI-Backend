@@ -46,6 +46,7 @@ export function logout() {
 export function logoutAndRedirect() {
     return (dispatch) => {
         dispatch(logout());
+
         browserHistory.push('/');
     };
 }
@@ -60,7 +61,7 @@ export function loginUser(email, password) {
     return function (dispatch) {
         dispatch(loginUserRequest());
 
-        getToken(email, password)
+        return getToken(email, password)
             .then(parseJSON)
             .then(response => {
                 try {

@@ -8,6 +8,7 @@ import QueueAnim from 'rc-queue-anim';
 import * as actionCreators from '../../../actions/auth';
 import {validateEmail} from '../../../utils/misc';
 
+// TODO: Review if this is actually needed here
 function mapStateToProps(state) {
     return {
         isAuthenticating: state.auth.isAuthenticating,

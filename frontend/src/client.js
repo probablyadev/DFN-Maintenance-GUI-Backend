@@ -1,23 +1,16 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {applyMiddleware, compose, createStore} from 'redux';
 import {Provider} from 'react-redux';
 import {Route, Switch} from 'react-router-dom';
-import createHistory from 'history/createHashHistory';
-import {ConnectedRouter, routerMiddleware} from 'react-router-redux';
-import reducers from './reducers';
-import App from './containers/App';
+import {ConnectedRouter} from 'react-router-redux';
+import createHistory from "history/createHashHistory";
 
+import reduxStore from './stores'
+import App from './containers/App';
 import Page404 from 'routes/404/components/404'
 
 const history = createHistory();
-const middleware = routerMiddleware(history);
-
-const store = createStore(
-    reducers,
-    undefined,
-    compose(applyMiddleware(middleware))
-);
+const store = reduxStore(history);
 
 render(
     <Provider store={store}>
