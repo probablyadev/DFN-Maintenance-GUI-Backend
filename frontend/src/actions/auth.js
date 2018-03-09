@@ -65,9 +65,11 @@ export function loginUser(email, password) {
             .then(response => {
                 try {
                     dispatch(loginUserSuccess(response.token));
-                    browserHistory.push('/main');
+
+                    browserHistory.push('/dashboard');
                 } catch (e) {
                     alert(e);
+
                     dispatch(loginUserFailure({
                         response: {
                             status: 403,

@@ -29,7 +29,6 @@ class Login extends React.Component {
             password: '',
             emailErrorText: '',
             passwordErrorText: '',
-            redirectTo: '/dashboard',
             disabled: true,
         };
     }
@@ -110,7 +109,7 @@ class Login extends React.Component {
     login(e) {
         e.preventDefault();
 
-        this.props.loginUser(this.state.username, this.state.password, this.state.redirectTo);
+        this.props.loginUser(this.state.username, this.state.password);
     }
 
     render() {
