@@ -60,7 +60,7 @@ export function loginUser(email, password) {
     return function (dispatch) {
         dispatch(loginUserRequest());
 
-        return getToken(email, password)
+        getToken(email, password)
             .then(parseJSON)
             .then(response => {
                 try {
