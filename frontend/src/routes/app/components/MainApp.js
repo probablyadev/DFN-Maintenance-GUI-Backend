@@ -1,4 +1,5 @@
 import React from 'react';
+import {Switch} from 'react-router'
 import AuthenticatedRoute from '../../AuthenticatedRoute';
 import loadable from 'react-loadable';
 import Header from 'components/Header';
@@ -66,12 +67,14 @@ class MainApp extends React.Component {
                     <div className="app-content-wrapper">
                         <div className="app-content">
                             <div className="full-height">
-                                <AuthenticatedRoute path={`${match.url}/dashboard`} component={AsyncDashboard}/>
-                                <AuthenticatedRoute path={`${match.url}/camera`} component={AsyncCamera}/>
-                                <AuthenticatedRoute path={`${match.url}/storage`} component={AsyncStorage}/>
-                                <AuthenticatedRoute path={`${match.url}/network`} component={AsyncNetwork}/>
-                                <AuthenticatedRoute path={`${match.url}/location`} component={AsyncLocation}/>
-                                <AuthenticatedRoute path={`${match.url}/advanced`} component={AsyncAdvanced}/>
+                                <Switch>
+                                    <AuthenticatedRoute path={`${match.url}/dashboard`} component={AsyncDashboard}/>
+                                    <AuthenticatedRoute path={`${match.url}/camera`} component={AsyncCamera}/>
+                                    <AuthenticatedRoute path={`${match.url}/storage`} component={AsyncStorage}/>
+                                    <AuthenticatedRoute path={`${match.url}/network`} component={AsyncNetwork}/>
+                                    <AuthenticatedRoute path={`${match.url}/location`} component={AsyncLocation}/>
+                                    <AuthenticatedRoute path={`${match.url}/advanced`} component={AsyncAdvanced}/>
+                                </Switch>
                             </div>
                         </div>
                         <Footer/>

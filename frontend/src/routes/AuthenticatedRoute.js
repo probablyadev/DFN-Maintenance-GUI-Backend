@@ -32,6 +32,10 @@ export default class AuthenticatedRoute extends React.Component {
         };
     }
 
+    componentDidMount() {
+        this.checkAuth();
+    }
+
     checkAuth() {
         if (!this.props.isAuthenticated) {
             const token = localStorage.getItem('token');
@@ -73,19 +77,10 @@ export default class AuthenticatedRoute extends React.Component {
     }
 
     render() {
-        this.checkAuth();
-
         return (
-            <Route
-                {...this.props}
-                render={(props) =>
-                    this.state.loadedIfNeeded ? (
-                        <Component {...props} />
-                    ) : (
-                        <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
-                    )
-                }
-            />
+            this.state.loadedIfNeeded
+                ? <Route {...this.props}/>
+                : <Redirect to={{pathname: '/login', state: {from: this.props.location}}}/>
         );
     }
 }

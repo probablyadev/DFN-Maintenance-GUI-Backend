@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import { Switch, Route, Redirect } from 'react-router'
 import classnames from 'classnames';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {Redirect, Route} from 'react-router-dom';
 
 import MainApp from 'routes/app/'
 import Page404 from 'routes/404/'
@@ -62,11 +62,13 @@ class App extends Component {
                             'sidebar-lg': sidebarWidth === 'large'
                         })
                         }>
-                        <Route path={`${match.url}app`} component={MainApp}/>
-                        <Route exact path="/404" component={Page404}/>
-                        <Route exact path="/500" component={Page500}/>
-                        <Route exact path="/forgot-password" component={PageForgotPassword}/>
-                        <Route exact path="/login" component={PageLogin}/>
+                        <Switch>
+                            <Route path={`${match.url}app`} component={MainApp}/>
+                            <Route exact path="/404" component={Page404}/>
+                            <Route exact path="/500" component={Page500}/>
+                            <Route exact path="/forgot-password" component={PageForgotPassword}/>
+                            <Route exact path="/login" component={PageLogin}/>
+                        </Switch>
                     </div>
                 </div>
             </MuiThemeProvider>
