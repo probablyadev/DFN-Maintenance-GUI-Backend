@@ -10,6 +10,7 @@ class Config(object):
     Parent config class. Inherits from object.
     """
     DEBUG = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 
 class DevelopmentConfig(Config):
