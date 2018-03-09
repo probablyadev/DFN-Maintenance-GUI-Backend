@@ -3,7 +3,7 @@ import reducers from '../reducers';
 
 function reduxStore(initialState) {
     const store = createStore(reducers, initialState,
-        window.devToolsExtension && window.devToolsExtension());
+        window.devToolsExtension && window.devToolsExtension(), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
     if (module.hot) {
         // Enable Webpack hot module replacement for reducers
