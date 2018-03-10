@@ -110,7 +110,7 @@ class Login extends React.Component {
     login(e) {
         e.preventDefault();
 
-        this.props.loginUser(this.state.username, this.state.password);
+        this.props.loginUser(this.state.email, this.state.password);
     }
 
     render() {
