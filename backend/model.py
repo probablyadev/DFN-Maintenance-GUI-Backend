@@ -1,4 +1,4 @@
-from index import db, bcrypt
+from backend import db, bcrypt
 
 
 class User(db.Model):

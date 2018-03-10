@@ -1,9 +1,8 @@
 import os
-
 from flask import Blueprint, jsonify, request
 
-from app import constants
-from app.utils.auth import requires_auth
+from backend import constants
+from backend.auth import requires_auth
 from command.config_file import cf_check
 from command.status import config_whitelist, update_config_file
 

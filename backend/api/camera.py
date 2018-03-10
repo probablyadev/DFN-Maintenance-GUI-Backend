@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 
-from app.utils.auth import requires_auth
+from backend.auth import requires_auth
 from command.camera import *
 
 camera_endpoints = Blueprint("camera_api", __name__)

@@ -11,6 +11,7 @@ class Config(object):
     """
     DEBUG = False
     SQLALCHEMY_TRACK_MODIFICATIONS = True
+    SECRET_KEY = os.urandom(24)
 
 
 class DevelopmentConfig(Config):

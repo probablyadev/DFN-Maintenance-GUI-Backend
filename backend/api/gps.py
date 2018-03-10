@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 
-from app.utils.auth import requires_auth
+from backend.auth import requires_auth
 from command.gps import gps_check
 
 gps_endpoints = Blueprint("gps_api", __name__)
