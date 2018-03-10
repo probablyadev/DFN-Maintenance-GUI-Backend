@@ -1,14 +1,10 @@
-// This is used to determine if a user is authenticated and
-// if they are allowed to visit the page they navigated to.
-
-// If they are: they proceed to the page
-// If not: they are redirected to the login page.
 import React from 'react'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {Redirect, Route} from 'react-router-dom'
-import {isValidToken} from '../utils/misc';
+
 import * as actionCreators from '../actions/auth';
+import UserService from '../utils/api/UserService';
 
 function mapStateToProps(state) {
     return {
@@ -43,7 +39,7 @@ export default class AuthenticatedRoute extends React.Component {
             if (token) {
                 this.props.loginUserRequest();
 
-                isValidToken(JSON.stringify({token}))
+                UserService.isValidToken(JSON.stringify({token}))
                     .then(response => {
                         if (response.status === 200) {
                             this.props.loginUserSuccess(token);

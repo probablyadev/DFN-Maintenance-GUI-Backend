@@ -1,8 +1,7 @@
 # NETWORK UTILITIES
 import re
 
-import constants
-
+from backend import constants
 from command import exec_console_command
 
 

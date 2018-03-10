@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 
-from app.utils.auth import requires_auth
+from backend.auth import requires_auth
 from command.network import *
 
 network_endpoints = Blueprint("network_api", __name__)

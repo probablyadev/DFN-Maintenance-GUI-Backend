@@ -1,5 +1,5 @@
 import axios from 'axios';
-import tokenConfig from '../axios';
+import tokenConfig from '../request';
 
 export function checkConfigFile(token) {
     return axios.get('/api/config_file/check_config_file', tokenConfig(token));

@@ -10,6 +10,7 @@
 - [ ] Fix: npm WARN deprecated react-date-picker@5.3.28: React-Date-Picker 5.x and older is deprecated. The authors of these versions have disappeared. Please upgrade to version 6.x to get fully maintained package with support for React 16. It requires some changes on your side, but in most cases it shouldn't take you more than a few minutes. See project's page for instructions and support.
 - [x] Async loading of front end components
 - [ ] Front end HDD table needs used and total space. Make backend reflect this.
+- [ ] Axios service wrapper: https://sheharyar.me/blog/axios-with-react-for-making-requests/
 
 # HDD
 

@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 
-from app.utils.auth import requires_auth
+from backend.auth import requires_auth
 from command.page_request import get_hostname
 
 misc_endpoints = Blueprint("misc_api", __name__)

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import tokenConfig from '../axios';
+import tokenConfig from '../request';
 
 export function outputTime(token) {
     return axios.get('/api/time/output_time', tokenConfig(token));

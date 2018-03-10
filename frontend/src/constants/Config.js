@@ -1,11 +1,11 @@
 const date = new Date();
 const year = date.getFullYear();
 
-const APPCONFIG = {
+const config = {
     brand: 'Fireballs',
     brandLong: 'Fireballs in the Sky',
     user: 'Scott Day',
-    year: 2017,
+    year,
     productLink: 'http://fireballsinthesky.com.au/',
     AutoCloseMobileNav: true,                         // true, false. Automatically close sidenav on route change (Mobile only)
     color: {
@@ -26,7 +26,18 @@ const APPCONFIG = {
         sidebarWidth: 'middle',                         // small, middle, large
         colorOption: '14',                              // String: 11,12,13,14,15,16; 21,22,23,24,25,26; 31,32,33,34,35,36
         theme: 'light',                                 // light, gray, dark
+    },
+    api: {
+        url: "http://localhost:5000/api",
+        timeout: 5000,
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization",
+            "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+            "Access-Control-Allow-Credentials": "true",
+            'Content-Type': 'application/json;charset=UTF-8',
+        }
     }
 };
 
-module.exports = APPCONFIG;
+module.exports = config;

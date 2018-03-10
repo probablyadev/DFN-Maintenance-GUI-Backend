@@ -1,5 +1,5 @@
 import axios from 'axios';
-import tokenConfig from '../axios';
+import tokenConfig from '../request';
 
 export function checkVPN(token) {
     return axios.get('/api/network/check_vpn', tokenConfig(token));

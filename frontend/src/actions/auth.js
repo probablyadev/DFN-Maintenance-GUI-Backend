@@ -1,9 +1,8 @@
 import {browserHistory} from 'react-router';
 
 import {LOGIN_USER_FAILURE, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, LOGOUT_USER} from '../constants/ActionTypes';
-
 import {parseJSON} from '../utils/misc';
-import {getToken} from '../utils/api/user';
+import UserService from '../utils/api/UserService';
 
 
 export function loginUserSuccess(token) {
@@ -61,7 +60,7 @@ export function loginUser(email, password) {
     return function (dispatch) {
         dispatch(loginUserRequest());
 
-        return getToken(email, password)
+        return UserService.getToken(email, password)
             .then(parseJSON)
             .then(response => {
                 try {

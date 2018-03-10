@@ -1,5 +1,5 @@
 import axios from 'axios';
-import tokenConfig from '../axios';
+import tokenConfig from '../request';
 
 export function checkHDD(token) {
     return axios.get('/api/hdd/check_hdd', tokenConfig(token));
