@@ -7,7 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 from config import ProductionConfig
 
-flaskapp = Flask(__name__, static_folder = "./frontend/dist", template_folder = "./frontend")
+flaskapp = Flask(__name__)
 flaskapp.config.from_object(ProductionConfig)
 
 db = SQLAlchemy(flaskapp)
@@ -61,13 +61,3 @@ flaskapp.register_blueprint(network_endpoints)
 flaskapp.register_blueprint(time_endpoints)
 flaskapp.register_blueprint(user_endpoints)
 flaskapp.register_blueprint(error_handlers)
-
-
-@flaskapp.route('/', methods = ['GET'])
-def index():
-    return render_template('index.html')
-
-
-@flaskapp.route('/<path:path>', methods = ['GET'])
-def any_root_path(path):
-    return render_template('index.html')
