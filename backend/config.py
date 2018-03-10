@@ -1,4 +1,6 @@
 import os
+import logging
+
 
 # If APP_SETTINGS has not been defined the default to production config.
 if "APP_SETTINGS" not in os.environ:
@@ -10,6 +12,7 @@ class Config(object):
     Parent config class. Inherits from object.
     """
     DEBUG = False
+    LOGGING_LEVEL = logging.INFO
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SECRET_KEY = os.urandom(32)
     CORS_HEADERS = 'Content-Type'
@@ -19,8 +22,8 @@ class DevelopmentConfig(Config):
     """
     Dev config class. Inherits from the parent Config class.
     """
-    DEBUG = True
-    SQLALCHEMY_DATABASE_URI = "sqlite:///../db/dev-auth.db"
+    LOGGING_LEVEL = logging.INFO
+    SQLALCHEMY_DATABASE_URI = "sqlite:///../db/dev.db"
 
 
 class TestingConfig(Config):
@@ -29,7 +32,7 @@ class TestingConfig(Config):
     """
     DEBUG = True
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = "sqlite:///../db/test-auth.db"
+    SQLALCHEMY_DATABASE_URI = "sqlite:///../db/test.db"
 
 
 class ProductionConfig(Config):

@@ -1,10 +1,14 @@
-from backend import db, bcrypt
+from flask_bcrypt import Bcrypt
+
+from backend import flaskapp, db
+
+bcrypt = Bcrypt(flaskapp)
 
 
 class User(db.Model):
     __tablename__ = 'user'
 
-    id = db.Column(db.Integer(), primary_key = True)
+    id = db.Column(db.Integer(), primary_key = True, autoincrement = True)
     email = db.Column(db.String(255), unique = True)
     password = db.Column(db.String(255))
 

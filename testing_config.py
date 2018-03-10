@@ -1,6 +1,6 @@
 import json
 from unittest import TestCase
-from index import app, db
+from backend import flaskapp, db
 
 
 class BaseTestConfig(TestCase):
@@ -10,8 +10,9 @@ class BaseTestConfig(TestCase):
     }
 
     def create_app(self):
-        app.config.from_object('config.TestingConfig')
-        return app
+        flaskapp.config.from_object('config.TestingConfig')
+
+        return flaskapp
 
     def setUp(self):
         self.app = self.create_app().test_client()
