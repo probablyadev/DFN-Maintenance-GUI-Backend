@@ -1,32 +1,35 @@
 import logging
+import os
 
-from flask import Flask, render_template
-from flask_bcrypt import Bcrypt
+from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 
-from config import ProductionConfig
+from config import app_config
+
+config = app_config[os.getenv('APP_SETTINGS')]
 
 flaskapp = Flask(__name__)
-flaskapp.config.from_object(ProductionConfig)
+flaskapp.config.from_object(config)
 
 db = SQLAlchemy(flaskapp)
+from model import User
+
 db.create_all()
 
-bcrypt = Bcrypt(flaskapp)
 CORS(flaskapp, resources = {r"/api/*": {"origins": "*"}}, headers = 'Content-Type', supports_credentials = True)
 
 # Set up logging to file
 logging.basicConfig(
     filename = 'dfn-gui-server.log',
-    level = logging.INFO,
+    level = config.LOGGING_LEVEL,
     format = '[%(asctime)s] {%(filename)s:%(lineno)d} %(levelname)s - %(message)s',
     datefmt = '%H:%M:%S'
 )
 
 # Set up logging to console
 console = logging.StreamHandler()
-console.setLevel(logging.DEBUG)
+console.setLevel(config.LOGGING_LEVEL)
 
 formatter = logging.Formatter('%(name)-12s: %(levelname)-8s %(message)s')
 console.setFormatter(formatter)
@@ -35,7 +38,7 @@ logging.getLogger('').addHandler(console)
 
 logger = logging.getLogger(__name__)
 
-logging.getLogger('flask_cors').level = logging.DEBUG
+logging.getLogger('flask_cors').level = config.LOGGING_LEVEL
 
 from backend.api.camera import camera_endpoints
 # from backend.api.config_file import config_file_endpoints
@@ -61,3 +64,16 @@ flaskapp.register_blueprint(network_endpoints)
 flaskapp.register_blueprint(time_endpoints)
 flaskapp.register_blueprint(user_endpoints)
 flaskapp.register_blueprint(error_handlers)
+
+# Let's ensure there is a default User for use in this example
+if not db.session.query(User).filter_by(email = 'admin@dfn.com').count():
+    db.session.add(User(email = 'admin@dfn.com', password = 'desertfireballnetwork'))
+    db.session.commit()
+
+
+@flaskapp.teardown_request
+def teardown(exception = None):
+    if exception:
+        db.session.rollback()
+    else:
+        db.session.commit()
