@@ -39,13 +39,13 @@ export default class AuthenticatedRoute extends React.Component {
             if (token) {
                 this.props.loginUserRequest();
 
-                UserService.isValidToken(JSON.stringify({token}))
+                UserService.isTokenValid(token)
                     .then(response => {
-                        if (response.status === 200) {
+                        if (response.valid) {
                             this.props.loginUserSuccess(token);
 
                             this.setState({
-                                loadedIfNeeded: true,
+                                loadedIfNeeded: true
                             });
                         } else {
                             this.props.loginUserFailure({
@@ -60,7 +60,7 @@ export default class AuthenticatedRoute extends React.Component {
                         this.props.loginUserFailure({
                             response: {
                                 status: 403,
-                                statusText: 'Failure while verifying user token',
+                                statusText: 'Failure while verifying user token'
                             }
                         });
                     });

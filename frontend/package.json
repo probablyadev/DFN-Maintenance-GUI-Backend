@@ -14,8 +14,8 @@
     "scripts": {
         "clean": "rimraf dist/*",
         "build": "npm run clean && webpack --progress --bail --env prod -p",
-        "lint": "npm run lint-fix && npm run lint-sass",
-        "lint:eslint": "eslint --ignore-path .gitignore",
+        "lint": "npm run lint-fix && npm run lint-sass && npm run link-eslint",
+        "lint-eslint": "eslint --ignore-path .gitignore",
         "lint-fix": "eslint ./src --fix",
         "lint-sass": "sass-lint -c .sass-lint.yml 'src/styles/**/*.scss' -v -q",
         "lint:staged": "lint-staged",
@@ -24,9 +24,6 @@
         "serve:dev": "webpack-dev-server --env dev",
         "serve:prod": "webpack-dev-server --open --env prod -p --progress",
         "start": "npm run serve:dev"
-    },
-    "lint-staged": {
-        "*.js": "lint:eslint"
     },
     "pre-commit": "lint:staged",
     "dependencies": {
