@@ -1,5 +1,3 @@
-import jwtDecode from 'jwt-decode';
-
 import {createReducer} from '../utils/misc';
 import {LOGIN_USER_FAILURE, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, LOGOUT_USER,} from '../constants/ActionTypes';
 
@@ -22,7 +20,7 @@ export default createReducer(initialState, {
             isAuthenticating: false,
             isAuthenticated: true,
             token: payload.token,
-            userName: jwtDecode(payload.token).email,
+            userName: payload.email,
             statusText: 'You have been successfully logged in.'
         }),
     [LOGIN_USER_FAILURE]: (state, payload) =>

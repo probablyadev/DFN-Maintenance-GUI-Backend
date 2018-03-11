@@ -1,17 +1,17 @@
-import {browserHistory} from 'react-router';
+import browserHistory from 'react-router';
 
 import {LOGIN_USER_FAILURE, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, LOGOUT_USER} from '../constants/ActionTypes';
-import {parseJSON} from '../utils/misc';
 import UserService from '../utils/api/UserService';
 
 
-export function loginUserSuccess(token) {
+export function loginUserSuccess(email, token) {
     localStorage.setItem('token', token);
 
     return {
         type: LOGIN_USER_SUCCESS,
         payload: {
-            token,
+            email,
+            token
         },
     };
 }
@@ -23,14 +23,14 @@ export function loginUserFailure(error) {
         type: LOGIN_USER_FAILURE,
         payload: {
             status: error.response.status,
-            statusText: error.response.statusText,
+            statusText: error.response.statusText
         },
     };
 }
 
 export function loginUserRequest() {
     return {
-        type: LOGIN_USER_REQUEST,
+        type: LOGIN_USER_REQUEST
     };
 }
 
@@ -38,7 +38,7 @@ export function logout() {
     localStorage.removeItem('token');
 
     return {
-        type: LOGOUT_USER,
+        type: LOGOUT_USER
     };
 }
 
@@ -61,10 +61,9 @@ export function loginUser(email, password) {
         dispatch(loginUserRequest());
 
         return UserService.getToken(email, password)
-            .then(parseJSON)
             .then(response => {
                 try {
-                    dispatch(loginUserSuccess(response.token));
+                    dispatch(loginUserSuccess(email, response.token));
 
                     browserHistory.push('/dashboard');
                 } catch (e) {
