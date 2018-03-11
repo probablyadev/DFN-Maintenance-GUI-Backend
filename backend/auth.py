@@ -5,10 +5,8 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 from backend import flaskapp
 
-TWO_WEEKS = 1209600
 
-
-def generate_token(user, expiration = TWO_WEEKS):
+def generate_token(user, expiration = 2400):
     s = Serializer(flaskapp.config['SECRET_KEY'], expires_in = expiration)
     token = s.dumps({
         'id':    user.id,
@@ -17,7 +15,7 @@ def generate_token(user, expiration = TWO_WEEKS):
 
     return token
 
-
+# https://blog.miguelgrinberg.com/post/restful-authentication-with-flask
 def verify_token(token):
     s = Serializer(flaskapp.config['SECRET_KEY'])
     try:
