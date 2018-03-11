@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch} from 'react-router'
+import {Switch} from 'react-router-dom'
 import AuthenticatedRoute from '../../AuthenticatedRoute';
 import loadable from 'react-loadable';
 import Header from 'components/Header';

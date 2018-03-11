@@ -29,7 +29,6 @@ const config = {
     },
     api: {
         url: "http://localhost:5000/api",
-        timeout: 5000,
         headers: {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Headers": "Content-Type, Authorization",

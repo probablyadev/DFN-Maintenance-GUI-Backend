@@ -1,4 +1,4 @@
-import browserHistory from 'react-router';
+import {push} from "react-router-redux";
 
 import {LOGIN_USER_FAILURE, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, LOGOUT_USER} from '../constants/ActionTypes';
 import UserService from '../utils/api/UserService';
@@ -46,13 +46,7 @@ export function logoutAndRedirect() {
     return (dispatch) => {
         dispatch(logout());
 
-        browserHistory.push('/');
-    };
-}
-
-export function redirectToRoute(route) {
-    return () => {
-        browserHistory.push(route);
+        dispatch(push('/'));
     };
 }
 
@@ -65,14 +59,12 @@ export function loginUser(email, password) {
                 try {
                     dispatch(loginUserSuccess(email, response.token));
 
-                    browserHistory.push('/dashboard');
+                    dispatch(push('/app/dashboard'));
                 } catch (e) {
-                    alert(e);
-
                     dispatch(loginUserFailure({
                         response: {
                             status: 403,
-                            statusText: 'Invalid token',
+                            statusText: 'Invalid token: ' + e,
                         },
                     }));
                 }

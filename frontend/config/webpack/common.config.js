@@ -7,7 +7,6 @@ const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 
-const BabelPluginTransformDecorators = require("babel-plugin-transform-decorators-legacy");
 const CompressionPlugin = require('compression-webpack-plugin');
 
 const npmBase = path.join(__dirname, '../../node_modules');
