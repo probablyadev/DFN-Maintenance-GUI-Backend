@@ -38,7 +38,7 @@ logging.getLogger('').addHandler(console)
 
 logger = logging.getLogger(__name__)
 
-logging.getLogger('flask_cors').level = config.LOGGING_LEVEL
+logging.getLogger('flask_cors').level = config.CORS_LOGGING_LEVEL
 
 from backend.api.camera import camera_endpoints
 # from backend.api.config_file import config_file_endpoints

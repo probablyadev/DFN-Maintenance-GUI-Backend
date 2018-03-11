@@ -49,10 +49,8 @@ def get_token_endpoint():
     user = User.get_user_with_email_and_password(incoming["email"], incoming["password"])
 
     if user:
-        logging.debug("Pass")
         return jsonify(token = generate_token(user))
     else:
-        logging.debug("Fail")
         return jsonify(error = True), 403
 
 
@@ -60,9 +58,10 @@ def get_token_endpoint():
 def is_token_valid_endpoint():
     """Checks that a given token is valid."""
     incoming = request.get_json()
+
     is_valid = verify_token(incoming["token"])
 
     if is_valid:
-        return jsonify(token_is_valid = True)
+        return jsonify(valid = True)
     else:
-        return jsonify(token_is_valid = False), 403
+        return jsonify(valid = False)

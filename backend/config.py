@@ -13,6 +13,7 @@ class Config(object):
     """
     DEBUG = False
     LOGGING_LEVEL = logging.INFO
+    CORS_LOGGING_LEVEL = logging.INFO
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SECRET_KEY = os.urandom(32)
     CORS_HEADERS = 'Content-Type'
@@ -22,7 +23,8 @@ class DevelopmentConfig(Config):
     """
     Dev config class. Inherits from the parent Config class.
     """
-    LOGGING_LEVEL = logging.INFO
+    DEBUG = True
+    LOGGING_LEVEL = logging.DEBUG
     SQLALCHEMY_DATABASE_URI = "sqlite:///../db/dev.db"
 
 
@@ -30,7 +32,6 @@ class TestingConfig(Config):
     """
     Test config class, uses a separate database. Inherits from the parent Config class.
     """
-    DEBUG = True
     TESTING = True
     SQLALCHEMY_DATABASE_URI = "sqlite:///../db/test.db"
 
