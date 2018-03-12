@@ -6,7 +6,7 @@ from command.camera import *
 camera_endpoints = Blueprint("camera_api", __name__)
 
 
-@camera_endpoints.route("/api/camera/camera_off", methods = ["GET"])
+@camera_endpoints.route("/api/camera/cameraOff", methods = ["GET"])
 @requires_auth
 def camera_off_endpoint():
     """Switches the DSLR camera off."""
@@ -20,7 +20,7 @@ def camera_off_endpoint():
     )
 
 
-@camera_endpoints.route("/api/camera/camera_on", methods = ["GET"])
+@camera_endpoints.route("/api/camera/cameraOn", methods = ["GET"])
 @requires_auth
 def camera_on_endpoint():
     """Switches the DSLR camera on."""
@@ -34,7 +34,7 @@ def camera_on_endpoint():
     )
 
 
-@camera_endpoints.route("/api/camera/camera_status", methods = ["GET"])
+@camera_endpoints.route("/api/camera/cameraStatus", methods = ["GET"])
 @requires_auth
 def camera_status_endpoint():
     """Delivers a summary of the DSLR's status."""
@@ -46,7 +46,7 @@ def camera_status_endpoint():
     )
 
 
-@camera_endpoints.route("/api/camera/download_picture", methods = ["POST"])
+@camera_endpoints.route("/api/camera/downloadPicture", methods = ["POST"])
 @requires_auth
 def download_picture_endpoint():
     """Fetches the specified .NEF file for the user to download."""
@@ -55,7 +55,7 @@ def download_picture_endpoint():
     return jsonify(download_picture_status = download_picture(incoming.file))
 
 
-@camera_endpoints.route("/api/camera/download_thumbnail", methods = ["POST"])
+@camera_endpoints.route("/api/camera/downloadThumbnail", methods = ["POST"])
 @requires_auth
 def download_thumbnail_endpoint():
     """Fetches the specified .jpg file for the user to download."""
@@ -64,7 +64,7 @@ def download_thumbnail_endpoint():
     return jsonify(download_thumbnail_status = download_thumbnail(incoming.file))
 
 
-@camera_endpoints.route("/api/camera/find_pictures", methods = ["POST"])
+@camera_endpoints.route("/api/camera/findPictures", methods = ["POST"])
 @requires_auth
 def find_pictures_endpoint():
     """Fetches the file names of pictures taken on the date specified."""
@@ -73,7 +73,7 @@ def find_pictures_endpoint():
     return jsonify(picture_paths = find_pictures(incoming.date))
 
 
-@camera_endpoints.route("/api/camera/remove_thumbnail", methods = ["POST"])
+@camera_endpoints.route("/api/camera/removeThumbnail", methods = ["POST"])
 @requires_auth
 def remove_thumbnail_endpoint():
     """Deletes the specified thumbnail from the camera's filesystem."""
@@ -82,7 +82,7 @@ def remove_thumbnail_endpoint():
     return jsonify(remove_thumbnail_status = remove_thumbnail(incoming.path))
 
 
-@camera_endpoints.route("/api/camera/turn_video_camera_off", methods = ["GET"])
+@camera_endpoints.route("/api/camera/turnVideoCameraOff", methods = ["GET"])
 @requires_auth
 def turn_video_camera_off_endpoint():
     """
@@ -93,7 +93,7 @@ def turn_video_camera_off_endpoint():
     return jsonify(turn_video_camera_off_status = turn_video_camera_off())
 
 
-@camera_endpoints.route("/api/camera/turn_video_camera_on", methods = ["GET"])
+@camera_endpoints.route("/api/camera/turnVideoCameraOn", methods = ["GET"])
 @requires_auth
 def turn_video_camera_on_endpoint():
     """

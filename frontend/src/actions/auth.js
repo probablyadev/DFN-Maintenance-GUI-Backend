@@ -1,7 +1,7 @@
 import {push} from "react-router-redux";
 
 import {LOGIN_USER_FAILURE, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, LOGOUT_USER} from '../constants/ActionTypes';
-import UserService from '../utils/api/UserService';
+import UserAPIService from '../utils/api/UserAPIService';
 
 
 export function loginUserSuccess(email, token) {
@@ -46,7 +46,7 @@ export function logoutAndRedirect() {
     return (dispatch) => {
         dispatch(logout());
 
-        dispatch(push('/'));
+        dispatch(push('/login'));
     };
 }
 
@@ -54,7 +54,7 @@ export function loginUser(email, password) {
     return function (dispatch) {
         dispatch(loginUserRequest());
 
-        return UserService.getToken(email, password)
+        return UserAPIService.getToken(email, password)
             .then(response => {
                 try {
                     dispatch(loginUserSuccess(email, response.token));

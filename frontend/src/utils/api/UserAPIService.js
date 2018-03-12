@@ -5,7 +5,7 @@ function getUser(token) {
         url: `/user/getUser`,
         method: 'GET',
         headers: {
-            'Authorization': token, // eslint-disable-line quote-props
+            'Authorization': token
         }
     });
 }
@@ -31,8 +31,8 @@ function isTokenValid(token) {
     });
 }
 
-const UserService = {
+const UserAPIService = {
     getUser, getToken, isTokenValid
 };
 
-export default UserService;
+export default UserAPIService;

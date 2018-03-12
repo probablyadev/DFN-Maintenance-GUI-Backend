@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {Redirect, Route} from 'react-router-dom'
 
 import * as actionCreators from '../actions/auth';
-import UserService from '../utils/api/UserService';
+import UserAPIService from '../utils/api/UserAPIService';
 
 function mapStateToProps(state) {
     return {
@@ -39,7 +39,7 @@ export default class AuthenticatedRoute extends React.Component {
             if (token) {
                 this.props.loginUserRequest();
 
-                UserService.isTokenValid(token)
+                UserAPIService.isTokenValid(token)
                     .then(response => {
                         if (response.valid) {
                             this.props.loginUserSuccess(token);

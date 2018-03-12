@@ -6,7 +6,7 @@ from command.interval_control_test import interval_test, prev_interval_test
 interval_control_test_endpoints = Blueprint("interval_control_test_api", __name__)
 
 
-@interval_control_test_endpoints.route("/api/interval_control_test/interval_test", methods = ["GET"])
+@interval_control_test_endpoints.route("/api/intervalControlTest/intervalTest", methods = ["GET"])
 @requires_auth
 def interval_test_endpoint():
     """Performs an interval control test on the system."""
@@ -18,7 +18,7 @@ def interval_test_endpoint():
     )
 
 
-@interval_control_test_endpoints.route("/api/interval_control_test/prev_interval_test", methods = ["GET"])
+@interval_control_test_endpoints.route("/api/intervalControlTest/prevIntervalTest", methods = ["GET"])
 @requires_auth
 def prev_interval_test_endpoint():
     """Checks the /latest folder to see if the camera took pictures the last time the interval control ran."""

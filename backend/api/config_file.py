@@ -9,21 +9,21 @@ from command.status import config_whitelist, update_config_file
 config_file_endpoints = Blueprint("config_file_api", __name__)
 
 
-@config_file_endpoints.route("/api/config_file/check_config_file", methods = ["GET"])
+@config_file_endpoints.route("/api/configFile/checkConfigFile", methods = ["GET"])
 @requires_auth
 def check_config_file_endpoint():
     """Performs a configuration file check."""
     return jsonify(images = cf_check())
 
 
-@config_file_endpoints.route("/api/config_file/config_whitelist", methods = ["GET"])
+@config_file_endpoints.route("/api/configFile/configWhitelist", methods = ["GET"])
 @requires_auth
 def config_whitelist_endpoint():
     """Serves modifiable information to fill in the interface for changing the dfnstation.cfg file."""
     return jsonify(config_whitelist = config_whitelist())
 
 
-@config_file_endpoints.route("/api/config_file/config_file", methods = ["GET"])
+@config_file_endpoints.route("/api/configFile/configFile", methods = ["GET"])
 @requires_auth
 def config_file_endpoint():
     """Serves the dfnstation.cfg file to the user to read."""
@@ -35,7 +35,7 @@ def config_file_endpoint():
         return jsonify(config_file = config_file)
 
 
-@config_file_endpoints.route("/api/config_file/update_config_file", methods = ["POST"])
+@config_file_endpoints.route("/api/configFile/updateConfigFile", methods = ["POST"])
 @requires_auth
 def update_config_file_endpoint():
     """Updates the dfnstation.cfg file with a new value for a parameter."""
