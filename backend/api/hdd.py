@@ -6,7 +6,7 @@ from command.hdd import *
 hdd_endpoints = Blueprint("hdd_api", __name__)
 
 
-@hdd_endpoints.route("/api/hdd/check_hdd", methods = ["GET"])
+@hdd_endpoints.route("/api/hdd/checkHDD", methods = ["GET"])
 @requires_auth
 def check_hdd_endpoint():
     """Delivers a summary of the external hard drive's status."""
@@ -18,7 +18,7 @@ def check_hdd_endpoint():
     )
 
 
-@hdd_endpoints.route("/api/hdd/enable_hdd", methods = ["GET"])
+@hdd_endpoints.route("/api/hdd/enableHDD", methods = ["GET"])
 @requires_auth
 def enable_hdd_endpoint():
     """Switches the camera's external hard drives on."""
@@ -32,7 +32,7 @@ def enable_hdd_endpoint():
     )
 
 
-@hdd_endpoints.route("/api/hdd/format_hdd", methods = ["POST"])
+@hdd_endpoints.route("/api/hdd/formatHDD", methods = ["POST"])
 @requires_auth
 def format_hdd_endpoint():
     """Formats the specified drives."""
@@ -41,7 +41,7 @@ def format_hdd_endpoint():
     return jsonify(format_hdd_message = format_hdd(incoming.args))
 
 
-@hdd_endpoints.route("/api/hdd/mount_hdd", methods = ["GET"])
+@hdd_endpoints.route("/api/hdd/mountHDD", methods = ["GET"])
 @requires_auth
 def mount_hdd_endpoint():
     """Mounts the powered HDD's to the filesystem."""
@@ -55,28 +55,28 @@ def mount_hdd_endpoint():
     )
 
 
-@hdd_endpoints.route("/api/hdd/move_data_0_hdd", methods = ["GET"])
+@hdd_endpoints.route("/api/hdd/moveData0HDD", methods = ["GET"])
 @requires_auth
 def move_data_0_endpoint():
     """Moves /data0 data to the external drives."""
     return jsonify(move_data_0_message = move_data_0())
 
 
-@hdd_endpoints.route("/api/hdd/probe_hdd", methods = ["GET"])
+@hdd_endpoints.route("/api/hdd/probeHDD", methods = ["GET"])
 @requires_auth
 def probe_hdd_endpoint():
     """Searches for present drives to format."""
     return jsonify(drives = probe_hdd())
 
 
-@hdd_endpoints.route("/api/hdd/smart_test", methods = ["GET"])
+@hdd_endpoints.route("/api/hdd/smartTest", methods = ["GET"])
 @requires_auth
 def smart_test_endpoint():
     """Performs a smart test."""
     return jsonify(smart_test_message = smart_test())
 
 
-@hdd_endpoints.route("/api/hdd/unmount_hdd", methods = ["GET"])
+@hdd_endpoints.route("/api/hdd/unmountHDD", methods = ["GET"])
 @requires_auth
 def unmount_hdd_endpoint():
     """Unmount's the powered HDD's to the filesystem."""

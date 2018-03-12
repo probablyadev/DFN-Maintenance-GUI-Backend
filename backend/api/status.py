@@ -8,7 +8,7 @@ from command.status import *
 status_endpoints = Blueprint("status_api", __name__)
 
 
-@status_endpoints.route("/api/status/latest_log", methods = ["GET"])
+@status_endpoints.route("/api/status/latestLog", methods = ["GET"])
 @requires_auth
 def latest_log_endpoint():
     """Serves the latest logfile from interval control."""
@@ -28,7 +28,7 @@ def latest_log_endpoint():
         raise AttributeError("Unable to locate the latest log file: " + path)
 
 
-@status_endpoints.route("/api/status/second_latest_log", methods = ["GET"])
+@status_endpoints.route("/api/status/secondLatestLog", methods = ["GET"])
 @requires_auth
 def second_latest_log_endpoint():
     """Serves the second-latest logfile from interval control."""
