@@ -1,5 +1,4 @@
 import {FETCH_PROTECTED_DATA_REQUEST, RECEIVE_PROTECTED_DATA} from '../constants/ActionTypes';
-import {parseJSON} from '../utils/misc';
 import UserAPIService from '../utils/api/UserAPIService';
 import {logoutAndRedirect} from './auth';
 
@@ -23,7 +22,6 @@ export function fetchProtectedData(token) {
         dispatch(fetchProtectedDataRequest());
 
         UserAPIService.getUser(token)
-            .then(parseJSON)
             .then(response => {
                 dispatch(receiveProtectedData(response.result));
             })
