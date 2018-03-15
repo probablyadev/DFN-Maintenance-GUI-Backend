@@ -24,7 +24,8 @@ export default class AuthenticatedRoute extends React.Component {
         super(props);
 
         this.state = {
-            loadedIfNeeded: false
+            loadedIfNeeded: false,
+            isLoading: true
         };
     }
 
@@ -42,10 +43,11 @@ export default class AuthenticatedRoute extends React.Component {
                 UserAPIService.isTokenValid(token)
                     .then(response => {
                         if (response.valid) {
-                            this.props.loginUserSuccess(token);
+                            this.props.loginUserSuccess(this.props.userName, token);
 
                             this.setState({
-                                loadedIfNeeded: true
+                                loadedIfNeeded: true,
+                                isLoading: false
                             });
                         } else {
                             this.props.loginUserFailure({
@@ -53,6 +55,10 @@ export default class AuthenticatedRoute extends React.Component {
                                     status: 403,
                                     statusText: 'Invalid token'
                                 }
+                            });
+
+                            this.setState({
+                                isLoading: false
                             });
                         }
                     })
@@ -63,16 +69,28 @@ export default class AuthenticatedRoute extends React.Component {
                                 statusText: 'Failure while verifying user token'
                             }
                         });
+
+                        this.setState({
+                            isLoading: false
+                        });
                     });
+            } else {
+                this.setState({
+                    isLoading: false
+                });
             }
         } else {
             this.setState({
                 loadedIfNeeded: true,
+                isLoading: false
             });
         }
     }
 
     render() {
+        if (this.state.isLoading)
+            return null;
+
         return (
             this.state.loadedIfNeeded
                 ? <Route {...this.props}/>
