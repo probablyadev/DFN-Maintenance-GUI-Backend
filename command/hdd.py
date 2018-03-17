@@ -2,6 +2,7 @@
 import inspect
 import re
 
+from backend import constants
 from backend.constants import getHostname
 
 import time
