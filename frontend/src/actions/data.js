@@ -7,13 +7,13 @@ export function receiveProtectedData(data) {
         type: RECEIVE_PROTECTED_DATA,
         payload: {
             data
-        },
+        }
     };
 }
 
 export function fetchProtectedDataRequest() {
     return {
-        type: FETCH_PROTECTED_DATA_REQUEST,
+        type: FETCH_PROTECTED_DATA_REQUEST
     };
 }
 
