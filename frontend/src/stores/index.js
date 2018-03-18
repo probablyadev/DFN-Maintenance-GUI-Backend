@@ -2,14 +2,18 @@ import {applyMiddleware, compose, createStore} from 'redux';
 import thunk from 'redux-thunk';
 import reducers from '../reducers';
 import {routerMiddleware} from "react-router-redux";
+import createSagaMiddleware from 'redux-saga';
 
+// TODO: Implement dev and prod stores: https://github.com/redux-saga/redux-saga/tree/master/examples/real-world/store
 function reduxStore(history) {
     const historyMiddleware = routerMiddleware(history);
+    const sagaMiddleware = createSagaMiddleware();
 
     const store = createStore(
         reducers,
         compose(
             applyMiddleware(thunk),
+            applyMiddleware(sagaMiddleware),
             applyMiddleware(historyMiddleware),
             window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
         ));
@@ -23,6 +27,9 @@ function reduxStore(history) {
             store.replaceReducer(nextReducer);
         });
     }
+
+    store.runSaga = sagaMiddleware.run;
+    store.close = () => store.dispatch(END);
 
     return store;
 }
