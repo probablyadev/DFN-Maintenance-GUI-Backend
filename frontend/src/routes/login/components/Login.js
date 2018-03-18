@@ -12,7 +12,7 @@ import {validateEmail} from '../../../utils/misc';
 function mapStateToProps(state) {
     return {
         isAuthenticating: state.auth.isAuthenticating,
-        statusText: state.auth.statusText,
+        statusText: state.auth.statusText
     };
 }
 

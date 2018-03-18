@@ -52,7 +52,8 @@
         "react-router-redux": "5.0.0-alpha.6",
         "redux": "^3.7.2",
         "redux-thunk": "^2.2.0",
-        "redux-saga": "^0.16.0"
+        "redux-saga": "^0.16.0",
+        "redux-saga-routines": "^2.2.2"
     },
     "devDependencies": {
         "autoprefixer": "^7.1.3",
