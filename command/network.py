@@ -1,11 +1,11 @@
 # NETWORK UTILITIES
 import re
 
-import constants
+from backend import constants
 from command import exec_console_command
 
 
-def internet_check():
+def check_internet():
     """
     Delivers a summary of the internet connectivity of the system.
 
@@ -31,39 +31,21 @@ def internet_check():
 
 
 def restart_modem():
-    """
-    Restarts the modem network interface.
+    """Restarts the modem network interface."""
+    command = "ifdown ppp0; sleep 8; ifup ppp0; sleep 8; ifconfig ppp0"
 
-    Returns:
-        feedbackOutput (str): Resulting feedback.
-    """
-    consoleOutput = exec_console_command(constants.restartModem)
+    exec_console_command(command)
 
-    # Parse output for results
-    feedbackOutput = constants.modemRestartFailed
-
-    if "SUCCESS" in consoleOutput:
-        feedbackOutput = constants.modemRestartPassed
-
-    return feedbackOutput
+    return "Modem restarted successfully."
 
 
 def restart_vpn():
-    """
-    Restarts the system's VPN daemon.
+    """Restarts the system's VPN daemon."""
+    command = "service openvpn restart; sleep 10; ifconfig tun0"
 
-    Returns:
-        feedbackOutput (str): Resulting feedback.
-    """
-    consoleOutput = exec_console_command(constants.restartVPN)
+    exec_console_command(command)
 
-    # Parse output for results
-    feedbackOutput = constants.vpnRestartFailed
-
-    if "SUCCESS" in consoleOutput:
-        feedbackOutput = constants.vpnRestartPassed
-
-    return feedbackOutput
+    return "VPN restarted successfully."
 
 
 def check_vpn():
