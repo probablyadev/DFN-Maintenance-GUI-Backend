@@ -1,13 +1,13 @@
 # CAMERA UTILITiES
 import calendar
 import re
-import time
 
-import constants
+import time
+from backend import constants
 from command import exec_console_command
 
 
-def camera_off():
+def turn_camera_off():
     """
     Switches the DSLR camera off.
 
@@ -29,7 +29,7 @@ def camera_off():
     return feedbackOutput
 
 
-def camera_on():
+def turn_camera_on():
     """
     Swithes the DSLR camera on.
 
@@ -88,7 +88,7 @@ def download_picture(inPath):
         IOError
     """
     success = False
-    consoleFeedback = exec_console_command(constants.copyFileToStatic.format(inPath.filepath))
+    consoleFeedback = exec_console_command(constants.copyFileToStatic.format(inPath))
     print(consoleFeedback)
 
     if "SUCCESS" in consoleFeedback:
@@ -113,7 +113,7 @@ def download_thumbnail(inPath):
         IOError
     """
     success = False
-    consoleFeedback = exec_console_command(constants.extractThumbnail.format(inPath.filepath))
+    consoleFeedback = exec_console_command(constants.extractThumbnail.format(inPath))
 
     if "SUCCESS" in consoleFeedback:
         success = True
@@ -167,7 +167,7 @@ def find_pictures(inDate):
                         h, m, s = fileCreationTime.split(':')
                         seconds = int(h) * 3600 + int(m) * 60 + int(s)
                         offset = calendar.timegm(time.localtime()) - calendar.timegm(
-                                time.gmtime(time.mktime(time.localtime())))
+                            time.gmtime(time.mktime(time.localtime())))
                         fileCreationTimeSeconds = seconds + offset
                         fileCreationTimeReadable = time.strftime('%H:%M:%S', time.gmtime(fileCreationTimeSeconds))
 
@@ -192,7 +192,7 @@ def remove_thumbnail(inJSON):
         IOError
     """
     time.sleep(2)
-    consoleOutput = exec_console_command("rm " + inJSON.filepath + ";" + constants.getExitStatus)
+    consoleOutput = exec_console_command("rm " + inJSON + ";" + constants.getExitStatus)
 
     if "\n1" in consoleOutput:
         raise IOError("Thumbnail file doesn't exist to delete. No worries though, it was going to be deleted anyway!")
@@ -200,7 +200,7 @@ def remove_thumbnail(inJSON):
     return 0
 
 
-def video_camera_off():
+def turn_video_camera_off():
     """
     Switches the video camera off.
 
@@ -225,7 +225,7 @@ def video_camera_off():
     return feedbackOutput
 
 
-def video_camera_on():
+def turn_video_camera_on():
     """
     Switches the video camera on.
 
