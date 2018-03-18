@@ -1,6 +1,8 @@
 import axios from 'axios';
 import config from '../constants/Config';
 
+// TODO: Review redux-bees: https://github.com/cantierecreativo/redux-bees
+
 /**
  * Create an Axios Client with defaults
  */
