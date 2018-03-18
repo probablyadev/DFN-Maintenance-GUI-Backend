@@ -1,11 +1,12 @@
 # EXTERNAL HARD DRIVE UTILITIES
 import inspect
 import re
-import time
 
-import constants
+from backend import constants
+from backend.constants import getHostname
+
+import time
 from command import exec_console_command
-from constants import getHostname
 
 
 def check_hdd():
@@ -19,6 +20,8 @@ def check_hdd():
 
     Raises:
         IOError
+
+    TODO: For the love of god fix this.
     """
     hddStatusDict = {0: constants.hddStatusOff, 1: constants.hddStatusPowered, 2: constants.hddStatusMounted}
 
@@ -101,13 +104,13 @@ def check_hdd():
             if hasattr(frame.f_locals, "self"):
                 raise IOError(constants.diskUsageNotFound)
             else:
-                feedbackOutput = constants.hddStatusString.format(hddStatusDict[hdd0Status], hdd0Space,
-                                                                  hddStatusDict[hdd1Status], hdd1Space,
-                                                                  hddStatusDict[hdd2Status], hdd2Space,
-                                                                  hddStatusDict[hdd3Status],
-                                                                  hdd3Space) + constants.diskUsageNotFound + '\n'
+                feedback_output = constants.hddStatusString.format(hddStatusDict[hdd0Status], hdd0Space,
+                                                                   hddStatusDict[hdd1Status], hdd1Space,
+                                                                   hddStatusDict[hdd2Status], hdd2Space,
+                                                                   hddStatusDict[hdd3Status],
+                                                                   hdd3Space) + constants.diskUsageNotFound + '\n'
 
-                return feedbackOutput, hdd0Status, hdd0Space, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space
+                return feedback_output, hdd0Status, hdd0Space, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space
 
     for line in lines:  # For each line in the file
         fixedLine = re.sub(" +", ",", line)  # Reduce whitespace down to 1
@@ -127,11 +130,35 @@ def check_hdd():
             if "/data3" in device:
                 hdd3Space = spaceAvail
 
-    feedbackOutput = constants.hddStatusString.format(hddStatusDict[hdd0Status], hdd0Space, hddStatusDict[hdd1Status],
-                                                      hdd1Space, hddStatusDict[hdd2Status], hdd2Space,
-                                                      hddStatusDict[hdd3Status], hdd3Space)
+    feedback_output = constants.hddStatusString.format(hddStatusDict[hdd0Status], hdd0Space, hddStatusDict[hdd1Status],
+                                                       hdd1Space, hddStatusDict[hdd2Status], hdd2Space,
+                                                       hddStatusDict[hdd3Status], hdd3Space)
 
-    return feedbackOutput, hdd0Status, hdd0Space, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space
+    hdd_status = []
+    hdd_status = (
+        {
+            "name":   "HDD 0",
+            "status": hdd0Status,
+            "space":  hdd0Space
+        },
+        {
+            "name":   "HDD 1",
+            "status": hdd1Status,
+            "space":  hdd1Space
+        },
+        {
+            "name":   "HDD 2",
+            "status": hdd2Status,
+            "space":  hdd2Space
+        },
+        {
+            "name":   "HDD 3",
+            "status": hdd3Status,
+            "space":  hdd3Space
+        }
+    )
+
+    return feedback_output, hdd_status
 
 
 def disable_hdd():
@@ -160,7 +187,7 @@ def disable_hdd():
 
             if not re.search("[0-9]", driveRotation):
                 raise RuntimeError(
-                        "External drives are not on correct device label. Use the command line to resolve this.")
+                    "External drives are not on correct device label. Use the command line to resolve this.")
 
                 # No exceptions have been raised by this point, so delete drives
         for device in devices:

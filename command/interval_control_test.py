@@ -2,7 +2,7 @@
 import datetime
 import re
 
-import constants
+from backend import constants
 from command import exec_console_command
 
 
@@ -53,7 +53,7 @@ def prev_interval_test():
     latestDateSplit = re.split("-", latestDateParsed)
 
     if currDate.day == int(latestDateSplit[2]) and currDate.month == int(latestDateSplit[1]) and currDate.year == int(
-            latestDateSplit[0]):
+        latestDateSplit[0]):
         consoleFeedback = constants.prevIntervalDidRun
 
     return consoleFeedback

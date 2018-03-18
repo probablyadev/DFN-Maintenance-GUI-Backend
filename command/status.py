@@ -1,5 +1,5 @@
 # ADVANCED UTILITIES
-import constants
+from backend import constants
 import dfn_functions
 from command import exec_console_command
 
@@ -22,7 +22,7 @@ def get_log(directory):
     return foundfile
 
 
-def populate_config_box():
+def config_whitelist():
     """
     Serves information to fill in the interface for changing the dfnstation.cfg file.
 
