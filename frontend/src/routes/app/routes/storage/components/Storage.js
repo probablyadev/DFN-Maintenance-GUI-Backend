@@ -2,7 +2,7 @@ import React from 'react';
 import QueueAnim from 'rc-queue-anim';
 import StatusPanel from './StatusPanel';
 import HDDChart from './HDDChart';
-import HDDTable from './HDDTable/HDDTable';
+import HDDTable from './HDDTable';
 
 class Storage extends React.Component {
     render() {
