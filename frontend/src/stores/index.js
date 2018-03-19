@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import reducers from '../reducers';
 import {routerMiddleware} from "react-router-redux";
 import createSagaMiddleware from 'redux-saga';
-import {checkHDDSaga} from "../actions/hdd";
+import rootSaga from "../actions";
 
 // TODO: Implement dev and prod stores: https://github.com/redux-saga/redux-saga/tree/master/examples/real-world/store
 function reduxStore(history) {
@@ -32,7 +32,7 @@ function reduxStore(history) {
     // store.runSaga = sagaMiddleware.run;
     // store.close = () => store.dispatch(END);
 
-    sagaMiddleware.run(checkHDDSaga);
+    sagaMiddleware.run(rootSaga);
 
     return store;
 }
