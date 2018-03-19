@@ -42,7 +42,7 @@ export default class AuthenticatedRoute extends React.Component {
 
                 UserAPIService.isTokenValid(token)
                     .then(response => {
-                        if (response.valid) {
+                        if (response.data.valid) {
                             this.props.loginUserSuccess(this.props.userName, token);
 
                             this.setState({

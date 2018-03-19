@@ -63,9 +63,9 @@ function probeHDD(token) {
     });
 }
 
-function smartHDD(token) {
+function smartTest(token) {
     return request({
-        url: `/hdd/smartHDD`,
+        url: `/hdd/smartTest`,
         method: 'GET',
         headers: {
             'Authorization': token

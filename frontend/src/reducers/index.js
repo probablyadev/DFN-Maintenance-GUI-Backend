@@ -1,14 +1,20 @@
 import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
+
+import createNetworkReducerWithType from "./network";
+import * as actionTypes from '../constants/ActionTypes';
 import settings from './settings';
 import auth from './auth';
-import data from './data';
+
+const hddReducer = combineReducers({
+    checkHDD: createNetworkReducerWithType(actionTypes.checkHDD)
+});
 
 const rootReducer = combineReducers({
     routing: routerReducer,
     settings,
     auth,
-    data
+    hddReducer
 });
 
 export default rootReducer;

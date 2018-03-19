@@ -1,6 +1,11 @@
 import React from 'react';
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+
 import ReactEcharts from 'components/ReactECharts';
 import CHARTCONFIG from 'constants/ChartConfig';
+import {checkHDD} from '../../../../../constants/ActionTypes';
+import {checkHDDSelector} from '../../../../../selectors/hdd';
 
 const pieStatus = {};
 const pieSpace = {};
@@ -72,6 +77,17 @@ pieSpace.options = {
     ]
 };
 
+function mapStateToProps(state) {
+    return {
+        hdd: checkHDDSelector(state)
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(checkHDD, dispatch);
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
 class StatusPanel extends React.Component {
     render() {
         return (

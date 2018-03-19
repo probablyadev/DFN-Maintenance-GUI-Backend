@@ -3,7 +3,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
-class MountDialog extends React.Component {
+class PowerDialog extends React.Component {
     handleOpen = () => {
         this.setState({open: true});
     };
@@ -30,22 +30,22 @@ class MountDialog extends React.Component {
                 onClick={this.handleClose}
             />,
             <FlatButton
-                label="Mount Drives"
+                label="Power On"
                 primary={true}
                 onClick={this.handleClose}
             />,
             <FlatButton
-                label="Unmount Drives"
+                label="Power Off"
                 primary={true}
                 onClick={this.handleClose}
             />,
         ];
 
         return (
-            <div>
-                <RaisedButton label="Mount" onClick={this.handleOpen}/>
+            <div className={this.props.className}>
+                <RaisedButton label="Power" onClick={this.handleOpen}/>
                 <Dialog
-                    title="Mount / Unmount All Hard Drives"
+                    title="Power On / Off All Hard Drives"
                     actions={actions}
                     modal={false}
                     open={this.state.open}
@@ -57,4 +57,4 @@ class MountDialog extends React.Component {
     }
 }
 
-export default MountDialog;
+export default PowerDialog;
