@@ -1,9 +1,11 @@
 import React from 'react';
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+
 import ReactEcharts from 'components/ReactECharts';
 import CHARTCONFIG from 'constants/ChartConfig';
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux/index";
-import {checkHDD} from "../../../../../constants/ActionTypes";
+import {checkHDD} from '../../../../../constants/ActionTypes';
+import checkHDDSelector from '../../../../../selectors/hdd';
 
 const pieStatus = {};
 const pieSpace = {};
@@ -78,7 +80,7 @@ pieSpace.options = {
 // TODO: Fix this, map it to the data given by checkHDD. Selectors.
 function mapStateToProps(state) {
     return {
-
+        hdd: checkHDDSelector(state)
     };
 }
 
