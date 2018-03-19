@@ -1,12 +1,6 @@
 import os
 import logging
 
-
-# If APP_SETTINGS has not been defined the default to production config.
-if "APP_SETTINGS" not in os.environ:
-    os.environ["APP_SETTINGS"] = "prod"
-
-
 class Config(object):
     """
     Parent config class. Inherits from object.
