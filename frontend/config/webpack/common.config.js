@@ -89,7 +89,7 @@ class WebpackBaseConfig {
         inline: true,
         port: 3000
       },
-      entry: './index.js',
+      entry: ['babel-polyfill', './src/client.js'],
       module: {
         rules: [
           {
