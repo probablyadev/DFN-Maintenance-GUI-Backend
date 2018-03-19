@@ -57,7 +57,7 @@ export function loginUser(email, password) {
         return UserAPIService.getToken(email, password)
             .then(response => {
                 try {
-                    dispatch(loginUserSuccess(email, response.token));
+                    dispatch(loginUserSuccess(email, response.data.token));
 
                     dispatch(push('/app/dashboard'));
                 } catch (e) {
