@@ -5,5 +5,5 @@ import {checkHDD} from '../constants/ActionTypes';
 import HDDAPIService from '../utils/api/HDDAPIService';
 
 export function* checkHDDSaga() {
-    yield takeLatest(checkHDD.TRIGGER, fetchEntity(checkHDD, HDDAPIService.checkHDD));
+    yield takeLatest(checkHDD.TRIGGER, fetchEntity, checkHDD, HDDAPIService.checkHDD);
 }
