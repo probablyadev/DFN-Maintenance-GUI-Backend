@@ -120,8 +120,8 @@ class Login extends React.Component {
                     <div className="card-content">
 
                         <section className="logo text-center">
-                            <h1><a href="#/">{APPCONFIG.brandLong}</a></h1>
-                            <h2><a href="#/">Hostname</a></h2>
+                            <h1>{APPCONFIG.brandLong}</h1>
+                            <h6>Hostname</h6>
                         </section>
 
                         <form className="form-horizontal">
