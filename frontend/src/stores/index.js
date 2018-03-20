@@ -5,6 +5,9 @@ import {routerMiddleware} from "react-router-redux";
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from "../actions";
 
+// dev tools middleware
+const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+
 // TODO: Implement dev and prod stores: https://github.com/redux-saga/redux-saga/tree/master/examples/real-world/store
 function reduxStore(history) {
     const historyMiddleware = routerMiddleware(history);
@@ -16,7 +19,7 @@ function reduxStore(history) {
             applyMiddleware(thunk),
             applyMiddleware(sagaMiddleware),
             applyMiddleware(historyMiddleware),
-            window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+            reduxDevTools
         ));
 
     if (module.hot) {
