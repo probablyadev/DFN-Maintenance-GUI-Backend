@@ -121,6 +121,7 @@ class Login extends React.Component {
 
                         <section className="logo text-center">
                             <h1><a href="#/">{APPCONFIG.brandLong}</a></h1>
+                            <h2><a href="#/">Hostname</a></h2>
                         </section>
 
                         <form className="form-horizontal">

@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
 
 import ReactEcharts from 'components/ReactECharts';
 import CHARTCONFIG from 'constants/ChartConfig';
@@ -84,11 +83,17 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(checkHDD, dispatch);
+    return {
+        checkHDD: () => dispatch(checkHDD())
+    };
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
 class StatusPanel extends React.Component {
+    componentDidMount() {
+        this.props.checkHDD();
+    }
+
     render() {
         return (
             <div className="row">

@@ -1,4 +1,4 @@
-import {put, call} from 'redux-saga/effects';
+import {call, put} from 'redux-saga/effects';
 
 export function createReducer(initialState, reducerMap) {
     return (state = initialState, action) => {
@@ -8,7 +8,7 @@ export function createReducer(initialState, reducerMap) {
     };
 }
 
-export function* fetchEntity(entity, api, args) {
+export function* fetchEntity(entity, api, {data}) {
     try {
         yield put(entity.request());
 
@@ -18,7 +18,7 @@ export function* fetchEntity(entity, api, args) {
         if (args === undefined) {
             response = yield call(api, token);
         } else {
-            response = yield call(api, token, args);
+            response = yield call(api, token, data);
         }
 
         yield put(entity.success(response.data));

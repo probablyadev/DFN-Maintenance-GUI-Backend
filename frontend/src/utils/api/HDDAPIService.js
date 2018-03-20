@@ -20,16 +20,14 @@ function enableHDD(token) {
     });
 }
 
-function formatHDD(token, args) {
+function formatHDD(token, data) {
     return request({
         url: `/hdd/formatHDD`,
         method: 'POST',
         headers: {
             'Authorization': token
         },
-        data: {
-            args
-        }
+        data
     });
 }
 
