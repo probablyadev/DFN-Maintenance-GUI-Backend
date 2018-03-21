@@ -59,6 +59,7 @@ export const isTokenValid = createRoutine('IS_TOKEN_VALID');
 // Auth
 export const login = createRoutine('LOGIN');
 export const LOGOUT = 'LOGOUT';
+export const checkAuth = createRoutine('CHECK_AUTH');
 
 // Settings
 export const TOGGLE_BOXED_LAYOUT = 'TOGGLE_BOXED_LAYOUT';

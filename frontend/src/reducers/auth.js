@@ -1,7 +1,7 @@
 import {createReducer} from '../utils/misc';
 import * as ActionTypes from '../constants/ActionTypes';
 
-const initialState = {
+const initialStateLogin = {
     token: null,
     userName: null,
     isAuthenticated: false,
@@ -9,11 +9,17 @@ const initialState = {
     error: null
 };
 
-export default createReducer(initialState, {
+const initialStateCheckAuth = {
+    isAuthenticated: false,
+    loading: false,
+    error: null
+};
+
+export const login = createReducer(initialStateLogin, {
     [ActionTypes.login.TRIGGER]: (state) =>
         Object.assign({}, state, {
             loading: true,
-            statusText: null
+            error: null
         }),
     [ActionTypes.login.SUCCESS]: (state, payload) =>
         Object.assign({}, state, {
@@ -37,5 +43,26 @@ export default createReducer(initialState, {
             isAuthenticated: false,
             token: null,
             userName: null
+        })
+});
+
+export const checkAuth = createReducer(initialStateCheckAuth, {
+    [ActionTypes.checkAuth.TRIGGER]: (state) =>
+        Object.assign({}, state, {
+            loading: true,
+            error: null
+        }),
+    [ActionTypes.checkAuth.SUCCESS]: (state) =>
+        Object.assign({}, state, {
+            isAuthenticated: true
+        }),
+    [ActionTypes.checkAuth.FAILURE]: (state, payload) =>
+        Object.assign({}, state, {
+            isAuthenticated: false,
+            error: `${payload.message}`
+        }),
+    [ActionTypes.checkAuth.FULFILL]: (state) =>
+        Object.assign({}, state, {
+            loading: false
         })
 });

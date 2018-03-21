@@ -15,3 +15,9 @@ export function logout() {
         type: ActionTypes.LOGOUT
     };
 }
+
+export function checkAuth() {
+    return {
+        type: ActionTypes.checkAuth.TRIGGER
+    }
+}

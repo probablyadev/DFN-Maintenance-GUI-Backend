@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
 
-import createNetworkReducerWithType from "./network";
+import createNetworkReducerWithType from './network';
 import * as actionTypes from '../constants/ActionTypes';
 import settings from './settings';
-import auth from './auth';
+import {login, checkAuth} from './auth';
 
 const cameraReducer = combineReducers({
     cameraOff: createNetworkReducerWithType(actionTypes.cameraOff),
@@ -75,7 +75,8 @@ const userReducer = combineReducers({
 const rootReducer = combineReducers({
     routing: routerReducer,
     settings,
-    auth,
+    login,
+    checkAuth,
     cameraReducer,
     configFileReducer,
     gpsReducer,
