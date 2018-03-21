@@ -6,7 +6,14 @@ import APPCONFIG from 'constants/Config';
 import NavRightList from './NavRightList';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 
+function mapStateToProps(state) {
+    return {
+        colorOption: state.settings.colorOption,
+        isFixedHeader: state.settings.isFixedHeader
+    };
+}
 
+@connect(mapStateToProps)
 class Header extends React.Component {
     componentDidMount() {
         const sidebarToggler = this.sidebarBtn;
@@ -58,13 +65,5 @@ class Header extends React.Component {
     }
 }
 
-
-const mapStateToProps = state => ({
-    colorOption: state.settings.colorOption,
-    isFixedHeader: state.settings.isFixedHeader
-});
-
-module.exports = connect(
-    mapStateToProps
-)(Header);
+module.exports = Header;
 
