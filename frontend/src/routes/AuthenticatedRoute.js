@@ -1,8 +1,10 @@
 import React from 'react'
-import {connect, bindActionCreators} from 'react-redux';
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux';
 import {Redirect, Route} from 'react-router-dom'
 
 import {checkAuth} from "../constants/ActionTypes";
+import {checkAuthSelector} from "../selectors/auth";
 
 function mapStateToProps(state) {
     return {
@@ -12,7 +14,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-        return bindActionCreators(checkAuth, dispatch);
+    return bindActionCreators({checkAuth}, dispatch);
 }
 
 @connect(mapStateToProps, mapDispatchToProps)

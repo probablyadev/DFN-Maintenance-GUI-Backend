@@ -1,5 +1,6 @@
 import React from 'react';
-import {bindActionCreators, connect} from 'react-redux';
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux';
 import QueueAnim from 'rc-queue-anim';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -9,10 +10,10 @@ import {login} from '../../../actions/auth';
 import {validateEmail} from '../../../utils/misc';
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(login, dispatch);
+    return bindActionCreators({login}, dispatch);
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(null, mapDispatchToProps)
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -102,7 +103,7 @@ class Login extends React.Component {
     login(e) {
         e.preventDefault();
 
-        this.props.loginUser(this.state.email, this.state.password);
+        this.props.login(this.state.email, this.state.password);
     }
 
     render() {
