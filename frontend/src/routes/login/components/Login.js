@@ -7,13 +7,21 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import APPCONFIG from 'constants/Config';
 import {login} from '../../../actions/auth';
+import {getHostname} from '../../../actions/api/misc';
 import {validateEmail} from '../../../utils/misc';
+import {getHostnameSelector} from "../../../selectors/misc";
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({login}, dispatch);
+function mapStateToProps(state) {
+    return {
+        hostname: getHostnameSelector(state)
+    };
 }
 
-@connect(null, mapDispatchToProps)
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({login, getHostname}, dispatch);
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -25,6 +33,10 @@ class Login extends React.Component {
             passwordErrorText: '',
             disabled: true,
         };
+    }
+
+    componentDidMount() {
+        this.props.getHostname();
     }
 
     isDisabled() {
@@ -77,6 +89,7 @@ class Login extends React.Component {
     changeValue(e, type) {
         const value = e.target.value;
         const nextState = {};
+
         nextState[type] = value;
 
         this.setState(nextState, () => {
@@ -107,6 +120,7 @@ class Login extends React.Component {
     }
 
     render() {
+        console.log(this.props.hostname);
         return (
             <div className="body-inner" onKeyPress={(e) => this.handleKeyPress(e)}>
                 <div className="card bg-white">
@@ -114,7 +128,7 @@ class Login extends React.Component {
 
                         <section className="logo text-center">
                             <h1>{APPCONFIG.brandLong}</h1>
-                            <h6>Hostname</h6>
+                            <h6>{this.props.hostname}</h6>
                         </section>
 
                         <form className="form-horizontal">

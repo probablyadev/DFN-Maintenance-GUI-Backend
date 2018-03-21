@@ -89,6 +89,10 @@ function mapDispatchToProps(dispatch) {
 
 @connect(mapStateToProps, mapDispatchToProps)
 class StatusPanel extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     componentDidMount() {
         this.props.checkHDD();
     }

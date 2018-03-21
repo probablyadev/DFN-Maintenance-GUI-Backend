@@ -13,7 +13,7 @@ export function* fetchEntity(entity, api, {data}) {
         const token = localStorage.getItem('token');
         let response;
 
-        if (args === undefined) {
+        if (data === undefined) {
             response = yield call(api, token);
         } else {
             response = yield call(api, token, data);

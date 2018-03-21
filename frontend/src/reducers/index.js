@@ -46,7 +46,15 @@ const intervalControlTestReducer = combineReducers({
 });
 
 const miscReducer = combineReducers({
-    getHostname: createNetworkReducerWithType(actionTypes.getHostname)
+    getHostname: createNetworkReducerWithType(
+        actionTypes.getHostname,
+        {
+            data: {
+                hostname: ''
+            },
+            loading: false,
+            error: null
+        })
 });
 
 const networkReducer = combineReducers({
