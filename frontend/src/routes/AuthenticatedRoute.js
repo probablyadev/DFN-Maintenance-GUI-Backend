@@ -1,7 +1,7 @@
 import React from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux';
-import {Redirect, Route} from 'react-router-dom'
+import {Route} from 'react-router-dom'
 
 import {checkAuth} from "../constants/ActionTypes";
 import {checkAuthSelector} from "../selectors/auth";
@@ -28,13 +28,11 @@ export default class AuthenticatedRoute extends React.Component {
     }
 
     render() {
-        if (this.props.loading)
+        if (this.props.loading || !this.props.isAuthenticated)
             return null;
 
         return (
-            this.props.isAuthenticated
-                ? <Route {...this.props}/>
-                : <Redirect to={{pathname: '/login', state: {from: this.props.location}}}/>
+            <Route {...this.props}/>
         );
     }
 }

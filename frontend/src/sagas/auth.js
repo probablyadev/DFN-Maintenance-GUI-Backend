@@ -3,6 +3,7 @@ import {takeLatest, put, call, select} from 'redux-saga/effects';
 
 import * as ActionTypes from '../constants/ActionTypes';
 import UserAPIService from '../utils/api/UserAPIService';
+import {checkAuthSelector} from "../selectors/auth";
 
 function* login({data}) {
     try {
@@ -11,7 +12,7 @@ function* login({data}) {
 
         localStorage.setItem('token', response.data.token);
 
-        yield put(ActionTypes.login.success(email, response.data.token));
+        yield put(ActionTypes.login.success({email, token: response.data.token}));
         yield put(push('/app/dashboard'));
     } catch (error) {
         yield put(ActionTypes.login.failure(error.message));
@@ -30,8 +31,13 @@ function* checkAuth() {
     try {
         const auth = yield select(checkAuthSelector);
         const token = localStorage.getItem('token');
+        let tokenExists = false;
 
-        if (auth.isAuthenticated && token) {
+        if (token) {
+            tokenExists = true;
+        }
+
+        if (auth.isAuthenticated || tokenExists) {
             const response = yield call(UserAPIService.isTokenValid, token);
 
             if (response.data.valid) {
@@ -52,5 +58,6 @@ function* checkAuth() {
 export const authSagas = [
     takeLatest(ActionTypes.login.TRIGGER, login),
     takeLatest(ActionTypes.LOGOUT, logout),
-    takeLatest(ActionTypes.checkAuth.TRIGGER, checkAuth)
+    takeLatest(ActionTypes.checkAuth.TRIGGER, checkAuth),
+    takeLatest(ActionTypes.checkAuth.FAILURE, logout)
 ];

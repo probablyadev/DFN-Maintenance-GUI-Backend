@@ -32,7 +32,7 @@ export const login = createReducer(initialStateLogin, {
             isAuthenticated: false,
             token: null,
             userName: null,
-            error: `Authentication Error: ${payload.message}`
+            error: `Authentication Error: ${payload}`
         }),
     [ActionTypes.login.FULFILL]: (state) =>
         Object.assign({}, state, {
@@ -59,7 +59,7 @@ export const checkAuth = createReducer(initialStateCheckAuth, {
     [ActionTypes.checkAuth.FAILURE]: (state, payload) =>
         Object.assign({}, state, {
             isAuthenticated: false,
-            error: `${payload.message}`
+            error: `${payload}`
         }),
     [ActionTypes.checkAuth.FULFILL]: (state) =>
         Object.assign({}, state, {
