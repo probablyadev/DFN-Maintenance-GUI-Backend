@@ -1,23 +1,15 @@
 import React from 'react';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
+import {bindActionCreators, connect} from 'react-redux';
+import QueueAnim from 'rc-queue-anim';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+
 import APPCONFIG from 'constants/Config';
-import QueueAnim from 'rc-queue-anim';
-import * as actionCreators from '../../../actions/auth';
+import {login} from '../../../actions/auth';
 import {validateEmail} from '../../../utils/misc';
 
-// TODO: Review if this is actually needed here
-function mapStateToProps(state) {
-    return {
-        isAuthenticating: state.auth.isAuthenticating,
-        statusText: state.auth.statusText
-    };
-}
-
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(actionCreators, dispatch);
+    return bindActionCreators(login, dispatch);
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
