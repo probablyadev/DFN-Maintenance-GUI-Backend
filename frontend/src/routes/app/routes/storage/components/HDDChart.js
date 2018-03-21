@@ -1,5 +1,6 @@
 import React from 'react';
-import {connect, bindActionCreators} from "react-redux";
+import {bindActionCreators} from 'redux';
+import {connect} from "react-redux";
 
 import ReactEcharts from 'components/ReactECharts';
 import CHARTCONFIG from 'constants/ChartConfig';
@@ -83,7 +84,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(checkHDD, dispatch);
+    return bindActionCreators({checkHDD}, dispatch);
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
