@@ -10,8 +10,6 @@ export function createReducer(initialState, reducerMap) {
 
 export function* fetchEntity(entity, api, {data}) {
     try {
-        yield put(entity.request());
-
         const token = localStorage.getItem('token');
         let response;
 

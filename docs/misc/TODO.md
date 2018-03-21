@@ -11,6 +11,7 @@
 - [x] Async loading of front end components
 - [ ] Front end HDD table needs used and total space. Make backend reflect this.
 - [ ] Axios service wrapper: https://sheharyar.me/blog/axios-with-react-for-making-requests/
+- [ ] Expiration on token in localStorage?
 
 # HDD
 
