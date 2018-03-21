@@ -1,11 +1,20 @@
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
+import styled from 'styled-components';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import AccountCircleIcon from 'material-ui/svg-icons/action/account-circle';
 import ForwardIcon from 'material-ui/svg-icons/content/forward';
-import {withRouter} from 'react-router-dom';
+
+import {logout} from '../../actions/auth';
+
+const ListItem = styled.li`
+    margin-right: 10px;
+`;
 
 const iconButtonStyle = {
     width: '60px',
@@ -13,47 +22,60 @@ const iconButtonStyle = {
     paddingTop: '20px'
 };
 
-const menuItemStyle = {
-    fontSize: '14px',
-    lineHeight: '48px'
-};
+const StyledMenuItem = styled(MenuItem)`
+    font-size: 14px;
+    line-height: 48px;
+`;
 
 const listItemStyle = {
-    paddingLeft: '50px' // Align with sub list.
+    paddingLeft: '50px'
 };
 
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({logout}, dispatch);
+}
+
+@connect(null, mapDispatchToProps)
 class NavRightList extends React.Component {
-    handleChange = (event, value) => {
-        this.props.history.push(value);
-    };
+    constructor(props) {
+        super(props);
+
+        this.redirectToProfile = this.redirectToProfile.bind(this);
+        this.logout = this.logout.bind(this);
+    }
+
+    redirectToProfile() {
+        this.props.history.push('/app/profile');
+    }
+
+    logout() {
+        this.props.logout();
+    }
 
     render() {
         return (
             <ul className="list-unstyled float-right">
-                <li style={{marginRight: '10px'}}>
+                <ListItem>
                     <IconMenu
                         iconButtonElement={<IconButton style={iconButtonStyle}><MoreVertIcon/></IconButton>}
-                        onChange={this.handleChange}
                         anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
                         targetOrigin={{horizontal: 'right', vertical: 'top'}}
                         menuStyle={{minWidth: '150px'}}
                     >
-                        <MenuItem
-                            value="/app/profile"
+                        <StyledMenuItem
                             primaryText="Profile"
-                            style={menuItemStyle}
                             innerDivStyle={listItemStyle}
                             leftIcon={<AccountCircleIcon/>}
+                            onClick={this.redirectToProfile}
                         />
-                        <MenuItem
-                            value="/login"
+                        <StyledMenuItem
                             primaryText="Log Out"
-                            style={menuItemStyle}
                             innerDivStyle={listItemStyle}
                             leftIcon={<ForwardIcon/>}
+                            onClick={this.logout}
                         />
                     </IconMenu>
-                </li>
+                </ListItem>
             </ul>
         );
     }

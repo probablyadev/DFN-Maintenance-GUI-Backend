@@ -1,5 +1,4 @@
 import {applyMiddleware, compose, createStore} from 'redux';
-import thunk from 'redux-thunk';
 import {routerMiddleware} from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 
@@ -17,7 +16,6 @@ function reduxStore(history) {
     const store = createStore(
         reducers,
         compose(
-            applyMiddleware(thunk),
             applyMiddleware(sagaMiddleware),
             applyMiddleware(historyMiddleware),
             reduxDevTools
