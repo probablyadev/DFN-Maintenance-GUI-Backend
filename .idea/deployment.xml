@@ -9,6 +9,13 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="DFNEXT003_IP">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/opt/dfn-software/Desert-Fireball-Maintainence-GUI" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
     </serverData>
   </component>
 </project>
