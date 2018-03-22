@@ -1,1 +1,1 @@
-export const checkHDDSelector = state => state.checkHDD;
+export const checkHDDSelector = state => state.hddReducer.checkHDD.data;

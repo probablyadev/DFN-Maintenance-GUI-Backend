@@ -1,6 +1,30 @@
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 
+import {outputTimeSelector} from '../../../../../selectors/time';
+import {outputTime} from '../../../../../actions/api/time';
+
+function mapStateToProps(state) {
+    return {
+        time: outputTimeSelector(state)
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({outputTime}, dispatch);
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
 class StatusPanel extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        this.props.outputTime();
+    }
+
     render() {
         return (
             <div className="box box-default">
@@ -21,7 +45,7 @@ class StatusPanel extends React.Component {
                                             <span className="metric-info">Time Zone</span>
                                         </div>
                                         <div className="col-xs-6 col-md-3 metric-box">
-                                            <span className="metric">3:04 PM</span>
+                                            <span className="metric">{this.props.time}</span>
                                             <span className="metric-info">Current Time</span>
                                         </div>
                                     </div>

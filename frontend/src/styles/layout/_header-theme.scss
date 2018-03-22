@@ -51,7 +51,8 @@
 }
 
 .top-nav-left {
-    display: inline-block;
+    line-height: $header_line_height;
+    float: left;
     > ul {
         display: inline;
         margin: 0;

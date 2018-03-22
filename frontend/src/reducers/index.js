@@ -70,7 +70,15 @@ const statusReducer = combineReducers({
 });
 
 const timeReducer = combineReducers({
-    outputTime: createNetworkReducerWithType(actionTypes.outputTime),
+    outputTime: createNetworkReducerWithType(
+        actionTypes.outputTime,
+        {
+            data: {
+                time: ''
+            },
+            loading: false,
+            error: null
+        }),
     changeTimezone: createNetworkReducerWithType(actionTypes.changeTimezone)
 });
 

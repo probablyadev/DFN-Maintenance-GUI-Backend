@@ -120,7 +120,6 @@ class Login extends React.Component {
     }
 
     render() {
-        console.log(this.props.hostname);
         return (
             <div className="body-inner" onKeyPress={(e) => this.handleKeyPress(e)}>
                 <div className="card bg-white">

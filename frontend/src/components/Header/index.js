@@ -2,9 +2,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 import classnames from 'classnames';
 import {Link} from 'react-router-dom';
+import MenuIcon from 'material-ui/svg-icons/navigation/menu';
+
 import APPCONFIG from 'constants/Config';
 import NavRightList from './NavRightList';
-import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 
 function mapStateToProps(state) {
     return {
@@ -21,13 +22,12 @@ class Header extends React.Component {
         const $body = $('#body');
 
         $sidebarToggler.on('click', (e) => {
-            // _sidebar.scss, _page-container.scss
             $body.toggleClass('sidebar-mobile-open');
         });
     }
 
     render() {
-        const {isFixedHeader, colorOption} = this.props;
+        const {colorOption} = this.props;
 
         return (
             <section className="app-header">
