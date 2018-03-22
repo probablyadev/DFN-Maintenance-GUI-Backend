@@ -2,15 +2,13 @@ import React from 'react';
 import LocationMap from './LocationMap';
 import TimezonePicker from './TimezonePicker';
 
-// https://github.com/vahnag/react-timezone
-
 class Map extends React.Component {
     render() {
         return (
             <article className="article">
                 <h2 className="article-title">Maps</h2>
                 <div className="row">
-                    <div className="col-xl-4">
+                    <div className="col-xl-12">
                         <div className="box box-default">
                             <div className="box-header">Timezone Picker</div>
                             <div className="box-body">
@@ -24,7 +22,10 @@ class Map extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-xl-8">
+                </div>
+
+                <div className="row">
+                    <div className="col-xl-12">
                         <div className="box box-default">
                             <div className="box-header">Location Map</div>
                             <div className="box-body">

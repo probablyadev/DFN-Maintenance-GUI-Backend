@@ -42,7 +42,7 @@
         "offline-plugin": "^4.8.5",
         "popper.js": "^1.12.9",
         "prop-types": "^15.5.10",
-        "rc-queue-anim": "^1.0.4",
+        "rc-queue-anim": "^1.4.1",
         "react": "^15.5.4",
         "react-dom": "^15.5.4",
         "react-google-maps": "^9.4.5",
