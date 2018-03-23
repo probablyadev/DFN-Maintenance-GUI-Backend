@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router'
 import classnames from 'classnames';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
 
 import MainApp from 'routes/app/'
 import Page404 from 'routes/404/'
@@ -47,7 +46,7 @@ class App extends Component {
         }
 
         return (
-            <MuiThemeProvider muiTheme={getMuiTheme(materialUITheme)}>
+            <MuiThemeProvider theme={createMuiTheme(materialUITheme)}>
                 <div id="app-inner">
                     <div className="preloaderbar hide"><span className="bar"/></div>
                     <div

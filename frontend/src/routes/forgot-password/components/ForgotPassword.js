@@ -23,7 +23,7 @@ class ForgotPassowrd extends React.Component {
                             <fieldset>
                                 <div className="form-group">
                                     <TextField
-                                        floatingLabelText="Email"
+                                        /* floatingLabelText="Email" */
                                         type="email"
                                         fullWidth
                                     />

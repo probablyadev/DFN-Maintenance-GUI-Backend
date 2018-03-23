@@ -1,5 +1,5 @@
 import React from 'react';
-import LinearProgress from 'material-ui/LinearProgress';
+import {LinearProgress} from 'material-ui/Progress';
 
 import Actions from './Actions';
 
@@ -77,9 +77,10 @@ class HDDTable extends React.Component {
                                 <td className="mdl-data-table__cell--non-numeric">{row.name}</td>
                                 <td className="mdl-data-table__cell--non-numeric">
                                     {row.capacity >= 0 ?
-                                        <LinearProgress mode="determinate"
-                                                        color={row.capacity < 90 ? "green" : "red"}
-                                                        value={row.capacity}/>
+                                        <LinearProgress
+                                            variant="determinate"
+                                            color={row.capacity < 90 ? "green" : "red"}
+                                            value={row.capacity}/>
                                         : ""}
                                 </td>
                                 <td className="mdl-data-table__cell--non-numeric">{row.size}</td>

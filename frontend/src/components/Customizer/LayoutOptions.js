@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import Select from 'material-ui/Select';
+import {MenuItem} from 'material-ui/Menu';
 import {changeSidebarWidth} from '../../actions/settings';
 
 
@@ -27,9 +27,9 @@ class LayoutOptions extends React.Component {
 
                 <div>
                     <div>
-                        <SelectField
+                        <Select
                             className="sidebar-width-select"
-                            floatingLabelText="Sidenav Width"
+                            /* floatingLabelText="Sidebar Width" */
                             value={sidebarWidth}
                             onChange={this.onSidebarWidthChange}
                             style={sideWidthSelectStyle}
@@ -37,7 +37,7 @@ class LayoutOptions extends React.Component {
                             <MenuItem value={'small'} primaryText="Small size"/>
                             <MenuItem value={'middle'} primaryText="Middle size"/>
                             <MenuItem value={'large'} primaryText="Large size"/>
-                        </SelectField>
+                        </Select>
                     </div>
                 </div>
 

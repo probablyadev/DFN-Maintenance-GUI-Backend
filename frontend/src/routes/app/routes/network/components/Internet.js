@@ -1,5 +1,5 @@
 import React from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 
 const minWidthStyle = {
     minWidth: '135px'
@@ -14,10 +14,18 @@ class Internet extends React.Component {
                     <div className="box box-default">
                         <div className="box-header">Internet</div>
                         <div className="box-body text-center">
-                            <RaisedButton style={minWidthStyle} label="Check Internet Connection" primary/>
+                            <Button
+                                variant="raised"
+                                style={minWidthStyle}
+                                label="Check Internet Connection"
+                                primary/>
                             <div className="divider"/>
 
-                            <RaisedButton style={minWidthStyle} label="Restart Modem" primary/>
+                            <Button
+                                variant="raised"
+                                style={minWidthStyle}
+                                label="Restart Modem"
+                                primary/>
                             <div className="divider"/>
                         </div>
                     </div>

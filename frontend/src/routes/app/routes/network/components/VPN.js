@@ -1,5 +1,5 @@
 import React from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 
 const minWidthStyle = {
     minWidth: '135px'
@@ -14,10 +14,18 @@ class VPN extends React.Component {
                     <div className="box box-default">
                         <div className="box-header">VPN</div>
                         <div className="box-body text-center">
-                            <RaisedButton style={minWidthStyle} label="Check VPN" primary/>
+                            <Button
+                                variant="raised"
+                                style={minWidthStyle}
+                                label="Check VPN"
+                                primary/>
                             <div className="divider"/>
 
-                            <RaisedButton style={minWidthStyle} label="Restart VPN" primary/>
+                            <Button
+                                variant="raised"
+                                style={minWidthStyle}
+                                label="Restart VPN"
+                                primary/>
                             <div className="divider"/>
                         </div>
                     </div>

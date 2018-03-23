@@ -3,12 +3,11 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
+import {Menu, MenuItem} from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton/IconButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import AccountCircleIcon from 'material-ui/svg-icons/action/account-circle';
-import ForwardIcon from 'material-ui/svg-icons/content/forward';
+import MoreVertIcon from 'material-ui-icons/MoreVert';
+import AccountCircleIcon from 'material-ui-icons/AccountCircle';
+import ForwardIcon from 'material-ui-icons/Forward';
 
 import {logout} from '../../actions/auth';
 
@@ -56,7 +55,7 @@ class NavRightList extends React.Component {
         return (
             <ul className="list-unstyled float-right">
                 <ListItem>
-                    <IconMenu
+                    <Menu
                         iconButtonElement={<IconButton style={iconButtonStyle}><MoreVertIcon/></IconButton>}
                         anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
                         targetOrigin={{horizontal: 'right', vertical: 'top'}}
@@ -68,7 +67,7 @@ class NavRightList extends React.Component {
                             leftIcon={<ForwardIcon/>}
                             onClick={this.logout}
                         />
-                    </IconMenu>
+                    </Menu>
                 </ListItem>
             </ul>
         );

@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux';
 import QueueAnim from 'rc-queue-anim';
 import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 
 import APPCONFIG from 'constants/Config';
 import {login} from '../../actions/auth';
@@ -120,56 +120,56 @@ class Login extends React.Component {
     }
 
     render() {
-        return (
-            <div className="body-inner" onKeyPress={(e) => this.handleKeyPress(e)}>
-                <div className="card bg-white">
-                    <div className="card-content">
+        return <div className="body-inner" onKeyPress={(e) => this.handleKeyPress(e)}>
+            <div className="card bg-white">
+                <div className="card-content">
 
-                        <section className="logo text-center">
-                            <h1>{APPCONFIG.brandLong}</h1>
-                            <h6>{this.props.hostname}</h6>
-                        </section>
+                    <section className="logo text-center">
+                        <h1>{APPCONFIG.brandLong}</h1>
+                        <h6>{this.props.hostname}</h6>
+                    </section>
 
-                        <form className="form-horizontal">
-                            <fieldset>
-                                <div className="form-group">
-                                    <TextField
-                                        floatingLabelText="Email"
-                                        type="email"
-                                        errorText={this.state.emailErrorText}
-                                        onChange={(e) => this.changeValue(e, 'email')}
-                                        fullWidth
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <TextField
-                                        floatingLabelText="Password"
-                                        type="password"
-                                        errorText={this.state.passwordErrorText}
-                                        onChange={(e) => this.changeValue(e, 'password')}
-                                        fullWidth
-                                    />
-                                </div>
-                            </fieldset>
-                        </form>
-                    </div>
-                    <div className="card-action no-border text-right">
-                        <RaisedButton
-                            disabled={this.state.disabled}
-                            label="Login"
-                            onClick={(e) => this.login(e)}
-                        />
-                    </div>
+                    <form className="form-horizontal">
+                        <fieldset>
+                            <div className="form-group">
+                                <TextField
+                                    placeholder="Email"
+                                    type="email"
+                                    /* errorText={this.state.emailErrorText} */
+                                    onChange={(e) => this.changeValue(e, 'email')}
+                                    fullWidth
+                                />
+                            </div>
+                            <div className="form-group">
+                                <TextField
+                                    placeholder="Password"
+                                    type="password"
+                                    /* errorText={this.state.passwordErrorText} */
+                                    onChange={(e) => this.changeValue(e, 'password')}
+                                    fullWidth
+                                />
+                            </div>
+                        </fieldset>
+                    </form>
                 </div>
-
-                <div className="additional-info">
-                    <a href="#/sign-up">Sign up</a>
-                    <span className="divider-h"/>
-                    <a href="#/forgot-password">Forgot your password?</a>
+                <div className="card-action no-border text-right">
+                    <Button
+                        variant="raised"
+                        disabled={this.state.disabled}
+                        onClick={(e) => this.login(e)}
+                    >
+                        Login
+                    </Button>
                 </div>
-
             </div>
-        );
+
+            <div className="additional-info">
+                <a href="#/sign-up">Sign up</a>
+                <span className="divider-h"/>
+                <a href="#/forgot-password">Forgot your password?</a>
+            </div>
+
+        </div>;
     }
 }
 

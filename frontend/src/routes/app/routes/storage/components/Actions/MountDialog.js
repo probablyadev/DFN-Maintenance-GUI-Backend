@@ -1,22 +1,25 @@
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 
 class MountDialog extends React.Component {
-    handleOpen = () => {
-        this.setState({open: true});
-    };
-    handleClose = () => {
-        this.setState({open: false});
-    };
-
     constructor(props) {
         super(props);
 
         this.state = {
             open: false,
         };
+
+        this.handleOpen = this.handleOpen.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+    }
+
+    handleOpen() {
+        this.setState({open: true});
+    }
+
+    handleClose() {
+        this.setState({open: false});
     }
 
     /* TODO: Send off an event to the backend to turn all off or on */
@@ -24,17 +27,17 @@ class MountDialog extends React.Component {
     /* TODO: Add message to the content of the dialog. Maybe display the command that will be executed. Live updates in dialog? */
     render() {
         const actions = [
-            <FlatButton
+            <Button
                 label="Cancel"
                 primary={true}
                 onClick={this.handleClose}
             />,
-            <FlatButton
+            <Button
                 label="Mount Drives"
                 primary={true}
                 onClick={this.handleClose}
             />,
-            <FlatButton
+            <Button
                 label="Unmount Drives"
                 primary={true}
                 onClick={this.handleClose}
@@ -43,7 +46,10 @@ class MountDialog extends React.Component {
 
         return (
             <div className={this.props.className}>
-                <RaisedButton label="Mount" onClick={this.handleOpen}/>
+                <Button
+                    variant="raised"
+                    label="Mount"
+                    onClick={this.handleOpen}/>
                 <Dialog
                     title="Mount / Unmount All Hard Drives"
                     actions={actions}

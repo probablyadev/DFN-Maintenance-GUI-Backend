@@ -1,5 +1,5 @@
 import React from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 
 const minWidthStyle = {
     minWidth: '135px'
@@ -14,10 +14,18 @@ class Updates extends React.Component {
                     <div className="box box-default">
                         <div className="box-header">Updates</div>
                         <div className="box-body text-center">
-                            <RaisedButton style={minWidthStyle} label="Update Leostick Firmware" primary/>
+                            <Button
+                                variant="raised"
+                                style={minWidthStyle}
+                                label="Update Leostick Firmware"
+                                primary/>
                             <div className="divider"/>
 
-                            <RaisedButton style={minWidthStyle} label="Update Python Software" primary/>
+                            <Button
+                                variant="raised"
+                                style={minWidthStyle}
+                                label="Update Python Software"
+                                primary/>
                             <div className="divider"/>
                         </div>
                     </div>

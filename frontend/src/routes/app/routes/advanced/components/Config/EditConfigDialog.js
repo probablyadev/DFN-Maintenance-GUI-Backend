@@ -1,22 +1,27 @@
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
+
+import ConfigTable from './ConfigTable';
 
 class EditConfigDialog extends React.Component {
-    handleOpen = () => {
-        this.setState({open: true});
-    };
-    handleClose = () => {
-        this.setState({open: false});
-    };
-
     constructor(props) {
         super(props);
 
         this.state = {
             open: false,
         };
+
+        this.handleOpen = this.handleOpen.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+    }
+
+    handleOpen() {
+        this.setState({open: true});
+    }
+
+    handleClose() {
+        this.setState({open: false});
     }
 
     /* TODO: Send off an event to the backend to turn all off or on */
@@ -24,12 +29,12 @@ class EditConfigDialog extends React.Component {
     /* TODO: Add message to the content of the dialog. Maybe display the command that will be executed. Live updates in dialog? */
     render() {
         const actions = [
-            <FlatButton
+            <Button
                 label="Cancel"
                 primary={true}
                 onClick={this.handleClose}
             />,
-            <FlatButton
+            <Button
                 label="Save"
                 primary={true}
                 onClick={this.handleClose}
@@ -38,8 +43,12 @@ class EditConfigDialog extends React.Component {
 
         return (
             <div>
-                <RaisedButton style={this.props.minWidthStyle} label="Edit Config File" onClick={this.handleOpen}
-                              primary/>
+                <Button
+                    variant="raised"
+                    style={this.props.minWidthStyle}
+                    label="Edit Config File"
+                    onClick={this.handleOpen}
+                    primary/>
                 <Dialog
                     title="Edit Configuration File"
                     actions={actions}
@@ -47,6 +56,7 @@ class EditConfigDialog extends React.Component {
                     open={this.state.open}
                     onRequestClose={this.handleClose}
                 >
+                    <ConfigTable/>
                 </Dialog>
             </div>
         );
