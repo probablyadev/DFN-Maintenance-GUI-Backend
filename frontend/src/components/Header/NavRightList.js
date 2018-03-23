@@ -63,12 +63,6 @@ class NavRightList extends React.Component {
                         menuStyle={{minWidth: '150px'}}
                     >
                         <StyledMenuItem
-                            primaryText="Profile"
-                            innerDivStyle={listItemStyle}
-                            leftIcon={<AccountCircleIcon/>}
-                            onClick={this.redirectToProfile}
-                        />
-                        <StyledMenuItem
                             primaryText="Log Out"
                             innerDivStyle={listItemStyle}
                             leftIcon={<ForwardIcon/>}
