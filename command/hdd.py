@@ -22,6 +22,7 @@ def check_hdd():
         IOError
 
     TODO: For the love of god fix this.
+    TODO: https://stackoverflow.com/questions/12027237/selecting-specific-columns-from-df-h-output-in-python
     """
     hddStatusDict = {0: constants.hddStatusOff, 1: constants.hddStatusPowered, 2: constants.hddStatusMounted}
 
