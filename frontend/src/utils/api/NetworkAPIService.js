@@ -40,7 +40,7 @@ function restartVPN(token) {
     });
 }
 
-const networkAPIService = {
+const NetworkAPIService = {
     checkVPN, checkInternet, restartModem, restartVPN
 };
 
