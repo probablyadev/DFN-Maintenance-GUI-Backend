@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 
 import ReactEcharts from 'components/ReactECharts';
 import CHARTCONFIG from 'constants/ChartConfig';
-import {checkHDD} from '../../../../../constants/ActionTypes';
+import {checkHDD} from '../../../../../actions/api/hdd';
 import {checkHDDSelector} from '../../../../../selectors/hdd';
 
 const pieStatus = {};

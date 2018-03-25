@@ -1,11 +1,32 @@
 import React from 'react';
+import {bindActionCreators} from "redux/index";
+import {connect} from "react-redux";
 import Button from 'material-ui/Button';
+
+import {checkInternet, restartModem} from "../../../../../actions/api/network";
+import {checkInternetSelector, restartModemSelector} from "../../../../../selectors/network";
 
 const minWidthStyle = {
     minWidth: '135px'
 };
 
+function mapStateToProps(state) {
+    return {
+        checkInternet: checkInternetSelector(state),
+        restartModem: restartModemSelector(state)
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({checkInternet, restartModem}, dispatch);
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
 class Internet extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             <div className="row">
