@@ -2,9 +2,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 import classnames from 'classnames';
 import {Link} from 'react-router-dom';
-import MenuIcon from 'material-ui-icons/Menu';
+import Menu from 'material-ui-icons/Menu';
 
-import APPCONFIG from 'constants/Config';
+import APPCONFIG from '../../constants/Config';
 import NavRightList from './NavRightList';
 
 function mapStateToProps(state) {
@@ -46,7 +46,7 @@ class Header extends React.Component {
                         <a href="javascript:;" className="md-button header-icon toggle-sidebar-btn" ref={(c) => {
                             this.sidebarBtn = c;
                         }}>
-                            <MenuIcon/>
+                            <Menu/>
                         </a>
                     </div>
 
@@ -56,14 +56,14 @@ class Header extends React.Component {
                         </h2>
                     </div>
 
-                    {/*<div className="top-nav-right">
+                    <div className="top-nav-right">
                         <NavRightList/>
-                    </div>*/}
+                    </div>
                 </div>
             </section>
         );
     }
 }
 
-module.exports = Header;
+export default Header;
 

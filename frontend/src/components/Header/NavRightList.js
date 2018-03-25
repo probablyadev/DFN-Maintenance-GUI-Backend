@@ -1,34 +1,35 @@
 import React from 'react';
+import classNames from 'classnames';
+import {Manager, Popper, Target} from 'react-popper';
+import styled from 'styled-components';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
-import styled from 'styled-components';
-import {Menu, MenuItem} from 'material-ui/Menu';
+
+import {withStyles} from 'material-ui/styles';
+import ClickAwayListener from 'material-ui/utils/ClickAwayListener';
+import Grow from 'material-ui/transitions/Grow';
+import Paper from 'material-ui/Paper';
+import {MenuItem, MenuList} from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
-import AccountCircleIcon from 'material-ui-icons/AccountCircle';
-import ForwardIcon from 'material-ui-icons/Forward';
 
 import {logout} from '../../actions/auth';
 
-const ListItem = styled.li`
-    margin-right: 10px;
+const styles = theme => ({
+    popperClose: {
+        pointerEvents: 'none',
+    },
+});
+
+const StyledIconButton = styled(IconButton)`
+    height: inherit !important;
+    padding-top: 18px !important;
+    padding-bottom: 18px !important;
 `;
 
-const iconButtonStyle = {
-    width: '60px',
-    height: '60px',
-    paddingTop: '20px'
-};
-
-const StyledMenuItem = styled(MenuItem)`
-    font-size: 14px;
-    line-height: 48px;
+const StyledMenuList = styled(MenuList)`
+    height: inherit;
 `;
-
-const listItemStyle = {
-    paddingLeft: '50px'
-};
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({logout}, dispatch);
@@ -39,39 +40,64 @@ class NavRightList extends React.Component {
     constructor(props) {
         super(props);
 
-        this.redirectToProfile = this.redirectToProfile.bind(this);
-        this.logout = this.logout.bind(this);
+        this.state = {
+            open: false,
+        };
+
+        this.handleToggle = this.handleToggle.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.handleLogout = this.handleLogout.bind(this);
     }
 
-    redirectToProfile() {
-        this.props.history.push('/app/profile');
+    handleToggle() {
+        this.setState({open: !this.state.open});
     }
 
-    logout() {
+    handleClose() {
+        this.setState({open: false});
+    }
+
+    handleLogout() {
         this.props.logout();
     }
 
     render() {
+        const {classes} = this.props;
+        const {open} = this.state;
+
         return (
-            <ul className="list-unstyled float-right">
-                <ListItem>
-                    <Menu
-                        iconButtonElement={<IconButton style={iconButtonStyle}><MoreVertIcon/></IconButton>}
-                        anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-                        targetOrigin={{horizontal: 'right', vertical: 'top'}}
-                        menuStyle={{minWidth: '150px'}}
-                    >
-                        <StyledMenuItem
-                            primaryText="Log Out"
-                            innerDivStyle={listItemStyle}
-                            leftIcon={<ForwardIcon/>}
-                            onClick={this.logout}
-                        />
-                    </Menu>
-                </ListItem>
-            </ul>
+            <Manager>
+                <Target>
+                    <div ref={node => {
+                        this.target = node;
+                    }}>
+                        <StyledIconButton
+                            aria-owns={open ? 'menu-list-grow' : null}
+                            aria-haspopup="true"
+                            onClick={this.handleToggle}
+                        >
+                            <MoreVertIcon/>
+                        </StyledIconButton>
+                    </div>
+                </Target>
+                <Popper
+                    placement="bottom-start"
+                    eventsEnabled={open}
+                    className={classNames({[classes.popperClose]: !open})}
+                >
+                    <ClickAwayListener onClickAway={this.handleClose}>
+                        <Grow in={open} id="menu-list-grow" style={{transformOrigin: '0 0 0'}}>
+                            <Paper>
+                                <StyledMenuList role="menu">
+                                    <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+                                </StyledMenuList>
+                            </Paper>
+                        </Grow>
+                    </ClickAwayListener>
+                </Popper>
+            </Manager>
         );
     }
 }
 
-module.exports = withRouter(NavRightList);
+export default withStyles(styles)(NavRightList);
