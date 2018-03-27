@@ -7,7 +7,7 @@ import Button from 'material-ui/Button';
 
 import APPCONFIG from 'constants/Config';
 import {login} from '../../actions/auth';
-import {getHostname} from '../../actions/api/misc';
+import {getHostname} from '../../actions/api';
 import {validateEmail} from '../../utils/misc';
 import {getHostnameSelector} from '../../selectors/api';
 

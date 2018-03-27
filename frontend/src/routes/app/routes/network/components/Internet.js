@@ -3,7 +3,7 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import Button from 'material-ui/Button';
 
-import {checkInternet, restartModem} from "../../../../../actions/api/network";
+import {checkInternet, restartModem} from "../../../../../actions/api";
 import {checkInternetSelector, restartModemSelector} from "../../../../../selectors/api";
 
 const minWidthStyle = {

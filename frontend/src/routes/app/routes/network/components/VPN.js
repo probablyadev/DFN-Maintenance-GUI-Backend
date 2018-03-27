@@ -3,7 +3,7 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import Button from 'material-ui/Button';
 
-import {checkVPN, restartVPN} from "../../../../../actions/api/network";
+import {checkVPN, restartVPN} from "../../../../../actions/api";
 import {checkVPNSelector, restartVPNSelector} from "../../../../../selectors/api";
 
 const minWidthStyle = {
