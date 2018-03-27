@@ -2,7 +2,7 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
-import {outputTimeSelector} from '../../../../../selectors/time';
+import {outputTimeSelector} from '../../../../../selectors/api';
 import {outputTime} from '../../../../../actions/api/time';
 
 function mapStateToProps(state) {

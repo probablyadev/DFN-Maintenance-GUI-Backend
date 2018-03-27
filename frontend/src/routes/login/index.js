@@ -9,7 +9,7 @@ import APPCONFIG from 'constants/Config';
 import {login} from '../../actions/auth';
 import {getHostname} from '../../actions/api/misc';
 import {validateEmail} from '../../utils/misc';
-import {getHostnameSelector} from '../../selectors/misc';
+import {getHostnameSelector} from '../../selectors/api';
 
 function mapStateToProps(state) {
     return {

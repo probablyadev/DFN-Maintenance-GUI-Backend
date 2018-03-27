@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import Button from 'material-ui/Button';
 
 import {checkVPN, restartVPN} from "../../../../../actions/api/network";
-import {checkVPNSelector, restartVPNSelector} from "../../../../../selectors/network";
+import {checkVPNSelector, restartVPNSelector} from "../../../../../selectors/api";
 
 const minWidthStyle = {
     minWidth: '135px'
