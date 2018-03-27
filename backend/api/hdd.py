@@ -10,11 +10,11 @@ hdd_endpoints = Blueprint("hdd_api", __name__)
 @requires_auth
 def check_hdd_endpoint():
     """Delivers a summary of the external hard drive's status."""
-    check_hdd_message, check_hdd_status = check_hdd()
+    status, data = check_hdd()
 
     return jsonify(
-        check_hdd_status = check_hdd_status,
-        check_hdd_message = check_hdd_message
+        status = status,
+        data = data
     )
 
 
