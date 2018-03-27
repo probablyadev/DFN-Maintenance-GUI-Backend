@@ -3,8 +3,7 @@ from flask import Blueprint, jsonify, request
 
 from backend import constants
 from backend.auth import requires_auth
-from command.config_file import cf_check
-from command.status import config_whitelist, update_config_file
+from command.config_file import cf_check, config_whitelist, update_config_file
 
 config_file_endpoints = Blueprint("config_file_api", __name__)
 
