@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="DFNEXT003" deleteMissingItems="true" createEmptyFolders="true" filePermissions="511" folderPermissions="511" autoUploadExternalChanges="true" compareModeInSync="TIMESTAMP">
+  <component name="PublishConfigData" serverName="DFNEXT003" deleteMissingItems="true" createEmptyFolders="true" filePermissions="511" folderPermissions="511" autoUploadExternalChanges="true" compareModeInSync="TIMESTAMP">
     <serverData>
       <paths name="DFNEXT003">
         <serverdata>
@@ -9,6 +9,8 @@
           </mappings>
           <excludedPaths>
             <excludedPath local="true" path="$PROJECT_DIR$/dfn-gui-server.log" />
+            <excludedPath local="true" path="$PROJECT_DIR$/frontend/node_modules" />
+            <excludedPath path="/opt/dfn-software/Desert-Fireball-Maintainence-GUI/frontend/node_modules" />
           </excludedPaths>
         </serverdata>
       </paths>
@@ -23,6 +25,5 @@
         </serverdata>
       </paths>
     </serverData>
-    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>
