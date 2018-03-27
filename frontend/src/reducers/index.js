@@ -20,7 +20,7 @@ const cameraReducer = combineReducers({
 
 const configFileReducer = combineReducers({
     checkConfigFile: createNetworkReducerWithType(actionTypes.checkConfigFile),
-    configWhiteList: createNetworkReducerWithType(actionTypes.configWhiteList),
+    configWhitelist: createNetworkReducerWithType(actionTypes.configWhitelist),
     configFile: createNetworkReducerWithType(actionTypes.configFile),
     updateConfigFile: createNetworkReducerWithType(actionTypes.updateConfigFile)
 });

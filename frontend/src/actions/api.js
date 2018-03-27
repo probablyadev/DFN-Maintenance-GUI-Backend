@@ -1,6 +1,31 @@
 import * as ActionTypes from '../constants/ActionTypes';
 
 
+// Config File
+export function checkConfigFile() {
+    return {
+        type: ActionTypes.checkConfigFile.TRIGGER
+    }
+}
+
+export function configWhitelist() {
+    return {
+        type: ActionTypes.configWhitelist.TRIGGER
+    }
+}
+
+export function configFile() {
+    return {
+        type: ActionTypes.configFile.TRIGGER
+    }
+}
+
+export function updateConfigFile() {
+    return {
+        type: ActionTypes.updateConfigFile.TRIGGER
+    }
+}
+
 // HDD
 export function checkHDD() {
     return {

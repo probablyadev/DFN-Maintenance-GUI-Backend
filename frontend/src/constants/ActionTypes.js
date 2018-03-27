@@ -13,7 +13,7 @@ export const turnVideoCameraOn = createRoutine('TURN_VIDEO_CAMERA_ON');
 
 // Config File API Service
 export const checkConfigFile = createRoutine('CHECK_CONFIG_FILE');
-export const configWhiteList = createRoutine('CONFIG_WHITELIST');
+export const configWhitelist = createRoutine('CONFIG_WHITELIST');
 export const configFile = createRoutine('CONFIG_FILE');
 export const updateConfigFile = createRoutine('UPDATE_CONFIG_FILE');
 

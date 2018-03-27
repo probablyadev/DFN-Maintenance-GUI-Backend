@@ -1,3 +1,9 @@
+// Config File
+export const checkConfigFileSelector = state => state.configFileReducer.checkConfigFile.data;
+export const configWhitelistSelector = state => state.configFileReducer.configWhitelist.data;
+export const configFileSelector = state => state.configFileReducer.configFile.data;
+export const updateConfigFileSelector = state => state.configFileReducer.updateConfigFile.data;
+
 // HDD
 export const checkHDDSelector = state => state.hddReducer.checkHDD.data;
 

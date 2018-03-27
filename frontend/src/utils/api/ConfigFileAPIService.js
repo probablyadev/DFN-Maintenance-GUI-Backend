@@ -12,7 +12,7 @@ function checkConfigFile(token) {
 
 function configWhitelist(token) {
     return request({
-        url: `/configFile/configWhiteList`,
+        url: `/configFile/configWhitelist`,
         method: 'GET',
         headers: {
             'Authorization': token
