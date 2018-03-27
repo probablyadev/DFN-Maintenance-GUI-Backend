@@ -77,7 +77,6 @@ export default class ConfigTable extends React.PureComponent {
                 >
                     <EditingState
                         onCommitChanges={this.commitChanges}
-                        defaultEditingRowIds={[0]}
                         columnExtensions={editingStateColumnExtensions}
                     />
                     <Table/>

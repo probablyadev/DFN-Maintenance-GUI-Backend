@@ -1,8 +1,8 @@
 import React from 'react';
-import Dialog from 'material-ui/Dialog';
 import Button from 'material-ui/Button';
+import Dialog, {DialogContent, DialogTitle,} from 'material-ui/Dialog';
 
-import ConfigTable from './ConfigTable';
+import ConfigTable from "./ConfigTable";
 
 class EditConfigDialog extends React.Component {
     constructor(props) {
@@ -28,35 +28,24 @@ class EditConfigDialog extends React.Component {
 
     /* TODO: Add message to the content of the dialog. Maybe display the command that will be executed. Live updates in dialog? */
     render() {
-        const actions = [
-            <Button
-                label="Cancel"
-                primary={true}
-                onClick={this.handleClose}
-            />,
-            <Button
-                label="Save"
-                primary={true}
-                onClick={this.handleClose}
-            />,
-        ];
-
         return (
             <div>
                 <Button
                     variant="raised"
                     style={this.props.minWidthStyle}
-                    label="Edit Config File"
                     onClick={this.handleOpen}
-                    primary/>
-                <Dialog
-                    title="Edit Configuration File"
-                    actions={actions}
-                    modal={false}
-                    open={this.state.open}
-                    onRequestClose={this.handleClose}
                 >
-                    <ConfigTable/>
+                    Edit Config File
+                </Button>
+                <Dialog
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                    aria-labelledby="form-dialog-title"
+                >
+                    <DialogTitle id="form-dialog-title">Edit Configuration File</DialogTitle>
+                    <DialogContent>
+                        <ConfigTable/>
+                    </DialogContent>
                 </Dialog>
             </div>
         );

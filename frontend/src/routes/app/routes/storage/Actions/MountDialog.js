@@ -29,17 +29,17 @@ class MountDialog extends React.Component {
         const actions = [
             <Button
                 label="Cancel"
-                primary={true}
+                primary
                 onClick={this.handleClose}
             />,
             <Button
                 label="Mount Drives"
-                primary={true}
+                primary
                 onClick={this.handleClose}
             />,
             <Button
                 label="Unmount Drives"
-                primary={true}
+                primary
                 onClick={this.handleClose}
             />,
         ];

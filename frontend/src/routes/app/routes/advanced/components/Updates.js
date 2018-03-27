@@ -17,15 +17,17 @@ class Updates extends React.Component {
                             <Button
                                 variant="raised"
                                 style={minWidthStyle}
-                                label="Update Leostick Firmware"
-                                primary/>
+                            >
+                                Update Leostick Firmware
+                            </Button>
                             <div className="divider"/>
 
                             <Button
                                 variant="raised"
                                 style={minWidthStyle}
-                                label="Update Python Software"
-                                primary/>
+                            >
+                                Update Python Software
+                            </Button>
                             <div className="divider"/>
                         </div>
                     </div>

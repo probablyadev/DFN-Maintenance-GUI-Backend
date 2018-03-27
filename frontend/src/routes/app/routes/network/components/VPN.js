@@ -38,15 +38,19 @@ class VPN extends React.Component {
                             <Button
                                 variant="raised"
                                 style={minWidthStyle}
-                                label="Check VPN"
-                                primary/>
+                                primary
+                            >
+                                Check VPN
+                            </Button>
                             <div className="divider"/>
 
                             <Button
                                 variant="raised"
                                 style={minWidthStyle}
-                                label="Restart VPN"
-                                primary/>
+                                primary
+                            >
+                                Restart VPN
+                            </Button>
                             <div className="divider"/>
                         </div>
                     </div>

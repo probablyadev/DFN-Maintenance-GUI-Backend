@@ -29,17 +29,17 @@ class PowerDialog extends React.Component {
         const actions = [
             <Button
                 label="Cancel"
-                primary={true}
+                primary
                 onClick={this.handleClose}
             />,
             <Button
                 label="Power On"
-                primary={true}
+                primary
                 onClick={this.handleClose}
             />,
             <Button
                 label="Power Off"
-                primary={true}
+                primary
                 onClick={this.handleClose}
             />,
         ];

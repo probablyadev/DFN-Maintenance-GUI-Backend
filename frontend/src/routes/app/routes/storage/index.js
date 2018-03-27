@@ -2,7 +2,7 @@ import React from 'react';
 import QueueAnim from 'rc-queue-anim';
 import StatusPanel from './StatusPanel';
 import HDDChart from './HDDChart';
-import HDDTable from './HDDTable';
+//import HDDTable from './HDDTable';
 
 class Storage extends React.Component {
     render() {
@@ -11,7 +11,7 @@ class Storage extends React.Component {
                 <QueueAnim type="bottom" className="ui-animate">
                     <div key="1"><StatusPanel/></div>
                     <div key="2"><HDDChart/></div>
-                    <div key="3"><HDDTable/></div>
+                    /*<div key="3"><HDDTable/></div>*/
                 </QueueAnim>
             </div>
         );
