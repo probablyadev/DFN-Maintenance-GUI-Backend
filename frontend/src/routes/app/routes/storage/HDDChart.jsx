@@ -2,8 +2,8 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from "react-redux";
 
-import ReactEcharts from 'components/ReactECharts';
-import CHARTCONFIG from 'constants/ChartConfig';
+import ReactEcharts from '../../../../components/ReactECharts';
+import CHARTCONFIG from '../../../../constants/ChartConfig';
 import {checkHDD} from '../../../../actions/api';
 import {checkHDDSelector} from '../../../../selectors/api';
 
@@ -71,7 +71,7 @@ pieSpace.options = {
             center: ['50%', '60%'],
             data: [
                 {value: 2, name: 'Used'},
-                {value: 5, name: 'Available'},
+                {value: 5, name: 'Available'}
             ]
         }
     ]
@@ -99,15 +99,15 @@ class StatusPanel extends React.Component {
 
     render() {
         return (
-            <div className="row">
-                <div className="col-xl-6">
-                    <div className="box box-default box-body">
-                        <ReactEcharts option={pieStatus.options} showLoading={false}/>
+            <div className='row'>
+                <div className='col-xl-6'>
+                    <div className='box box-default box-body'>
+                        <ReactEcharts option={pieStatus.options} showLoading={false} />
                     </div>
                 </div>
-                <div className="col-xl-6">
-                    <div className="box box-default box-body">
-                        <ReactEcharts option={pieSpace.options} showLoading={false}/>
+                <div className='col-xl-6'>
+                    <div className='box box-default box-body'>
+                        <ReactEcharts option={pieSpace.options} showLoading={false} />
                     </div>
                 </div>
             </div>
@@ -115,4 +115,4 @@ class StatusPanel extends React.Component {
     }
 }
 
-module.exports = StatusPanel;
+export default StatusPanel;

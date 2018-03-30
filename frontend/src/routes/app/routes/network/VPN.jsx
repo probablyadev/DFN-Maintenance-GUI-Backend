@@ -1,10 +1,10 @@
 import React from 'react';
-import {bindActionCreators} from "redux";
-import {connect} from "react-redux";
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import Button from 'material-ui/Button';
 
-import {checkVPN, restartVPN} from "../../../../../actions/api";
-import {checkVPNSelector, restartVPNSelector} from "../../../../../selectors/api";
+import { checkVPN, restartVPN } from '../../../../actions/api';
+import { checkVPNSelector, restartVPNSelector } from '../../../../selectors/api';
 
 const minWidthStyle = {
     minWidth: '135px'
@@ -18,7 +18,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({checkVPN, restartVPN}, dispatch);
+    return bindActionCreators({
+        checkVPN,
+        restartVPN
+    }, dispatch);
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -29,29 +32,29 @@ class VPN extends React.Component {
 
     render() {
         return (
-            <div className="row">
-                <div className="col-xl-12">
+            <div className='row'>
+                <div className='col-xl-12'>
 
-                    <div className="box box-default">
-                        <div className="box-header">VPN</div>
-                        <div className="box-body text-center">
+                    <div className='box box-default'>
+                        <div className='box-header'>VPN</div>
+                        <div className='box-body text-center'>
                             <Button
-                                variant="raised"
+                                variant='raised'
                                 style={minWidthStyle}
                                 primary
                             >
                                 Check VPN
                             </Button>
-                            <div className="divider"/>
+                            <div className='divider' />
 
                             <Button
-                                variant="raised"
+                                variant='raised'
                                 style={minWidthStyle}
                                 primary
                             >
                                 Restart VPN
                             </Button>
-                            <div className="divider"/>
+                            <div className='divider' />
                         </div>
                     </div>
 
@@ -61,4 +64,4 @@ class VPN extends React.Component {
     }
 }
 
-module.exports = VPN;
+export default VPN;

@@ -69,15 +69,17 @@ class TimezonePicker extends React.Component {
             const newValue = this.getTimezone(nextProps.value);
             this.field.value = newValue || '';
 
-            this.setState({value: newValue});
+            this.setState({ value: newValue });
         }
     }
 
     getTimezone(query) {
-        if (!query)
+        if (!query) {
             return null;
+        }
 
-        return this.timezones.find((zone) => query === this.props.timezones[zone] || query === zone);
+        return this.timezones.find((zone) =>
+            query === this.props.timezones[zone] || query === zone);
     }
 
     filteredTimezones() {
@@ -85,15 +87,18 @@ class TimezonePicker extends React.Component {
     }
 
     filterItems(filter) {
-        if (!filter.trim() === '')
+        if (!filter.trim() === '') {
             return () => true;
+        }
 
-        return (zone) => zone.toLowerCase().includes(filter.toLowerCase().replace(/\s/g, ''));
+        return (zone) => zone.toLowerCase()
+            .includes(filter.toLowerCase()
+                .replace(/\s/g, ''));
     }
 
     handleFocus(e) {
         this.field.value = '';
-        this.setState({open: true});
+        this.setState({ open: true });
 
         if (typeof this.props.inputProps.onFocus === 'function') {
             this.props.inputProps.onFocus(e);
@@ -102,7 +107,7 @@ class TimezonePicker extends React.Component {
 
     handleBlur(e) {
         this.field.value = this.state.value || '';
-        this.setState({open: false});
+        this.setState({ open: false });
 
         if (typeof this.props.inputProps.onBlur === 'function') {
             this.props.inputProps.onBlur(e);
@@ -127,21 +132,23 @@ class TimezonePicker extends React.Component {
 
         if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
             e.preventDefault();
-            let {focused} = this.state;
+            let { focused } = this.state;
 
             if (e.key === 'ArrowUp') {
                 focused -= 1;
 
-                if (focused < 1)
+                if (focused < 1) {
                     focused = filteredTimezones.length;
+                }
             } else {
                 focused += 1;
 
-                if (focused > filteredTimezones.length)
+                if (focused > filteredTimezones.length) {
                     focused = 1;
+                }
             }
 
-            this.setState({focused});
+            this.setState({ focused });
 
             this.options.children[focused % this.options.children.length].scrollIntoView();
         } else if (e.key === 'Enter') {
@@ -151,7 +158,7 @@ class TimezonePicker extends React.Component {
                 this.handleSelect(zone);
                 e.target.blur();
             } else {
-                this.setState({focused: 0});
+                this.setState({ focused: 0 });
             }
         }
     }
@@ -168,26 +175,27 @@ class TimezonePicker extends React.Component {
         } else {
             this.field.value = zone;
 
-            this.setState({value: zone});
+            this.setState({ value: zone });
         }
     }
 
     handleItemFocus(index) {
-        this.setState({focused: index});
+        this.setState({ focused: index });
     }
 
     value() {
         const currentValue = this.state.value;
 
-        if (!currentValue)
+        if (!currentValue) {
             return null;
+        }
 
         return this.props.timezones[currentValue];
     }
 
     render() {
-        const {inputProps} = this.props;
-        const {value} = this.state;
+        const { inputProps } = this.props;
+        const { value } = this.state;
 
         const isSelected = !this.state.open && value;
         const isOpen = this.state.open;
@@ -216,22 +224,23 @@ class TimezonePicker extends React.Component {
                     }}
                     isOpen={isOpen}
                 >
-                    {this.filteredTimezones().map((zone, index, arr) => {
-                        const focused = this.state.focused % arr.length === index;
-                        return (
-                            <ListButton
-                                key={zone}
-                                title={zone}
-                                onMouseDown={() => this.handleSelect(zone)}
-                                onMouseOver={() => this.handleItemFocus(index)}
-                                onFocus={() => this.handleItemFocus(index)}
-                                isSelected={isSelected}
-                                isFocused={focused}
-                            >
-                                {zone}
-                            </ListButton>
-                        );
-                    })}
+                    {this.filteredTimezones()
+                        .map((zone, index, arr) => {
+                            const focused = this.state.focused % arr.length === index;
+                            return (
+                                <ListButton
+                                    key={zone}
+                                    title={zone}
+                                    onMouseDown={() => this.handleSelect(zone)}
+                                    onMouseOver={() => this.handleItemFocus(index)}
+                                    onFocus={() => this.handleItemFocus(index)}
+                                    isSelected={isSelected}
+                                    isFocused={focused}
+                                >
+                                    {zone}
+                                </ListButton>
+                            );
+                        })}
                 </List>
             </OuterDiv>
         );
@@ -239,29 +248,30 @@ class TimezonePicker extends React.Component {
 }
 
 TimezonePicker.propTypes = {
+    className: PropTypes.string,
     defaultValue: PropTypes.string,
     disabled: PropTypes.bool,
-    value: PropTypes.string,
-    onChange: PropTypes.func,
-    className: PropTypes.string,
     inputProps: PropTypes.shape({
         onBlur: PropTypes.func,
         onFocus: PropTypes.func,
         onChange: PropTypes.func
     }),
-    timezones: PropTypes.shape({})
+    onChange: PropTypes.func,
+    timezones: PropTypes.shape({}),
+    value: PropTypes.string
+
 };
 
 TimezonePicker.defaultProps = {
-    defaultValue: '',
-    value: '',
-    onChange: () => {
-    },
     className: '',
-    style: {},
+    defaultValue: '',
     disabled: false,
     inputProps: {},
-    timezones: require('../../../../../assets/timezones.json') // eslint-disable-line global-require
+    onChange: () => {
+    },
+    // eslint-disable-next-line global-require
+    timezones: require('../../../../../assets/timezones.json'),
+    value: ''
 };
 
-module.exports = TimezonePicker;
+export default TimezonePicker;

@@ -46,7 +46,6 @@
         "rc-queue-anim": "^1.4.1",
         "react": "^16.2.0",
         "react-dom": "^16.2.0",
-        "react-google-maps": "^9.4.5",
         "react-hot-loader": "^4.0.0",
         "react-loadable": "^4.0.5",
         "react-popper": "^0.8.3",
@@ -57,11 +56,10 @@
         "redux": "^3.7.2",
         "redux-saga": "^0.15.6",
         "redux-saga-routines": "^2.2.2",
+        "styled-components": "^2.3.0",
         "@devexpress/dx-react-core": "^1.1.1",
         "@devexpress/dx-react-grid": "^1.1.1",
         "@devexpress/dx-react-grid-material-ui": "^1.1.1",
-        "@types/googlemaps": "^3.30.8",
-        "@types/markerclustererplus": "^2.1.33",
         "@types/react": "^15.0.30",
         "@types/redux-actions": "^2.2.4",
         "@types/redux-form": "^7.2.2"
@@ -104,7 +102,6 @@
         "sass-lint": "^1.11.1",
         "sass-loader": "^6.0.5",
         "style-loader": "^0.18.2",
-        "styled-components": "^2.3.0",
         "url-loader": "^0.5.8",
         "webpack": "^3.1.0",
         "webpack-dev-server": "^2.4.5"

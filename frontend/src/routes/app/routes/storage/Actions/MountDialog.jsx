@@ -2,7 +2,7 @@ import React from 'react';
 import Button from 'material-ui/Button';
 import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
 
-class EditConfigDialog extends React.Component {
+class MountDialog extends React.Component {
     constructor(props) {
         super(props);
 
@@ -30,27 +30,32 @@ class EditConfigDialog extends React.Component {
      */
     render() {
         return (
-            <div>
+            <div className={this.props.className}>
                 <Button
                     variant='raised'
-                    style={this.props.minWidthStyle}
                     onClick={this.handleOpen}
                 >
-                    Check /latest Logs
+                    Mount
                 </Button>
                 <Dialog
                     open={this.state.open}
                     onClose={this.handleClose}
                 >
                     <DialogTitle id='form-dialog-title'>
-                        Check the latest log files in /latest
+                        Mount / Unmount All Hard Drives
                     </DialogTitle>
                     <DialogContent>
                         <div>PLACEHOLDER</div>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose}>
-                            Close
+                            Cancel
+                        </Button>
+                        <Button onClick={this.handleClose}>
+                            Mount Drives
+                        </Button>
+                        <Button onClick={this.handleClose}>
+                            Unmount Drives
                         </Button>
                     </DialogActions>
                 </Dialog>
@@ -59,4 +64,4 @@ class EditConfigDialog extends React.Component {
     }
 }
 
-export default EditConfigDialog;
+export default MountDialog;

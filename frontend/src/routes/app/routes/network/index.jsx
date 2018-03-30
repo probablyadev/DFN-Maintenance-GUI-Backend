@@ -1,5 +1,6 @@
 import React from 'react';
 import QueueAnim from 'rc-queue-anim';
+
 import Internet from './Internet';
 import VPN from './VPN';
 
@@ -17,4 +18,4 @@ const Network = () => (
     </div>
 );
 
-module.exports = Network;
+export default Network;
