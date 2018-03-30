@@ -69,24 +69,24 @@ export default class ConfigTable extends React.PureComponent {
         const {rows, columns, editingStateColumnExtensions} = this.state;
 
         return (
-            <Paper>
-                <Grid
-                    rows={rows}
-                    columns={columns}
-                    getRowId={getRowId}
-                >
-                    <EditingState
-                        onCommitChanges={this.commitChanges}
-                        columnExtensions={editingStateColumnExtensions}
-                    />
-                    <Table/>
-                    <TableHeaderRow/>
-                    <TableEditRow/>
-                    <TableEditColumn
-                        showEditCommand
-                    />
-                </Grid>
-            </Paper>
+          <Paper>
+            <Grid
+              rows={rows}
+              columns={columns}
+              getRowId={getRowId}
+            >
+              <EditingState
+                onCommitChanges={this.commitChanges}
+                columnExtensions={editingStateColumnExtensions}
+              />
+              <Table />
+              <TableHeaderRow />
+              <TableEditRow />
+              <TableEditColumn
+                showEditCommand
+              />
+            </Grid>
+          </Paper>
         );
     }
 }
