@@ -1,6 +1,6 @@
 import React from 'react';
 import {Switch} from 'react-router-dom'
-import AuthenticatedRoute from '../../AuthenticatedRoute';
+import Index from '../../../components/AuthenticatedRoute/index';
 import loadable from 'react-loadable';
 import Header from 'components/Header';
 import Sidenav from 'components/Sidenav';
@@ -68,12 +68,12 @@ class MainApp extends React.Component {
                         <div className='app-content'>
                             <div className='full-height'>
                                 <Switch>
-                                    <AuthenticatedRoute path={`${match.url}/dashboard`} component={AsyncDashboard} />
-                                    <AuthenticatedRoute path={`${match.url}/camera`} component={AsyncCamera} />
-                                    <AuthenticatedRoute path={`${match.url}/storage`} component={AsyncStorage} />
-                                    <AuthenticatedRoute path={`${match.url}/network`} component={AsyncNetwork} />
-                                    <AuthenticatedRoute path={`${match.url}/location`} component={AsyncLocation} />
-                                    <AuthenticatedRoute path={`${match.url}/advanced`} component={AsyncAdvanced} />
+                                    <Index path={`${match.url}/dashboard`} component={AsyncDashboard} />
+                                    <Index path={`${match.url}/camera`} component={AsyncCamera} />
+                                    <Index path={`${match.url}/storage`} component={AsyncStorage} />
+                                    <Index path={`${match.url}/network`} component={AsyncNetwork} />
+                                    <Index path={`${match.url}/location`} component={AsyncLocation} />
+                                    <Index path={`${match.url}/advanced`} component={AsyncAdvanced} />
                                 </Switch>
                             </div>
                         </div>
