@@ -1,11 +1,13 @@
 import React from 'react';
-import APPCONFIG from 'constants/Config';
 import TextField from 'material-ui/TextField';
 import QueueAnim from 'rc-queue-anim';
 
-class ForgotPassowrd extends React.Component {
+import APPCONFIG from '../../constants/Config';
+
+class ForgotPassword extends React.Component {
     constructor() {
         super();
+
         this.state = {
             brand: APPCONFIG.brand
         };
@@ -28,7 +30,8 @@ class ForgotPassowrd extends React.Component {
                                         fullWidth
                                     />
                                     <div className='additional-info text-center text-small'>
-                                        Enter your email address that you used to register. We'll send you an email with
+                                        Enter your email address that you used to register.
+                                        We&apos;ll send you an email with
                                         your username and a link to reset your password.
                                     </div>
                                 </div>
@@ -49,7 +52,7 @@ const ForgotPasswordPage = () => (
         <div className='main-body'>
             <QueueAnim type='bottom' className='ui-animate'>
                 <div key='1'>
-                    <ForgotPassowrd />
+                    <ForgotPassword />
                 </div>
             </QueueAnim>
         </div>

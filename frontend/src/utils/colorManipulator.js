@@ -12,9 +12,11 @@ function clamp(value, min, max) {
     if (value < min) {
         return min;
     }
+
     if (value > max) {
         return max;
     }
+
     return value;
 }
 
@@ -27,12 +29,12 @@ function clamp(value, min, max) {
  * @returns {string} A CSS color string
  */
 export function convertColorToString(color) {
-    const {type, values} = color;
+    const { type, values } = color;
 
     if (type.indexOf('rgb') > -1) {
         // Only convert the first 3 values to int (i.e. not alpha)
-        for (let i = 0; i < 3; i++) {
-            values[i] = parseInt(values[i]);
+        for (let ii = 0; ii < 3; ii++) {
+            values[ii] = parseInt(values[ii]);
         }
     }
 
@@ -62,9 +64,11 @@ export function convertColorToString(color) {
 export function convertHexToRGB(color) {
     if (color.length === 4) {
         let extendedColor = '#';
-        for (let i = 1; i < color.length; i++) {
-            extendedColor += color.charAt(i) + color.charAt(i);
+
+        for (let ii = 1; ii < color.length; ii++) {
+            extendedColor += color.charAt(ii) + color.charAt(ii);
         }
+
         color = extendedColor;
     }
 
@@ -96,64 +100,14 @@ export function decomposeColor(color) {
   because it has an unsupported format (color name or RGB %). This may cause issues in component rendering.`);
 
     const type = color.substring(0, marker);
-    let values = color.substring(marker + 1, color.length - 1).split(',');
+    let values = color.substring(marker + 1, color.length - 1)
+        .split(',');
     values = values.map((value) => parseFloat(value));
 
-    return {type, values};
-}
-
-/**
- * Calculates the contrast ratio between two colors.
- *
- * Formula: http://www.w3.org/TR/2008/REC-WCAG20-20081211/#contrast-ratiodef
- *
- * @param {string} foreground - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
- * @param {string} background - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
- * @returns {number} A contrast ratio value in the range 0 - 21 with 2 digit precision.
- */
-export function getContrastRatio(foreground, background) {
-    const lumA = getLuminance(foreground);
-    const lumB = getLuminance(background);
-    const contrastRatio = (Math.max(lumA, lumB) + 0.05) / (Math.min(lumA, lumB) + 0.05);
-
-    return Number(contrastRatio.toFixed(2)); // Truncate at two digits
-}
-
-/**
- * The relative brightness of any point in a color space,
- * normalized to 0 for darkest black and 1 for lightest white.
- *
- * Formula: https://www.w3.org/WAI/GL/wiki/Relative_luminance
- *
- * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
- * @returns {number} The relative brightness of the color in the range 0 - 1
- */
-export function getLuminance(color) {
-    color = decomposeColor(color);
-
-    if (color.type.indexOf('rgb') > -1) {
-        const rgb = color.values.map((val) => {
-            val /= 255; // normalized
-            return val <= 0.03928 ? val / 12.92 : Math.pow((val + 0.055) / 1.055, 2.4);
-        });
-        return Number((0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]).toFixed(3)); // Truncate at 3 digits
-    } else if (color.type.indexOf('hsl') > -1) {
-        return color.values[2] / 100;
-    }
-}
-
-/**
- * Darken or lighten a colour, depending on its luminance.
- * Light colors are darkened, dark colors are lightened.
- *
- * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
- * @param {number} coefficient=0.15 - multiplier in the range 0 - 1
- * @returns {string} A CSS color string. Hex input values are returned as rgb
- */
-export function emphasize(color, coefficient = 0.15) {
-    return getLuminance(color) > 0.5 ?
-        darken(color, coefficient) :
-        lighten(color, coefficient);
+    return {
+        type,
+        values
+    };
 }
 
 /**
@@ -171,6 +125,7 @@ export function fade(color, value) {
     if (color.type === 'rgb' || color.type === 'hsl') {
         color.type += 'a';
     }
+
     color.values[3] = value;
 
     return convertColorToString(color);
@@ -190,31 +145,9 @@ export function darken(color, coefficient) {
     if (color.type.indexOf('hsl') > -1) {
         color.values[2] *= 1 - coefficient;
     } else if (color.type.indexOf('rgb') > -1) {
-        for (let i = 0; i < 3; i++) {
-            color.values[i] *= 1 - coefficient;
+        for (let ii = 0; ii < 3; ii++) {
+            color.values[ii] *= 1 - coefficient;
         }
     }
-    return convertColorToString(color);
-}
-
-/**
- * Lightens a color.
- *
- * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
- * @param {number} coefficient - multiplier in the range 0 - 1
- * @returns {string} A CSS color string. Hex input values are returned as rgb
- */
-export function lighten(color, coefficient) {
-    color = decomposeColor(color);
-    coefficient = clamp(coefficient, 0, 1);
-
-    if (color.type.indexOf('hsl') > -1) {
-        color.values[2] += (100 - color.values[2]) * coefficient;
-    } else if (color.type.indexOf('rgb') > -1) {
-        for (let i = 0; i < 3; i++) {
-            color.values[i] += (255 - color.values[i]) * coefficient;
-        }
-    }
-
     return convertColorToString(color);
 }

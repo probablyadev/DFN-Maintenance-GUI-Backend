@@ -64,7 +64,7 @@
     /**
      * Auxiliary method to create a spinner layer.
      *
-     * @param {number} index Index of the layer to be created.
+     * @param {number} index AuthenticatedRoute of the layer to be created.
      * @public
      */
     MaterialSpinner.prototype.createLayer = function (index) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from 'material-ui/Button';
-import Dialog, {DialogActions, DialogContent, DialogTitle} from 'material-ui/Dialog';
+import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
 
 class EditConfigDialog extends React.Component {
     constructor(props) {
@@ -15,11 +15,11 @@ class EditConfigDialog extends React.Component {
     }
 
     handleOpen() {
-        this.setState({open: true});
+        this.setState({ open: true });
     }
 
     handleClose() {
-        this.setState({open: false});
+        this.setState({ open: false });
     }
 
     /* TODO: Send off an event to the backend to turn all off or on */

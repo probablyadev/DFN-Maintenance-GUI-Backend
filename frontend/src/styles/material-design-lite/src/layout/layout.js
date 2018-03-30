@@ -335,14 +335,14 @@
                 if (this.header_.classList.contains(this.CssClasses_.HEADER_SEAMED)) {
                     mode = this.Mode_.SEAMED;
                 } else if (this.header_.classList.contains(
-                        this.CssClasses_.HEADER_WATERFALL)) {
+                    this.CssClasses_.HEADER_WATERFALL)) {
                     mode = this.Mode_.WATERFALL;
                     this.header_.addEventListener('transitionend',
                         this.headerTransitionEndHandler_.bind(this));
                     this.header_.addEventListener('click',
                         this.headerClickHandler_.bind(this));
                 } else if (this.header_.classList.contains(
-                        this.CssClasses_.HEADER_SCROLL)) {
+                    this.CssClasses_.HEADER_SCROLL)) {
                     mode = this.Mode_.SCROLL;
                     container.classList.add(this.CssClasses_.HAS_SCROLLING_HEADER);
                 }
@@ -540,7 +540,7 @@
         }
 
         if (layout.tabBar_.classList.contains(
-                layout.CssClasses_.JS_RIPPLE_EFFECT)) {
+            layout.CssClasses_.JS_RIPPLE_EFFECT)) {
             var rippleContainer = document.createElement('span');
             rippleContainer.classList.add(layout.CssClasses_.RIPPLE_CONTAINER);
             rippleContainer.classList.add(layout.CssClasses_.JS_RIPPLE_EFFECT);
@@ -551,9 +551,10 @@
         }
 
         if (!layout.tabBar_.classList.contains(
-                layout.CssClasses_.TAB_MANUAL_SWITCH)) {
+            layout.CssClasses_.TAB_MANUAL_SWITCH)) {
             tab.addEventListener('click', function (e) {
-                if (tab.getAttribute('href').charAt(0) === '#') {
+                if (tab.getAttribute('href')
+                    .charAt(0) === '#') {
                     e.preventDefault();
                     selectTab();
                 }

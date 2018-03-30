@@ -87,13 +87,15 @@
                 var el;
                 if (checkbox.checked) {
                     for (i = 0; i < opt_rows.length; i++) {
-                        el = opt_rows[i].querySelector('td').querySelector('.mdl-checkbox');
+                        el = opt_rows[i].querySelector('td')
+                            .querySelector('.mdl-checkbox');
                         el['MaterialCheckbox'].check();
                         opt_rows[i].classList.add(this.CssClasses_.IS_SELECTED);
                     }
                 } else {
                     for (i = 0; i < opt_rows.length; i++) {
-                        el = opt_rows[i].querySelector('td').querySelector('.mdl-checkbox');
+                        el = opt_rows[i].querySelector('td')
+                            .querySelector('.mdl-checkbox');
                         el['MaterialCheckbox'].uncheck();
                         opt_rows[i].classList.remove(this.CssClasses_.IS_SELECTED);
                     }

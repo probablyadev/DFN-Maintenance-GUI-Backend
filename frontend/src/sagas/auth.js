@@ -1,18 +1,21 @@
-import {push} from "react-router-redux";
-import {takeLatest, put, call, select} from 'redux-saga/effects';
+import { push } from 'react-router-redux';
+import { takeLatest, put, call, select } from 'redux-saga/effects';
 
 import * as ActionTypes from '../constants/ActionTypes';
 import UserAPIService from '../utils/api/UserAPIService';
-import {checkAuthSelector} from "../selectors/auth";
+import { checkAuthSelector } from '../selectors/auth';
 
-function* login({data}) {
+function* login({ data }) {
     try {
-        const {email, password} = data;
+        const { email, password } = data;
         const response = yield call(UserAPIService.getToken, email, password);
 
         localStorage.setItem('token', response.data.token);
 
-        yield put(ActionTypes.login.success({email, token: response.data.token}));
+        yield put(ActionTypes.login.success({
+            email,
+            token: response.data.token
+        }));
         yield put(push('/app/dashboard'));
     } catch (error) {
         yield put(ActionTypes.login.failure(error.message));
@@ -55,9 +58,10 @@ function* checkAuth() {
     }
 }
 
+// noinspection JSAnnotator
 export const authSagas = [
-    takeLatest(ActionTypes.login.TRIGGER, login),
-    takeLatest(ActionTypes.LOGOUT, logout),
-    takeLatest(ActionTypes.checkAuth.TRIGGER, checkAuth),
-    takeLatest(ActionTypes.checkAuth.FAILURE, logout)
+    yield takeLatest(ActionTypes.login.TRIGGER, login),
+    yield takeLatest(ActionTypes.LOGOUT, logout),
+    yield takeLatest(ActionTypes.checkAuth.TRIGGER, checkAuth),
+    yield takeLatest(ActionTypes.checkAuth.FAILURE, logout)
 ];

@@ -1,26 +1,40 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
-import {Link, withRouter} from 'react-router-dom';
-import APPCONFIG from 'constants/Config';
-import {toggleCollapsedNav} from '../../actions/settings';
+import { Link, withRouter } from 'react-router-dom';
+
 import SidenavContent from './SidenavContent';
 
-class Sidebar extends React.Component {
+import APPCONFIG from '../../constants/Config';
+import { toggleCollapsedNav } from '../../actions/settings';
 
-    onToggleCollapsedNav = (e) => {
-        const val = !this.props.navCollapsed;
-        const {handleToggleCollapsedNav} = this.props;
-        handleToggleCollapsedNav(val);
+function mapStateToProps(state) {
+    return {
+        navCollapsed: state.settings.navCollapsed,
+        colorOption: state.settings.colorOption
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ toggleCollapsedNav }, dispatch);
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
+class Sidebar extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.onToggleCollapsedNav = this.onToggleCollapsedNav.bind(this);
     }
 
     componentDidMount() {
         // AutoCloseMobileNav
-        const {history} = this.props;
+        const { history } = this.props;
         const $body = $('#body');
 
         if (APPCONFIG.AutoCloseMobileNav) {
-            history.listen((location) => {
+            history.listen(() => {
                 setTimeout(() => {
                     $body.removeClass('sidebar-mobile-open');
                 }, 0);
@@ -28,9 +42,16 @@ class Sidebar extends React.Component {
         }
     }
 
+    onToggleCollapsedNav() {
+        const val = !this.props.navCollapsed;
+
+        this.props.toggleCollapsedNav(val);
+    }
+
     render() {
-        const {navCollapsed, colorOption} = this.props;
+        const { navCollapsed, colorOption } = this.props;
         let toggleIcon = null;
+
         if (navCollapsed) {
             toggleIcon = <i className='material-icons'>radio_button_unchecked</i>;
         } else {
@@ -40,8 +61,12 @@ class Sidebar extends React.Component {
         return (
             <nav
                 className={classnames('app-sidebar', {
-                    'bg-color-light': ['31', '32', '33', '34', '35', '36'].indexOf(colorOption) >= 0,
-                    'bg-color-dark': ['31', '32', '33', '34', '35', '36'].indexOf(colorOption) < 0
+                    'bg-color-light': [
+                        '31', '32', '33', '34', '35', '36'
+                    ].indexOf(colorOption) >= 0,
+                    'bg-color-dark': [
+                        '31', '32', '33', '34', '35', '36'
+                    ].indexOf(colorOption) < 0
                 })}
             >
                 <section
@@ -64,12 +89,28 @@ class Sidebar extends React.Component {
                         <circle className='react-dot' stroke='none' cx='1960' cy='1760' r='355' />
                         <g className='react-curve' strokeWidth='170' fill='none'>
                             <ellipse cx='2575' cy='545' rx='715' ry='1875' transform='rotate(30)' />
-                            <ellipse cx='1760' cy='-1960' rx='715' ry='1875' transform='rotate(90)' />
-                            <ellipse cx='-815' cy='-2505' rx='715' ry='1875' transform='rotate(-210)' />
+                            <ellipse
+                                cx='1760'
+                                cy='-1960'
+                                rx='715'
+                                ry='1875'
+                                transform='rotate(90)'
+                            />
+                            <ellipse
+                                cx='-815'
+                                cy='-2505'
+                                rx='715'
+                                ry='1875'
+                                transform='rotate(-210)'
+                            />
                         </g>
                     </svg>
                     <Link to='/' className='brand'>{APPCONFIG.brand}</Link>
-                    <a href='javascript:;' className='collapsednav-toggler' onClick={this.onToggleCollapsedNav}>
+                    <a
+                        href='javascript:'
+                        className='collapsednav-toggler'
+                        onClick={this.onToggleCollapsedNav}
+                    >
                         {toggleIcon}
                     </a>
                 </section>
@@ -83,7 +124,9 @@ class Sidebar extends React.Component {
                         <li>
                             <a target='_blank' href={APPCONFIG.productLink}>
                                 <i className='nav-icon material-icons'>help</i>
-                                <span className='nav-text'><span>Help</span> & <span>Support</span></span>
+                                <span className='nav-text'>
+                                    <span>Help</span> & <span>Support</span>
+                                </span>
                             </a>
                         </li>
                     </ul>
@@ -93,19 +136,4 @@ class Sidebar extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    navCollapsed: state.settings.navCollapsed,
-    colorOption: state.settings.colorOption
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    handleToggleCollapsedNav: (isNavCollapsed) => {
-        dispatch(toggleCollapsedNav(isNavCollapsed));
-    }
-});
-
-module.exports = withRouter(connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Sidebar));
-
+export default withRouter(Sidebar);

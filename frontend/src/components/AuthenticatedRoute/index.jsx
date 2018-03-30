@@ -18,7 +18,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-export default class Index extends React.Component {
+class AuthenticatedRoute extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -37,3 +37,5 @@ export default class Index extends React.Component {
         );
     }
 }
+
+export default AuthenticatedRoute;

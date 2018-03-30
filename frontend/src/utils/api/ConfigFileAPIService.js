@@ -44,7 +44,10 @@ function updateConfigFile(token, property) {
 }
 
 const ConfigFileAPIService = {
-    checkConfigFile, configWhitelist, configFile, updateConfigFile
+    checkConfigFile,
+    configWhitelist,
+    configFile,
+    updateConfigFile
 };
 
 export default ConfigFileAPIService;

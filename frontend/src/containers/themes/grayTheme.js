@@ -3,7 +3,7 @@ import green from 'material-ui/colors/green';
 import grey from 'material-ui/colors/grey';
 import spacing from 'material-ui/styles/spacing';
 
-import {fade} from '../../utils/colorManipulator';
+import { fade } from '../../utils/colorManipulator';
 
 export default {
     spacing,

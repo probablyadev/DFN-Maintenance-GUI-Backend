@@ -1,4 +1,4 @@
-import {createReducer} from '../utils/misc';
+import { createReducer } from '../utils/misc';
 import * as ActionTypes from '../constants/ActionTypes';
 
 const initialStateLogin = {

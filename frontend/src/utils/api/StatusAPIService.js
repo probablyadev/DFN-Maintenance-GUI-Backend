@@ -21,7 +21,8 @@ function secondLatestLog(token) {
 }
 
 const StatusAPIService = {
-    latestLog, secondLatestLog
+    latestLog,
+    secondLatestLog
 };
 
 export default StatusAPIService;

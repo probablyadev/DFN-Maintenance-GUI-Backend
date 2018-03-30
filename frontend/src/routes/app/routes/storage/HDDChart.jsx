@@ -1,11 +1,11 @@
 import React from 'react';
-import {bindActionCreators} from 'redux';
-import {connect} from "react-redux";
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import ReactEcharts from '../../../../components/ReactECharts';
+import ReactEcharts from '../../../../components/ReactECharts/index';
 import CHARTCONFIG from '../../../../constants/ChartConfig';
-import {checkHDD} from '../../../../actions/api';
-import {checkHDDSelector} from '../../../../selectors/api';
+import { checkHDD } from '../../../../actions/api';
+import { checkHDDSelector } from '../../../../selectors/api';
 
 const pieStatus = {};
 const pieSpace = {};
@@ -36,9 +36,18 @@ pieStatus.options = {
             radius: '55%',
             center: ['50%', '60%'],
             data: [
-                {value: 1, name: 'Off'},
-                {value: 1, name: 'On'},
-                {value: 3, name: 'Mounted'}
+                {
+                    value: 1,
+                    name: 'Off'
+                },
+                {
+                    value: 1,
+                    name: 'On'
+                },
+                {
+                    value: 3,
+                    name: 'Mounted'
+                }
             ]
         }
     ]
@@ -70,8 +79,14 @@ pieSpace.options = {
             radius: '55%',
             center: ['50%', '60%'],
             data: [
-                {value: 2, name: 'Used'},
-                {value: 5, name: 'Available'}
+                {
+                    value: 2,
+                    name: 'Used'
+                },
+                {
+                    value: 5,
+                    name: 'Available'
+                }
             ]
         }
     ]
@@ -84,7 +99,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({checkHDD}, dispatch);
+    return bindActionCreators({ checkHDD }, dispatch);
 }
 
 @connect(mapStateToProps, mapDispatchToProps)

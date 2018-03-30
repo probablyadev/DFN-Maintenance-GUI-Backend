@@ -13,4 +13,4 @@ const CHARTCONFIG = {
     }
 };
 
-module.exports = CHARTCONFIG;
+export default CHARTCONFIG;

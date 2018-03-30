@@ -1,24 +1,23 @@
 import React from 'react';
-import classNames from 'classnames';
-import {Manager, Popper, Target} from 'react-popper';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
-
-import {withStyles} from 'material-ui/styles';
+import classNames from 'classnames';
+import { Manager, Popper, Target } from 'react-popper';
+import { withStyles } from 'material-ui/styles';
 import ClickAwayListener from 'material-ui/utils/ClickAwayListener';
 import Grow from 'material-ui/transitions/Grow';
 import Paper from 'material-ui/Paper';
-import {MenuItem, MenuList} from 'material-ui/Menu';
+import { MenuItem, MenuList } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 
-import {logout} from '../../actions/auth';
+import { logout } from '../../actions/auth';
 
-const styles = theme => ({
+const styles = () => ({
     popperClose: {
-        pointerEvents: 'none',
-    },
+        pointerEvents: 'none'
+    }
 });
 
 const StyledIconButton = styled(IconButton)`
@@ -32,7 +31,7 @@ const StyledMenuList = styled(MenuList)`
 `;
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({logout}, dispatch);
+    return bindActionCreators({ logout }, dispatch);
 }
 
 @connect(null, mapDispatchToProps)
@@ -41,7 +40,7 @@ class NavRightList extends React.Component {
         super(props);
 
         this.state = {
-            open: false,
+            open: false
         };
 
         this.handleToggle = this.handleToggle.bind(this);
@@ -50,11 +49,11 @@ class NavRightList extends React.Component {
     }
 
     handleToggle() {
-        this.setState({open: !this.state.open});
+        this.setState({ open: !this.state.open });
     }
 
     handleClose() {
-        this.setState({open: false});
+        this.setState({ open: false });
     }
 
     handleLogout() {
@@ -62,33 +61,34 @@ class NavRightList extends React.Component {
     }
 
     render() {
-        const {classes} = this.props;
-        const {open} = this.state;
+        const { classes } = this.props;
+        const { open } = this.state;
 
         return (
             <Manager>
                 <Target>
-                    <div ref={node => {
+                    <div ref={(node) => {
                         this.target = node;
-                    }}>
+                    }}
+                    >
                         <StyledIconButton
                             aria-owns={open ? 'menu-list-grow' : null}
-                            aria-haspopup="true"
+                            aria-haspopup='true'
                             onClick={this.handleToggle}
                         >
-                            <MoreVertIcon/>
+                            <MoreVertIcon />
                         </StyledIconButton>
                     </div>
                 </Target>
                 <Popper
-                    placement="bottom-start"
+                    placement='bottom-start'
                     eventsEnabled={open}
-                    className={classNames({[classes.popperClose]: !open})}
+                    className={classNames({ [classes.popperClose]: !open })}
                 >
                     <ClickAwayListener onClickAway={this.handleClose}>
-                        <Grow in={open} id="menu-list-grow" style={{transformOrigin: '0 0 0'}}>
+                        <Grow in={open} id='menu-list-grow' style={{ transformOrigin: '0 0 0' }}>
                             <Paper>
-                                <StyledMenuList role="menu">
+                                <StyledMenuList role='menu'>
                                     <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
                                 </StyledMenuList>
                             </Paper>

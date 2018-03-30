@@ -1,16 +1,33 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {changeTheme} from '../../actions/settings';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-class ThemeOptions extends React.Component {
-    onChange = (e) => {
-        const {handleChange} = this.props;
-        const newThemeOption = e.target.value;
-        handleChange(newThemeOption);
+import { changeTheme } from '../../actions/settings';
+
+function mapStateToProps(state) {
+    return {
+        theme: state.settings.theme
     };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ changeTheme }, dispatch);
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
+class ThemeOptions extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.onChange = this.onChange.bind(this);
+    }
+
+    onChange(e) {
+        this.props.changeTheme(e.target.value);
+    }
 
     render() {
-        const {theme} = this.props;
+        const { theme } = this.props;
 
         return (
             <section>
@@ -28,7 +45,11 @@ class ThemeOptions extends React.Component {
                                 onChange={this.onChange}
                             />
                             <span className='theme-option-item bg-color-dark'>
-                                <span className='overlay'><span className='material-icons'>check</span></span>
+                                <span className='overlay'>
+                                    <span className='material-icons'>
+                                        check
+                                    </span>
+                                </span>
                                 <span>Dark</span>
                             </span>
                         </label>
@@ -43,7 +64,11 @@ class ThemeOptions extends React.Component {
                                 onChange={this.onChange}
                             />
                             <span className='theme-option-item bg-color-gray'>
-                                <span className='overlay'><span className='material-icons'>check</span></span>
+                                <span className='overlay'>
+                                    <span className='material-icons'>
+                                        check
+                                    </span>
+                                </span>
                                 <span>Gray</span>
                             </span>
                         </label>
@@ -58,7 +83,11 @@ class ThemeOptions extends React.Component {
                                 onChange={this.onChange}
                             />
                             <span className='theme-option-item bg-color-page'>
-                                <span className='overlay'><span className='material-icons'>check</span></span>
+                                <span className='overlay'>
+                                    <span className='material-icons'>
+                                        check
+                                    </span>
+                                </span>
                                 <span>Light</span>
                             </span>
                         </label>
@@ -69,16 +98,4 @@ class ThemeOptions extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    theme: state.settings.theme
-});
-const mapDispatchToProps = (dispatch) => ({
-    handleChange: (themeOption) => {
-        dispatch(changeTheme(themeOption));
-    }
-});
-
-module.exports = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ThemeOptions);
+export default ThemeOptions;

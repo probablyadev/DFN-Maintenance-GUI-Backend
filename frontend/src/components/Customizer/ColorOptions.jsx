@@ -1,27 +1,42 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {changeColorOption} from '../../actions/settings';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
+import { changeColorOption } from '../../actions/settings';
+
+function mapStateToProps(state) {
+    return {
+        colorOption: state.settings.colorOption
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ changeColorOption }, dispatch);
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
 class ColorSchemeOptions extends React.Component {
     constructor(props) {
         super(props);
+
         this.onChange = this.onChange.bind(this);
     }
 
     onChange(e) {
-        const {handleChange} = this.props;
-        const newColorOption = e.target.value;
-        handleChange(newColorOption);
+        this.props.changeColorOption(e.target.value);
     }
 
     render() {
-        const {colorOption} = this.props;
+        const { colorOption } = this.props;
 
         return (
             <section>
                 <h4 className='section-header'>Color Options</h4>
-                <p className='small no-margin'>Tip: Additionally, you can active "Full Width Header" above</p>
+                <p className='small no-margin'>
+                    Tip: Additionally, you can active &quot;Full Width Header&quot; above
+                </p>
                 <div className='divider' />
+
                 <div className='row'>
                     <div className='col-4'>
                         <label className='color-option-check'>
@@ -33,7 +48,9 @@ class ColorSchemeOptions extends React.Component {
                                 onChange={this.onChange}
                             />
                             <span className='color-option-item bg-color-page'>
-                                <span className='overlay'><span className='material-icons'>check</span></span>
+                                <span className='overlay'>
+                                    <span className='material-icons'>check</span>
+                                </span>
                                 <span className='bg-color-dark item-header' />
                                 <span className='bg-color-light item-header' />
                                 <span className='bg-color-dark' />
@@ -48,7 +65,9 @@ class ColorSchemeOptions extends React.Component {
                                 onChange={this.onChange}
                             />
                             <span className='color-option-item bg-color-page'>
-                                <span className='overlay'><span className='material-icons'>check</span></span>
+                                <span className='overlay'>
+                                    <span className='material-icons'>check</span>
+                                </span>
                                 <span className='bg-color-primary item-header' />
                                 <span className='bg-color-light item-header' />
                                 <span className='bg-color-dark' />
@@ -63,7 +82,9 @@ class ColorSchemeOptions extends React.Component {
                                 onChange={this.onChange}
                             />
                             <span className='color-option-item bg-color-page'>
-                                <span className='overlay'><span className='material-icons'>check</span></span>
+                                <span className='overlay'>
+                                    <span className='material-icons'>check</span>
+                                </span>
                                 <span className='bg-color-success item-header' />
                                 <span className='bg-color-light item-header' />
                                 <span className='bg-color-dark' />
@@ -78,7 +99,9 @@ class ColorSchemeOptions extends React.Component {
                                 onChange={this.onChange}
                             />
                             <span className='color-option-item bg-color-page'>
-                                <span className='overlay'><span className='material-icons'>check</span></span>
+                                <span className='overlay'>
+                                    <span className='material-icons'>check</span>
+                                </span>
                                 <span className='bg-color-info item-header' />
                                 <span className='bg-color-light item-header' />
                                 <span className='bg-color-dark' />
@@ -93,7 +116,9 @@ class ColorSchemeOptions extends React.Component {
                                 onChange={this.onChange}
                             />
                             <span className='color-option-item bg-color-page'>
-                                <span className='overlay'><span className='material-icons'>check</span></span>
+                                <span className='overlay'>
+                                    <span className='material-icons'>check</span>
+                                </span>
                                 <span className='bg-color-warning item-header' />
                                 <span className='bg-color-light item-header' />
                                 <span className='bg-color-dark' />
@@ -108,7 +133,9 @@ class ColorSchemeOptions extends React.Component {
                                 onChange={this.onChange}
                             />
                             <span className='color-option-item bg-color-page'>
-                                <span className='overlay'><span className='material-icons'>check</span></span>
+                                <span className='overlay'>
+                                    <span className='material-icons'>check</span>
+                                </span>
                                 <span className='bg-color-danger item-header' />
                                 <span className='bg-color-light item-header' />
                                 <span className='bg-color-dark' />
@@ -126,7 +153,9 @@ class ColorSchemeOptions extends React.Component {
                                 onChange={this.onChange}
                             />
                             <span className='color-option-item bg-color-page'>
-                                <span className='overlay'><span className='material-icons'>check</span></span>
+                                <span className='overlay'>
+                                    <span className='material-icons'>check</span>
+                                </span>
                                 <span className='bg-color-light item-header' />
                                 <span className='bg-color-light item-header' />
                                 <span className='bg-color-dark' />
@@ -141,7 +170,9 @@ class ColorSchemeOptions extends React.Component {
                                 onChange={this.onChange}
                             />
                             <span className='color-option-item bg-color-page'>
-                                <span className='overlay'><span className='material-icons'>check</span></span>
+                                <span className='overlay'>
+                                    <span className='material-icons'>check</span>
+                                </span>
                                 <span className='bg-color-primary item-header' />
                                 <span className='bg-color-primary item-header' />
                                 <span className='bg-color-dark' />
@@ -156,7 +187,9 @@ class ColorSchemeOptions extends React.Component {
                                 onChange={this.onChange}
                             />
                             <span className='color-option-item bg-color-page'>
-                                <span className='overlay'><span className='material-icons'>check</span></span>
+                                <span className='overlay'>
+                                    <span className='material-icons'>check</span>
+                                </span>
                                 <span className='bg-color-success item-header' />
                                 <span className='bg-color-success item-header' />
                                 <span className='bg-color-dark' />
@@ -171,7 +204,9 @@ class ColorSchemeOptions extends React.Component {
                                 onChange={this.onChange}
                             />
                             <span className='color-option-item bg-color-page'>
-                                <span className='overlay'><span className='material-icons'>check</span></span>
+                                <span className='overlay'>
+                                    <span className='material-icons'>check</span>
+                                </span>
                                 <span className='bg-color-info item-header' />
                                 <span className='bg-color-info item-header' />
                                 <span className='bg-color-dark' />
@@ -186,7 +221,9 @@ class ColorSchemeOptions extends React.Component {
                                 onChange={this.onChange}
                             />
                             <span className='color-option-item bg-color-page'>
-                                <span className='overlay'><span className='material-icons'>check</span></span>
+                                <span className='overlay'>
+                                    <span className='material-icons'>check</span>
+                                </span>
                                 <span className='bg-color-warning item-header' />
                                 <span className='bg-color-warning item-header' />
                                 <span className='bg-color-dark' />
@@ -201,7 +238,9 @@ class ColorSchemeOptions extends React.Component {
                                 onChange={this.onChange}
                             />
                             <span className='color-option-item bg-color-page'>
-                                <span className='overlay'><span className='material-icons'>check</span></span>
+                                <span className='overlay'>
+                                    <span className='material-icons'>check</span>
+                                </span>
                                 <span className='bg-color-danger item-header' />
                                 <span className='bg-color-danger item-header' />
                                 <span className='bg-color-dark' />
@@ -218,7 +257,9 @@ class ColorSchemeOptions extends React.Component {
                                 onChange={this.onChange}
                             />
                             <span className='color-option-item bg-color-page'>
-                                <span className='overlay'><span className='material-icons'>check</span></span>
+                                <span className='overlay'>
+                                    <span className='material-icons'>check</span>
+                                </span>
                                 <span className='bg-color-dark item-header' />
                                 <span className='bg-color-dark item-header' />
                                 <span className='bg-color-light' />
@@ -233,7 +274,9 @@ class ColorSchemeOptions extends React.Component {
                                 onChange={this.onChange}
                             />
                             <span className='color-option-item bg-color-page'>
-                                <span className='overlay'><span className='material-icons'>check</span></span>
+                                <span className='overlay'>
+                                    <span className='material-icons'>check</span>
+                                </span>
                                 <span className='bg-color-primary item-header' />
                                 <span className='bg-color-primary item-header' />
                                 <span className='bg-color-light' />
@@ -248,7 +291,9 @@ class ColorSchemeOptions extends React.Component {
                                 onChange={this.onChange}
                             />
                             <span className='color-option-item bg-color-page'>
-                                <span className='overlay'><span className='material-icons'>check</span></span>
+                                <span className='overlay'>
+                                    <span className='material-icons'>check</span>
+                                </span>
                                 <span className='bg-color-success item-header' />
                                 <span className='bg-color-success item-header' />
                                 <span className='bg-color-light' />
@@ -263,7 +308,9 @@ class ColorSchemeOptions extends React.Component {
                                 onChange={this.onChange}
                             />
                             <span className='color-option-item bg-color-page'>
-                                <span className='overlay'><span className='material-icons'>check</span></span>
+                                <span className='overlay'>
+                                    <span className='material-icons'>check</span>
+                                </span>
                                 <span className='bg-color-info item-header' />
                                 <span className='bg-color-info item-header' />
                                 <span className='bg-color-light' />
@@ -278,7 +325,9 @@ class ColorSchemeOptions extends React.Component {
                                 onChange={this.onChange}
                             />
                             <span className='color-option-item bg-color-page'>
-                                <span className='overlay'><span className='material-icons'>check</span></span>
+                                <span className='overlay'>
+                                    <span className='material-icons'>check</span>
+                                </span>
                                 <span className='bg-color-warning item-header' />
                                 <span className='bg-color-warning item-header' />
                                 <span className='bg-color-light' />
@@ -293,7 +342,9 @@ class ColorSchemeOptions extends React.Component {
                                 onChange={this.onChange}
                             />
                             <span className='color-option-item bg-color-page'>
-                                <span className='overlay'><span className='material-icons'>check</span></span>
+                                <span className='overlay'>
+                                    <span className='material-icons'>check</span>
+                                </span>
                                 <span className='bg-color-danger item-header' />
                                 <span className='bg-color-danger item-header' />
                                 <span className='bg-color-light' />
@@ -306,17 +357,4 @@ class ColorSchemeOptions extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    colorOption: state.settings.colorOption
-});
-const mapDispatchToProps = (dispatch) => ({
-    handleChange: (colorOption) => {
-        // console.log('change color option to: ' + colorOption);
-        dispatch(changeColorOption(colorOption));
-    }
-});
-
-module.exports = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ColorSchemeOptions);
+export default ColorSchemeOptions;

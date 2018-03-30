@@ -19,5 +19,5 @@ export function logout() {
 export function checkAuth() {
     return {
         type: ActionTypes.checkAuth.TRIGGER
-    }
+    };
 }

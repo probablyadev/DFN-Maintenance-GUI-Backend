@@ -41,7 +41,10 @@ function restartVPN(token) {
 }
 
 const NetworkAPIService = {
-    checkVPN, checkInternet, restartModem, restartVPN
+    checkVPN,
+    checkInternet,
+    restartModem,
+    restartVPN
 };
 
 export default NetworkAPIService;

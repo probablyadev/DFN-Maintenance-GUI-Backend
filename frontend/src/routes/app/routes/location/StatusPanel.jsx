@@ -1,9 +1,9 @@
 import React from 'react';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import {outputTimeSelector} from '../../../../selectors/api';
-import {outputTime} from '../../../../actions/api';
+import { outputTimeSelector } from '../../../../selectors/api';
+import { outputTime } from '../../../../actions/api';
 
 function mapStateToProps(state) {
     return {
@@ -12,7 +12,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({outputTime}, dispatch);
+    return bindActionCreators({ outputTime }, dispatch);
 }
 
 @connect(mapStateToProps, mapDispatchToProps)

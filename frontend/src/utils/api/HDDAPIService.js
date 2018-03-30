@@ -82,7 +82,14 @@ function unmountHDD(token) {
 }
 
 const HDDAPIService = {
-    checkHDD, enableHDD, formatHDD, mountHDD, moveData0HDD, probeHDD, smartTest, unmountHDD
+    checkHDD,
+    enableHDD,
+    formatHDD,
+    mountHDD,
+    moveData0HDD,
+    probeHDD,
+    smartTest,
+    unmountHDD
 };
 
 export default HDDAPIService;

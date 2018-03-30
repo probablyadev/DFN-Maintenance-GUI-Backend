@@ -1,29 +1,42 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import { Switch, Route, Redirect } from 'react-router'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Switch, Route, Redirect } from 'react-router';
 import classnames from 'classnames';
-import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
-
-import MainApp from 'routes/app/'
-import Page404 from 'routes/404/'
-import Page500 from 'routes/500/'
-import PageForgotPassword from 'routes/forgot-password/'
-import PageLogin from 'routes/login/'
-// = styles =
-// 3rd
-import 'styles/bootstrap.scss';
-// custom
-import 'styles/layout.scss';
-import 'styles/theme.scss';
-import 'styles/ui.scss';
-import 'styles/app.scss';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
 import lightTheme from './themes/lightTheme';
 import darkTheme from './themes/darkTheme';
 import grayTheme from './themes/grayTheme';
 
+import MainApp from '../routes/app/';
+import Page404 from '../routes/404/';
+import Page500 from '../routes/500/';
+import PageForgotPassword from '../routes/forgot-password/';
+import PageLogin from '../routes/login/';
 
+import '../styles/bootstrap.scss';
+import '../styles/layout.scss';
+import '../styles/theme.scss';
+import '../styles/ui.scss';
+import '../styles/app.scss';
+
+function mapStateToProps(state) {
+    return {
+        layoutBoxed: state.settings.layoutBoxed,
+        navCollapsed: state.settings.navCollapsed,
+        navBehind: state.settings.navBehind,
+        fixedHeader: state.settings.fixedHeader,
+        sidebarWidth: state.settings.sidebarWidth,
+        theme: state.settings.theme
+    };
+}
+
+@connect(mapStateToProps)
 class App extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         const {
             match, location, layoutBoxed, navCollapsed, navBehind, fixedHeader, sidebarWidth, theme
@@ -78,13 +91,4 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-    layoutBoxed: state.settings.layoutBoxed,
-    navCollapsed: state.settings.navCollapsed,
-    navBehind: state.settings.navBehind,
-    fixedHeader: state.settings.fixedHeader,
-    sidebarWidth: state.settings.sidebarWidth,
-    theme: state.settings.theme
-});
-
-module.exports = connect(mapStateToProps)(App);
+export default App;

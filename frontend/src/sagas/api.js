@@ -1,6 +1,6 @@
-import {takeLatest} from 'redux-saga/effects';
+import { takeLatest } from 'redux-saga/effects';
 
-import {fetchEntity} from '../utils/misc';
+import { fetchEntity } from '../utils/misc';
 import * as ActionTypes from '../constants/ActionTypes';
 
 import ConfigFileAPIService from '../utils/api/ConfigFileAPIService';
@@ -10,26 +10,27 @@ import NetworkAPIService from '../utils/api/NetworkAPIService';
 import TimeAPIService from '../utils/api/TimeAPIService';
 
 
+// noinspection JSAnnotator
 export const configFileSagas = [
-    takeLatest(
+    yield takeLatest(
         ActionTypes.checkConfigFile.TRIGGER,
         fetchEntity,
         ActionTypes.checkConfigFile,
         ConfigFileAPIService.checkConfigFile
     ),
-    takeLatest(
+    yield takeLatest(
         ActionTypes.configWhitelist.TRIGGER,
         fetchEntity,
         ActionTypes.configWhitelist,
         ConfigFileAPIService.configWhitelist
     ),
-    takeLatest(
+    yield takeLatest(
         ActionTypes.configFile.TRIGGER,
         fetchEntity,
         ActionTypes.configFile,
         ConfigFileAPIService.configFile
     ),
-    takeLatest(
+    yield takeLatest(
         ActionTypes.updateConfigFile.TRIGGER,
         fetchEntity,
         ActionTypes.updateConfigFile,
@@ -37,20 +38,21 @@ export const configFileSagas = [
     )
 ];
 
+// noinspection JSAnnotator
 export const hddSagas = [
-    takeLatest(
+    yield takeLatest(
         ActionTypes.checkHDD.TRIGGER,
         fetchEntity,
         ActionTypes.checkHDD,
         HDDAPIService.checkHDD
     ),
-    takeLatest(
+    yield takeLatest(
         ActionTypes.enableHDD.TRIGGER,
         fetchEntity,
         ActionTypes.enableHDD,
         HDDAPIService.enableHDD
     ),
-    takeLatest(
+    yield takeLatest(
         ActionTypes.formatHDD.TRIGGER,
         fetchEntity,
         ActionTypes.formatHDD,
@@ -58,8 +60,9 @@ export const hddSagas = [
     )
 ];
 
+// noinspection JSAnnotator
 export const miscSagas = [
-    takeLatest(
+    yield takeLatest(
         ActionTypes.getHostname.TRIGGER,
         fetchEntity,
         ActionTypes.getHostname,
@@ -67,8 +70,9 @@ export const miscSagas = [
     )
 ];
 
+// noinspection JSAnnotator
 export const networkSagas = [
-    takeLatest(
+    yield takeLatest(
         ActionTypes.checkVPN.TRIGGER,
         fetchEntity,
         ActionTypes.checkVPN,
@@ -76,8 +80,9 @@ export const networkSagas = [
     )
 ];
 
+// noinspection JSAnnotator
 export const timeSagas = [
-    takeLatest(
+    yield takeLatest(
         ActionTypes.outputTime.TRIGGER,
         fetchEntity,
         ActionTypes.outputTime,

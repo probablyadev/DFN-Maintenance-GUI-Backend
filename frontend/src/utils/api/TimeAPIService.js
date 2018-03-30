@@ -24,7 +24,8 @@ function changeTimezone(token, timezone) {
 }
 
 const TimeAPIService = {
-    outputTime, changeTimezone
+    outputTime,
+    changeTimezone
 };
 
 export default TimeAPIService;

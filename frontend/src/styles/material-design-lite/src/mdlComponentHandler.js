@@ -328,7 +328,7 @@ componentHandler = (function () {
         });
 
         if (config.constructor.prototype
-                .hasOwnProperty(componentConfigProperty_)) {
+            .hasOwnProperty(componentConfigProperty_)) {
             throw new Error(
                 'MDL component classes must not have ' + componentConfigProperty_ +
                 ' defined as a property.');
@@ -380,7 +380,8 @@ componentHandler = (function () {
             var componentIndex = createdComponents_.indexOf(component);
             createdComponents_.splice(componentIndex, 1);
 
-            var upgrades = component.element_.getAttribute('data-upgraded').split(',');
+            var upgrades = component.element_.getAttribute('data-upgraded')
+                .split(',');
             var componentPlace = upgrades.indexOf(component[componentConfigProperty_].classAsString);
             upgrades.splice(componentPlace, 1);
             component.element_.setAttribute('data-upgraded', upgrades.join(','));
@@ -403,7 +404,8 @@ componentHandler = (function () {
         var downgradeNode = function (node) {
             createdComponents_.filter(function (item) {
                 return item.element_ === node;
-            }).forEach(deconstructComponentInternal);
+            })
+                .forEach(deconstructComponentInternal);
         };
         if (nodes instanceof Array || nodes instanceof NodeList) {
             for (var n = 0; n < nodes.length; n++) {

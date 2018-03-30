@@ -21,7 +21,8 @@ function prevIntervalTest(token) {
 }
 
 const IntervalControlTestAPIService = {
-    intervalTest, prevIntervalTest
+    intervalTest,
+    prevIntervalTest
 };
 
 export default IntervalControlTestAPIService;

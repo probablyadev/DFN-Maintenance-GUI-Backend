@@ -1,10 +1,11 @@
-import {combineReducers} from 'redux';
-import {routerReducer} from 'react-router-redux';
+import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
 
 import createNetworkReducerWithType from './network';
-import * as actionTypes from '../constants/ActionTypes';
 import settings from './settings';
-import {login, checkAuth} from './auth';
+import { login, checkAuth } from './auth';
+
+import * as actionTypes from '../constants/ActionTypes';
 
 const cameraReducer = combineReducers({
     cameraOff: createNetworkReducerWithType(actionTypes.cameraOff),
