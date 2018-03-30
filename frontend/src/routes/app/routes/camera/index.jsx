@@ -8,4 +8,4 @@ const Camera = () => (
     </div>
 );
 
-module.exports = Camera;
+export default Camera;

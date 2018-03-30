@@ -4,7 +4,7 @@ import QueueAnim from 'rc-queue-anim';
 import Updates from './Updates';
 import Config from './Config/Config';
 
-const Advanced = () => (
+const Index = () => (
     <div className='container-fluid with-maxwidth chapter'>
         <article className='article'>
             <h2 className='article-title'>Advanced</h2>
@@ -18,4 +18,4 @@ const Advanced = () => (
     </div>
 );
 
-export default Advanced;
+export default Index;

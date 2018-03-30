@@ -1,5 +1,6 @@
 import React from 'react';
 import QueueAnim from 'rc-queue-anim';
+
 import StatusPanel from './StatusPanel';
 import Map from './Map/Map';
 
@@ -12,4 +13,4 @@ const Location = () => (
     </div>
 );
 
-module.exports = Location;
+export default Location;

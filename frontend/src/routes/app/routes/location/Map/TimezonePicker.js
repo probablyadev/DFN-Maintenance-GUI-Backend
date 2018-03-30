@@ -261,7 +261,7 @@ TimezonePicker.defaultProps = {
     style: {},
     disabled: false,
     inputProps: {},
-    timezones: require('../../../../../../assets/timezones.json') // eslint-disable-line global-require
+    timezones: require('../../../../../assets/timezones.json') // eslint-disable-line global-require
 };
 
 module.exports = TimezonePicker;
