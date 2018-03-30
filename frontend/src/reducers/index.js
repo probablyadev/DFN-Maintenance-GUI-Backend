@@ -54,7 +54,8 @@ const miscReducer = combineReducers({
             },
             loading: false,
             error: null
-        })
+        }
+    )
 });
 
 const networkReducer = combineReducers({
@@ -78,7 +79,8 @@ const timeReducer = combineReducers({
             },
             loading: false,
             error: null
-        }),
+        }
+    ),
     changeTimezone: createNetworkReducerWithType(actionTypes.changeTimezone)
 });
 

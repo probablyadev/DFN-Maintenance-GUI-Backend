@@ -29,6 +29,6 @@ export default {
         disabledColor: fade('rgba(0, 0, 0, 0.87)', 0.3),
         pickerHeaderColor: cyan[500],
         clockCircleColor: fade('rgba(0, 0, 0, 0.87)', 0.07),
-        shadowColor: 'rgba(0, 0, 0, 1)',
-    },
+        shadowColor: 'rgba(0, 0, 0, 1)'
+    }
 };

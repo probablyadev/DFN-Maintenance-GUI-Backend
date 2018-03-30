@@ -6,7 +6,7 @@ import {
     IntegratedFiltering,
     IntegratedGrouping,
     IntegratedSorting,
-    SortingState,
+    SortingState
 } from '@devexpress/dx-react-grid';
 import {
     ColumnChooser,
@@ -18,7 +18,7 @@ import {
     TableFilterRow,
     TableGroupRow,
     TableHeaderRow,
-    Toolbar,
+    Toolbar
 } from '@devexpress/dx-react-grid-material-ui';
 
 import {ProgressBarCell} from 'material-ui/components/progress-bar-cell';
@@ -29,7 +29,7 @@ import {PercentTypeProvider} from 'material-ui/components/percent-type-provider'
 const tableData = [
     {
         name: 'HDD 0',
-        status: 'Off',
+        status: 'Off'
     },
     {
         name: 'HDD 1',
@@ -37,7 +37,7 @@ const tableData = [
         size: '2G',
         used: '1G',
         available: '1G',
-        status: 'On',
+        status: 'On'
     },
     {
         name: 'HDD 2',
@@ -45,7 +45,7 @@ const tableData = [
         size: '5T',
         used: '0',
         available: '5T',
-        status: 'Mounted',
+        status: 'Mounted'
     },
     {
         name: 'HDD 3',
@@ -53,7 +53,7 @@ const tableData = [
         size: '256M',
         used: '37M',
         available: '220M',
-        status: 'Mounted',
+        status: 'Mounted'
     },
     {
         name: 'HDD 4',
@@ -61,8 +61,8 @@ const tableData = [
         size: '1M',
         used: '900M',
         available: '100M',
-        status: 'Mounted',
-    },
+        status: 'Mounted'
+    }
 ];
 
 export default class HDDTable extends React.PureComponent {
@@ -76,22 +76,22 @@ export default class HDDTable extends React.PureComponent {
                 {name: 'amount', title: 'Sale Amount'},
                 {name: 'discount', title: 'Discount'},
                 {name: 'saleDate', title: 'Sale Date'},
-                {name: 'customer', title: 'Customer'},
+                {name: 'customer', title: 'Customer'}
             ],
             tableColumnExtensions: [
-                {columnName: 'amount', align: 'right'},
+                {columnName: 'amount', align: 'right'}
             ],
             rows: generateRows({columnValues: globalSalesValues, length: 1000}),
             pageSizes: [5, 10, 15],
             currencyColumns: ['amount'],
-            percentColumns: ['discount'],
+            percentColumns: ['discount']
         };
     }
 
     render() {
         const {
             rows, columns, tableColumnExtensions,
-            currencyColumns, percentColumns,
+            currencyColumns, percentColumns
         } = this.state;
 
         return (
@@ -106,7 +106,7 @@ export default class HDDTable extends React.PureComponent {
                     <SortingState
                         defaultSorting={[
                             {columnName: 'product', direction: 'asc'},
-                            {columnName: 'saleDate', direction: 'asc'},
+                            {columnName: 'saleDate', direction: 'asc'}
                         ]}
                     />
 
@@ -115,30 +115,30 @@ export default class HDDTable extends React.PureComponent {
                         defaultExpandedGroups={['EnviroCare Max']}
                     />
 
-                    <IntegratedGrouping/>
-                    <IntegratedFiltering/>
-                    <IntegratedSorting/>
+                    <IntegratedGrouping />
+                    <IntegratedFiltering />
+                    <IntegratedSorting />
 
-                    <CurrencyTypeProvider for={currencyColumns}/>
-                    <PercentTypeProvider for={percentColumns}/>
+                    <CurrencyTypeProvider for={currencyColumns} />
+                    <PercentTypeProvider for={percentColumns} />
 
-                    <DragDropProvider/>
+                    <DragDropProvider />
 
                     <Table
                         columnExtensions={tableColumnExtensions}
                         cellComponent={Cell}
                     />
 
-                    <TableColumnReordering defaultOrder={columns.map(column => column.name)}/>
+                    <TableColumnReordering defaultOrder={columns.map((column) => column.name)} />
 
-                    <TableHeaderRow showSortingControls/>
-                    <TableFilterRow/>
+                    <TableHeaderRow showSortingControls />
+                    <TableFilterRow />
 
-                    <TableGroupRow/>
+                    <TableGroupRow />
 
-                    <Toolbar/>
-                    <GroupingPanel showSortingControls/>
-                    <ColumnChooser/>
+                    <Toolbar />
+                    <GroupingPanel showSortingControls />
+                    <ColumnChooser />
                 </Grid>
             </Paper>
         );

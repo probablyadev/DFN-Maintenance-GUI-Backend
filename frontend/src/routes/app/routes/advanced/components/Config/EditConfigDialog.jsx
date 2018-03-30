@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from 'material-ui/Button';
-import Dialog, {DialogContent, DialogTitle,} from 'material-ui/Dialog';
+import Dialog, {DialogContent, DialogTitle} from 'material-ui/Dialog';
 
 import ConfigTable from "./ConfigTable";
 
@@ -9,7 +9,7 @@ class EditConfigDialog extends React.Component {
         super(props);
 
         this.state = {
-            open: false,
+            open: false
         };
 
         this.handleOpen = this.handleOpen.bind(this);
@@ -26,12 +26,15 @@ class EditConfigDialog extends React.Component {
 
     /* TODO: Send off an event to the backend to turn all off or on */
 
-    /* TODO: Add message to the content of the dialog. Maybe display the command that will be executed. Live updates in dialog? */
+    /* TODO: Add message to the content of the dialog.
+     * Maybe display the command that will be executed.
+     * Live updates in dialog?
+     */
     render() {
         return (
             <div>
                 <Button
-                    variant="raised"
+                    variant='raised'
                     style={this.props.minWidthStyle}
                     onClick={this.handleOpen}
                 >
@@ -40,11 +43,11 @@ class EditConfigDialog extends React.Component {
                 <Dialog
                     open={this.state.open}
                     onClose={this.handleClose}
-                    aria-labelledby="form-dialog-title"
+                    aria-labelledby='form-dialog-title'
                 >
-                    <DialogTitle id="form-dialog-title">Edit Configuration File</DialogTitle>
+                    <DialogTitle id='form-dialog-title'>Edit Configuration File</DialogTitle>
                     <DialogContent>
-                        <ConfigTable/>
+                        <ConfigTable />
                     </DialogContent>
                 </Dialog>
             </div>

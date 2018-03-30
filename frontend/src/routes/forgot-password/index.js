@@ -13,21 +13,21 @@ class ForgotPassowrd extends React.Component {
 
     render() {
         return (
-            <div className="body-inner">
-                <div className="card bg-white">
-                    <div className="card-content">
-                        <section className="logo text-center">
-                            <h1><a href="#/">{this.state.brand}</a></h1>
+            <div className='body-inner'>
+                <div className='card bg-white'>
+                    <div className='card-content'>
+                        <section className='logo text-center'>
+                            <h1><a href='#/'>{this.state.brand}</a></h1>
                         </section>
                         <form>
                             <fieldset>
-                                <div className="form-group">
+                                <div className='form-group'>
                                     <TextField
                                         /* floatingLabelText="Email" */
-                                        type="email"
+                                        type='email'
                                         fullWidth
                                     />
-                                    <div className="additional-info text-center text-small">
+                                    <div className='additional-info text-center text-small'>
                                         Enter your email address that you used to register. We'll send you an email with
                                         your username and a link to reset your password.
                                     </div>
@@ -35,8 +35,8 @@ class ForgotPassowrd extends React.Component {
                             </fieldset>
                         </form>
                     </div>
-                    <div className="card-action no-border text-right">
-                        <a href="#/" className="color-primary">Reset</a>
+                    <div className='card-action no-border text-right'>
+                        <a href='#/' className='color-primary'>Reset</a>
                     </div>
                 </div>
             </div>
@@ -45,11 +45,11 @@ class ForgotPassowrd extends React.Component {
 }
 
 const ForgotPasswordPage = () => (
-    <div className="page-forgot">
-        <div className="main-body">
-            <QueueAnim type="bottom" className="ui-animate">
-                <div key="1">
-                    <ForgotPassowrd/>
+    <div className='page-forgot'>
+        <div className='main-body'>
+            <QueueAnim type='bottom' className='ui-animate'>
+                <div key='1'>
+                    <ForgotPassowrd />
                 </div>
             </QueueAnim>
         </div>

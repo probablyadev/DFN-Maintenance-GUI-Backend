@@ -32,11 +32,11 @@ const List = styled.ul`
   border: 1px solid #e6ebec;
   margin-top: -1px;
   border-radius: 0 0 3px 3px;
-  display: ${props => props.isOpen ? 'block' : 'none'};
+  display: ${(props) => (props.isOpen ? 'block' : 'none')};
 `;
 
 const ListButton = styled.button`
-    color: ${props => props.isSelected ? '#474747' : '#444444'};
+    color: ${(props) => (props.isSelected ? '#474747' : '#444444')};
     background: white;
     padding: 5px 12px;
     cursor: pointer;
@@ -60,7 +60,7 @@ class TimezonePicker extends React.Component {
             open: false,
             focused: 0,
             filter: '',
-            value: this.getTimezone(props.defaultValue || props.value),
+            value: this.getTimezone(props.defaultValue || props.value)
         };
     }
 
@@ -77,7 +77,7 @@ class TimezonePicker extends React.Component {
         if (!query)
             return null;
 
-        return this.timezones.find(zone => query === this.props.timezones[zone] || query === zone);
+        return this.timezones.find((zone) => query === this.props.timezones[zone] || query === zone);
     }
 
     filteredTimezones() {
@@ -88,7 +88,7 @@ class TimezonePicker extends React.Component {
         if (!filter.trim() === '')
             return () => true;
 
-        return zone => zone.toLowerCase().includes(filter.toLowerCase().replace(/\s/g, ''));
+        return (zone) => zone.toLowerCase().includes(filter.toLowerCase().replace(/\s/g, ''));
     }
 
     handleFocus(e) {
@@ -114,7 +114,7 @@ class TimezonePicker extends React.Component {
 
         this.setState({
             filter,
-            focused: 0,
+            focused: 0
         });
 
         if (typeof this.props.inputProps.onChange === 'function') {
@@ -160,7 +160,7 @@ class TimezonePicker extends React.Component {
         this.setState({
             filter: '',
             focused: 0,
-            open: false,
+            open: false
         });
 
         if (this.props.onChange) {
@@ -197,16 +197,16 @@ class TimezonePicker extends React.Component {
                 <div>
                     <TextField
                         disabled={this.props.disabled}
-                        type="text"
-                        onFocus={e => this.handleFocus(e)}
-                        onBlur={e => this.handleBlur(e)}
-                        onChange={e => this.handleFilterChange(e)}
-                        onKeyDown={e => this.handleKeyPress(e)}
+                        type='text'
+                        onFocus={(e) => this.handleFocus(e)}
+                        onBlur={(e) => this.handleBlur(e)}
+                        onChange={(e) => this.handleFilterChange(e)}
+                        onKeyDown={(e) => this.handleKeyPress(e)}
                         defaultValue={value}
                         innerRef={(field) => {
                             this.field = field;
                         }}
-                        autoComplete="off"
+                        autoComplete='off'
                         {...inputProps}
                     />
                 </div>
@@ -247,9 +247,9 @@ TimezonePicker.propTypes = {
     inputProps: PropTypes.shape({
         onBlur: PropTypes.func,
         onFocus: PropTypes.func,
-        onChange: PropTypes.func,
+        onChange: PropTypes.func
     }),
-    timezones: PropTypes.shape({}),
+    timezones: PropTypes.shape({})
 };
 
 TimezonePicker.defaultProps = {
@@ -261,7 +261,7 @@ TimezonePicker.defaultProps = {
     style: {},
     disabled: false,
     inputProps: {},
-    timezones: require('../../../../../../assets/timezones.json'), // eslint-disable-line global-require
+    timezones: require('../../../../../../assets/timezones.json') // eslint-disable-line global-require
 };
 
 module.exports = TimezonePicker;

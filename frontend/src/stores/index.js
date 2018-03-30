@@ -19,7 +19,8 @@ function reduxStore(history) {
             applyMiddleware(sagaMiddleware),
             applyMiddleware(historyMiddleware),
             reduxDevTools
-        ));
+        )
+    );
 
     if (module.hot) {
         // Enable Webpack hot module replacement for reducers

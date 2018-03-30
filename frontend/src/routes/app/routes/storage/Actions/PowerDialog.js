@@ -7,7 +7,7 @@ class PowerDialog extends React.Component {
         super(props);
 
         this.state = {
-            open: false,
+            open: false
         };
 
         this.handleOpen = this.handleOpen.bind(this);
@@ -28,36 +28,36 @@ class PowerDialog extends React.Component {
     render() {
         const actions = [
             <Button
-                label="Cancel"
+                label='Cancel'
                 primary
                 onClick={this.handleClose}
             />,
             <Button
-                label="Power On"
+                label='Power On'
                 primary
                 onClick={this.handleClose}
             />,
             <Button
-                label="Power Off"
+                label='Power Off'
                 primary
                 onClick={this.handleClose}
-            />,
+            />
         ];
 
         return (
             <div className={this.props.className}>
                 <Button
-                    variant="raised"
-                    label="Power"
-                    onClick={this.handleOpen}/>
+                    variant='raised'
+                    label='Power'
+                    onClick={this.handleOpen}
+                />
                 <Dialog
-                    title="Power On / Off All Hard Drives"
+                    title='Power On / Off All Hard Drives'
                     actions={actions}
                     modal={false}
                     open={this.state.open}
                     onRequestClose={this.handleClose}
-                >
-                </Dialog>
+                />
             </div>
         );
     }

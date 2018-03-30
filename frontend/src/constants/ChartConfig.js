@@ -9,7 +9,7 @@ const CHARTCONFIG = {
         gray: 'rgba(221,221,221,.3)',
         text: '#898989',               // for dark theme as well
         splitLine: 'rgba(0,0,0,.05)',
-        splitArea: ['rgba(250,250,250,0.035)', 'rgba(200,200,200,0.1)'],
+        splitArea: ['rgba(250,250,250,0.035)', 'rgba(200,200,200,0.1)']
     }
 };
 

@@ -7,7 +7,7 @@ class MountDialog extends React.Component {
         super(props);
 
         this.state = {
-            open: false,
+            open: false
         };
 
         this.handleOpen = this.handleOpen.bind(this);
@@ -28,36 +28,36 @@ class MountDialog extends React.Component {
     render() {
         const actions = [
             <Button
-                label="Cancel"
+                label='Cancel'
                 primary
                 onClick={this.handleClose}
             />,
             <Button
-                label="Mount Drives"
+                label='Mount Drives'
                 primary
                 onClick={this.handleClose}
             />,
             <Button
-                label="Unmount Drives"
+                label='Unmount Drives'
                 primary
                 onClick={this.handleClose}
-            />,
+            />
         ];
 
         return (
             <div className={this.props.className}>
                 <Button
-                    variant="raised"
-                    label="Mount"
-                    onClick={this.handleOpen}/>
+                    variant='raised'
+                    label='Mount'
+                    onClick={this.handleOpen}
+                />
                 <Dialog
-                    title="Mount / Unmount All Hard Drives"
+                    title='Mount / Unmount All Hard Drives'
                     actions={actions}
                     modal={false}
                     open={this.state.open}
                     onRequestClose={this.handleClose}
-                >
-                </Dialog>
+                />
             </div>
         );
     }

@@ -23,6 +23,6 @@ export default {
         borderColor: fade('rgba(255, 255, 255, 1)', 0.15),
         disabledColor: fade('rgba(255, 255, 255, 1)', 0.3),
         pickerHeaderColor: fade('rgba(255, 255, 255, 1)', 0.12),
-        clockCircleColor: fade('rgba(255, 255, 255, 1)', 0.12),
-    },
+        clockCircleColor: fade('rgba(255, 255, 255, 1)', 0.12)
+    }
 };

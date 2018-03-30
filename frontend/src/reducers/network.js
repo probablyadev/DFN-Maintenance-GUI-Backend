@@ -3,7 +3,7 @@ import {createReducer} from '../utils/misc';
 const initialState = {
     data: null,
     loading: false,
-    error: null,
+    error: null
 };
 
 export default function createNetworkReducerWithType(type, configuredState = initialState) {

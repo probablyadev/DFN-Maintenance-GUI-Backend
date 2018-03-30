@@ -102,7 +102,8 @@ class ReactEcharts extends React.Component {
                     this.echartsDom = c;
                 }}
                 className={this.props.className}
-                style={style}/>
+                style={style}
+            />
         );
     }
 }

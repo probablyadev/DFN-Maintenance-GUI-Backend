@@ -25,7 +25,9 @@ import grayTheme from './themes/grayTheme';
 
 class App extends Component {
     render() {
-        const {match, location, layoutBoxed, navCollapsed, navBehind, fixedHeader, sidebarWidth, theme} = this.props;
+        const {
+            match, location, layoutBoxed, navCollapsed, navBehind, fixedHeader, sidebarWidth, theme
+        } = this.props;
         let materialUITheme;
 
         switch (theme) {
@@ -42,13 +44,13 @@ class App extends Component {
         const isRoot = location.pathname === '/' ? true : false;
 
         if (isRoot) {
-            return (<Redirect to={'/app/dashboard'}/>);
+            return (<Redirect to={'/app/dashboard'} />);
         }
 
         return (
             <MuiThemeProvider theme={createMuiTheme(materialUITheme)}>
-                <div id="app-inner">
-                    <div className="preloaderbar hide"><span className="bar"/></div>
+                <div id='app-inner'>
+                    <div className='preloaderbar hide'><span className='bar' /></div>
                     <div
                         className={classnames('app-main full-height', {
                             'fixed-header': fixedHeader,
@@ -60,13 +62,14 @@ class App extends Component {
                             'sidebar-sm': sidebarWidth === 'small',
                             'sidebar-lg': sidebarWidth === 'large'
                         })
-                        }>
+                        }
+                    >
                         <Switch>
-                            <Route path={`${match.url}app`} component={MainApp}/>
-                            <Route exact path="/404" component={Page404}/>
-                            <Route exact path="/500" component={Page500}/>
-                            <Route exact path="/forgot-password" component={PageForgotPassword}/>
-                            <Route exact path="/login" component={PageLogin}/>
+                            <Route path={`${match.url}app`} component={MainApp} />
+                            <Route exact path='/404' component={Page404} />
+                            <Route exact path='/500' component={Page500} />
+                            <Route exact path='/forgot-password' component={PageForgotPassword} />
+                            <Route exact path='/login' component={PageLogin} />
                         </Switch>
                     </div>
                 </div>
@@ -81,9 +84,7 @@ const mapStateToProps = (state, ownProps) => ({
     navBehind: state.settings.navBehind,
     fixedHeader: state.settings.fixedHeader,
     sidebarWidth: state.settings.sidebarWidth,
-    theme: state.settings.theme,
+    theme: state.settings.theme
 });
 
-module.exports = connect(
-    mapStateToProps
-)(App);
+module.exports = connect(mapStateToProps)(App);

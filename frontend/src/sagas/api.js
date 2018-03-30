@@ -15,22 +15,26 @@ export const configFileSagas = [
         ActionTypes.checkConfigFile.TRIGGER,
         fetchEntity,
         ActionTypes.checkConfigFile,
-        ConfigFileAPIService.checkConfigFile),
+        ConfigFileAPIService.checkConfigFile
+    ),
     takeLatest(
         ActionTypes.configWhitelist.TRIGGER,
         fetchEntity,
         ActionTypes.configWhitelist,
-        ConfigFileAPIService.configWhitelist),
+        ConfigFileAPIService.configWhitelist
+    ),
     takeLatest(
         ActionTypes.configFile.TRIGGER,
         fetchEntity,
         ActionTypes.configFile,
-        ConfigFileAPIService.configFile),
+        ConfigFileAPIService.configFile
+    ),
     takeLatest(
         ActionTypes.updateConfigFile.TRIGGER,
         fetchEntity,
         ActionTypes.updateConfigFile,
-        ConfigFileAPIService.updateConfigFile),
+        ConfigFileAPIService.updateConfigFile
+    )
 ];
 
 export const hddSagas = [
@@ -38,17 +42,20 @@ export const hddSagas = [
         ActionTypes.checkHDD.TRIGGER,
         fetchEntity,
         ActionTypes.checkHDD,
-        HDDAPIService.checkHDD),
+        HDDAPIService.checkHDD
+    ),
     takeLatest(
         ActionTypes.enableHDD.TRIGGER,
         fetchEntity,
         ActionTypes.enableHDD,
-        HDDAPIService.enableHDD),
+        HDDAPIService.enableHDD
+    ),
     takeLatest(
         ActionTypes.formatHDD.TRIGGER,
         fetchEntity,
         ActionTypes.formatHDD,
-        HDDAPIService.formatHDD),
+        HDDAPIService.formatHDD
+    )
 ];
 
 export const miscSagas = [
@@ -56,7 +63,8 @@ export const miscSagas = [
         ActionTypes.getHostname.TRIGGER,
         fetchEntity,
         ActionTypes.getHostname,
-        MiscAPIService.getHostname)
+        MiscAPIService.getHostname
+    )
 ];
 
 export const networkSagas = [
@@ -64,7 +72,8 @@ export const networkSagas = [
         ActionTypes.checkVPN.TRIGGER,
         fetchEntity,
         ActionTypes.checkVPN,
-        NetworkAPIService.checkVPN)
+        NetworkAPIService.checkVPN
+    )
 ];
 
 export const timeSagas = [
@@ -72,5 +81,6 @@ export const timeSagas = [
         ActionTypes.outputTime.TRIGGER,
         fetchEntity,
         ActionTypes.outputTime,
-        TimeAPIService.outputTime)
+        TimeAPIService.outputTime
+    )
 ];

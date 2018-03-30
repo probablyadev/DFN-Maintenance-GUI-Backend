@@ -18,8 +18,8 @@ render(
     <Provider store={store}>
         <ConnectedRouter history={history}>
             <Switch>
-                <Route path="/" component={App}/>
-                <Route component={Page404}/>
+                <Route path='/' component={App} />
+                <Route component={Page404} />
             </Switch>
         </ConnectedRouter>
     </Provider>,

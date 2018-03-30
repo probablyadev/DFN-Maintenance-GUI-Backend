@@ -21,22 +21,22 @@ class LayoutOptions extends React.Component {
         const {sidebarWidth} = this.props;
 
         return (
-            <section className="customizer-layout-options">
-                <h4 className="section-header">Layout Options</h4>
-                <div className="divider"/>
+            <section className='customizer-layout-options'>
+                <h4 className='section-header'>Layout Options</h4>
+                <div className='divider' />
 
                 <div>
                     <div>
                         <Select
-                            className="sidebar-width-select"
+                            className='sidebar-width-select'
                             /* floatingLabelText="Sidebar Width" */
                             value={sidebarWidth}
                             onChange={this.onSidebarWidthChange}
                             style={sideWidthSelectStyle}
                         >
-                            <MenuItem value={'small'} primaryText="Small size"/>
-                            <MenuItem value={'middle'} primaryText="Middle size"/>
-                            <MenuItem value={'large'} primaryText="Large size"/>
+                            <MenuItem value={'small'} primaryText='Small size' />
+                            <MenuItem value={'middle'} primaryText='Middle size' />
+                            <MenuItem value={'large'} primaryText='Large size' />
                         </Select>
                     </div>
                 </div>
@@ -46,14 +46,14 @@ class LayoutOptions extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     layoutBoxed: state.settings.layoutBoxed,
     navCollapsed: state.settings.navCollapsed,
     navBehind: state.settings.navBehind,
     fixedHeader: state.settings.fixedHeader,
     sidebarWidth: state.settings.sidebarWidth
 });
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     handleSidebarWidthChange: (sidebarWidth) => {
         dispatch(changeSidebarWidth(sidebarWidth));
     }

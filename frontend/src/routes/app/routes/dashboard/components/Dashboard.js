@@ -6,10 +6,10 @@ const Main = () => (
 );
 
 const Dashboard = () => (
-    <div className="container-fluid no-breadcrumbs page-dashboard">
+    <div className='container-fluid no-breadcrumbs page-dashboard'>
 
-        <QueueAnim type="bottom" className="ui-animate">
-            <Main/>
+        <QueueAnim type='bottom' className='ui-animate'>
+            <Main />
         </QueueAnim>
 
     </div>

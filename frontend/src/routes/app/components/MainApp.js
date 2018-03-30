@@ -8,35 +8,35 @@ import Footer from 'components/Footer';
 import Customizer from 'components/Customizer';
 
 function LoadingComponent() {
-    return <div></div>;
+    return <div />;
 }
 
-let AsyncDashboard = loadable({
+const AsyncDashboard = loadable({
     loader: () => import('../routes/dashboard/'),
     loading: LoadingComponent
 });
 
-let AsyncCamera = loadable({
+const AsyncCamera = loadable({
     loader: () => import('../routes/camera/'),
     loading: LoadingComponent
 });
 
-let AsyncStorage = loadable({
+const AsyncStorage = loadable({
     loader: () => import('../routes/storage/'),
     loading: LoadingComponent
 });
 
-let AsyncNetwork = loadable({
+const AsyncNetwork = loadable({
     loader: () => import('../routes/network/'),
     loading: LoadingComponent
 });
 
-let AsyncLocation = loadable({
+const AsyncLocation = loadable({
     loader: () => import('../routes/location/'),
     loading: LoadingComponent
 });
 
-let AsyncAdvanced = loadable({
+const AsyncAdvanced = loadable({
     loader: () => import('../routes/advanced/'),
     loading: LoadingComponent
 });
@@ -59,28 +59,28 @@ class MainApp extends React.Component {
         const {match} = this.props;
 
         return (
-            <div className="main-app-container">
-                <Sidenav/>
-                <section id="page-container" className="app-page-container">
-                    <Header/>
+            <div className='main-app-container'>
+                <Sidenav />
+                <section id='page-container' className='app-page-container'>
+                    <Header />
 
-                    <div className="app-content-wrapper">
-                        <div className="app-content">
-                            <div className="full-height">
+                    <div className='app-content-wrapper'>
+                        <div className='app-content'>
+                            <div className='full-height'>
                                 <Switch>
-                                    <AuthenticatedRoute path={`${match.url}/dashboard`} component={AsyncDashboard}/>
-                                    <AuthenticatedRoute path={`${match.url}/camera`} component={AsyncCamera}/>
-                                    <AuthenticatedRoute path={`${match.url}/storage`} component={AsyncStorage}/>
-                                    <AuthenticatedRoute path={`${match.url}/network`} component={AsyncNetwork}/>
-                                    <AuthenticatedRoute path={`${match.url}/location`} component={AsyncLocation}/>
-                                    <AuthenticatedRoute path={`${match.url}/advanced`} component={AsyncAdvanced}/>
+                                    <AuthenticatedRoute path={`${match.url}/dashboard`} component={AsyncDashboard} />
+                                    <AuthenticatedRoute path={`${match.url}/camera`} component={AsyncCamera} />
+                                    <AuthenticatedRoute path={`${match.url}/storage`} component={AsyncStorage} />
+                                    <AuthenticatedRoute path={`${match.url}/network`} component={AsyncNetwork} />
+                                    <AuthenticatedRoute path={`${match.url}/location`} component={AsyncLocation} />
+                                    <AuthenticatedRoute path={`${match.url}/advanced`} component={AsyncAdvanced} />
                                 </Switch>
                             </div>
                         </div>
-                        <Footer/>
+                        <Footer />
                     </div>
                 </section>
-                <Customizer/>
+                <Customizer />
             </div>
         );
     }

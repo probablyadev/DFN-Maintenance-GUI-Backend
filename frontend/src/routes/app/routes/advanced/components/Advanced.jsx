@@ -1,20 +1,21 @@
 import React from 'react';
 import QueueAnim from 'rc-queue-anim';
-import Internet from './Internet';
-import VPN from './VPN';
 
-const Network = () => (
+import Updates from './Updates';
+import Config from './Config/Config';
+
+const Advanced = () => (
     <div className='container-fluid with-maxwidth chapter'>
         <article className='article'>
-            <h2 className='article-title'>Network</h2>
+            <h2 className='article-title'>Advanced</h2>
 
             <QueueAnim type='bottom' className='ui-animate'>
-                <div key='1'><Internet /></div>
-                <div key='2'><VPN /></div>
+                <div key='1'><Updates /></div>
+                <div key='2'><Config /></div>
             </QueueAnim>
 
         </article>
     </div>
 );
 
-module.exports = Network;
+export default Advanced;

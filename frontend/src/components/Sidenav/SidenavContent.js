@@ -28,7 +28,7 @@ class SidebarContent extends React.Component {
         const $As = $lists.children('a');
 
         // Disable A link that has ul
-        $As.on('click', event => event.preventDefault());
+        $As.on('click', (event) => event.preventDefault());
 
         // Accordion nav
         $nav.on('click', (e) => {
@@ -91,25 +91,54 @@ class SidebarContent extends React.Component {
 
     render() {
         return (
-            <ul className="nav" ref={(c) => {
-                this.nav = c;
-            }}>
-                <li className="nav-header"><span>Navigation</span></li>
-                <li><Button href="#/app/dashboard"><i className="nav-icon material-icons">dashboard</i><span
-                    className="nav-text">Dashboard</span></Button></li>
-                <li className="nav-divider"/>
-                <li><Button href="#/app/camera"><i className="nav-icon material-icons">photo_camera</i><span
-                    className="nav-text">Camera</span></Button></li>
-                <li><Button href="#/app/storage"><i className="nav-icon material-icons">storage</i><span
-                    className="nav-text">Storage</span></Button></li>
-                <li><Button href="#/app/network"><i className="nav-icon material-icons">network_cell</i><span
-                    className="nav-text">Network</span></Button></li>
-                <li><Button href="#/app/location"><i className="nav-icon material-icons">my_location</i><span
-                    className="nav-text">Location</span></Button></li>
-                <li><Button href="#/app/advanced"><i
-                    className="nav-icon material-icons">settings_applications</i><span
-                    className="nav-text">Advanced</span></Button></li>
-                <li className="nav-divider"/>
+            <ul
+                className='nav'
+                ref={(c) => {
+                    this.nav = c;
+                }}
+            >
+                <li className='nav-header'><span>Navigation</span></li>
+                <li><Button href='#/app/dashboard'><i className='nav-icon material-icons'>dashboard</i><span
+                    className='nav-text'
+                >Dashboard
+                                                                                                       </span>
+                    </Button>
+                </li>
+                <li className='nav-divider' />
+                <li><Button href='#/app/camera'><i className='nav-icon material-icons'>photo_camera</i><span
+                    className='nav-text'
+                >Camera
+                                                                                                       </span>
+                </Button>
+                </li>
+                <li><Button href='#/app/storage'><i className='nav-icon material-icons'>storage</i><span
+                    className='nav-text'
+                >Storage
+                                                                                                   </span>
+                </Button>
+                </li>
+                <li><Button href='#/app/network'><i className='nav-icon material-icons'>network_cell</i><span
+                    className='nav-text'
+                >Network
+                                                                                                        </span>
+                </Button>
+                </li>
+                <li><Button href='#/app/location'><i className='nav-icon material-icons'>my_location</i><span
+                    className='nav-text'
+                >Location
+                                                                                                        </span>
+                </Button>
+                </li>
+                <li><Button href='#/app/advanced'><i
+                    className='nav-icon material-icons'
+                >settings_applications
+                                                  </i><span
+                    className='nav-text'
+                >Advanced
+                    </span>
+                </Button>
+                </li>
+                <li className='nav-divider' />
             </ul>
         );
     }

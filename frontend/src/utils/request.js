@@ -16,7 +16,7 @@ const client = axios.create({
  * Request Wrapper with default success/error actions
  */
 export default function (options) {
-    /*const onSuccess = function (response) {
+    /* const onSuccess = function (response) {
         console.debug('Request Successful!', response);
         return response.data;
     };
@@ -42,7 +42,7 @@ export default function (options) {
 
     return client(options)
         .then(onSuccess)
-        .catch(onError);*/
+        .catch(onError); */
 
     return client(options);
-};
+}

@@ -32,9 +32,9 @@ class Sidebar extends React.Component {
         const {navCollapsed, colorOption} = this.props;
         let toggleIcon = null;
         if (navCollapsed) {
-            toggleIcon = <i className="material-icons">radio_button_unchecked</i>;
+            toggleIcon = <i className='material-icons'>radio_button_unchecked</i>;
         } else {
-            toggleIcon = <i className="material-icons">radio_button_checked</i>;
+            toggleIcon = <i className='material-icons'>radio_button_checked</i>;
         }
 
         return (
@@ -55,31 +55,35 @@ class Sidebar extends React.Component {
                         'bg-color-danger': ['16', '26', '36'].indexOf(colorOption) >= 0
                     })}
                 >
-                    <svg className="logo-img logo-react" viewBox="0 0 3925 3525" version="1.1"
-                         xmlns="http://www.w3.org/2000/svg">
-                        <circle className="react-dot" stroke="none" cx="1960" cy="1760" r="355"/>
-                        <g className="react-curve" strokeWidth="170" fill="none">
-                            <ellipse cx="2575" cy="545" rx="715" ry="1875" transform="rotate(30)"/>
-                            <ellipse cx="1760" cy="-1960" rx="715" ry="1875" transform="rotate(90)"/>
-                            <ellipse cx="-815" cy="-2505" rx="715" ry="1875" transform="rotate(-210)"/>
+                    <svg
+                        className='logo-img logo-react'
+                        viewBox='0 0 3925 3525'
+                        version='1.1'
+                        xmlns='http://www.w3.org/2000/svg'
+                    >
+                        <circle className='react-dot' stroke='none' cx='1960' cy='1760' r='355' />
+                        <g className='react-curve' strokeWidth='170' fill='none'>
+                            <ellipse cx='2575' cy='545' rx='715' ry='1875' transform='rotate(30)' />
+                            <ellipse cx='1760' cy='-1960' rx='715' ry='1875' transform='rotate(90)' />
+                            <ellipse cx='-815' cy='-2505' rx='715' ry='1875' transform='rotate(-210)' />
                         </g>
                     </svg>
-                    <Link to="/" className="brand">{APPCONFIG.brand}</Link>
-                    <a href="javascript:;" className="collapsednav-toggler" onClick={this.onToggleCollapsedNav}>
+                    <Link to='/' className='brand'>{APPCONFIG.brand}</Link>
+                    <a href='javascript:;' className='collapsednav-toggler' onClick={this.onToggleCollapsedNav}>
                         {toggleIcon}
                     </a>
                 </section>
 
-                <section className="sidebar-content">
-                    <SidenavContent/>
+                <section className='sidebar-content'>
+                    <SidenavContent />
                 </section>
 
-                <section className="sidebar-footer">
-                    <ul className="nav">
+                <section className='sidebar-footer'>
+                    <ul className='nav'>
                         <li>
-                            <a target="_blank" href={APPCONFIG.productLink}>
-                                <i className="nav-icon material-icons">help</i>
-                                <span className="nav-text"><span>Help</span> & <span>Support</span></span>
+                            <a target='_blank' href={APPCONFIG.productLink}>
+                                <i className='nav-icon material-icons'>help</i>
+                                <span className='nav-text'><span>Help</span> & <span>Support</span></span>
                             </a>
                         </li>
                     </ul>
@@ -89,15 +93,15 @@ class Sidebar extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     navCollapsed: state.settings.navCollapsed,
     colorOption: state.settings.colorOption
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     handleToggleCollapsedNav: (isNavCollapsed) => {
         dispatch(toggleCollapsedNav(isNavCollapsed));
-    },
+    }
 });
 
 module.exports = withRouter(connect(
