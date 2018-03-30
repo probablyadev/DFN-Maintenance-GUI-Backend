@@ -17,7 +17,7 @@ class WebpackDevConfig extends WebpackBaseConfig {
                 'webpack-dev-server/client?http://0.0.0.0:3000/',
                 'webpack/hot/only-dev-server',
                 'react-hot-loader/patch',
-                './client.js'
+                './client.jsx'
             ],
             plugins: [
                 new webpack.optimize.ModuleConcatenationPlugin(),

@@ -1,5 +1,5 @@
-import { push } from 'react-router-redux';
-import { takeLatest, put, call, select } from 'redux-saga/effects';
+import { push } from 'react-router-redux'; // eslint-disable-line
+import { takeLatest, put, call, select } from 'redux-saga/effects'; // eslint-disable-line
 
 import * as ActionTypes from '../constants/ActionTypes';
 import UserAPIService from '../utils/api/UserAPIService';
@@ -25,9 +25,13 @@ function* login({ data }) {
 }
 
 function* logout() {
-    localStorage.removeItem('token');
+    try {
+        localStorage.removeItem('token');
 
-    yield put(push('/login'));
+        yield put(push('/login'));
+    } catch (error) {
+        console.log(error); // eslint-disable-line no-console
+    }
 }
 
 function* checkAuth() {
@@ -58,10 +62,13 @@ function* checkAuth() {
     }
 }
 
-// noinspection JSAnnotator
-export const authSagas = [
-    yield takeLatest(ActionTypes.login.TRIGGER, login),
-    yield takeLatest(ActionTypes.LOGOUT, logout),
-    yield takeLatest(ActionTypes.checkAuth.TRIGGER, checkAuth),
-    yield takeLatest(ActionTypes.checkAuth.FAILURE, logout)
+/* eslint-disable redux-saga/no-unhandled-errors, redux-saga/yield-effects */
+const authSagas = [
+    takeLatest(ActionTypes.login.TRIGGER, login),
+    takeLatest(ActionTypes.LOGOUT, logout),
+    takeLatest(ActionTypes.checkAuth.TRIGGER, checkAuth),
+    takeLatest(ActionTypes.checkAuth.FAILURE, logout)
 ];
+/* eslint-enable redux-saga/no-unhandled-errors, redux-saga/yield-effects */
+
+export default authSagas;
