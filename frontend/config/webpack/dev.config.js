@@ -86,7 +86,9 @@ class WebpackDevConfig extends WebpackBaseConfig {
                 ]
             }
         ]);
+
+        // console.log(this.config.module.rules);
     }
 }
 
-export default WebpackDevConfig;
+module.exports = WebpackDevConfig;

@@ -223,4 +223,4 @@ class WebpackBaseConfig {
     }
 }
 
-export default WebpackBaseConfig;
+module.exports = WebpackBaseConfig;
