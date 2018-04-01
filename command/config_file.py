@@ -43,9 +43,12 @@ def config_whitelist():
                 for whitelist_field in white_list[whitelist_category]:
                     for conf_field in conf_dict[conf_category]:
                         if whitelist_field == conf_field:
-                            result_dict["[" + conf_category + "] " + conf_field] = conf_dict[conf_category][conf_field]
+                            if not conf_category in result_dict:
+                                result_dict[conf_category] = {}
 
-    print(result_dict)
+                            result_dict[conf_category][conf_field] = conf_dict[conf_category][conf_field]
+
+    return result_dict
 
 
 def update_config_file(inProperty):
