@@ -14,8 +14,7 @@ const Footer = () => (
                         href={APPCONFIG.productLink}
                     >
                         {APPCONFIG.brandLong}
-                    </a>
-                    {APPCONFIG.year}
+                    </a> {APPCONFIG.year}
                 </span>
             </span>
             <span className='float-right'>
