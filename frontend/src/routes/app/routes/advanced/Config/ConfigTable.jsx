@@ -1,15 +1,32 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import Paper from 'material-ui/Paper';
 import { EditingState } from '@devexpress/dx-react-grid';
 import {
     Grid,
     Table,
-    TableEditColumn, TableEditRow, TableHeaderRow
+    TableColumnResizing,
+    TableEditColumn,
+    TableEditRow,
+    TableHeaderRow
 } from '@devexpress/dx-react-grid-material-ui';
 
-const getRowId = (row) => row.id;
+import { configWhitelist } from '../../../../../actions/api';
+import { organiseConfigWhitelistById } from '../../../../../selectors/api';
 
-export default class ConfigTable extends React.PureComponent {
+function mapStateToProps(state) {
+    return {
+        rows: organiseConfigWhitelistById(state)
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ configWhitelist }, dispatch);
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
+class ConfigTable extends React.PureComponent {
     constructor(props) {
         super(props);
 
@@ -20,70 +37,26 @@ export default class ConfigTable extends React.PureComponent {
                     title: 'Category'
                 },
                 {
-                    name: 'key',
-                    title: 'Key'
+                    name: 'field',
+                    title: 'Field'
                 },
                 {
                     name: 'value',
                     title: 'Value'
                 }
             ],
-            rows: [
+            defaultColumnWidths: [
                 {
-                    id: 0,
-                    category: 'station',
-                    key: 'hostname',
-                    value: 'DFNSMALL000'
+                    columnName: 'category',
+                    width: 80
                 },
                 {
-                    id: 1,
-                    category: 'station',
-                    key: 'location',
-                    value: 'test_lab'
+                    columnName: 'field',
+                    width: 140
                 },
                 {
-                    id: 2,
-                    category: 'station',
-                    key: 'lat',
-                    value: '-32.00720'
-                },
-                {
-                    id: 3,
-                    category: 'station',
-                    key: 'long',
-                    value: '115.89469'
-                },
-                {
-                    id: 4,
-                    category: 'station',
-                    key: 'altitude',
-                    value: '50.0'
-                },
-
-                {
-                    id: 5,
-                    category: 'camera',
-                    key: 'still_camera',
-                    value: 'Nikon_D810'
-                },
-                {
-                    id: 6,
-                    category: 'camera',
-                    key: 'night_quality',
-                    value: '4'
-                },
-
-                {
-                    id: 7,
-                    category: 'firmware_control',
-                    key: 'heater_enabled',
-                    value: '0'
-                },
-                {
-                    id: 8,
-                    category: 'firmware_control',
-                    key: 'heater_temperature_C',
-                    value: '25'
+                    columnName: 'value',
+                    width: 166
                 }
             ],
             editingStateColumnExtensions: [
@@ -92,7 +65,7 @@ export default class ConfigTable extends React.PureComponent {
                     editingEnabled: false
                 },
                 {
-                    columnName: 'key',
+                    columnName: 'field',
                     editingEnabled: false
                 }
             ]
@@ -101,51 +74,49 @@ export default class ConfigTable extends React.PureComponent {
         this.commitChanges = this.commitChanges.bind(this);
     }
 
-    commitChanges({ added, changed, deleted }) {
-        let { rows } = this.state;
+    componentDidMount() {
+        this.props.configWhitelist();
+    }
 
-        if (added) {
-            const startingAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
+    commitChanges({ changed }) {
+        let { rows } = this.props;
 
-            rows = [
-                ...rows,
-                ...added.map((row, index) => ({
-                    id: startingAddedId + index,
-                    ...row
-                }))
-            ];
-        }
+        rows = rows.map((row) => {
+            if (changed[row.id]) {
+                console.log(row);
+                console.log(changed[row.id]);
 
-        if (changed) {
-            rows = rows.map((row) => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
-        }
-
-        if (deleted) {
-            const deletedSet = new Set(deleted);
-
-            rows = rows.filter((row) => !deletedSet.has(row.id));
-        }
+                return { ...row, ...changed[row.id] };
+            } else {
+                return row;
+            }
+        });
 
         this.setState({ rows });
     }
 
     render() {
-        const { rows, columns, editingStateColumnExtensions } = this.state;
+        const {
+            columns,
+            editingStateColumnExtensions,
+            defaultColumnWidths
+        } = this.state;
+        const { rows } = this.props;
 
         return (
             <Paper>
                 <Grid
                     rows={rows}
                     columns={columns}
-                    getRowId={getRowId}
                 >
                     <EditingState
                         onCommitChanges={this.commitChanges}
                         columnExtensions={editingStateColumnExtensions}
                     />
-                    <Table />
-                    <TableHeaderRow />
-                    <TableEditRow />
+                    <Table/>
+                    <TableColumnResizing defaultColumnWidths={defaultColumnWidths}/>
+                    <TableHeaderRow/>
+                    <TableEditRow/>
                     <TableEditColumn
                         showEditCommand
                     />
@@ -154,3 +125,5 @@ export default class ConfigTable extends React.PureComponent {
         );
     }
 }
+
+export default ConfigTable;

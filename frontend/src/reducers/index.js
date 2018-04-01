@@ -21,7 +21,23 @@ const cameraReducer = combineReducers({
 
 const configFileReducer = combineReducers({
     checkConfigFile: createNetworkReducerWithType(actionTypes.checkConfigFile),
-    configWhitelist: createNetworkReducerWithType(actionTypes.configWhitelist),
+    configWhitelist: createNetworkReducerWithType(
+        actionTypes.configWhitelist,
+        {
+            data: {
+                config_whitelist: [
+                    {
+                        id: 0,
+                        category: '',
+                        field: '',
+                        value: ''
+                    }
+                ]
+            },
+            loading: false,
+            error: null
+        }
+    ),
     configFile: createNetworkReducerWithType(actionTypes.configFile),
     updateConfigFile: createNetworkReducerWithType(actionTypes.updateConfigFile)
 });
