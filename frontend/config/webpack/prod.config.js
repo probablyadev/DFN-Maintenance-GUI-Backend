@@ -105,4 +105,4 @@ class WebpackDistConfig extends WebpackBaseConfig {
     }
 }
 
-module.exports = WebpackDistConfig;
+export default WebpackDistConfig;
