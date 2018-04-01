@@ -41,26 +41,26 @@ logger = logging.getLogger(__name__)
 logging.getLogger('flask_cors').level = config.CORS_LOGGING_LEVEL
 
 from backend.api.camera import camera_endpoints
-# from backend.api.config_file import config_file_endpoints
+from backend.api.config_file import config_file_endpoints
 from backend.api.gps import gps_endpoints
 from backend.api.hdd import hdd_endpoints
 from backend.api.interval_control_test import interval_control_test_endpoints
 from backend.api.misc import misc_endpoints
 from backend.api.network import network_endpoints
-# from backend.api.status import status_endpoints
+from backend.api.status import status_endpoints
 from backend.api.time import time_endpoints
 from backend.api.user import user_endpoints
 from backend.exceptions import error_handlers
 from backend.config import ProductionConfig
 
 flaskapp.register_blueprint(camera_endpoints)
-# flaskapp.register_blueprint(config_file_endpoints)
+flaskapp.register_blueprint(config_file_endpoints)
 flaskapp.register_blueprint(gps_endpoints)
 flaskapp.register_blueprint(hdd_endpoints)
 flaskapp.register_blueprint(interval_control_test_endpoints)
 flaskapp.register_blueprint(misc_endpoints)
 flaskapp.register_blueprint(network_endpoints)
-# flaskapp.register_blueprint(status_endpoints)
+flaskapp.register_blueprint(status_endpoints)
 flaskapp.register_blueprint(time_endpoints)
 flaskapp.register_blueprint(user_endpoints)
 flaskapp.register_blueprint(error_handlers)
