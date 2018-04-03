@@ -111,7 +111,15 @@ pictureNotFound = "Picture not found."
 
 # File paths
 diskUsagePath = "/tmp/dfn_disk_usage"
-dfnconfigPath = "/opt/dfn-software/dfnstation.cfg"
+
+import os
+
+environment = os.getenv('APP_SETTINGS')
+
+if environment:
+    dfnconfigPath = 'dfnstation.cfg'
+else:
+    dfnconfigPath = "/opt/dfn-software/dfnstation.cfg"
 
 # Script not found names
 cameraOnScriptNotFound = scriptNotFound.format("enable_camera.py")
