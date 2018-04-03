@@ -40,4 +40,10 @@ def update_config_file_endpoint():
     """Updates the dfnstation.cfg file with a new value for a parameter."""
     incoming = request.get_json()
 
-    return jsonify(update_config_file_message = update_config_file(incoming.property))
+    property = incoming.get('property').get('data')
+
+    category = property.get('category')
+    field = property.get('field')
+    value = property.get('value')
+
+    return jsonify(message = update_config_file(category, field, value))

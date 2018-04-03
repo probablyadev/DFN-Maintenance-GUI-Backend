@@ -51,30 +51,28 @@ def config_whitelist():
     return result_dict
 
 
-def update_config_file(inProperty):
+def update_config_file(category, field, value):
     """
     Updates the dfnstation.cfg file with a new value for a parameter.
 
     Args:
-        inProperty (json): JSON object representing a config. Format::
-
-            {param : value}
+        category (str): A config properties category
+        field (str): A config properties field
+        value (str): A config properties value
 
     Returns:
         consoleFeedback (str): Resulting console feedback.
     """
-    consoleFeedback = constants.configWriteFailed
+    message = ''
     path = constants.dfnconfigPath
     updated_conf_dict = dfn_functions.load_config(path)
 
-    for key in inProperty:
-        parsed = key.split("] ")
-        property_category = parsed[0].replace("[", "")
-        property_field = parsed[1]
+    oldValue = updated_conf_dict[category][field]
+    updated_conf_dict[category][field] = value
 
-        updated_conf_dict[property_category][property_field] = inProperty[key]
-        consoleFeedback = constants.configWritePassed.format(key, inProperty[key])
+    if dfn_functions.save_config_file(path, updated_conf_dict):
+        message = 'Overwritten {0}:{1}:{2} as {3}'.format(category, field, oldValue, value)
+    else:
+        raise IOError('Unable to write {0}:{1}:{2} to config file'.format(category, field, value))
 
-    dfn_functions.save_config_file("dfnstation.cfg", updated_conf_dict)
-
-    return consoleFeedback
+    return message

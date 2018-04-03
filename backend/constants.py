@@ -154,7 +154,5 @@ configBoxWhitelist["station"] = {
 }
 
 configNotFound = "Config file not found."
-configWriteFailed = "ERROR: Unable to write to config file (is internal drive mounted?)."
-configWritePassed = "Overwritten {0} as {1}."
 
 systemStatusHeader = "\n-----OVERALL SYSTEM STATUS-----\n"
