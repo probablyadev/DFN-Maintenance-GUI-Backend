@@ -26,7 +26,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-class ConfigTable extends React.PureComponent {
+class EditConfigTable extends React.PureComponent {
     constructor(props) {
         super(props);
 
@@ -122,4 +122,4 @@ class ConfigTable extends React.PureComponent {
     }
 }
 
-export default ConfigTable;
+export default EditConfigTable;

@@ -3,8 +3,8 @@ import { createSelector } from 'reselect';
 // Config File
 export const checkConfigFileSelector = (state) => state.configFileReducer.checkConfigFile.data;
 export const configWhitelistSelector = (state) =>
-    state.configFileReducer.configWhitelist.data.config_whitelist;
-export const configFileSelector = (state) => state.configFileReducer.configFile.data;
+    state.configFileReducer.configWhitelist.data.configWhitelist;
+export const configFileSelector = (state) => state.configFileReducer.configFile.data.configFile;
 export const updateConfigFileSelector = (state) => state.configFileReducer.updateConfigFile.data;
 
 // HDD
@@ -28,23 +28,46 @@ export const outputTimeSelector = (state) => state.timeReducer.outputTime.data.t
 // Memoized Selectors
 export const organiseConfigWhitelistById = createSelector(
     configWhitelistSelector,
-    (config_whitelist) => {
-        let config = [];
+    (configWhitelist) => {
+        const resultingConfig = [];
         let idCount = 0;
 
-        Object.keys(config_whitelist).forEach((categoryKey) => {
-            Object.keys(config_whitelist[categoryKey]).forEach((fieldKey) => {
-                config.push({
+        Object.keys(configWhitelist).forEach((categoryKey) => {
+            Object.keys(configWhitelist[categoryKey]).forEach((fieldKey) => {
+                resultingConfig.push({
                     id: idCount,
                     category: categoryKey,
                     field: fieldKey,
-                    value: config_whitelist[categoryKey][fieldKey]
+                    value: configWhitelist[categoryKey][fieldKey]
                 });
 
                 idCount += 1;
             });
         });
 
-        return config;
+        return resultingConfig;
+    }
+);
+
+export const organiseConfigFileById = createSelector(
+    configFileSelector,
+    (configFile) => {
+        const resultingConfig = [];
+        let idCount = 0;
+
+        Object.keys(configFile).forEach((categoryKey) => {
+            Object.keys(configFile[categoryKey]).forEach((fieldKey) => {
+                resultingConfig.push({
+                    id: idCount,
+                    category: categoryKey,
+                    field: fieldKey,
+                    value: configFile[categoryKey][fieldKey]
+                });
+
+                idCount += 1;
+            });
+        });
+
+        return resultingConfig;
     }
 );

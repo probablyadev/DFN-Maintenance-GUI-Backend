@@ -25,7 +25,7 @@ const configFileReducer = combineReducers({
         actionTypes.configWhitelist,
         {
             data: {
-                config_whitelist: [
+                configWhitelist: [
                     {
                         id: 0,
                         category: '',
@@ -38,7 +38,23 @@ const configFileReducer = combineReducers({
             error: null
         }
     ),
-    configFile: createNetworkReducerWithType(actionTypes.configFile),
+    configFile: createNetworkReducerWithType(
+        actionTypes.configFile,
+        {
+            data: {
+                configFile: [
+                    {
+                        id: 0,
+                        category: '',
+                        field: '',
+                        value: ''
+                    }
+                ]
+            },
+            loading: false,
+            error: null
+        }
+    ),
     updateConfigFile: createNetworkReducerWithType(actionTypes.updateConfigFile)
 });
 

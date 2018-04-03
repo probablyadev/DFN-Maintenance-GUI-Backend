@@ -1,5 +1,6 @@
 import React from 'react';
 
+import ViewConfigDialog from './ViewConfigDialog';
 import EditConfigDialog from './EditConfigDialog';
 import CheckLatestLogsDialog from './CheckLatestLogsDialog';
 import CheckSecondLatestLogsDialog from './CheckSecondLatestLogsDialog';
@@ -15,6 +16,9 @@ const Config = () => (
             <div className='box box-default'>
                 <div className='box-header'>Config</div>
                 <div className='box-body text-center'>
+                    <ViewConfigDialog minWidthStyle={minWidthStyle} />
+                    <div className='divider' />
+
                     <EditConfigDialog minWidthStyle={minWidthStyle} />
                     <div className='divider' />
 
