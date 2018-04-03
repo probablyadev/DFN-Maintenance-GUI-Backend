@@ -50,6 +50,17 @@ def config_whitelist():
 
     return result_dict
 
+def config_file():
+    """
+    Serves the config file in full.
+    """
+    path = constants.dfnconfigPath
+    config_file = dfn_functions.load_config(path)
+
+    if not config_file:
+        raise IOError('Cannot load config file with path: {0}'.format(path))
+
+    return config_file
 
 def update_config_file(category, field, value):
     """

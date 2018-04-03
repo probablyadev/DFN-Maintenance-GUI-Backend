@@ -3,7 +3,7 @@ from flask import Blueprint, jsonify, request
 
 from backend import constants
 from backend.auth import requires_auth
-from command.config_file import cf_check, config_whitelist, update_config_file
+from command.config_file import cf_check, config_whitelist, config_file, update_config_file
 
 config_file_endpoints = Blueprint("config_file_api", __name__)
 
@@ -19,20 +19,14 @@ def check_config_file_endpoint():
 @requires_auth
 def config_whitelist_endpoint():
     """Serves modifiable information to fill in the interface for changing the dfnstation.cfg file."""
-    return jsonify(config_whitelist = config_whitelist())
+    return jsonify(configWhitelist = config_whitelist())
 
 
 @config_file_endpoints.route("/api/configFile/configFile", methods = ["GET"])
 @requires_auth
 def config_file_endpoint():
     """Serves the dfnstation.cfg file to the user to read."""
-    path = constants.dfnconfigPath
-
-    if os.path.exists(path):
-        config_file = open(path, 'rb').read()
-
-        return jsonify(config_file = config_file)
-
+    return jsonify(configFile = config_file())
 
 @config_file_endpoints.route("/api/configFile/updateConfigFile", methods = ["POST"])
 @requires_auth
