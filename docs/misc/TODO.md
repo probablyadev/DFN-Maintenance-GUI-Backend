@@ -12,6 +12,7 @@
 - [ ] Front end HDD table needs used and total space. Make backend reflect this.
 - [ ] Axios service wrapper: https://sheharyar.me/blog/axios-with-react-for-making-requests/
 - [ ] Expiration on token in localStorage?
+- [ ] Browser sync webpack dev config - default dev config should not launch with it on
 
 # HDD
 

@@ -20,9 +20,12 @@ export function configFile() {
     };
 }
 
-export function updateConfigFile() {
+export function updateConfigFile(data) {
     return {
-        type: ActionTypes.updateConfigFile.TRIGGER
+        type: ActionTypes.updateConfigFile.TRIGGER,
+        data: {
+            data
+        }
     };
 }
 

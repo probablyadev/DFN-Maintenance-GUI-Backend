@@ -12,7 +12,7 @@ import {
     TableHeaderRow
 } from '@devexpress/dx-react-grid-material-ui';
 
-import { configWhitelist } from '../../../../../actions/api';
+import { configWhitelist, updateConfigFile } from '../../../../../actions/api';
 import { organiseConfigWhitelistById } from '../../../../../selectors/api';
 
 function mapStateToProps(state) {
@@ -22,7 +22,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ configWhitelist }, dispatch);
+    return bindActionCreators({ configWhitelist, updateConfigFile }, dispatch);
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -83,10 +83,11 @@ class ConfigTable extends React.PureComponent {
 
         rows = rows.map((row) => {
             if (changed[row.id]) {
-                console.log(row);
-                console.log(changed[row.id]);
+                const updatedRow = { ...row, ...changed[row.id] };
 
-                return { ...row, ...changed[row.id] };
+                this.props.updateConfigFile(updatedRow);
+
+                return updatedRow;
             } else {
                 return row;
             }
