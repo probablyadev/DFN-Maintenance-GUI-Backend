@@ -79,21 +79,16 @@ class ConfigTable extends React.PureComponent {
     }
 
     commitChanges({ changed }) {
-        let { rows } = this.props;
+        const { rows } = this.props;
 
-        rows = rows.map((row) => {
+        rows.map((row) => { // eslint-disable-line array-callback-return
             if (changed[row.id]) {
                 const updatedRow = { ...row, ...changed[row.id] };
 
                 this.props.updateConfigFile(updatedRow);
-
-                return updatedRow;
-            } else {
-                return row;
+                this.props.configWhitelist();
             }
         });
-
-        this.setState({ rows });
     }
 
     render() {
@@ -114,10 +109,10 @@ class ConfigTable extends React.PureComponent {
                         onCommitChanges={this.commitChanges}
                         columnExtensions={editingStateColumnExtensions}
                     />
-                    <Table/>
-                    <TableColumnResizing defaultColumnWidths={defaultColumnWidths}/>
-                    <TableHeaderRow/>
-                    <TableEditRow/>
+                    <Table />
+                    <TableColumnResizing defaultColumnWidths={defaultColumnWidths} />
+                    <TableHeaderRow />
+                    <TableEditRow />
                     <TableEditColumn
                         showEditCommand
                     />
