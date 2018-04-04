@@ -1,7 +1,5 @@
-import os
 from flask import Blueprint, jsonify, request
 
-from backend import constants
 from backend.auth import requires_auth
 from command.config_file import cf_check, config_whitelist, config_file, update_config_file
 

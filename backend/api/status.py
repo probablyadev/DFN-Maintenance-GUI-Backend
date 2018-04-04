@@ -1,5 +1,3 @@
-import datetime
-import os
 from flask import Blueprint, jsonify
 
 from backend.auth import requires_auth
@@ -12,37 +10,21 @@ status_endpoints = Blueprint("status_api", __name__)
 @requires_auth
 def latest_log_endpoint():
     """Serves the latest logfile from interval control."""
-    path = "/data0/latest/" + get_log("latest")
+    logfile, timestamp = latest_log()
 
-    if os.path.exists(path):
-        logfile = open(path, 'rb').read()
-
-        file_state = os.stat(path)
-        timestamp = datetime.datetime.fromtimestamp(file_state.st_mtime).strftime('%d-%m-%Y %H:%M:%S')
-
-        return jsonify(
-            logfile = logfile,
-            timestamp = timestamp
-        )
-    else:
-        raise AttributeError("Unable to locate the latest log file: " + path)
+    return jsonify(
+        logfile = logfile,
+        timestamp = timestamp
+    )
 
 
 @status_endpoints.route("/api/status/secondLatestLog", methods = ["GET"])
 @requires_auth
 def second_latest_log_endpoint():
     """Serves the second-latest logfile from interval control."""
-    path = "/data0/latest_prev/" + get_log("latest_prev")
+    logfile, timestamp = second_latest_log()
 
-    if os.path.exists(path):
-        logfile = open(path, 'rb').read()
-
-        file_state = os.stat(path)
-        timestamp = datetime.datetime.fromtimestamp(file_state.st_mtime).strftime('%d-%m-%Y %H:%M:%S')
-
-        return jsonify(
-            logfile = logfile,
-            timestamp = timestamp
-        )
-    else:
-        raise AttributeError("Unable to locate the second latest log file: " + path)
+    return jsonify(
+        logfile = logfile,
+        timestamp = timestamp
+    )
