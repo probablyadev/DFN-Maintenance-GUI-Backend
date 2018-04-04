@@ -1,9 +1,46 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import styled from 'styled-components';
 import Button from 'material-ui/Button';
-import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
+import Dialog from 'material-ui/Dialog';
+import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
+import IconButton from 'material-ui/IconButton';
+import Typography from 'material-ui/Typography';
+import CloseIcon from 'material-ui-icons/Close';
+import Slide from 'material-ui/transitions/Slide';
 
-import ViewSecondLatestLogs from '../DialogContent/ViewSecondLatestLogs';
+import { secondLatestLog } from '../../../../../../actions/api';
+import {
+    secondLatestLogFileSelector,
+    secondLatestLogTimestampSelector
+} from '../../../../../../selectors/api';
 
+const StyledAppBar = styled(AppBar)`
+    position: relative;
+`;
+
+const StyledTypography = styled(Typography)`
+    flex: 1;
+`;
+
+function Transition(props) {
+    return <Slide direction='up' {...props} />;
+}
+
+function mapStateToProps(state) {
+    return {
+        logfile: secondLatestLogFileSelector(state),
+        timestamp: secondLatestLogTimestampSelector(state)
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ secondLatestLog }, dispatch);
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
 class ViewSecondLatestLogsDialog extends React.Component {
     constructor(props) {
         super(props);
@@ -16,6 +53,10 @@ class ViewSecondLatestLogsDialog extends React.Component {
         this.handleClose = this.handleClose.bind(this);
     }
 
+    componentDidMount() {
+        this.props.secondLatestLog();
+    }
+
     handleOpen() {
         this.setState({ open: true });
     }
@@ -24,12 +65,6 @@ class ViewSecondLatestLogsDialog extends React.Component {
         this.setState({ open: false });
     }
 
-    /* TODO: Send off an event to the backend to turn all off or on */
-
-    /* TODO: Add message to the content of the dialog.
-     * Maybe display the command that will be executed.
-     * Live updates in dialog?
-     */
     render() {
         return (
             <div>
@@ -41,20 +76,33 @@ class ViewSecondLatestLogsDialog extends React.Component {
                     View Second /latest Logs
                 </Button>
                 <Dialog
+                    fullScreen
                     open={this.state.open}
                     onClose={this.handleClose}
+                    transition={Transition}
                 >
-                    <DialogTitle id='form-dialog-title'>
-                        View the second latest log files in /latest
-                    </DialogTitle>
-                    <DialogContent>
-                        <ViewSecondLatestLogs />
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleClose}>
-                            Close
-                        </Button>
-                    </DialogActions>
+                    <StyledAppBar>
+                        <Toolbar>
+                            <IconButton
+                                color='inherit'
+                                onClick={this.handleClose}
+                                aria-label='Close'
+                            >
+                                <CloseIcon />
+                            </IconButton>
+                            <StyledTypography variant='title' color='inherit'>
+                              Second Latest Logs
+                            </StyledTypography>
+                            <Typography variant='title' color='inherit'>
+                                {this.props.timestamp}
+                            </Typography>
+                        </Toolbar>
+                    </StyledAppBar>
+                    <div>
+                        {this.props.logfile.split('\n')
+                            .map((item, key) => <span key={key}>{item}<br /></span>)
+                        }
+                    </div>
                 </Dialog>
             </div>
         );

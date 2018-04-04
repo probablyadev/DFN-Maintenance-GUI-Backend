@@ -47,7 +47,13 @@ def latest_log():
 
 def second_latest_log():
     """Fetches the second latest log file."""
-    path = "/data0/latest_prev/" + get_log("latest_prev")
+    environment = os.getenv('APP_SETTINGS')
+
+    if environment is "prod":
+        path = "/data0/latest_prev/" + get_log("latest_prev")
+    else:
+        import basedir
+        path = os.path.join(basedir.basedir, 'dfn-gui-server.log')
 
     if os.path.exists(path):
         logfile = open(path, 'rb').read()

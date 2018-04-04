@@ -22,7 +22,8 @@ export const restartModemSelector = (state) => state.networkReducer.restartModem
 // Status
 export const latestLogFileSelector = (state) => state.statusReducer.latestLog.data.logfile;
 export const latestLogTimestampSelector = (state) => state.statusReducer.latestLog.data.timestamp;
-export const secondLatestLogSelector = (state) => state.statusReducer.secondLatestLog.data.logfile;
+export const secondLatestLogFileSelector = (state) =>
+    state.statusReducer.secondLatestLog.data.logfile;
 export const secondLatestLogTimestampSelector = (state) =>
     state.statusReducer.secondLatestLog.data.timestamp;
 
