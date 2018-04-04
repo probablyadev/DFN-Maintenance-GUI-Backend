@@ -83,6 +83,19 @@ export function restartModem() {
     };
 }
 
+// Status
+export function latestLog() {
+    return {
+        type: ActionTypes.latestLog.TRIGGER
+    };
+}
+
+export function secondLatestLog() {
+    return {
+        type: ActionTypes.secondLatestLog.TRIGGER
+    };
+}
+
 // Time
 export function outputTime() {
     return {

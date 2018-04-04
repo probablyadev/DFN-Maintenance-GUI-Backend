@@ -8,6 +8,7 @@ import ConfigFileAPIService from '../utils/api/ConfigFileAPIService';
 import HDDAPIService from '../utils/api/HDDAPIService';
 import MiscAPIService from '../utils/api/MiscAPIService';
 import NetworkAPIService from '../utils/api/NetworkAPIService';
+import StatusAPIService from '../utils/api/StatusAPIService';
 import TimeAPIService from '../utils/api/TimeAPIService';
 
 export const configFileSagas = [
@@ -73,6 +74,21 @@ export const networkSagas = [
         fetchEntity,
         ActionTypes.checkVPN,
         NetworkAPIService.checkVPN
+    )
+];
+
+export const statusSagas = [
+    takeLatest(
+        ActionTypes.latestLog.TRIGGER,
+        fetchEntity,
+        ActionTypes.latestLog,
+        StatusAPIService.latestLog
+    ),
+    takeLatest(
+        ActionTypes.secondLatestLog.TRIGGER,
+        fetchEntity,
+        ActionTypes.secondLatestLog,
+        StatusAPIService.secondLatestLog
     )
 ];
 

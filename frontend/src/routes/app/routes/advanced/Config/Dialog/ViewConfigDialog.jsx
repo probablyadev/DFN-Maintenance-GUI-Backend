@@ -1,8 +1,10 @@
 import React from 'react';
 import Button from 'material-ui/Button';
-import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
+import Dialog, { DialogContent, DialogTitle } from 'material-ui/Dialog';
 
-class EditConfigDialog extends React.Component {
+import ViewConfigTable from '../DialogContent/ViewConfigTable';
+
+class ViewConfigDialog extends React.Component {
     constructor(props) {
         super(props);
 
@@ -22,12 +24,6 @@ class EditConfigDialog extends React.Component {
         this.setState({ open: false });
     }
 
-    /* TODO: Send off an event to the backend to turn all off or on */
-
-    /* TODO: Add message to the content of the dialog.
-     * Maybe display the command that will be executed.
-     * Live updates in dialog?
-     */
     render() {
         return (
             <div>
@@ -36,27 +32,21 @@ class EditConfigDialog extends React.Component {
                     style={this.props.minWidthStyle}
                     onClick={this.handleOpen}
                 >
-                    Check Second /latest Logs
+                    View Config File
                 </Button>
                 <Dialog
                     open={this.state.open}
                     onClose={this.handleClose}
+                    aria-labelledby='form-dialog-title'
                 >
-                    <DialogTitle id='form-dialog-title'>
-                        Check the second latest log files in /latest
-                    </DialogTitle>
+                    <DialogTitle id='form-dialog-title'>View Configuration File</DialogTitle>
                     <DialogContent>
-                        <div>PLACEHOLDER</div>
+                        <ViewConfigTable />
                     </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleClose}>
-                            Close
-                        </Button>
-                    </DialogActions>
                 </Dialog>
             </div>
         );
     }
 }
 
-export default EditConfigDialog;
+export default ViewConfigDialog;

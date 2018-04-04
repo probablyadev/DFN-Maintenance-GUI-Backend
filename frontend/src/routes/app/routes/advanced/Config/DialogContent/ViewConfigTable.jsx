@@ -14,8 +14,8 @@ import {
     TableGroupRow
 } from '@devexpress/dx-react-grid-material-ui';
 
-import { configFile } from '../../../../../actions/api';
-import { organiseConfigFileById } from '../../../../../selectors/api';
+import { configFile } from '../../../../../../actions/api';
+import { organiseConfigFileById } from '../../../../../../selectors/api';
 
 function mapStateToProps(state) {
     return {

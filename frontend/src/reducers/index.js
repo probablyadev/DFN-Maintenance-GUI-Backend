@@ -99,8 +99,28 @@ const networkReducer = combineReducers({
 });
 
 const statusReducer = combineReducers({
-    latestLog: createNetworkReducerWithType(actionTypes.latestLog),
-    secondLatestLog: createNetworkReducerWithType(actionTypes.secondLatestLog)
+    latestLog: createNetworkReducerWithType(
+        actionTypes.latestLog,
+        {
+            data: {
+                logfile: '',
+                timestamp: ''
+            },
+            loading: false,
+            error: null
+        }
+    ),
+    secondLatestLog: createNetworkReducerWithType(
+        actionTypes.secondLatestLog,
+        {
+            data: {
+                logfile: '',
+                timestamp: ''
+            },
+            loading: false,
+            error: null
+        }
+    )
 });
 
 const timeReducer = combineReducers({

@@ -63,7 +63,9 @@ class App extends Component {
         return (
             <MuiThemeProvider theme={createMuiTheme(materialUITheme)}>
                 <div id='app-inner'>
-                    <div className='preloaderbar hide'><span className='bar' /></div>
+                    <div className='preloaderbar hide'>
+                        <span className='bar' />
+                    </div>
                     <div
                         className={classnames('app-main full-height', {
                             'fixed-header': fixedHeader,

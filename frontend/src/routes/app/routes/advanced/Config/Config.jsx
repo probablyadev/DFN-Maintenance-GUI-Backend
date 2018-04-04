@@ -1,9 +1,9 @@
 import React from 'react';
 
-import ViewConfigDialog from './ViewConfigDialog';
-import EditConfigDialog from './EditConfigDialog';
-import CheckLatestLogsDialog from './CheckLatestLogsDialog';
-import CheckSecondLatestLogsDialog from './CheckSecondLatestLogsDialog';
+import ViewConfigDialog from './Dialog/ViewConfigDialog';
+import EditConfigDialog from './Dialog/EditConfigDialog';
+import ViewLatestLogsDialog from './Dialog/ViewLatestLogsDialog';
+import ViewSecondLatestLogsDialog from './Dialog/ViewSecondLatestLogsDialog';
 
 const minWidthStyle = {
     minWidth: '135px'
@@ -22,10 +22,10 @@ const Config = () => (
                     <EditConfigDialog minWidthStyle={minWidthStyle} />
                     <div className='divider' />
 
-                    <CheckLatestLogsDialog minWidthStyle={minWidthStyle} />
+                    <ViewLatestLogsDialog minWidthStyle={minWidthStyle} />
                     <div className='divider' />
 
-                    <CheckSecondLatestLogsDialog minWidthStyle={minWidthStyle} />
+                    <ViewSecondLatestLogsDialog minWidthStyle={minWidthStyle} />
                     <div className='divider' />
                 </div>
             </div>

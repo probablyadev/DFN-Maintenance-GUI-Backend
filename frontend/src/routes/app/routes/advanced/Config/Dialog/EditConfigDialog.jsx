@@ -2,7 +2,7 @@ import React from 'react';
 import Button from 'material-ui/Button';
 import Dialog, { DialogContent, DialogTitle } from 'material-ui/Dialog';
 
-import EditConfigTable from './EditConfigTable';
+import EditConfigTable from '../DialogContent/EditConfigTable';
 
 class EditConfigDialog extends React.Component {
     constructor(props) {

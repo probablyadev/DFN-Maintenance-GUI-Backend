@@ -12,8 +12,8 @@ import {
     TableHeaderRow
 } from '@devexpress/dx-react-grid-material-ui';
 
-import { configWhitelist, updateConfigFile } from '../../../../../actions/api';
-import { organiseConfigWhitelistById } from '../../../../../selectors/api';
+import { configWhitelist, updateConfigFile } from '../../../../../../actions/api';
+import { organiseConfigWhitelistById } from '../../../../../../selectors/api';
 
 function mapStateToProps(state) {
     return {

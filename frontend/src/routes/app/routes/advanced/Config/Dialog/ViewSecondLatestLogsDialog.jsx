@@ -2,7 +2,9 @@ import React from 'react';
 import Button from 'material-ui/Button';
 import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
 
-class EditConfigDialog extends React.Component {
+import ViewSecondLatestLogs from '../DialogContent/ViewSecondLatestLogs';
+
+class ViewSecondLatestLogsDialog extends React.Component {
     constructor(props) {
         super(props);
 
@@ -36,17 +38,17 @@ class EditConfigDialog extends React.Component {
                     style={this.props.minWidthStyle}
                     onClick={this.handleOpen}
                 >
-                    Check /latest Logs
+                    View Second /latest Logs
                 </Button>
                 <Dialog
                     open={this.state.open}
                     onClose={this.handleClose}
                 >
                     <DialogTitle id='form-dialog-title'>
-                        Check the latest log files in /latest
+                        View the second latest log files in /latest
                     </DialogTitle>
                     <DialogContent>
-                        <div>PLACEHOLDER</div>
+                        <ViewSecondLatestLogs />
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose}>
@@ -59,4 +61,4 @@ class EditConfigDialog extends React.Component {
     }
 }
 
-export default EditConfigDialog;
+export default ViewSecondLatestLogsDialog;
