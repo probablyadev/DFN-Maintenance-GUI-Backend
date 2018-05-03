@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
-import Menu from 'material-ui-icons/Menu';
+import Menu from '@material-ui/icons/Menu';
 
 import NavRightList from './NavRightList';
 

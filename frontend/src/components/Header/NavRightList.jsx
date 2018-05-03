@@ -10,7 +10,7 @@ import Grow from 'material-ui/transitions/Grow';
 import Paper from 'material-ui/Paper';
 import { MenuItem, MenuList } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton/IconButton';
-import MoreVertIcon from 'material-ui-icons/MoreVert';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import { logout } from '../../actions/auth';
 
