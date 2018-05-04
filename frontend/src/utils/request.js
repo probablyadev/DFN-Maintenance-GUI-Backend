@@ -9,7 +9,6 @@ import config from '../constants/Config';
  * Create an Axios Client with defaults
  */
 const client = axios.create({
-    baseURL: config.api.url,
     timeout: config.api.timeout,
     headers: config.api.headers
 });
@@ -45,6 +44,9 @@ export default function (options) {
     return client(options)
         .then(onSuccess)
         .catch(onError); */
+
+    // Need to load the windows hostname at runtime, doing it as baseURL does not work.
+    options.url = "http://" + window.location.hostname + config.api.url + options.url;
 
     return client(options);
 }
