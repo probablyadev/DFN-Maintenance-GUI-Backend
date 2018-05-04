@@ -10,14 +10,6 @@
           <option name="port" value="22" />
         </fileTransfer>
       </webServer>
-      <webServer id="dc116d10-1bc1-4982-ae8e-814897d24d58" name="DFNEXT003" url="http://dfnext003">
-        <fileTransfer host="dfnext003" port="22" accessType="SFTP" authAgent="true">
-          <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" />
-          </advancedOptions>
-          <option name="port" value="22" />
-        </fileTransfer>
-      </webServer>
     </option>
   </component>
 </project>
