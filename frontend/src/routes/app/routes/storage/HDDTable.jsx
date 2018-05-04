@@ -1,4 +1,7 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+/*
 import Paper from 'material-ui/Paper';
 import {
     FilteringState,
@@ -20,9 +23,38 @@ import {
     TableHeaderRow,
     Toolbar
 } from '@devexpress/dx-react-grid-material-ui';
-import { CurrencyTypeProvider } from 'material-ui/components/currency-type-provider';
 import { PercentTypeProvider } from 'material-ui/components/percent-type-provider';
+*/
 
+import { checkHDD } from '../../../../actions/api';
+import { checkHDDSelector } from '../../../../selectors/api';
+
+function mapStateToProps(state) {
+    return {
+        hdd: checkHDDSelector(state)
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ checkHDD }, dispatch);
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
+class HDDTable extends React.PureComponent {
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        this.props.checkHDD();
+    }
+
+    render() {
+        return (<div>hdd</div>);
+    }
+}
+
+/*
 class HDDTable extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -135,5 +167,6 @@ class HDDTable extends React.PureComponent {
         );
     }
 }
+*/
 
 export default HDDTable;
