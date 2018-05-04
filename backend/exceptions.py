@@ -31,7 +31,7 @@ def handle_assertion_error(error):
         error = True,
         generic = "Error while asserting state",
         message = error.message
-    ), 409
+    ), 500
 
 
 @error_handlers.app_errorhandler(AttributeError)
@@ -49,7 +49,7 @@ def handle_integrity_error(error):
         error = True,
         generic = "Raised when the execution of a database operation fails.",
         message = error.message
-    ), 409
+    ), 500
 
 
 @error_handlers.app_errorhandler(CommandError)
