@@ -28,7 +28,7 @@ const config = {
         theme: 'light' // light, gray, dark
     },
     api: {
-        url: 'http://localhost:5000/api',
+        url: 'http://dfnext003:5000/api',
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Headers': 'Content-Type, Authorization',

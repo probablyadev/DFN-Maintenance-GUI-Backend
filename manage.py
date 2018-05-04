@@ -33,7 +33,7 @@ def list_routes():
         output.append(line)
 
     for line in sorted(output):
-        print line
+        print(line)
 
 if __name__ == '__main__':
     if "APP_SETTINGS" not in os.environ:
@@ -44,4 +44,5 @@ if __name__ == '__main__':
     if environment is "prod":
         os.chdir("/opt/dfn-software/Desert-Fireball-Maintainence-GUI")
 
-    manager.run()
+    #manager.run()
+    flaskapp.run(host = '0.0.0.0')
