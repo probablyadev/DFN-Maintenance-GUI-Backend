@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import QueueAnim from 'rc-queue-anim';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
+import NotificationSystem from 'react-notification-system';
 
 import APPCONFIG from '../../constants/Config';
 import { login } from '../../actions/auth';
@@ -13,7 +14,8 @@ import { getHostnameSelector } from '../../selectors/api';
 
 function mapStateToProps(state) {
     return {
-        hostname: getHostnameSelector(state)
+        hostname: getHostnameSelector(state).data.hostname,
+        error: getHostnameSelector(state).error,
     };
 }
 
@@ -36,10 +38,26 @@ class Login extends React.Component {
             passwordErrorText: '',
             disabled: true
         };
+
+        this.notifications = [
+            {
+                uid: 'login connection error',
+                level: 'error',
+                title: 'Server Connection Error',
+                message: 'It appears that I cannot connect to the server...\nMake sure that the backend server is running...',
+                position: 'tr',
+                autoDismiss: 0
+            }
+        ];
+
+        this.notificationSystem = null;
     }
 
     componentDidMount() {
         this.props.getHostname();
+
+        // Grab a reference to the notification system object in render().
+        this.notificationSystem = this.refs.notificationSystem;
     }
 
     isDisabled() {
@@ -123,57 +141,63 @@ class Login extends React.Component {
     }
 
     render() {
+        if (this.props.error && this.notificationSystem != null) {
+            this.notificationSystem.addNotification(this.notifications[0]);
+        }
+
         return (
-            <div className='body-inner' onKeyPress={(e) => this.handleKeyPress(e)}>
-                <div className='card bg-white'>
-                    <div className='card-content'>
+            <div>
+                <div className='body-inner' onKeyPress={(e) => this.handleKeyPress(e)}>
+                    <div className='card bg-white'>
+                        <div className='card-content'>
 
-                        <section className='logo text-center'>
-                            <h1>{APPCONFIG.brandLong}</h1>
-                            <h6>{this.props.hostname}</h6>
-                        </section>
+                            <section className='logo text-center'>
+                                <h1>{APPCONFIG.brandLong}</h1>
+                                <h6>{this.props.hostname}</h6>
+                            </section>
 
-                        <form className='form-horizontal'>
-                            <fieldset>
-                                <div className='form-group'>
-                                    <TextField
-                                        placeholder='Email'
-                                        type='email'
-                                        /* errorText={this.state.emailErrorText} */
-                                        onChange={(e) => this.changeValue(e, 'email')}
-                                        fullWidth
-                                    />
-                                </div>
-                                <div className='form-group'>
-                                    <TextField
-                                        placeholder='Password'
-                                        type='password'
-                                        /* errorText={this.state.passwordErrorText} */
-                                        onChange={(e) => this.changeValue(e, 'password')}
-                                        fullWidth
-                                    />
-                                </div>
-                            </fieldset>
-                        </form>
+                            <form className='form-horizontal'>
+                                <fieldset>
+                                    <div className='form-group'>
+                                        <TextField
+                                            placeholder='Email'
+                                            type='email'
+                                            /* errorText={this.state.emailErrorText} */
+                                            onChange={(e) => this.changeValue(e, 'email')}
+                                            fullWidth
+                                        />
+                                    </div>
+                                    <div className='form-group'>
+                                        <TextField
+                                            placeholder='Password'
+                                            type='password'
+                                            /* errorText={this.state.passwordErrorText} */
+                                            onChange={(e) => this.changeValue(e, 'password')}
+                                            fullWidth
+                                        />
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                        <div className='card-action no-border text-right'>
+                            <Button
+                                variant='raised'
+                                disabled={this.state.disabled}
+                                onClick={(e) => this.login(e)}
+                            >
+                                Login
+                            </Button>
+                        </div>
                     </div>
-                    <div className='card-action no-border text-right'>
-                        <Button
-                            variant='raised'
-                            disabled={this.state.disabled}
-                            onClick={(e) => this.login(e)}
-                        >
-                            Login
-                        </Button>
+
+                    <div className='additional-info'>
+                        {/*<a href='#/sign-up'>Sign up</a>
+                        <span className='divider-h' />*/}
+
+                        <a href='#/forgot-password'>Forgot your password?</a>
                     </div>
                 </div>
-
-                <div className='additional-info'>
-                    <a href='#/sign-up'>Sign up</a>
-                    <span className='divider-h' />
-
-                    <a href='#/forgot-password'>Forgot your password?</a>
-                </div>
-
+                <NotificationSystem ref = "notificationSystem"/>
             </div>
         );
     }

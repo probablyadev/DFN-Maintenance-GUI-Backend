@@ -11,7 +11,7 @@ export const updateConfigFileSelector = (state) => state.configFileReducer.updat
 export const checkHDDSelector = (state) => state.hddReducer.checkHDD.data;
 
 // Misc
-export const getHostnameSelector = (state) => state.miscReducer.getHostname.data.hostname;
+export const getHostnameSelector = (state) => state.miscReducer.getHostname;
 
 // Network
 export const checkVPNSelector = (state) => state.networkReducer.checkVPN.data;

@@ -3,7 +3,7 @@ import { createReducer } from '../utils/misc';
 const initialState = {
     data: null,
     loading: false,
-    error: null
+    error: false
 };
 
 export default function createNetworkReducerWithType(type, configuredState = initialState) {
@@ -18,7 +18,8 @@ export default function createNetworkReducerWithType(type, configuredState = ini
             }),
         [type.FAILURE]: (state, payload) =>
             Object.assign({}, state, {
-                error: payload
+                data: payload,
+                error: true
             }),
         [type.FULFILL]: (state) =>
             Object.assign({}, state, {

@@ -35,7 +35,7 @@ const configFileReducer = combineReducers({
                 ]
             },
             loading: false,
-            error: null
+            error: false
         }
     ),
     configFile: createNetworkReducerWithType(
@@ -52,7 +52,7 @@ const configFileReducer = combineReducers({
                 ]
             },
             loading: false,
-            error: null
+            error: false
         }
     ),
     updateConfigFile: createNetworkReducerWithType(actionTypes.updateConfigFile)
@@ -86,7 +86,7 @@ const miscReducer = combineReducers({
                 hostname: ''
             },
             loading: false,
-            error: null
+            error: false
         }
     )
 });
@@ -107,7 +107,7 @@ const statusReducer = combineReducers({
                 timestamp: ''
             },
             loading: false,
-            error: null
+            error: false
         }
     ),
     secondLatestLog: createNetworkReducerWithType(
@@ -131,7 +131,7 @@ const timeReducer = combineReducers({
                 time: ''
             },
             loading: false,
-            error: null
+            error: false
         }
     ),
     changeTimezone: createNetworkReducerWithType(actionTypes.changeTimezone)
@@ -157,7 +157,7 @@ const rootReducer = combineReducers({
     networkReducer,
     statusReducer,
     timeReducer,
-    userReducer
+    userReducer,
 });
 
 export default rootReducer;
