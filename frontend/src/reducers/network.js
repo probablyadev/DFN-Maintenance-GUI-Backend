@@ -1,12 +1,12 @@
 import { createReducer } from '../utils/misc';
 
-const initialState = {
-    data: null,
-    loading: false,
-    error: false
-};
+export default function createNetworkReducerWithType(type, dataState = null) {
+    const configuredState = {
+        data: dataState,
+        loading: false,
+        error: false
+    };
 
-export default function createNetworkReducerWithType(type, configuredState = initialState) {
     return createReducer(configuredState, {
         [type.TRIGGER]: (state) =>
             Object.assign({}, state, {

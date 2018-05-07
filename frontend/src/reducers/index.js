@@ -8,15 +8,15 @@ import { login, checkAuth } from './auth';
 import * as actionTypes from '../constants/ActionTypes';
 
 const cameraReducer = combineReducers({
-    cameraOff: createNetworkReducerWithType(actionTypes.cameraOff),
-    cameraOn: createNetworkReducerWithType(actionTypes.cameraOn),
-    cameraStatus: createNetworkReducerWithType(actionTypes.cameraStatus),
-    downloadPicture: createNetworkReducerWithType(actionTypes.downloadPicture),
-    downloadThumbnail: createNetworkReducerWithType(actionTypes.downloadThumbnail),
-    findPictures: createNetworkReducerWithType(actionTypes.findPictures),
-    removeThumbnail: createNetworkReducerWithType(actionTypes.removeThumbnail),
+    cameraOff:          createNetworkReducerWithType(actionTypes.cameraOff),
+    cameraOn:           createNetworkReducerWithType(actionTypes.cameraOn),
+    cameraStatus:       createNetworkReducerWithType(actionTypes.cameraStatus),
+    downloadPicture:    createNetworkReducerWithType(actionTypes.downloadPicture),
+    downloadThumbnail:  createNetworkReducerWithType(actionTypes.downloadThumbnail),
+    findPictures:       createNetworkReducerWithType(actionTypes.findPictures),
+    removeThumbnail:    createNetworkReducerWithType(actionTypes.removeThumbnail),
     turnVideoCameraOff: createNetworkReducerWithType(actionTypes.turnVideoCameraOff),
-    turnVideoCameraOn: createNetworkReducerWithType(actionTypes.turnVideoCameraOn)
+    turnVideoCameraOn:  createNetworkReducerWithType(actionTypes.turnVideoCameraOn)
 });
 
 const configFileReducer = combineReducers({
@@ -24,35 +24,27 @@ const configFileReducer = combineReducers({
     configWhitelist: createNetworkReducerWithType(
         actionTypes.configWhitelist,
         {
-            data: {
-                configWhitelist: [
-                    {
-                        id: 0,
-                        category: '',
-                        field: '',
-                        value: ''
-                    }
-                ]
-            },
-            loading: false,
-            error: false
+            configWhitelist: [
+                {
+                    id: 0,
+                    category: '',
+                    field: '',
+                    value: ''
+                }
+            ]
         }
     ),
     configFile: createNetworkReducerWithType(
         actionTypes.configFile,
         {
-            data: {
-                configFile: [
-                    {
-                        id: 0,
-                        category: '',
-                        field: '',
-                        value: ''
-                    }
-                ]
-            },
-            loading: false,
-            error: false
+            configFile: [
+                {
+                    id: 0,
+                    category: '',
+                    field: '',
+                    value: ''
+                }
+            ]
         }
     ),
     updateConfigFile: createNetworkReducerWithType(actionTypes.updateConfigFile)
@@ -63,18 +55,18 @@ const gpsReducer = combineReducers({
 });
 
 const hddReducer = combineReducers({
-    checkHDD: createNetworkReducerWithType(actionTypes.checkHDD),
-    enableHDD: createNetworkReducerWithType(actionTypes.enableHDD),
-    formatHDD: createNetworkReducerWithType(actionTypes.formatHDD),
-    mountHDD: createNetworkReducerWithType(actionTypes.mountHDD),
+    checkHDD:     createNetworkReducerWithType(actionTypes.checkHDD),
+    enableHDD:    createNetworkReducerWithType(actionTypes.enableHDD),
+    formatHDD:    createNetworkReducerWithType(actionTypes.formatHDD),
+    mountHDD:     createNetworkReducerWithType(actionTypes.mountHDD),
     moveData0HDD: createNetworkReducerWithType(actionTypes.moveData0HDD),
-    probeHDD: createNetworkReducerWithType(actionTypes.probeHDD),
-    smartTest: createNetworkReducerWithType(actionTypes.smartTest),
-    unmountHDD: createNetworkReducerWithType(actionTypes.unmountHDD)
+    probeHDD:     createNetworkReducerWithType(actionTypes.probeHDD),
+    smartTest:    createNetworkReducerWithType(actionTypes.smartTest),
+    unmountHDD:   createNetworkReducerWithType(actionTypes.unmountHDD)
 });
 
 const intervalControlTestReducer = combineReducers({
-    intervalTest: createNetworkReducerWithType(actionTypes.intervalTest),
+    intervalTest:     createNetworkReducerWithType(actionTypes.intervalTest),
     prevIntervalTest: createNetworkReducerWithType(actionTypes.prevIntervalTest)
 });
 
@@ -82,43 +74,31 @@ const miscReducer = combineReducers({
     getHostname: createNetworkReducerWithType(
         actionTypes.getHostname,
         {
-            data: {
-                hostname: ''
-            },
-            loading: false,
-            error: false
+            hostname: ''
         }
     )
 });
 
 const networkReducer = combineReducers({
-    checkVPN: createNetworkReducerWithType(actionTypes.checkVPN),
+    checkVPN:      createNetworkReducerWithType(actionTypes.checkVPN),
     checkInternet: createNetworkReducerWithType(actionTypes.checkInternet),
-    restartModem: createNetworkReducerWithType(actionTypes.restartModem),
-    restartVPN: createNetworkReducerWithType(actionTypes.restartVPN)
+    restartModem:  createNetworkReducerWithType(actionTypes.restartModem),
+    restartVPN:    createNetworkReducerWithType(actionTypes.restartVPN)
 });
 
 const statusReducer = combineReducers({
     latestLog: createNetworkReducerWithType(
         actionTypes.latestLog,
         {
-            data: {
-                logfile: '',
-                timestamp: ''
-            },
-            loading: false,
-            error: false
+            logfile: '',
+            timestamp: ''
         }
     ),
     secondLatestLog: createNetworkReducerWithType(
         actionTypes.secondLatestLog,
         {
-            data: {
-                logfile: '',
-                timestamp: ''
-            },
-            loading: false,
-            error: null
+            logfile: '',
+            timestamp: ''
         }
     )
 });
@@ -127,19 +107,15 @@ const timeReducer = combineReducers({
     outputTime: createNetworkReducerWithType(
         actionTypes.outputTime,
         {
-            data: {
-                time: ''
-            },
-            loading: false,
-            error: false
+            time: ''
         }
     ),
     changeTimezone: createNetworkReducerWithType(actionTypes.changeTimezone)
 });
 
 const userReducer = combineReducers({
-    getUser: createNetworkReducerWithType(actionTypes.getUser),
-    getToken: createNetworkReducerWithType(actionTypes.getToken),
+    getUser:      createNetworkReducerWithType(actionTypes.getUser),
+    getToken:     createNetworkReducerWithType(actionTypes.getToken),
     isTokenValid: createNetworkReducerWithType(actionTypes.isTokenValid)
 });
 
