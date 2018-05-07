@@ -6,7 +6,8 @@ const config = {
     brandLong: 'Fireballs in the Sky',
     user: 'Scott Day',
     year,
-    productLink: 'http://fireballsinthesky.com.au/',
+    productLink: 'https://wiki.dfn.net.au/index.php/Main_Page',
+    helpPage: 'https://wiki.dfn.net.au/index.php/Getting_Help',
     AutoCloseMobileNav: true, // true, false. Automatically close sidenav on route change (Mobile)
     color: {
         primary: '#00BCD4',

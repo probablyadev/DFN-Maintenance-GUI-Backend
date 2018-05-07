@@ -6,7 +6,7 @@ import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import NotificationSystem from 'react-notification-system';
 
-import APPCONFIG from '../../constants/Config';
+import config from '../../constants/Config';
 import { login } from '../../actions/auth';
 import { getHostname } from '../../actions/api';
 import { validateEmail } from '../../utils/misc';
@@ -152,7 +152,7 @@ class Login extends React.Component {
                         <div className='card-content'>
 
                             <section className='logo text-center'>
-                                <h1>{APPCONFIG.brandLong}</h1>
+                                <h1>{config.brandLong}</h1>
                                 <h6>{this.props.hostname}</h6>
                             </section>
 
@@ -166,8 +166,6 @@ class Login extends React.Component {
                                             onChange={(e) => this.changeValue(e, 'email')}
                                             fullWidth
                                         />
-                                    </div>
-                                    <div className='form-group'>
                                         <TextField
                                             placeholder='Password'
                                             type='password'
@@ -191,10 +189,7 @@ class Login extends React.Component {
                     </div>
 
                     <div className='additional-info'>
-                        {/*<a href='#/sign-up'>Sign up</a>
-                        <span className='divider-h' />*/}
-
-                        <a href='#/forgot-password'>Forgot your password?</a>
+                        <a href={config.helpPage} target="_blank">Forgot your login or password?</a>
                     </div>
                 </div>
                 <NotificationSystem ref = "notificationSystem"/>
