@@ -4,7 +4,8 @@ getExitStatus = "echo $?"
 getHostname = "hostname"
 
 gpsCheck = "python /opt/dfn-software/leostick_get_status.py -g;"
-setTimezone = "sudo ln -fs /usr/share/zoneinfo/{0} /etc/localtime"
+setTimezone = "sudo ln -fs /usr/share/zoneinfo/{0} /etc/localtime" # or timedatectl set-timezone
+getTimezone = "timedatectl status | grep -oP '(?<=Time zone: ).*(?= \()'"
 outputTime = "date"
 
 cameraOn = "python /opt/dfn-software/enable_camera.py;"
