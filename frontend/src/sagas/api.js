@@ -98,5 +98,17 @@ export const timeSagas = [
         fetchEntity,
         ActionTypes.outputTime,
         TimeAPIService.outputTime
+    ),
+    takeLatest(
+        ActionTypes.getTimezone.TRIGGER,
+        fetchEntity,
+        ActionTypes.getTimezone,
+        TimeAPIService.getTimezone
+    ),
+    takeLatest(
+        ActionTypes.changeTimezone.TRIGGER,
+        fetchEntity,
+        ActionTypes.changeTimezone,
+        TimeAPIService.changeTimezone
     )
 ];

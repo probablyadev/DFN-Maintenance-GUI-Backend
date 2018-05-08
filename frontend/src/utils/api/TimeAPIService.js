@@ -10,21 +10,30 @@ function outputTime(token) {
     });
 }
 
-function changeTimezone(token, timezone) {
+function getTimezone(token) {
+    return request({
+        url: '/time/getTimezone',
+        method: 'GET',
+        headers: {
+            'Authorization': token
+        }
+    });
+}
+
+function changeTimezone(token, data) {
     return request({
         url: '/time/changeTimezone',
         method: 'POST',
         headers: {
             'Authorization': token
         },
-        data: {
-            timezone
-        }
+        data
     });
 }
 
 const TimeAPIService = {
     outputTime,
+    getTimezone,
     changeTimezone
 };
 

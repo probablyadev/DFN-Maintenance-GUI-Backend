@@ -49,6 +49,7 @@ export const secondLatestLog = createRoutine('SECOND_LATEST_LOG');
 
 // Time API Service
 export const outputTime = createRoutine('OUTPUT_TIME');
+export const getTimezone = createRoutine('GET_TIMEZONE');
 export const changeTimezone = createRoutine('CHANGE_TIMEZONE');
 
 // User API Service

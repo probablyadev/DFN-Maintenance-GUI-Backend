@@ -39,6 +39,8 @@ class Login extends React.Component {
             disabled: true
         };
 
+        this.notificationSystem = null;
+
         this.notifications = [
             {
                 uid: 'login connection error',
@@ -49,8 +51,6 @@ class Login extends React.Component {
                 autoDismiss: 0
             }
         ];
-
-        this.notificationSystem = null;
     }
 
     componentDidMount() {

@@ -29,7 +29,8 @@ export const secondLatestLogTimestampSelector = (state) =>
 
 // Time
 export const outputTimeSelector = (state) => state.timeReducer.outputTime.data.time;
-
+export const getTimezoneSelector = (state) => state.timeReducer.getTimezone;
+export const changeTimezoneSelector = (state) => state.timeReducer.changeTimezone;
 
 
 // Memoized Selectors

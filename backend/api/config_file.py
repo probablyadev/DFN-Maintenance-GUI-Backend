@@ -33,7 +33,6 @@ def update_config_file_endpoint():
     incoming = request.get_json()
 
     property = incoming.get('property').get('data')
-
     category = property.get('category')
     field = property.get('field')
     value = property.get('value')

@@ -13,10 +13,19 @@ def output_time_endpoint():
     return jsonify(time = system_time())
 
 
+@time_endpoints.route("/api/time/getTimezone", methods = ["GET"])
+@requires_auth
+def get_timezone_endpoint():
+    """Returns the systems timezone."""
+    return jsonify(timezone = get_timezone())
+
+
 @time_endpoints.route("/api/time/changeTimezone", methods = ["POST"])
 @requires_auth
 def change_timezone_endpoint():
     """Changes the system's timezone."""
     incoming = request.get_json()
 
-    return jsonify(timezone = change_timezone(incoming.timezone))
+    change_timezone(incoming.get('timezone'))
+
+    return ('', 204)

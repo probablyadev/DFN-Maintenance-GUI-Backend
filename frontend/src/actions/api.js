@@ -102,3 +102,18 @@ export function outputTime() {
         type: ActionTypes.outputTime.TRIGGER
     };
 }
+
+export function getTimezone() {
+    return {
+        type: ActionTypes.getTimezone.TRIGGER
+    };
+}
+
+export function changeTimezone(timezone) {
+    return {
+        type: ActionTypes.changeTimezone.TRIGGER,
+        data: {
+            timezone
+        }
+    };
+}

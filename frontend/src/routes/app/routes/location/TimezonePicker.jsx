@@ -1,5 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
 import styled from 'styled-components';
+import NotificationSystem from 'react-notification-system';
+
+import { getTimezone, changeTimezone } from "../../../../actions/api";
+import { getTimezoneSelector, changeTimezoneSelector } from '../../../../selectors/api';
 
 const OuterDiv = styled.div`
     display: inline-block;
@@ -48,13 +54,52 @@ const ListButton = styled.button`
     font: inherit;
 `;
 
-// TODO: API query for current timezone (make new api endpoint) and enable setting of timezones (onChange).
+function mapStateToProps(state) {
+    return {
+        timezone: getTimezoneSelector(state).data.timezone,
+        getTimezoneError: getTimezoneSelector(state).error,
+        changeTimezoneError: changeTimezoneSelector(state).error,
+    };
+}
 
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        getTimezone,
+        changeTimezone
+    }, dispatch);
+}
+
+// TODO: Bug in setting the received timezone from the server. Does not currently set.
+
+@connect(mapStateToProps, mapDispatchToProps)
 class TimezonePicker extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.timezones = require('../../../../assets/timezones.json');
+        this.notificationSystem = null;
+
+        this.notifications = [
+            {
+                uid: 'timezone picker get timezone error',
+                level: 'error',
+                title: 'Get Timezone Error',
+                message: 'It appears there was an error on the server...',
+                position: 'tr',
+                autoDismiss: 0
+            },
+            {
+                uid: 'timezone picker change timezone error',
+                level: 'error',
+                title: 'Change Timezone Error',
+                message: 'It appears that I cannot change the servers timezone...',
+                position: 'tr',
+                autoDismiss: 0
+            }
+        ];
+
+        this.onChange = this.onChange.bind(this);
+        this.createNotifications = this.createNotifications.bind(this);
 
         this.state = {
             open: false,
@@ -62,6 +107,22 @@ class TimezonePicker extends React.Component {
             filter: '',
             value: this.getTimezone('Australia/Perth')
         };
+    }
+
+    componentDidMount() {
+        console.log("componentDidMount");
+        this.props.getTimezone();
+
+        // Grab a reference to the notification system object in render().
+        this.notificationSystem = this.refs.notificationSystem;
+    }
+
+    componentWillReceiveProps(newProps) {
+        console.log("componentWillReceiveProps: " + newProps.timezone);
+
+        if (newProps.timezone !== this.state.value) {
+            this.setState({value: this.getTimezone(newProps.timezone)})
+        }
     }
 
     getTimezone(query) {
@@ -163,25 +224,30 @@ class TimezonePicker extends React.Component {
         this.setState({ focused: index });
     }
 
-    value() {
-        const currentValue = this.state.value;
-
-        if (!currentValue) {
-            return null;
+    onChange(timezone) {
+        if (timezone !== this.state.value) {
+            this.props.changeTimezone(timezone);
         }
-
-        return this.timezones[currentValue];
     }
 
-    onChange(timezone) {
+    createNotifications() {
+        if (this.notificationSystem != null) {
+             if (this.props.getTimezoneError) {
+                this.notificationSystem.addNotification(this.notifications[0]);
+            }
 
+            if (this.props.changeTimezoneError) {
+                this.notificationSystem.addNotification(this.notifications[1]);
+            }
+        }
     }
 
     render() {
-        const { value } = this.state;
-
-        const isSelected = !this.state.open && value;
+        console.log("render" + this.state.value);
+        const isSelected = !this.state.open && this.state.value;
         const isOpen = this.state.open;
+
+        this.createNotifications();
 
         return (
             <article className = 'article'>
@@ -199,12 +265,11 @@ class TimezonePicker extends React.Component {
                                             onBlur = {(e) => this.handleBlur(e)}
                                             onChange = {(e) => this.handleFilterChange(e)}
                                             onKeyDown = {(e) => this.handleKeyPress(e)}
-                                            defaultValue = {value}
+                                            defaultValue = {this.state.value}
                                             innerRef = {(field) => {
                                                 this.field = field;
                                             }}
                                             autoComplete = 'on'
-                                            placeholder = 'Select Timezone...'
                                             name = 'timezone'
                                         />
                                     </div>
@@ -238,6 +303,7 @@ class TimezonePicker extends React.Component {
                         </div>
                     </div>
                 </div>
+                <NotificationSystem ref = "notificationSystem"/>
             </article>
         );
     }

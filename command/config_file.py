@@ -74,7 +74,6 @@ def update_config_file(category, field, value):
     Returns:
         consoleFeedback (str): Resulting console feedback.
     """
-    message = ''
     path = constants.dfnconfigPath
     updated_conf_dict = dfn_functions.load_config(path)
 
@@ -82,8 +81,6 @@ def update_config_file(category, field, value):
     updated_conf_dict[category][field] = value
 
     if dfn_functions.save_config_file(path, updated_conf_dict):
-        message = 'Overwritten {0}:{1}:{2} as {3}'.format(category, field, oldValue, value)
+        return 'Overwritten {0}:{1}:{2} as {3}'.format(category, field, oldValue, value)
     else:
         raise IOError('Unable to write {0}:{1}:{2} to config file'.format(category, field, value))
-
-    return message

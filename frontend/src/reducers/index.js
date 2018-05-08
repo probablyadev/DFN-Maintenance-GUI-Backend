@@ -110,6 +110,12 @@ const timeReducer = combineReducers({
             time: ''
         }
     ),
+    getTimezone: createNetworkReducerWithType(
+        actionTypes.getTimezone,
+        {
+            timezone: ''
+        }
+    ),
     changeTimezone: createNetworkReducerWithType(actionTypes.changeTimezone)
 });
 
