@@ -1,4 +1,3 @@
-from backend import constants
 from command import exec_console_command
 
 
@@ -7,11 +6,19 @@ def system_time():
     Outputs the current system time to the user.
 
     Returns:
-        consoleOutput (str): Resulting console feedback.
+        The current system time.
     """
-    consoleOutput = exec_console_command(constants.outputTime)
+    return exec_console_command("date")
 
-    return consoleOutput + "\n"
+
+def get_timezone():
+    """
+    Gets the systems current timezone.
+
+    Returns:
+        timezone (str): The systems timezone.
+    """
+    return exec_console_command("timedatectl status | grep -oP '(?<=Time zone: ).*(?= \()'")
 
 
 def change_timezone(timezone):
@@ -20,11 +27,5 @@ def change_timezone(timezone):
 
     Args:
         timezone (str): Timezone information to change the system's timezone to.
-
-    Returns:
-        constants.timezoneChanged (str): Resulting feedback.
     """
-    command = constants.setTimezone
-    exec_console_command(command.format(timezone))
-
-    return constants.timezoneChanged.format(timezone)
+    exec_console_command("timedatectl set-timezone {0}".format(timezone))
