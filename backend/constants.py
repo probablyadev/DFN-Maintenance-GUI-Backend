@@ -40,12 +40,6 @@ hddSpaceLive = "df -h | egrep 'Filesystem|data'"
 runSmartTest = "smartctl -d {0} -t short /dev/sdb;"
 checkSmartTest = "smartctl -d {0} -a /dev/sdb"
 
-internetCheck = "ping -c 1 www.google.com"
-getInternetIP = "ifconfig | grep eth1 -A 1 | grep -o '\(addr:\|inet \)[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' | cut -c6-"
-
-vpnCheck = "ping -c 1 10.1.16.1"
-getVpnIP = "ifconfig | grep tun0 -A 1 | grep -o '\(addr:\|inet \)[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'| cut -c6-"
-
 cfcheck = "python /opt/dfn-software/camera_image_count.py"
 intervalTest = "/opt/dfn-software/interval_control_test.sh;"
 checkIntervalResults = "ls -lR /data0/latest_prev/*.NEF | wc -l"
