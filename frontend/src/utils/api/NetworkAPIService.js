@@ -10,6 +10,16 @@ function checkVPN(token) {
     });
 }
 
+function restartVPN(token) {
+    return request({
+        url: `/network/restartVPN`,
+        method: 'GET',
+        headers: {
+            'Authorization': token
+        }
+    });
+}
+
 function checkInternet(token) {
     return request({
         url: `/network/checkInternet`,
@@ -30,21 +40,11 @@ function restartModem(token) {
     });
 }
 
-function restartVPN(token) {
-    return request({
-        url: `/network/restartVPN`,
-        method: 'GET',
-        headers: {
-            'Authorization': token
-        }
-    });
-}
-
 const NetworkAPIService = {
     checkVPN,
+    restartVPN,
     checkInternet,
-    restartModem,
-    restartVPN
+    restartModem
 };
 
 export default NetworkAPIService;

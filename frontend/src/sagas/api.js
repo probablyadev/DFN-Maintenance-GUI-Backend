@@ -74,6 +74,24 @@ export const networkSagas = [
         fetchEntity,
         ActionTypes.checkVPN,
         NetworkAPIService.checkVPN
+    ),
+    takeLatest(
+        ActionTypes.restartVPN.TRIGGER,
+        fetchEntity,
+        ActionTypes.restartVPN,
+        NetworkAPIService.restartVPN
+    ),
+    takeLatest(
+        ActionTypes.checkInternet.TRIGGER,
+        fetchEntity,
+        ActionTypes.checkInternet,
+        NetworkAPIService.checkInternet
+    ),
+    takeLatest(
+        ActionTypes.restartModem.TRIGGER,
+        fetchEntity,
+        ActionTypes.restartModem,
+        NetworkAPIService.restartModem
     )
 ];
 

@@ -39,9 +39,9 @@ export const getHostname = createRoutine('GET_HOSTNAME');
 
 // Network API Service
 export const checkVPN = createRoutine('CHECK_VPN');
+export const restartVPN = createRoutine('RESTART_VPN');
 export const checkInternet = createRoutine('CHECK_INTERNET');
 export const restartModem = createRoutine('RESTART_MODEM');
-export const restartVPN = createRoutine('RESTART_VPN');
 
 // Status API Service
 export const latestLog = createRoutine('LATEST_LOG');

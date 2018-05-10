@@ -13,8 +13,8 @@ def check_vpn_endpoint():
     pingOutput, vpnIP = check_vpn()
 
     return jsonify(
-        ping_output = pingOutput,
-        vpn_ip = vpnIP
+        pingOutput = pingOutput,
+        vpnIP = vpnIP
     )
 
 
@@ -26,8 +26,8 @@ def restart_vpn_endpoint():
     pingOutput, vpnIP = check_vpn()
 
     return jsonify(
-        ping_output = pingOutput,
-        vpn_ip = vpnIP
+        pingOutput = pingOutput,
+        vpnIP = vpnIP
     )
 
 
@@ -38,8 +38,8 @@ def check_internet_endpoint():
     pingOutput, ipAddress = check_internet()
 
     return jsonify(
-        ping_output = pingOutput,
-        ip_address = ipAddress
+        pingOutput = pingOutput,
+        ipAddress = ipAddress
     )
 
 
@@ -51,6 +51,6 @@ def restart_modem_endpoint():
     pingOutput, ipAddress = check_internet()
 
     return jsonify(
-        ping_output = pingOutput,
-        ip_address = ipAddress
+        pingOutput = pingOutput,
+        ipAddress = ipAddress
     )

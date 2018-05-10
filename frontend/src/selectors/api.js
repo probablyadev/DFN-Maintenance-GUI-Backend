@@ -14,10 +14,10 @@ export const checkHDDSelector = (state) => state.hddReducer.checkHDD.data;
 export const getHostnameSelector = (state) => state.miscReducer.getHostname;
 
 // Network
-export const checkVPNSelector = (state) => state.networkReducer.checkVPN.data;
-export const restartVPNSelector = (state) => state.networkReducer.restartVPN.data;
-export const checkInternetSelector = (state) => state.networkReducer.checkInternet.data;
-export const restartModemSelector = (state) => state.networkReducer.restartModem.data;
+export const checkVPNSelector = (state) => state.networkReducer.checkVPN;
+export const restartVPNSelector = (state) => state.networkReducer.restartVPN;
+export const checkInternetSelector = (state) => state.networkReducer.checkInternet;
+export const restartModemSelector = (state) => state.networkReducer.restartModem;
 
 // Status
 export const latestLogFileSelector = (state) => state.statusReducer.latestLog.data.logfile;

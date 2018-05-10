@@ -81,9 +81,9 @@ const miscReducer = combineReducers({
 
 const networkReducer = combineReducers({
     checkVPN:      createNetworkReducerWithType(actionTypes.checkVPN),
+    restartVPN:    createNetworkReducerWithType(actionTypes.restartVPN),
     checkInternet: createNetworkReducerWithType(actionTypes.checkInternet),
-    restartModem:  createNetworkReducerWithType(actionTypes.restartModem),
-    restartVPN:    createNetworkReducerWithType(actionTypes.restartVPN)
+    restartModem:  createNetworkReducerWithType(actionTypes.restartModem)
 });
 
 const statusReducer = combineReducers({
