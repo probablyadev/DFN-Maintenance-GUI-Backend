@@ -13,8 +13,8 @@ const minWidthStyle = {
 
 function mapStateToProps(state) {
     return {
-        checkInternetData: checkInternetSelector(state).data,
-        checkInternetError: checkInternetSelector(state).error,
+        //checkInternetData: checkInternetSelector(state).data,
+        //checkInternetError: checkInternetSelector(state).error,
         restartModemData: restartModemSelector(state).data,
         restartModemError: restartModemSelector(state).error
     };
@@ -37,22 +37,6 @@ class Internet extends React.Component {
         // TODO: Add a button for viewing the full ping output.
         this.notifications = [
             {
-                uid: 'internet check internet success',
-                level: 'success',
-                title: 'Check Internet Success',
-                message: `IP: ${this.props.checkInternetData.ipAddress}`,
-                position: 'tr',
-                autoDismiss: 5
-            },
-            {
-                uid: 'internet check internet failure',
-                level: 'error',
-                title: 'Check Internet Error',
-                message: 'Error while either pinging google or retrieving the machines IP',
-                position: 'tr',
-                autoDismiss: 5
-            },
-            {
                 uid: 'internet restart modem success',
                 level: 'success',
                 title: 'Restart Modem Success',
@@ -69,11 +53,40 @@ class Internet extends React.Component {
                 autoDismiss: 5
             }
         ];
+
+        this.onSuccess = this.onSuccess.bind(this);
+        this.onFailure = this.onFailure.bind(this);
     }
 
     componentDidMount() {
         // Grab a reference to the notification system object in render().
         this.notificationSystem = this.refs.notificationSystem;
+    }
+
+    onSuccess(params) {
+        this.notificationSystem.addNotification(
+            {
+                uid: 'internet check internet success',
+                level: 'success',
+                title: 'Check Internet Success',
+                message: `IP: ${params.data.ipAddress}`,
+                position: 'tr',
+                autoDismiss: 5
+            }
+        );
+    }
+
+    onFailure(params) {
+        this.notificationSystem.addNotification(
+            {
+                uid: 'internet check internet failure',
+                level: 'error',
+                title: 'Check Internet Error',
+                message: 'Error while either pinging google or retrieving the machines IP',
+                position: 'tr',
+                autoDismiss: 5
+            }
+        );
     }
 
     render() {
@@ -84,7 +97,7 @@ class Internet extends React.Component {
                     <div className='box box-default'>
                         <div className='box-header'>Internet</div>
                         <div className='box-body text-center'>
-                            <Button variant='raised' style={minWidthStyle} onClick={() => this.props.checkInternet(this.notificationSystem, this.notifications.slice(0, 2))}>
+                            <Button variant='raised' style={minWidthStyle} onClick={() => this.props.checkInternet(this.onSuccess, this.onFailure)}>
                                 Check Internet Connection
                             </Button>
                             <div className='divider' />

@@ -71,14 +71,11 @@ export function restartVPN() {
     };
 }
 
-export function checkInternet(notificationSystem, notificationsArray) {
+export function checkInternet(onSuccess, onFailure) {
     return {
         type: ActionTypes.checkInternet.TRIGGER,
-        notifications: {
-            notificationSystem,
-            successNotification: notificationsArray[2],
-            failureNotification: notificationsArray[1]
-        }
+        onSuccess,
+        onFailure
     };
 }
 

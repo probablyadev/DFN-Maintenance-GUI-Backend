@@ -8,10 +8,14 @@ export function createReducer(initialState, reducerMap) {
     };
 }
 
-export function* fetchEntity(entity, api, { data, notifications }) {
+export function* fetchEntity(entity, api, { data, onNotification, onSuccess, onFailure }) {
     try {
         const token = localStorage.getItem('token');
         let response;
+
+        if (onNotification !== undefined) {
+            onNotification();
+        }
 
         if (data === undefined) {
             response = yield call(api, token);
@@ -19,14 +23,14 @@ export function* fetchEntity(entity, api, { data, notifications }) {
             response = yield call(api, token, data);
         }
 
-        if (notifications !== undefined && notifications.successNotification !== undefined) {
-            notifications.notificationSystem.addNotification(notifications.successNotification);
+        if (onSuccess !== undefined) {
+            onSuccess(response);
         }
 
         yield put(entity.success(response.data));
     } catch (error) {
-        if (notifications !== undefined && notifications.failureNotification !== undefined) {
-            notifications.notificationSystem.addNotification(notifications.failureNotification);
+        if (onFailure !== undefined) {
+            onFailure(error);
         }
 
         yield put(entity.failure(error.message));
