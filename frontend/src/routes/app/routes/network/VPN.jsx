@@ -43,7 +43,7 @@ class VPN extends React.Component {
                 uid: 'vpn check vpn success',
                 level: 'success',
                 title: 'Check VPN Success',
-                message: `${params.data.ipAddress}`,
+                message: `VPN IP: ${params.data.vpnIP}`,
                 position: 'tr',
                 autoDismiss: 5
             }
@@ -59,12 +59,12 @@ class VPN extends React.Component {
                 message: 'Error while either pinging the VPN address or retrieving the VPN IP',
                 position: 'tr',
                 autoDismiss: 0,
-                children: (
+                /*children: (
                     <div>
                         <h6>Error Message</h6>
-                        <a>{params.message}</a>
+                        <a>{params.cmd}</a>
                     </div>
-                )
+                )*/
             }
         );
     }
@@ -100,6 +100,8 @@ class VPN extends React.Component {
     onRestartFailure(params) {
         this.notificationSystem.removeNotification('vpn restart vpn notification');
 
+        //const exception = Object.keys(params).map(key => <a>{key}: {params[key]}</a>);
+
         this.notificationSystem.addNotification(
             {
                 uid: 'vpn restart vpn failure',
@@ -108,12 +110,12 @@ class VPN extends React.Component {
                 message: 'Error while restarting the VPN',
                 position: 'tr',
                 autoDismiss: 0,
-                children: (
+                /*children: (
                     <div>
-                        <h6>Error Message</h6>
-                        <a>{params.message}</a>
+                        <h6>Error Output</h6>
+                        <a>{params.output}</a>
                     </div>
-                )
+                )*/
             }
         );
     }

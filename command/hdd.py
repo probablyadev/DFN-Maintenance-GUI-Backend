@@ -8,6 +8,8 @@ from backend.constants import getHostname
 import time
 from command import exec_console_command
 
+# TODO: Drive variations will need an abstract class, each extension will contain the different commands for said machine.
+# Could also extend this to be for the whole system. I.e. Abstract class for commands that are the same, extension classes for each machines commands that change.
 
 def check_hdd():
     """
@@ -218,6 +220,8 @@ def disable_hdd():
 def enable_hdd():
     """
     Switches the camera's external hard drives on.
+
+    TODO: Use Pythons internal method for enabling / disabling HDD's
 
     Returns:
         constants.hddCommandedOn (str): Represents the success of the operation.

@@ -59,12 +59,12 @@ class Internet extends React.Component {
                 message: 'Error while either pinging google or retrieving the machines IP',
                 position: 'tr',
                 autoDismiss: 0,
-                children: (
+                /*children: (
                     <div>
                         <h6>Error Message</h6>
                         <a>{params.message}</a>
                     </div>
-                )
+                )*/
             }
         );
     }
@@ -108,12 +108,12 @@ class Internet extends React.Component {
                 message: 'Error while restarting the Modem',
                 position: 'tr',
                 autoDismiss: 0,
-                children: (
+                /*children: (
                     <div>
                         <h6>Error Message</h6>
                         <a>{params.message}</a>
                     </div>
-                )
+                )*/
             }
         );
     }
