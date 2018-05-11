@@ -17,31 +17,6 @@ def get_user_endpoint():
     return jsonify(user = g.current_user)
 
 
-@user_endpoints.route("/api/user/createUser", methods = ["POST"])
-def create_user_endpoint():
-    """Currently only used when testing the backend system."""
-    incoming = request.get_json()
-
-    user = User(
-        email = incoming["email"],
-        password = incoming["password"]
-    )
-
-    db.session.add(user)
-
-    try:
-        db.session.commit()
-    except IntegrityError:
-        raise IntegrityError("User with that email already exists")
-
-    new_user = User.query.filter_by(email = incoming["email"]).first()
-
-    return jsonify(
-        user_id = user.id,
-        token = generate_token(new_user)
-    )
-
-
 @user_endpoints.route("/api/user/getToken", methods = ["POST"])
 def get_token_endpoint():
     """Generates a token for the users session if email and password is valid."""
