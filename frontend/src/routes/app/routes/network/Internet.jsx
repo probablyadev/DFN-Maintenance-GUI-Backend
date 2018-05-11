@@ -40,7 +40,7 @@ class Internet extends React.Component {
                 uid: 'internet check internet success',
                 level: 'success',
                 title: 'Check Internet Success',
-                message: '',
+                message: `IP: ${this.props.checkInternetData.ipAddress}`,
                 position: 'tr',
                 autoDismiss: 5
             },
@@ -69,8 +69,6 @@ class Internet extends React.Component {
                 autoDismiss: 5
             }
         ];
-
-        this.processNotifications = this.processNotifications.bind(this);
     }
 
     componentDidMount() {
@@ -78,28 +76,7 @@ class Internet extends React.Component {
         this.notificationSystem = this.refs.notificationSystem;
     }
 
-    processNotifications() {
-        if (this.notificationSystem != null) {
-            if (!this.props.checkInternetError && this.props.checkInternetData !== null) {
-                const notification = this.notifications[0];
-                notification.message = `IP: ${this.props.checkInternetData.ipAddress}`;
-
-                this.notificationSystem.addNotification(notification);
-            } else {
-                this.notificationSystem.addNotification(this.notifications[1]);
-            }
-
-            if (!this.props.restartModemError && this.props.checkModemData !== null) {
-                this.notificationSystem.addNotification(this.notifications[2]);
-            } else {
-                this.notificationSystem.addNotification(this.notifications[3]);
-            }
-        }
-    }
-
     render() {
-        this.processNotifications();
-
         return (
             <div className='row'>
                 <div className='col-xl-12'>
@@ -107,7 +84,7 @@ class Internet extends React.Component {
                     <div className='box box-default'>
                         <div className='box-header'>Internet</div>
                         <div className='box-body text-center'>
-                            <Button variant='raised' style={minWidthStyle} onClick={() => this.props.checkInternet()}>
+                            <Button variant='raised' style={minWidthStyle} onClick={() => this.props.checkInternet(this.notificationSystem, this.notifications.slice(0, 2))}>
                                 Check Internet Connection
                             </Button>
                             <div className='divider' />
