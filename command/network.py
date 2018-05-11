@@ -30,7 +30,7 @@ def check_internet():
         ipAddress (str): Internet IP.
     """
     pingOutput = exec_console_command("ping -c 1 www.google.com")
-    ipAddress = exec_console_command("curl ipinfo.io/ip")
+    ipAddress = exec_console_command("ifconfig | grep eth1 -A 1 | grep -o '\(addr:\|inet \)[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' | cut -c6-") # curl ipinfo.io/ip
 
     return pingOutput, ipAddress
 
