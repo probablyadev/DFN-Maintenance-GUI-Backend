@@ -37,4 +37,5 @@ def check_internet():
 
 def restart_modem():
     """Restarts the modem network interface."""
+    # TODO: Check time getting ip would take, make sure it does not exceed a max time.
     exec_console_command("ifdown ppp0; sleep 8; ifup ppp0; sleep 8; ifconfig ppp0")
