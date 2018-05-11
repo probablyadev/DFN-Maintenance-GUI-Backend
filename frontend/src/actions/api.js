@@ -59,15 +59,20 @@ export function getHostname() {
 }
 
 // Network
-export function checkVPN() {
+export function checkVPN(onSuccess, onFailure) {
     return {
-        type: ActionTypes.checkVPN.TRIGGER
+        type: ActionTypes.checkVPN.TRIGGER,
+        onSuccess,
+        onFailure
     };
 }
 
-export function restartVPN() {
+export function restartVPN(onNotification, onSuccess, onFailure) {
     return {
-        type: ActionTypes.restartVPN.TRIGGER
+        type: ActionTypes.restartVPN.TRIGGER,
+        onNotification,
+        onSuccess,
+        onFailure
     };
 }
 
@@ -79,9 +84,12 @@ export function checkInternet(onSuccess, onFailure) {
     };
 }
 
-export function restartModem() {
+export function restartModem(onNotification, onSuccess, onFailure) {
     return {
-        type: ActionTypes.restartModem.TRIGGER
+        type: ActionTypes.restartModem.TRIGGER,
+        onNotification,
+        onSuccess,
+        onFailure
     };
 }
 

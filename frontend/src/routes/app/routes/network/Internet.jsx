@@ -5,20 +5,10 @@ import NotificationSystem from 'react-notification-system';
 import Button from 'material-ui/Button';
 
 import {checkInternet, restartModem} from '../../../../actions/api';
-import { checkInternetSelector, restartModemSelector } from '../../../../selectors/api';
 
 const minWidthStyle = {
     minWidth: '135px'
 };
-
-function mapStateToProps(state) {
-    return {
-        //checkInternetData: checkInternetSelector(state).data,
-        //checkInternetError: checkInternetSelector(state).error,
-        restartModemData: restartModemSelector(state).data,
-        restartModemError: restartModemSelector(state).error
-    };
-}
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
@@ -27,35 +17,18 @@ function mapDispatchToProps(dispatch) {
     }, dispatch);
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(null, mapDispatchToProps)
 class Internet extends React.Component {
     constructor(props) {
         super(props);
 
         this.notificationSystem = null;
 
-        // TODO: Add a button for viewing the full ping output.
-        this.notifications = [
-            {
-                uid: 'internet restart modem success',
-                level: 'success',
-                title: 'Restart Modem Success',
-                message: 'Modem successfully restarted',
-                position: 'tr',
-                autoDismiss: 5
-            },
-            {
-                uid: 'internet restart modem failure',
-                level: 'error',
-                title: 'Restart Modem Error',
-                message: 'Error while restarting the Modem',
-                position: 'tr',
-                autoDismiss: 5
-            }
-        ];
-
-        this.onSuccess = this.onSuccess.bind(this);
-        this.onFailure = this.onFailure.bind(this);
+        this.onCheckSuccess = this.onCheckSuccess.bind(this);
+        this.onCheckFailure = this.onCheckFailure.bind(this);
+        this.onRestartNotify = this.onRestartNotify.bind(this);
+        this.onRestartSuccess = this.onRestartSuccess.bind(this);
+        this.onRestartFailure = this.onRestartFailure.bind(this);
     }
 
     componentDidMount() {
@@ -63,7 +36,8 @@ class Internet extends React.Component {
         this.notificationSystem = this.refs.notificationSystem;
     }
 
-    onSuccess(params) {
+    // TODO: Add a button for viewing the full ping output.
+    onCheckSuccess(params) {
         this.notificationSystem.addNotification(
             {
                 uid: 'internet check internet success',
@@ -76,7 +50,7 @@ class Internet extends React.Component {
         );
     }
 
-    onFailure(params) {
+    onCheckFailure(params) {
         this.notificationSystem.addNotification(
             {
                 uid: 'internet check internet failure',
@@ -84,7 +58,62 @@ class Internet extends React.Component {
                 title: 'Check Internet Error',
                 message: 'Error while either pinging google or retrieving the machines IP',
                 position: 'tr',
+                autoDismiss: 0,
+                children: (
+                    <div>
+                        <h6>Error Message</h6>
+                        <a>{params.message}</a>
+                    </div>
+                )
+            }
+        );
+    }
+
+    onRestartNotify() {
+        this.notificationSystem.addNotification(
+            {
+                uid: 'internet restart modem notification',
+                level: 'info',
+                title: 'Restart Modem Notification',
+                message: 'Restarting the modem can take around ~20 seconds, please wait...',
+                position: 'tr',
+                autoDismiss: 30
+            }
+        );
+    }
+
+    onRestartSuccess(params) {
+        this.notificationSystem.removeNotification('internet restart modem notification');
+
+        this.notificationSystem.addNotification(
+            {
+                uid: 'internet restart modem success',
+                level: 'success',
+                title: 'Restart Modem Success',
+                message: 'Modem successfully restarted',
+                position: 'tr',
                 autoDismiss: 5
+            }
+        );
+    }
+
+    onRestartFailure(params) {
+        this.notificationSystem.removeNotification('internet restart modem notification');
+
+        this.notificationSystem.addNotification(
+            {
+                uid: 'internet restart modem failure',
+                level: 'error',
+                title: 'Restart Modem Error',
+                message: 'Error while restarting the Modem',
+                position: 'tr',
+                autoDismiss: 0,
+                children: (
+                    <div>
+                        <h6>Error Message</h6>
+                        <a>{params.message}</a>
+                    </div>
+                )
             }
         );
     }
@@ -97,12 +126,12 @@ class Internet extends React.Component {
                     <div className='box box-default'>
                         <div className='box-header'>Internet</div>
                         <div className='box-body text-center'>
-                            <Button variant='raised' style={minWidthStyle} onClick={() => this.props.checkInternet(this.onSuccess, this.onFailure)}>
+                            <Button variant='raised' style={minWidthStyle} onClick={() => this.props.checkInternet(this.onCheckSuccess, this.onCheckFailure)}>
                                 Check Internet Connection
                             </Button>
                             <div className='divider' />
 
-                            <Button variant='raised' style={minWidthStyle} onClick={() => this.props.restartModem()}>
+                            <Button variant='raised' style={minWidthStyle} onClick={() => this.props.restartModem(this.onRestartNotify, this.onRestartSuccess, this.onRestartFailure)}>
                                 Restart Modem
                             </Button>
                             <div className='divider' />

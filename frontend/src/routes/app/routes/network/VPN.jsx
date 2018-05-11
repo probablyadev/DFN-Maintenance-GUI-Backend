@@ -5,20 +5,10 @@ import NotificationSystem from 'react-notification-system';
 import Button from 'material-ui/Button';
 
 import { checkVPN, restartVPN } from '../../../../actions/api';
-import { checkVPNSelector, restartVPNSelector } from '../../../../selectors/api';
 
 const minWidthStyle = {
     minWidth: '135px'
 };
-
-function mapStateToProps(state) {
-    return {
-        checkVPNData: checkVPNSelector(state).data,
-        checkVPNError: checkVPNSelector(state).error,
-        restartVPNData: restartVPNSelector(state).data,
-        restartVPNError: restartVPNSelector(state).error,
-    };
-}
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
@@ -27,50 +17,18 @@ function mapDispatchToProps(dispatch) {
     }, dispatch);
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(null, mapDispatchToProps)
 class VPN extends React.Component {
     constructor(props) {
         super(props);
 
         this.notificationSystem = null;
 
-        // TODO: Add a button for viewing the full ping output.
-        this.notifications = [
-            {
-                uid: 'internet check vpn success',
-                level: 'success',
-                title: 'Check VPN Success',
-                message: 'VPN IP: {0}',
-                position: 'tr',
-                autoDismiss: 5
-            },
-            {
-                uid: 'internet check vpn failure',
-                level: 'error',
-                title: 'Check VPN Error',
-                message: 'Error while either pinging the VPN address or retrieving the VPN IP',
-                position: 'tr',
-                autoDismiss: 5
-            },
-            {
-                uid: 'internet restart vpn success',
-                level: 'success',
-                title: 'Restart VPN Success',
-                message: 'VPN successfully restarted',
-                position: 'tr',
-                autoDismiss: 5
-            },
-            {
-                uid: 'internet restart vpn failure',
-                level: 'error',
-                title: 'Restart VPN Error',
-                message: 'Error while restarting the VPN',
-                position: 'tr',
-                autoDismiss: 5
-            }
-        ];
-
-        this.processNotifications = this.processNotifications.bind(this);
+        this.onCheckSuccess = this.onCheckSuccess.bind(this);
+        this.onCheckFailure = this.onCheckFailure.bind(this);
+        this.onRestartNotify = this.onRestartNotify.bind(this);
+        this.onRestartSuccess = this.onRestartSuccess.bind(this);
+        this.onRestartFailure = this.onRestartFailure.bind(this);
     }
 
     componentDidMount() {
@@ -78,25 +36,89 @@ class VPN extends React.Component {
         this.notificationSystem = this.refs.notificationSystem;
     }
 
-    processNotifications() {
-        if (this.notificationSystem != null) {
-            if (!this.props.checkVPNError && this.props.checkVPNData !== null) {
-                this.notificationSystem.addNotification(this.notifications[0]);
-            } else {
-                this.notificationSystem.addNotification(this.notifications[1]);
+    // TODO: Add a button for viewing the full ping output.
+    onCheckSuccess(params) {
+        this.notificationSystem.addNotification(
+            {
+                uid: 'vpn check vpn success',
+                level: 'success',
+                title: 'Check VPN Success',
+                message: `${params.data.ipAddress}`,
+                position: 'tr',
+                autoDismiss: 5
             }
+        );
+    }
 
-            if (!this.props.restartVPNError && this.props.restartVPNData !== null) {
-                this.notificationSystem.addNotification(this.notifications[2]);
-            } else {
-                this.notificationSystem.addNotification(this.notifications[3]);
+    onCheckFailure(params) {
+        this.notificationSystem.addNotification(
+            {
+                uid: 'vpn check vpn failure',
+                level: 'error',
+                title: 'Check VPN Error',
+                message: 'Error while either pinging the VPN address or retrieving the VPN IP',
+                position: 'tr',
+                autoDismiss: 0,
+                children: (
+                    <div>
+                        <h6>Error Message</h6>
+                        <a>{params.message}</a>
+                    </div>
+                )
             }
-        }
+        );
+    }
+
+    onRestartNotify() {
+        this.notificationSystem.addNotification(
+            {
+                uid: 'vpn restart vpn notification',
+                level: 'info',
+                title: 'Restart VPN Notification',
+                message: 'Restarting the VPN can take around ~10 seconds, please wait...',
+                position: 'tr',
+                autoDismiss: 20
+            }
+        );
+    }
+
+    onRestartSuccess(params) {
+        this.notificationSystem.removeNotification('vpn restart vpn notification');
+
+        this.notificationSystem.addNotification(
+            {
+                uid: 'vpn restart vpn success',
+                level: 'success',
+                title: 'Restart VPN Success',
+                message: 'VPN successfully restarted',
+                position: 'tr',
+                autoDismiss: 5
+            }
+        );
+    }
+
+    onRestartFailure(params) {
+        this.notificationSystem.removeNotification('vpn restart vpn notification');
+
+        this.notificationSystem.addNotification(
+            {
+                uid: 'vpn restart vpn failure',
+                level: 'error',
+                title: 'Restart VPN Error',
+                message: 'Error while restarting the VPN',
+                position: 'tr',
+                autoDismiss: 0,
+                children: (
+                    <div>
+                        <h6>Error Message</h6>
+                        <a>{params.message}</a>
+                    </div>
+                )
+            }
+        );
     }
 
     render() {
-        this.processNotifications();
-
         return (
             <div className='row'>
                 <div className='col-xl-12'>
@@ -104,12 +126,12 @@ class VPN extends React.Component {
                     <div className='box box-default'>
                         <div className='box-header'>VPN</div>
                         <div className='box-body text-center'>
-                            <Button variant='raised' style={minWidthStyle} onClick={() => this.props.checkVPN()}>
+                            <Button variant='raised' style={minWidthStyle} onClick={() => this.props.checkVPN(this.onCheckSuccess, this.onCheckFailure)}>
                                 Check VPN
                             </Button>
                             <div className='divider' />
 
-                            <Button variant='raised' style={minWidthStyle} onClick={() => this.props.restartVPN()}>
+                            <Button variant='raised' style={minWidthStyle} onClick={() => this.props.restartVPN(this.onRestartNotify, this.onRestartSuccess, this.onRestartFailure)}>
                                 Restart VPN
                             </Button>
                             <div className='divider' />

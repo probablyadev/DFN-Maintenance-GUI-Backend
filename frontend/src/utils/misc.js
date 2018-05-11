@@ -8,7 +8,7 @@ export function createReducer(initialState, reducerMap) {
     };
 }
 
-export function* fetchEntity(entity, api, { data, onNotification, onSuccess, onFailure }) {
+export function* fetchEntity(entity, api, { data, onNotification = undefined, onSuccess = undefined, onFailure = undefined }) {
     try {
         const token = localStorage.getItem('token');
         let response;
