@@ -126,6 +126,7 @@ def check_hdd():
 
     hdd_status = []
 
+    # TODO[ash]: Ask Scott how this list syntax works
     hdd_status["HDD 0"] = {
         "status": hdd0Status,
         "space": hdd0Space
@@ -185,7 +186,7 @@ def disable_hdd():
     # Then proceed to power off as normal
 
     # Do command
-    import disable_ext-hd
+    __import__("disable_ext-hd")
 
     # Sleep if EXT, needs time to remove drives.
     if "EXT" in misc.get_hostname():
@@ -209,7 +210,7 @@ def enable_hdd():
         return "Hard drives already powered.\n"
 
     # Do command
-    import enable_ext-hd
+    __import__("enable_ext-hd")
 
     time.sleep(25)
 
@@ -231,21 +232,22 @@ def format_hdd(inDrives):
     Raises:
         IOError, RuntimeError
     """
-    consoleOutput = exec_console_command(constants.formatHardDrive.format(inDrives) + constants.getExitStatus)
+    # TODO[ash]: Check if echo at end is needed. Pretty sure it isn't
+    consoleOutput = exec_console_command("/root/bin/dfn_setup_data_hdds.sh {0}".format(inDrives) + "echo $?")
 
     if "\n127" in consoleOutput:
-        consoleOutput = exec_console_command(constants.formatHardDriveOLD(inDrives) + constants.getExitStatus)
+        consoleOutput = exec_console_command("/root/bin/dfn_setup_usb_hdds.sh {0}".format(inDrives) + "echo $?")
 
         if "\n127" in consoleOutput:
-            raise IOError(constants.hddFormatScriptNotFound)
+            raise IOError(constants.scriptNotFound.format("dfn_setup_data_hdds.sh"))
         elif "is mounted" in consoleOutput:
-            raise RuntimeError(constants.hddFormatFailed)
+            raise RuntimeError("Some drives still mounted, or didn't format properly. Please make sure drives are unmounted and safe to format.")
         else:
-            feedbackOutput = constants.hddFormatPassed
+            feedbackOutput = "\nHarddrives formatted successfully.\n"
     elif "is mounted" in consoleOutput:
-        raise RuntimeError(constants.hddFormatFailed)
+        raise RuntimeError("Some drives still mounted, or didn't format properly. Please make sure drives are unmounted and safe to format.")
     else:
-        feedbackOutput = constants.hddFormatPassed
+        feedbackOutput = "\nHarddrives formatted successfully.\n"
 
     return feedbackOutput
 
@@ -258,45 +260,31 @@ def mount_hdd():
         feedbackOutput (str): Resulting feedback.
     """
     outputDict = {'/data1': "Drive #1", '/data2': "Drive #2", '/data3': "Drive #3"}
-    smalldrives = ['/data1', '/data2']
-    extdrives = ['/data1', '/data2', '/data3']
-    drives = ['']
-    feedbackOutput = ""
+    feedbackOutput = {}
 
-    hostname = getHostname()
+    hostname = misc.get_hostname()
 
     if 'EXT' in hostname:
-        drives = list(extdrives)
+        drives = ['/data1', '/data2', '/data3']
     else:
-        drives = list(smalldrives)
+        drives = ['/data1', '/data2']
 
-    temp, hdd0Status, hdd0Space, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space = check_hdd()
-    poweredArray = [hdd1Status, hdd2Status, hdd3Status]
+    #Get current status of HDDs
+    hdd_status = check_hdd()
+    poweredArray = [hdd_status["HDD 1"]["status"], hdd_status["HDD 2"]["status"], hdd_status["HDD 3"]["status"]]
 
     for idx, drive in enumerate(drives):
         # Do command for drive
         try:
-            consoleOutput = exec_console_command(constants.mountHardDrive.format(drive))
+            consoleOutput = exec_console_command("mount {0}".format(drive))
 
             if poweredArray[idx] == 0:
-                feedbackOutput += constants.hddMountFailed.format(outputDict[drive], constants.hddNotPoweredError)
+                feedbackOutput["HDD {0}".format(idx+1)] = "{0} mount error: {1}\n".format(outputDict[drive], "Hard drives need to be powered.")
             else:
-                feedbackOutput += constants.hddMountPassed.format(outputDict[drive])
+                feedbackOutput["HDD {0}".format(idx+1)] = "{0} mounted successfully.\n".format(outputDict[drive])
 
         except CommandError as error:
-            feedbackOutput += constants.hddMountFailed.format(outputDict[drive], constants.hddAlreadyMountedError)
-
-
-        # TODO[ash]: Return status output as key value pair for each harddrive. E.g. { "HDD 1": success/error output, "HDD 2": ... }
-
-
-        if "SUCCESS" in consoleOutput:
-            if poweredArray[idx] == 0:
-                feedbackOutput += constants.hddMountFailed.format(outputDict[drive], constants.hddNotPoweredError)
-            else:
-                feedbackOutput += constants.hddMountPassed.format(outputDict[drive])
-        else:
-            feedbackOutput += constants.hddMountFailed.format(outputDict[drive], constants.hddAlreadyMountedError)
+            feedbackOutput["HDD {0}".format(idx+1)] = "{0} mount error: {1}\n".format(outputDict[drive], "Hard drives may have already been mounted. See status for confirmation.")
 
     return feedbackOutput
 
@@ -311,12 +299,11 @@ def move_data_0():
     Raises:
         IOError
     """
-    command = constants.moveData0
 
-    if "EXT" in getHostname():
-        command = constants.moveData0Ext
-
-    consoleOutput = exec_console_command(command)
+    if "EXT" in misc.get_hostname():
+        consoleOutput = exec_console_command("/usr/local/bin/move_data_files_gen3.sh")
+    else:
+        consoleOutput = exec_console_command("/usr/local/bin/move_data_files.sh")
 
     if "SUCCESS" in consoleOutput:
         consoleFeedback = "Move command successful."
@@ -339,15 +326,15 @@ def probe_hdd():
         IOError
     """
     # Do command
-    consoleOutput = exec_console_command(constants.probeHardDrives)
+    consoleOutput = exec_console_command("/root/bin/dfn_setup_data_hdds.sh -p")
     data = {}
 
     # Parse results
     if "no such file or directory" in consoleOutput:
-        consoleOutput = exec_console_command(constants.probeHardDrivesOLD)
+        consoleOutput = exec_console_command("/root/bin/dfn_setup_usb_hdds.sh -p")
 
         if "no such file or directory" in consoleOutput:
-            raise IOError(constants.hddFormatScriptNotFound)
+            raise IOError(constants.scriptNotFound.format("dfn_setup_data_hdds.sh"))
 
     firstLine = consoleOutput.split("\n")
     consoleOutput = firstLine[0]
@@ -377,25 +364,25 @@ def smart_test():
     feedbackOutput = ""
 
     # If hardrives off or not mounted, get outta here!
-    feedbackOutput, hdd0Status, hdd0Space, hdd1Status, hdd2Status, hdd3Status, hdd1Space, hdd2Space, hdd3Space = check_hdd()
+    hdd_status = check_hdd()
 
     try:
-        assert hdd1Status == 0 and hdd2Status == 0
+        assert hdd_status["HDD 1"]["status"] == 0 and hdd_status["HDD 2"]["status"] == 0
     except AssertionError:
-        raise AssertionError(constants.smartTestNotPowereredError)
+        raise AssertionError("Smart test failed. Hard drives need to be powered.")
 
     # Start all smart tests
     for drive in smalldrives:
-        consoleOutput = exec_console_command(constants.runSmartTest.format(drive) + constants.getExitStatus)
+        consoleOutput = exec_console_command("smartctl -d {0} -t short /dev/sdb".format(drive))
 
         if "\n127" in consoleOutput:
-            raise OSError(constants.smartTestCommandNotInstalled)
+            raise OSError("Smart test command not installed. Please contact 265815F@curtin.edu.au.")
 
         elif "\n0" in consoleOutput:
-            output.update({drive: constants.smartTestStartedSuccess.format(drive)})
+            output.update({drive: "\nSmart test for {0} successfully executed.\n".format(drive)})
 
         else:
-            output.update({drive: constants.smartTestStartedFailed.format(drive)})
+            output.update({drive: "\nSmart test {0} failed execution (try re-powering drives).\n".format(drive)})
             successfuldrives.remove(drive)
 
     # Wait for completion
@@ -405,12 +392,12 @@ def smart_test():
 
         # Evaluate results
         for drive in successfuldrives:
-            consoleOutput = exec_console_command(constants.checkSmartTest.format(drive))
+            consoleOutput = exec_console_command("smartctl -d {0} -a /dev/sdb".format(drive))
 
             if "No Errors Logged" in consoleOutput:
-                output[drive] += constants.smartTestResultsPassed.format(drive)
+                output[drive] += "Smart test for {0} passed.\n".format(drive)
             else:
-                output[drive] += constants.smartTestResultsFailed.format(drive)
+                output[drive] += "Smart test for {0} failed.\n".format(drive)
 
     for drive in smalldrives:
         feedbackOutput += output[drive]
@@ -426,26 +413,31 @@ def unmount_hdd():
         feedbackOutput (str): Resulting feedback.
     """
     outputDict = {'/data1': "Drive #1", '/data2': "Drive #2", '/data3': "Drive #3", }
-    smalldrives = ['/data1', '/data2']
-    extdrives = ['/data1', '/data2', '/data3']
     drives = ['']
     feedbackOutput = ""
 
-    hostname = getHostname()
+    hostname = misc.get_hostname()
 
     if 'EXT' in hostname:
-        drives = list(extdrives)
+        drives = ['/data1', '/data2', '/data3']
     else:
-        drives = list(smalldrives)
+        drives = ['/data1', '/data2']
 
-    for drive in drives:
-        # Do command
-        consoleOutput = exec_console_command(constants.unmountHardDrive.format(drive))
+    # Get current status of HDDs
+    hdd_status = check_hdd()
+    poweredArray = [hdd_status["HDD 1"]["status"], hdd_status["HDD 2"]["status"], hdd_status["HDD 3"]["status"]]
 
-        # Parse results
-        if "SUCCESS" in consoleOutput:
-            feedbackOutput += constants.hddUnmountPassed.format(outputDict[drive])
-        else:
-            feedbackOutput += constants.hddUnmountFailed.format(outputDict[drive], constants.hddAlreadyUnmountedError)
+    for idx, drive in enumerate(drives):
+        # Do command for drive
+        try:
+            consoleOutput = exec_console_command("unmount {0}".format(drive))
+
+            if poweredArray[idx] == 0:
+                feedbackOutput["HDD {0}".format(idx+1)] = "{0} unmount error: {1}\n".format(outputDict[drive], "Hard drives need to be powered.")
+            else:
+                feedbackOutput["HDD {0}".format(idx+1)] = "{0} unmounted successfully.\n".format(outputDict[drive])
+
+        except CommandError as error:
+            feedbackOutput["HDD {0}".format(idx+1)] = "{0} unmount error: {1}\n".format(outputDict[drive], "Hard drives may have already been unmounted.")
 
     return feedbackOutput

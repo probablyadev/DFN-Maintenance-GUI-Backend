@@ -18,17 +18,8 @@ extractThumbnail = "mkdir /opt/dfn-software/Desert-Fireball-Maintainence-GUI/sta
 shutterCount = "exiv2 -pa {0} | grep Nikon3\.ShutterCount | grep -oP '[0-9]{5}'"
 
 enableHardDrive = "python /opt/dfn-software/enable_ext-hd.py;"
-mountHardDrive = "mount {0} && echo SUCCESS"
-unmountHardDrive = "umount {0} && echo SUCCESS"
-probeHardDrives = "/root/bin/dfn_setup_data_hdds.sh -p"
-formatHardDrive = "/root/bin/dfn_setup_data_hdds.sh {0};"
-probeHardDrivesOLD = "/root/bin/dfn_setup_usb_hdds.sh -p"
-formatHardDriveOLD = "/root/bin/dfn_setup_usb_hdds.sh {0};"
-moveData0 = "/usr/local/bin/move_data_files.sh && echo SUCCESS"
-moveData0Ext = "/usr/local/bin/move_data_files_gen3.sh && echo SUCCESS"
 hddSpace = "cat /tmp/dfn_disk_usage"
 runSmartTest = "smartctl -d {0} -t short /dev/sdb;"
-checkSmartTest = "smartctl -d {0} -a /dev/sdb"
 
 cfcheck = "python /opt/dfn-software/camera_image_count.py"
 intervalTest = "/opt/dfn-software/interval_control_test.sh;"
@@ -60,26 +51,10 @@ intervalTestFailed = "\nINTERVAL TEST RESULTS:\nInterval test failed.\n"
 prevIntervalDidRun = "\nINTERVAL CONTROL RAN SUCCESSFULLY LAST NIGHT.\n"
 prevIntervalNotRun = "\nINTERVAL CONTROL DID NOT RUN SUCCESSFULLY LAST NIGHT.\n"
 
-hddFormatPassed = "\nHarddrives formatted successfully.\n"
-hddFormatFailed = "Some drives still mounted, or didn't format properly. Please make sure drives are unmounted and safe to format."
-
 hddCommandedOn = "Hard drive power on command executed.\n"
 hddCommandedOff = "Hard drive power off successful.\n"
 hddOffFailed = "Hard drive power off failed. Power off aborted.\n"
-hddNotPoweredError = "Hard drives need to be powered."
-hddAlreadyMountedError = "Hard drives may have already been mounted. See status for confirmation."
-smartTestStartedSuccess = "\nSmart test for {0} successfully executed.\n"
-smartTestStartedFailed = "\nSmart test {0} failed execution (try re-powering drives).\n"
-smartTestResultsPassed = "Smart test for {0} passed.\n"
-smartTestResultsFailed = "Smart test for {0} failed.\n"
-smartTestNotPowereredError = "Smart test failed. Hard drives need to be powered."
 smartTestCommandNotInstalled = "Smart test command not installed. Please contact 265815F@curtin.edu.au."
-
-hddMountPassed = "{0} mounted successfully.\n"
-hddMountFailed = "{0} mount error: {1}\n"
-hddUnmountPassed = "{0} unmounted successfully.\n"
-hddUnmountFailed = "{0} unmount error: {1}\n"
-hddAlreadyUnmountedError = "May have already been unmounted."
 
 scriptNotFound = "Script not found: {0}."
 pictureNotFound = "Picture not found."
@@ -103,7 +78,6 @@ videoCameraOnScriptNotFound = scriptNotFound.format("enable_video.py")
 videoCameraOffScriptNotFound = scriptNotFound.format("disable_video.py")
 hddOnScriptNotFound = scriptNotFound.format("enable_ext-hd.py")
 hddOffScriptNotFound = scriptNotFound.format("disable_ext-hd.py")
-hddFormatScriptNotFound = scriptNotFound.format("dfn_setup_data_hdds.sh")
 leostickStatusScriptNotFound = scriptNotFound.format("leostick_get_status.py")
 intervalControlTestScriptNotFound = scriptNotFound.format("interval_control_test.sh")
 cfCheckScriptNotFound = scriptNotFound.format("camera_image_count.py")
