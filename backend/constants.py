@@ -1,6 +1,5 @@
 # This file stores all constants used on the server-side of the Desert-Fireball-Maintainence-GUI.
 # The major constants here are different bash commands, executed server-side.
-getExitStatus = "echo $?"
 getHostname = "hostname"
 
 gpsCheck = "python /opt/dfn-software/leostick_get_status.py -g;"
@@ -19,24 +18,15 @@ extractThumbnail = "mkdir /opt/dfn-software/Desert-Fireball-Maintainence-GUI/sta
 shutterCount = "exiv2 -pa {0} | grep Nikon3\.ShutterCount | grep -oP '[0-9]{5}'"
 
 enableHardDrive = "python /opt/dfn-software/enable_ext-hd.py;"
-scanSATA = "for i in $(find /sys/class/scsi_host/ -name host* ); do echo '- - -' > $i/scan; done"
-disableHardDrive = "python /opt/dfn-software/disable_ext-hd.py;"
-extDeleteDriveDevicesCheck = "smartctl -i /dev/{0} | grep 'Rotation Rate:'"
-extDeleteDriveDevice = "echo 1 > /sys/block/{0}/device/delete"
 mountHardDrive = "mount {0} && echo SUCCESS"
 unmountHardDrive = "umount {0} && echo SUCCESS"
 probeHardDrives = "/root/bin/dfn_setup_data_hdds.sh -p"
 formatHardDrive = "/root/bin/dfn_setup_data_hdds.sh {0};"
 probeHardDrivesOLD = "/root/bin/dfn_setup_usb_hdds.sh -p"
 formatHardDriveOLD = "/root/bin/dfn_setup_usb_hdds.sh {0};"
-hddPoweredStatus = "lsusb"
-hddPoweredStatusExt = "lsblk | grep 'sdb1\|sdc1\|sdd1'"
-data0PoweredStatus = "df | grep /data0 && echo SUCCESS"
 moveData0 = "/usr/local/bin/move_data_files.sh && echo SUCCESS"
 moveData0Ext = "/usr/local/bin/move_data_files_gen3.sh && echo SUCCESS"
-mountedStatus = "mount | grep {0} > /dev/null && echo 1"
 hddSpace = "cat /tmp/dfn_disk_usage"
-hddSpaceLive = "df -h | egrep 'Filesystem|data'"
 runSmartTest = "smartctl -d {0} -t short /dev/sdb;"
 checkSmartTest = "smartctl -d {0} -a /dev/sdb"
 
@@ -70,10 +60,6 @@ intervalTestFailed = "\nINTERVAL TEST RESULTS:\nInterval test failed.\n"
 prevIntervalDidRun = "\nINTERVAL CONTROL RAN SUCCESSFULLY LAST NIGHT.\n"
 prevIntervalNotRun = "\nINTERVAL CONTROL DID NOT RUN SUCCESSFULLY LAST NIGHT.\n"
 
-hddStatusString = "\nHARD DRIVE STATUS:\nSystem Drive: {0}, {1} full.\nDrive #1: {2}, {3} full.\nDrive #2: {4}, {5} full.\nDrive #3: {6}, {7} full.\n"
-hddStatusOff = "Not detected"
-hddStatusPowered = "Powered"
-hddStatusMounted = "Mounted"
 hddFormatPassed = "\nHarddrives formatted successfully.\n"
 hddFormatFailed = "Some drives still mounted, or didn't format properly. Please make sure drives are unmounted and safe to format."
 
@@ -81,8 +67,6 @@ hddCommandedOn = "Hard drive power on command executed.\n"
 hddCommandedOff = "Hard drive power off successful.\n"
 hddOffFailed = "Hard drive power off failed. Power off aborted.\n"
 hddNotPoweredError = "Hard drives need to be powered."
-hddAlreadyOn = "Hard drives already powered.\n"
-hddNotOnPoweredState = "Hard drives already off, or mounted. Drives must be in a 'powered' state to turn off safely.\n"
 hddAlreadyMountedError = "Hard drives may have already been mounted. See status for confirmation."
 smartTestStartedSuccess = "\nSmart test for {0} successfully executed.\n"
 smartTestStartedFailed = "\nSmart test {0} failed execution (try re-powering drives).\n"
@@ -98,7 +82,6 @@ hddUnmountFailed = "{0} unmount error: {1}\n"
 hddAlreadyUnmountedError = "May have already been unmounted."
 
 scriptNotFound = "Script not found: {0}."
-diskUsageNotFound = "Error reading disk usage log file. To see disk space, please power and mount external drives."
 pictureNotFound = "Picture not found."
 
 # File paths
@@ -155,4 +138,4 @@ configBoxWhitelist["station"] = {
 
 configNotFound = "Config file not found."
 
-systemStatusHeader = "\n-----OVERALL SYSTEM STATUS-----\n"
+
