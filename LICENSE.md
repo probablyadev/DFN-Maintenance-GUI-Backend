@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) 2017 Ryan Scott Day <265815F@curtin.edu.au>
+Copyright (c) 2018 Ryan Scott Day <mailto:265815F@curtin.edu.au>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -14,21 +14,6 @@ matrix:
             script:
                 - python -m unittest discover
 
-        - language: node_js
-            node_js:
-                - "7"
-                - "6"
-                - "5"
-            script:
-                - npm run lin
-                - npm run test:cov
-            after_success:
-                - npm run coverage
-            cache:
-                npm: true
-                directories:
-                    - node_modules
-
 notifications:
     email:
         recipients:
