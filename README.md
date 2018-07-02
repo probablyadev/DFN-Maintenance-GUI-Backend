@@ -1,22 +1,39 @@
 # Desert Fireball Camera Network
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FScottDay%2FDesert-Fireball-Maintainence-GUI.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FScottDay%2FDesert-Fireball-Maintainence-GUI?ref=badge_shield)
 
+=======
+<div align="center">
+    <img src="http://fireballsinthesky.com.au/wp-content/uploads/sites/7/2017/04/fireballs-in-the-sky-logo41.png" alt="desert fireballs banner" align="center" />
+</div>
 
-This is the code for the GUI which will be used to maintain the camera network for the Fireballs in the Sky project.
-The GUI is a web-based interface, using web.py to serve both html and static files such as stylesheets, and to handle HTTP requests.
+<br />
 
-## Things learnt
+<div align="center"><strong>GUI for maintaining the camera network for the Fireballs in the Sky project.</strong></div>
+<div align="center">Frontend written in React + Redux with a Python + Flask backend.</div>
 
-* More Python tidbits, and learning the web.py framework
-* HTTP request fundamentals, including AJAX requests
-* Hashing and salt, using sha1
-* Database queries using sqlite3, and SQL Injection defence
-* More HTML/CSS stuff
-* jQuery and incidentally, Javascript.
-* AJAX with jQuery.
-* Bash commands + Linux stuff
+<br />
 
-## Required Packages
+<div align="center">
+    <!-- Dependency Status -->
+    <a href="https://david-dm.org/ScottDay/Desert-Fireball-Maintainence-GUI">
+        <img src="https://david-dm.org/ScottDay/Desert-Fireball-Maintainence-GUI.svg" alt="Dependency Status" />
+    </a>
+    <!-- devDependency Status -->
+    <a href="https://david-dm.org/ScottDay/Desert-Fireball-Maintainence-GUI#info=devDependencies">
+        <img src="https://david-dm.org/ScottDay/Desert-Fireball-Maintainence-GUI.svg" alt="devDependency Status" />
+    </a>
+    <!-- Build Status -->
+    <a href="https://travis-ci.org/ScottDay/Desert-Fireball-Maintainence-GUI">
+        <img src="https://travis-ci.org/ScottDay/Desert-Fireball-Maintainence-GUI.svg" alt="Build Status" />
+    </a>
+    <!-- Test Coverage -->
+    <a href="https://coveralls.io/repos/ScottDay/Desert-Fireball-Maintainence-GUI">
+        <img src="https://coveralls.io/repos/github/ScottDay/Desert-Fireball-Maintainence-GUI/badge.svg" alt="Test Coverage" />
+    </a>
+    <a href="https://app.fossa.io/projects/git%2Bgithub.com%2FScottDay%2FDesert-Fireball-Maintainence-GUI?ref=badge_shield" alt="FOSSA Status">
+        <img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2FScottDay%2FDesert-Fireball-Maintainence-GUI.svg?type=shield"/>
+    </a>
+</div>
 
 * Python 2.7 (due to web.py)
 * web.py
@@ -24,3 +41,28 @@ The GUI is a web-based interface, using web.py to serve both html and static fil
 
 ## License
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FScottDay%2FDesert-Fireball-Maintainence-GUI.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FScottDay%2FDesert-Fireball-Maintainence-GUI?ref=badge_large)
+=======
+<br />
+
+<div align="center">
+  <sub>Created by <a href="https://github.com/CPedersen3245">Campbell Pedersen</a> and maintained with ❤️ by <a href="https://github.com/ScottDay">Scott Day</a>.</sub>
+</div>
+
+# Desert Fireball Network - Camera Maintenance GUI
+
+This is the code for the GUI which will be used to maintain the camera
+network for the Fireballs in the Sky project.
+
+For those who do look at this repository, please note that this system
+is meant to be installed and run on our cameras placed out in the field.
+You can install it on your own machine, however the backend is not
+simulated to run without the camera as of yet.
+
+# Documentation
+
+See [docs/README.md](docs/README.md) for all project documentation.
+
+# License
+
+This project is licensed under the MIT license, Copyright (c) 2017
+Ryan Scott Day. For more information see [LICENSE.md](LICENSE.md).

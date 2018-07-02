@@ -1,69 +1,5 @@
 # NETWORK UTILITIES
-import re
-
-import constants
 from command import exec_console_command
-
-
-def internet_check():
-    """
-    Delivers a summary of the internet connectivity of the system.
-
-    Returns:
-        feedbackOutput (str): Resulting feedback.
-        internetStatus (bool): Represents the internet connectivity of the system.
-    """
-    consoleOutput = exec_console_command(constants.internetCheck)
-
-    # Parse output for results
-    status = False
-    feedbackOutput = constants.internetCheckFailed
-
-    if "unknown" not in consoleOutput and "failure" not in consoleOutput:
-        splitOutput = re.split(",", consoleOutput)
-
-        if "0" not in splitOutput[1]:
-            status = True
-            ipAddress = exec_console_command(constants.getInternetIP)
-            feedbackOutput = constants.internetCheckPassed.format(ipAddress)
-
-    return feedbackOutput, status
-
-
-def restart_modem():
-    """
-    Restarts the modem network interface.
-
-    Returns:
-        feedbackOutput (str): Resulting feedback.
-    """
-    consoleOutput = exec_console_command(constants.restartModem)
-
-    # Parse output for results
-    feedbackOutput = constants.modemRestartFailed
-
-    if "SUCCESS" in consoleOutput:
-        feedbackOutput = constants.modemRestartPassed
-
-    return feedbackOutput
-
-
-def restart_vpn():
-    """
-    Restarts the system's VPN daemon.
-
-    Returns:
-        feedbackOutput (str): Resulting feedback.
-    """
-    consoleOutput = exec_console_command(constants.restartVPN)
-
-    # Parse output for results
-    feedbackOutput = constants.vpnRestartFailed
-
-    if "SUCCESS" in consoleOutput:
-        feedbackOutput = constants.vpnRestartPassed
-
-    return feedbackOutput
 
 
 def check_vpn():
@@ -71,18 +7,35 @@ def check_vpn():
     Delivers a summary of the VPN connectivity of the system.
 
     Returns:
-        feedbackOutput (str): Resulting feedback.
-        vpnStatus (bool): Represents the VPN connectivity of the system.
+        pingOutput (str): Successful output from ping.
+        vpnIP (str): VPN IP.
     """
-    consoleOutput = exec_console_command(constants.vpnCheck)
+    pingOutput = exec_console_command("ping -c 1 10.1.16.1")
+    vpnIP = exec_console_command("ifconfig | grep tun0 -A 1 | grep -o '\(addr:\|inet \)[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'| cut -c6-")
 
-    # Parse output for results
-    status = False
-    feedbackOutput = constants.vpnCheckFailed
+    return pingOutput, vpnIP
 
-    if "0" not in re.split(",", consoleOutput)[1]:
-        status = True
-        ipAddress = exec_console_command(constants.getVpnIP)
-        feedbackOutput = constants.vpnCheckPassed.format(ipAddress)
 
-    return feedbackOutput, status
+def restart_vpn():
+    """Restarts the system's VPN daemon."""
+    exec_console_command("service openvpn restart; sleep 10; ifconfig tun0")
+
+
+def check_internet():
+    """
+    Delivers a summary of the internet connectivity of the system.
+
+    Returns:
+        pingOutput (str): Successful output from ping.
+        ipAddress (str): Internet IP.
+    """
+    pingOutput = exec_console_command("ping -c 1 www.google.com")
+    ipAddress = exec_console_command("ifconfig | grep eth1 -A 1 | grep -o '\(addr:\|inet \)[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' | cut -c6-") # curl ipinfo.io/ip
+
+    return pingOutput, ipAddress
+
+
+def restart_modem():
+    """Restarts the modem network interface."""
+    # TODO: Check time getting ip would take, make sure it does not exceed a max time.
+    exec_console_command("ifdown ppp0; sleep 8; ifup ppp0; sleep 8; ifconfig ppp0")
