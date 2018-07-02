@@ -20,16 +20,14 @@ function enableHDD(token) {
     });
 }
 
-function formatHDD(token, args) {
+function formatHDD(token, data) {
     return request({
         url: `/hdd/formatHDD`,
         method: 'POST',
         headers: {
             'Authorization': token
         },
-        data: {
-            args
-        }
+        data
     });
 }
 
@@ -63,9 +61,9 @@ function probeHDD(token) {
     });
 }
 
-function smartHDD(token) {
+function smartTest(token) {
     return request({
-        url: `/hdd/smartHDD`,
+        url: `/hdd/smartTest`,
         method: 'GET',
         headers: {
             'Authorization': token
@@ -84,7 +82,14 @@ function unmountHDD(token) {
 }
 
 const HDDAPIService = {
-    checkHDD, enableHDD, formatHDD, mountHDD, moveData0HDD, probeHDD, smartTest, unmountHDD
+    checkHDD,
+    enableHDD,
+    formatHDD,
+    mountHDD,
+    moveData0HDD,
+    probeHDD,
+    smartTest,
+    unmountHDD
 };
 
 export default HDDAPIService;

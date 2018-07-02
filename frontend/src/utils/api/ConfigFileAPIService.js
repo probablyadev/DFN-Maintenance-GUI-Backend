@@ -12,7 +12,7 @@ function checkConfigFile(token) {
 
 function configWhitelist(token) {
     return request({
-        url: `/configFile/configWhiteList`,
+        url: `/configFile/configWhitelist`,
         method: 'GET',
         headers: {
             'Authorization': token
@@ -44,7 +44,10 @@ function updateConfigFile(token, property) {
 }
 
 const ConfigFileAPIService = {
-    checkConfigFile, configWhitelist, configFile, updateConfigFile
+    checkConfigFile,
+    configWhitelist,
+    configFile,
+    updateConfigFile
 };
 
 export default ConfigFileAPIService;

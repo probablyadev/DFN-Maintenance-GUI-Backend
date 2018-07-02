@@ -1,4 +1,9 @@
-import {CHANGE_COLOR_OPTION, CHANGE_SIDEBAR_WIDTH, CHANGE_THEME, TOGGLE_COLLAPSED_NAV} from '../constants/ActionTypes';
+import {
+    CHANGE_COLOR_OPTION,
+    CHANGE_SIDEBAR_WIDTH,
+    CHANGE_THEME,
+    TOGGLE_COLLAPSED_NAV
+} from '../constants/ActionTypes';
 
 export function toggleCollapsedNav(isNavCollapsed) {
     return {

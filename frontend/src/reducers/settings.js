@@ -1,5 +1,5 @@
-import {createReducer} from '../utils/misc';
-import APPCONFIG from 'constants/Config';
+import { createReducer } from '../utils/misc';
+import APPCONFIG from '../constants/Config';
 import {
     CHANGE_COLOR_OPTION,
     CHANGE_SIDEBAR_WIDTH,

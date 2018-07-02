@@ -32,7 +32,9 @@ function isTokenValid(token) {
 }
 
 const UserAPIService = {
-    getUser, getToken, isTokenValid
+    getUser,
+    getToken,
+    isTokenValid
 };
 
 export default UserAPIService;

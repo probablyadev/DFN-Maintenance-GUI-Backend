@@ -14,7 +14,8 @@
         showSnackbarButton.addEventListener('click', function () {
             'use strict';
             showSnackbarButton.style.backgroundColor = '#' +
-                Math.floor(Math.random() * 0xFFFFFF).toString(16);
+                Math.floor(Math.random() * 0xFFFFFF)
+                    .toString(16);
             var data = {
                 message: 'Button color changed.',
                 timeout: 2000,

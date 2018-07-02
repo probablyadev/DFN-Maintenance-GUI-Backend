@@ -103,7 +103,15 @@ function turnVideoCameraOn(token) {
 }
 
 const CameraAPIService = {
-    cameraOff, cameraOn, cameraStatus, downloadPicture, downloadThumbnail, findPictures, removeThumbnail, turnVideoCameraOff, turnVideoCameraOn
+    cameraOff,
+    cameraOn,
+    cameraStatus,
+    downloadPicture,
+    downloadThumbnail,
+    findPictures,
+    removeThumbnail,
+    turnVideoCameraOff,
+    turnVideoCameraOn
 };
 
 export default CameraAPIService;

@@ -33,15 +33,16 @@ def list_routes():
         output.append(line)
 
     for line in sorted(output):
-        print line
+        print(line)
 
 if __name__ == '__main__':
-    # Gets the APP_SETTINGS variable set within pycharms environment variables configuration script
-    # If True then this script is being run on a dev machine, if false then it's running on a camera
-    # Defaults to false
-    environment = os.getenv('APP_SETTINGS', False)
+    if "APP_SETTINGS" not in os.environ:
+        os.environ["APP_SETTINGS"] = "prod"
 
-    if environment is False:
+    environment = os.getenv('APP_SETTINGS')
+
+    if environment is "prod":
         os.chdir("/opt/dfn-software/Desert-Fireball-Maintainence-GUI")
 
-    manager.run()
+    #manager.run()
+    flaskapp.run(host = '0.0.0.0')

@@ -140,7 +140,8 @@
             }
 
             tab.addEventListener('click', function (e) {
-                if (tab.getAttribute('href').charAt(0) === '#') {
+                if (tab.getAttribute('href')
+                    .charAt(0) === '#') {
                     e.preventDefault();
                     var href = tab.href.split('#')[1];
                     var panel = ctx.element_.querySelector('#' + href);

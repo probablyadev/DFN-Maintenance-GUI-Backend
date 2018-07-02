@@ -13,17 +13,13 @@ def exec_console_command(command):
     Sends the system a console command to execute in bash.
 
     Args:
-        command (str): A console command.
+        command (str): A console command to execute.
 
     Returns:
-        output (str): The console output.
+        (str): The console output.
     """
-    output = ""
-
     try:
-        output = check_output(command)
+        return check_output(command, shell = True, executable = '/bin/bash')
     except CalledProcessError as error:
         # Throws a CommandError that includes the retcode, cmd, output, and this methods calling method.
         raise CommandError(error, inspect.stack()[1][3])
-
-    return output

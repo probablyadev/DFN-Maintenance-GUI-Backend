@@ -193,7 +193,7 @@
                 // Do not position the menu automatically. Requires the developer to
                 // manually specify position.
             } else if (this.element_.classList.contains(
-                    this.CssClasses_.BOTTOM_RIGHT)) {
+                this.CssClasses_.BOTTOM_RIGHT)) {
                 // Position below the "for" element, aligned to its right.
                 this.container_.style.right = (forRect.right - rect.right) + 'px';
                 this.container_.style.top =
@@ -254,7 +254,8 @@
 
             if (items && items.length > 0 &&
                 this.container_.classList.contains(this.CssClasses_.IS_VISIBLE)) {
-                var currentIndex = Array.prototype.slice.call(items).indexOf(evt.target);
+                var currentIndex = Array.prototype.slice.call(items)
+                    .indexOf(evt.target);
 
                 if (evt.keyCode === this.Keycodes_.UP_ARROW) {
                     evt.preventDefault();

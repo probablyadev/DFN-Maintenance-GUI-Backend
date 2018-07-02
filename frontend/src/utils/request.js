@@ -1,11 +1,14 @@
 import axios from 'axios';
+
 import config from '../constants/Config';
+
+
+// TODO: Review redux-bees: https://github.com/cantierecreativo/redux-bees
 
 /**
  * Create an Axios Client with defaults
  */
 const client = axios.create({
-    baseURL: config.api.url,
     timeout: config.api.timeout,
     headers: config.api.headers
 });
@@ -14,7 +17,7 @@ const client = axios.create({
  * Request Wrapper with default success/error actions
  */
 export default function (options) {
-    /*const onSuccess = function (response) {
+    /* const onSuccess = function (response) {
         console.debug('Request Successful!', response);
         return response.data;
     };
@@ -40,7 +43,10 @@ export default function (options) {
 
     return client(options)
         .then(onSuccess)
-        .catch(onError);*/
+        .catch(onError); */
+
+    // Need to load the windows hostname at runtime, doing it as baseURL does not work.
+    options.url = "http://" + window.location.hostname + config.api.url + options.url;
 
     return client(options);
-};
+}
