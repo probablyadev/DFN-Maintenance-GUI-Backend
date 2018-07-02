@@ -1,3 +1,7 @@
+# Desert Fireball Camera Network
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FScottDay%2FDesert-Fireball-Maintainence-GUI.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FScottDay%2FDesert-Fireball-Maintainence-GUI?ref=badge_shield)
+
+=======
 <div align="center">
     <img src="http://fireballsinthesky.com.au/wp-content/uploads/sites/7/2017/04/fireballs-in-the-sky-logo41.png" alt="desert fireballs banner" align="center" />
 </div>
@@ -31,6 +35,13 @@
     </a>
 </div>
 
+* Python 2.7 (due to web.py)
+* web.py
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FScottDay%2FDesert-Fireball-Maintainence-GUI.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FScottDay%2FDesert-Fireball-Maintainence-GUI?ref=badge_large)
+=======
 <br />
 
 <div align="center">
