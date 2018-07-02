@@ -2,8 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="2a072636-e983-48b8-8d42-8e6d31ba34af" name="DFNEXT003" url="http://dfnext003">
-        <fileTransfer host="dfnext003" port="22" rootFolder="/root" accessType="SFTP" authAgent="true">
+      <webServer id="2a072636-e983-48b8-8d42-8e6d31ba34af" name="DFNEXT003_IP" url="http://134.7.57.178">
+        <fileTransfer host="134.7.57.178" port="22" accessType="SFTP" authAgent="true">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" />
           </advancedOptions>

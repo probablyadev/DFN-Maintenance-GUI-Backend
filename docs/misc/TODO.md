@@ -11,6 +11,10 @@
 - [x] Async loading of front end components
 - [ ] Front end HDD table needs used and total space. Make backend reflect this.
 - [ ] Axios service wrapper: https://sheharyar.me/blog/axios-with-react-for-making-requests/
+- [ ] Expiration on token in localStorage?
+- [ ] Browser sync webpack dev config - default dev config should not launch with it on
+- [ ] Move config and db files into private repo: https://hackernoon.com/4-ways-to-manage-the-configuration-in-python-4623049e841b
+- [ ] Fix the theme issues (view latest logs) between material ui and styled components theme
 
 # HDD
 
@@ -29,3 +33,6 @@
 - [ ] Check if python backend started (insert tick or cross)
     - Launch if possible
 - [ ] Server started
+
+# External changes
+- [ ] config_handler.py line 351 needs an import datetime

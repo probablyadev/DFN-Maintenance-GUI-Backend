@@ -1,6 +1,8 @@
 # ADVANCED UTILITIES
+import datetime
+import os
+
 from backend import constants
-import dfn_functions
 from command import exec_console_command
 
 
@@ -22,55 +24,43 @@ def get_log(directory):
     return foundfile
 
 
-def config_whitelist():
-    """
-    Serves information to fill in the interface for changing the dfnstation.cfg file.
+def latest_log():
+    """Fetches the latest log file."""
+    environment = os.getenv('APP_SETTINGS')
 
-    Returns:
-        outDict (dict): Format::
+    if environment is "prod":
+        path = "/data0/latest/" + get_log("latest")
+    else:
+        import basedir
+        path = os.path.join(basedir.basedir, 'dfn-gui-server.log')
 
-            {param : value}
-    """
-    white_list = constants.configBoxWhitelist
-    path = constants.dfnconfigPath
-    conf_dict = dfn_functions.load_config(path)
-    result_dict = {}
+    if os.path.exists(path):
+        logfile = open(path, 'rb').read()
 
-    for whitelist_category in white_list:
-        for conf_category in conf_dict:
-            if whitelist_category == conf_category:
-                for whitelist_field in white_list[whitelist_category]:
-                    for conf_field in conf_dict[conf_category]:
-                        if whitelist_field == conf_field:
-                            result_dict["[" + conf_category + "] " + conf_field] = conf_dict[conf_category][conf_field]
+        file_state = os.stat(path)
+        timestamp = datetime.datetime.fromtimestamp(file_state.st_mtime).strftime('%d-%m-%Y %H:%M:%S')
 
-    print(result_dict)
+        return logfile, timestamp
+    else:
+        raise AttributeError("Unable to locate the latest log file: " + path)
 
 
-def update_config_file(inProperty):
-    """
-    Updates the dfnstation.cfg file with a new value for a parameter.
+def second_latest_log():
+    """Fetches the second latest log file."""
+    environment = os.getenv('APP_SETTINGS')
 
-    Args:
-        inProperty (json): JSON object representing a config. Format::
+    if environment is "prod":
+        path = "/data0/latest_prev/" + get_log("latest_prev")
+    else:
+        import basedir
+        path = os.path.join(basedir.basedir, 'dfn-gui-server.log')
 
-            {param : value}
+    if os.path.exists(path):
+        logfile = open(path, 'rb').read()
 
-    Returns:
-        consoleFeedback (str): Resulting console feedback.
-    """
-    consoleFeedback = constants.configWriteFailed
-    path = constants.dfnconfigPath
-    updated_conf_dict = dfn_functions.load_config(path)
+        file_state = os.stat(path)
+        timestamp = datetime.datetime.fromtimestamp(file_state.st_mtime).strftime('%d-%m-%Y %H:%M:%S')
 
-    for key in inProperty:
-        parsed = key.split("] ")
-        property_category = parsed[0].replace("[", "")
-        property_field = parsed[1]
-
-        updated_conf_dict[property_category][property_field] = inProperty[key]
-        consoleFeedback = constants.configWritePassed.format(key, inProperty[key])
-
-    dfn_functions.save_config_file("dfnstation.cfg", updated_conf_dict)
-
-    return consoleFeedback
+        return logfile, timestamp
+    else:
+        raise AttributeError("Unable to locate the second latest log file: " + path)
