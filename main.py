@@ -1,9 +1,16 @@
-import os
+"""Create an application instance."""
+from flask import render_template
+from flask.helpers import get_debug_flag
 
-from backend import flaskapp 
+from src.app import create_app
+from src.settings import DevelopmentConfig, ProductionConfig
 
-if __name__ == '__main__':
-    if "APP_SETTINGS" not in os.environ:
-        os.environ["APP_SETTINGS"] = "prod"
+# 'export FLASK_APP=/path/to/main.py'
+# 'export FLASK_DEBUG=1' if you want dev config.
+CONFIG = DevelopmentConfig if get_debug_flag() else ProductionConfig
 
-    flaskapp.run(host = '0.0.0.0')
+app = create_app(CONFIG)
+
+@app.route("/")
+def index():
+    return render_template("index.html")
