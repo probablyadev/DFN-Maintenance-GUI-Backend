@@ -39,10 +39,10 @@ if __name__ == '__main__':
     if "APP_SETTINGS" not in os.environ:
         os.environ["APP_SETTINGS"] = "prod"
 
-    environment = os.getenv('APP_SETTINGS')
+    # environment = os.getenv('APP_SETTINGS')
 
-    if environment is "prod":
-        os.chdir("/opt/dfn-software/Desert-Fireball-Maintainence-GUI")
+    # if environment is "prod":
+    #    os.chdir("/opt/dfn-software/Desert-Fireball-Maintainence-GUI")
 
     #manager.run()
     flaskapp.run(host = '0.0.0.0')

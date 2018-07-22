@@ -2,7 +2,7 @@
 import inspect
 import re
 import time
-import misc
+import command.misc
 
 from backend import constants
 from command import exec_console_command

@@ -1,19 +1,21 @@
 import logging
 import os
 
-from flask import Flask
+from flask import Flask, render_template
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 
-from config import app_config
+from backend.config import app_config
 
-config = app_config[os.getenv('APP_SETTINGS')]
+#config = app_config[os.getenv('APP_SETTINGS')]
+config = app_config['prod']
 
-flaskapp = Flask(__name__)
+
+flaskapp = Flask(__name__, static_folder="../dist", template_folder="../dist", static_url_path="")
 flaskapp.config.from_object(config)
 
 db = SQLAlchemy(flaskapp)
-from model import User
+from backend.model import User
 
 db.create_all()
 
@@ -77,3 +79,7 @@ def teardown(exception = None):
         db.session.rollback()
     else:
         db.session.commit()
+
+@flaskapp.route("/")
+def index():
+    return render_template("index.html")
