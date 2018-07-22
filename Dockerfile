@@ -6,10 +6,6 @@
 #Use Ubuntu as base image
 FROM ubuntu
 
-#TODO[Scott]: Put whatever personal info you want for MAINTAINER
-#Add any other LABELs needed for organising project info.  
-MAINTAINER Scott Day
-
 #TODO[Scott/Ash]:Confirm if any applications need to be installed in 
 #### addition to python being installed. 
 
@@ -47,7 +43,7 @@ EXPOSE 80
 
 #Set environment variables
 ENV PYTHONUNBUFFERED=1
-ENV APP_SETTINGS=dev
+ENV APP_SETTINGS=prod
 
 #Execute command
-CMD [ "python", "manage.py", "runserver" ]
+CMD [ "python", "main.py" ]
