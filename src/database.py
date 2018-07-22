@@ -1,8 +1,4 @@
-from flask_bcrypt import Bcrypt
-
-from backend import flaskapp, db
-
-bcrypt = Bcrypt(flaskapp)
+from src.extensions import db, bcrypt
 
 
 class User(db.Model):
