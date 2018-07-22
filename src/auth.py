@@ -3,11 +3,12 @@ from flask import request, g, jsonify
 from itsdangerous import SignatureExpired, BadSignature
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
-from backend import flaskapp
+from src import app
 
 
 def generate_token(user, expiration = 2400):
-    s = Serializer(flaskapp.config['SECRET_KEY'], expires_in = expiration)
+    s = Serializer(app.config['SECRET_KEY'], expires_in = expiration)
+
     token = s.dumps({
         'id':    user.id,
         'email': user.email,
@@ -15,9 +16,10 @@ def generate_token(user, expiration = 2400):
 
     return token
 
-# https://blog.miguelgrinberg.com/post/restful-authentication-with-flask
+
 def verify_token(token):
-    s = Serializer(flaskapp.config['SECRET_KEY'])
+    s = Serializer(app.config['SECRET_KEY'])
+
     try:
         data = s.loads(token)
     except (BadSignature, SignatureExpired):
@@ -26,8 +28,8 @@ def verify_token(token):
     return data
 
 
-def requires_auth(f):
-    @wraps(f)
+def requires_auth(method):
+    @wraps(method)
     def decorated(*args, **kwargs):
         token = request.headers.get('Authorization', None)
 
@@ -38,7 +40,7 @@ def requires_auth(f):
             if user:
                 g.current_user = user
 
-                return f(*args, **kwargs)
+                return method(*args, **kwargs)
 
         return jsonify(message = "Authentication is required to access this resource"), 401
 

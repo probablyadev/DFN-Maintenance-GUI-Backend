@@ -11,9 +11,9 @@ def create_app(config_object=ProductionConfig):
 
     :param config_object: The configuration object to use.
     """
-    app = connexion.App(__name__)
+    global app = connexion.App(__name__)
     app.config.from_object(config_object)
-    
+
     register_extensions(app)
     register_logger(app, config_object)
 
