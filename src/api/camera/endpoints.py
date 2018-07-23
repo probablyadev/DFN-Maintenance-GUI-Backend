@@ -3,9 +3,6 @@ from flask import Blueprint, jsonify, request
 from backend.auth import requires_auth
 from command.camera import *
 
-camera_endpoints = Blueprint("camera_api", __name__)
-
-
 @camera_endpoints.route("/api/camera/cameraOff", methods = ["GET"])
 @requires_auth
 def camera_off_endpoint():

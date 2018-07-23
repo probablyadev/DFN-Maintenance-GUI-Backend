@@ -22,6 +22,9 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SECRET_KEY = os.urandom(32)
 
+	# Connexion.
+	SWAGGER_JSON = False
+
 
 class DevelopmentConfig(Config):
     """Dev config class. Inherits from the parent Config class."""
@@ -31,7 +34,7 @@ class DevelopmentConfig(Config):
 
     # Logging.
     LOGGING_LEVEL = logging.DEBUG
-    
+
     # SQLAlchemy.
     SQLALCHEMY_DATABASE_URI = "sqlite:///../db/dev.db"
 

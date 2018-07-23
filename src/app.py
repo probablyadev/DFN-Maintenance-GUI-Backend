@@ -1,21 +1,25 @@
 """The app module, containing the app factory function."""
 import connexion
+from connexion.resolver import RestyResolver
 import logging
 
 from src.settings import ProductionConfig
 from src.extensions import bcrypt, cors, db
 
-def create_app(config_object=ProductionConfig):
+def create_app(config_object = ProductionConfig):
     """An application factory, as explained here:
     http://flask.pocoo.org/docs/patterns/appfactories/.
 
     :param config_object: The configuration object to use.
     """
-    global app = connexion.App(__name__)
-    app.config.from_object(config_object)
+    connexion_app = connexion.App(__name__)
+    connexion_app.app.config.from_object(config_object)
+
+	global app = connexion_app.app
 
     register_extensions(app)
     register_logger(app, config_object)
+	register_routes(connexion_app)
 
     return app
 
@@ -45,3 +49,8 @@ def register_logger(app, config_object):
 
     logging.getLogger('').addHandler(console)
     logging.getLogger('flask_cors').level = config.CORS_LOGGING_LEVEL
+
+
+def register_routes(app):
+	"""Register swagger api endpoints."""
+	app.add_api('api/camera/swagger.yaml')
