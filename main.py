@@ -5,7 +5,6 @@ from flask.helpers import get_debug_flag
 from src.app import create_app
 from src.settings import DevelopmentConfig, ProductionConfig
 
-# 'export FLASK_APP=/path/to/main.py'
 # 'export FLASK_DEBUG=1' if you want dev config.
 CONFIG = DevelopmentConfig if get_debug_flag() else ProductionConfig
 
