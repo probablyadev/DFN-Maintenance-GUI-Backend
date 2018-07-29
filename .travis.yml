@@ -14,14 +14,15 @@ notifications:
   email: false
 
 stages:
-  # - test
+  - lint
   - name: release
     if: branch = master AND type = push AND fork = false
 
 jobs:
   include:
-    # - stage: test
-      # script: 
+    - stage: lint
+      install: "pip install nose pylint"
+      script: "nosetests && pylint --errors-only"
 
     - stage: release
 	  python: 3.6
