@@ -6,22 +6,22 @@ import logging
 from src.settings import ProductionConfig
 from src.extensions import bcrypt, cors, db
 
-def create_app(config_object = ProductionConfig):
-    """An application factory, as explained here:
-    http://flask.pocoo.org/docs/patterns/appfactories/.
+def create_app(config = ProductionConfig):
+	"""An application factory, as explained here:
+	http://flask.pocoo.org/docs/patterns/appfactories/.
 
-    :param config_object: The configuration object to use.
-    """
-    connexion_app = connexion.App(__name__)
-    connexion_app.app.config.from_object(config_object)
+	:param config: The configuration object to use.
+	"""
+	connexion_app = connexion.App(__name__)
+	connexion_app.app.config.from_object(config)
 
-	global app = connexion_app.app
+	app = connexion_app.app
 
-    register_extensions(app)
-    register_logger(app, config_object)
+	register_extensions(app)
+	register_logger(app, config)
 	register_routes(connexion_app)
 
-    return app
+	return app
 
 
 def register_extensions(app):
@@ -31,7 +31,7 @@ def register_extensions(app):
     db.init_app(app)
 
 
-def register_logger(app, config_object):
+def register_logger(app, config):
     """Register logging handlers."""
     # Set up logging to file
     logging.basicConfig(
@@ -53,4 +53,4 @@ def register_logger(app, config_object):
 
 def register_routes(app):
 	"""Register swagger api endpoints."""
-	app.add_api('api/camera/swagger.yaml')
+	app.add_api('api/session/swagger.yaml')

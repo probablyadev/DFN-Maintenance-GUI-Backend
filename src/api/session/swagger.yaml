@@ -1,0 +1,81 @@
+swagger: "2.0"
+
+info:
+  title: Session API Endpoint
+  version: "1.0"
+
+basePath: /api
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+paths:
+  #/user:
+    #get:
+      #summary: Gets the currently logged in user.
+      #operationId: user
+
+  /token/check:
+    post:
+      summary: Checks that a given token is valid.
+      operationId: src.api.session.endpoints.check_token
+      parameters:
+        - $ref: '#/parameters/Token'
+      responses:
+        200:
+          description: Token is valid.
+        403:
+          description: Token is invalid.
+
+  /token/generate:
+    post:
+      summary: Generates a token for the users session if email and password is valid.
+      operationId: src.api.session.endpoints.generate_token
+      parameters:
+        - $ref: '#/parameters/User'
+      responses:
+        201:
+          description: Token is valid.
+          schema:
+            $ref: '#/definitions/Token'
+        403:
+          description: Token is invalid.
+
+
+parameters:
+  Token:
+    name: token
+    in: body
+    required: true
+    schema:
+      $ref: '#/definitions/Token'
+
+  User:
+    name: user
+    description: Users email and password.
+    in: body
+    required: true
+    schema:
+      $ref: '#/definitions/User'
+
+
+definitions:
+  Token:
+    type: object
+    properties:
+      token:
+        type: string
+
+  User:
+    type: object
+    properties:
+      email:
+        type: string
+        description: Users email.
+        format: email
+        example: user@server.domain
+      password:
+        type: string
+        description: users password.
