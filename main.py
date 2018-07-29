@@ -1,5 +1,5 @@
 """Create an application instance."""
-from flask import render_template
+from flask import render_template, send_from_directory
 from flask.helpers import get_debug_flag
 
 from src.app import create_app
@@ -11,6 +11,12 @@ CONFIG = DevelopmentConfig if get_debug_flag() else ProductionConfig
 
 app = create_app(CONFIG)
 
-@app.route("/")
+@app.route('/')
 def index():
-    return render_template("index.html")
+    return send_from_directory('../dist', 'index.html')
+
+@app.route('/<path:path>')
+def serve_page(path):
+    return send_from_directory('../dist', path)
+
+app.run()

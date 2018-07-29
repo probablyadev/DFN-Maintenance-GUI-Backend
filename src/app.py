@@ -12,7 +12,7 @@ def create_app(config = ProductionConfig):
 
 	:param config: The configuration object to use.
 	"""
-	connexion_app = connexion.App(__name__)
+	connexion_app = connexion.FlaskApp(__name__)
 	connexion_app.app.config.from_object(config)
 
 	app = connexion_app.app
