@@ -1,11 +1,6 @@
-#from flask import g
-
 from src.database import User
 from src.auth import verify, generate
-
-# @requires_authentication
-#def user():
-	#return g.current_user
+from src.console import console
 
 
 def check_token(token):
@@ -24,3 +19,7 @@ def generate_token(email, password):
 		return token, 201
 	else:
 		return 403
+
+
+def hostname():
+	return console("hostname")

@@ -11,12 +11,8 @@ consumes:
 produces:
   - application/json
 
-paths:
-  #/user:
-    #get:
-      #summary: Gets the currently logged in user.
-      #operationId: user
 
+paths:
   /token/check:
     post:
       summary: Checks that a given token is valid.
@@ -42,6 +38,18 @@ paths:
             $ref: '#/definitions/Token'
         403:
           description: Token is invalid.
+
+  /hostname:
+    get:
+      summary: Gets the systems hostname.
+      operationId: src.api.session.endpoints.hostname
+      responses:
+        200:
+          description: Successfully gathered machines hostname.
+          schema:
+            $ref: '#/definitions/Hostname'
+        400:
+          description: Failure while running command.
 
 
 parameters:
@@ -79,3 +87,10 @@ definitions:
       password:
         type: string
         description: users password.
+
+  Hostname:
+    type: object
+    properties:
+      hostname:
+        type: string
+        description: Machines hostname.
