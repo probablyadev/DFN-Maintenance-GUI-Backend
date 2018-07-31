@@ -1,4 +1,4 @@
-sudo: false
+sudo: true
 
 language: python
 
@@ -15,23 +15,18 @@ notifications:
 
 stages:
   - lint
-  - name: release
+  - name: deploy
     if: branch = master AND type = push AND fork = false
-  - name: webhook
-    if: branch = master AND type = push AND fork = false AND tags = true
 
 jobs:
   include:
     - stage: lint
-      install: "pip install nose pylint"
-      script: "nosetests && pylint --errors-only"
+      install: pip install nose pylint
+      script: nosetests && pylint --errors-only
 
-    - stage: release
-	  python: 3.6
+    - stage: deploy
+      install: pip install python-semantic-release
       deploy:
         provider: script
         skip_cleanup: true
         script: bash scripts/deploy.sh
-
-    - stage: webhook
-	  script: bash scripts/webhook.sh
