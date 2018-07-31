@@ -22,7 +22,7 @@ jobs:
   include:
     - stage: lint
       install: pip install nose pylint
-      script: nosetests && pylint --errors-only
+      script: nosetests && pylint --rcfile=.pylintrc
 
     - stage: deploy
       install: pip install python-semantic-release
