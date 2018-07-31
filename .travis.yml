@@ -23,4 +23,6 @@ jobs:
 
     - stage: deploy
       install: pip install python-semantic-release
-      script: .travis/deploy.sh
+      script:
+        - .travis/deploy.sh
+        - .travis/webhook.sh
