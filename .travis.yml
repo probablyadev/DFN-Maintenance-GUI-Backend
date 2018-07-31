@@ -8,6 +8,9 @@ os: linux
 
 cache: pip
 
+notifications:
+  email: false
+
 stages:
   - test
   - name: deploy
