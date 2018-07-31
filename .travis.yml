@@ -14,16 +14,11 @@ notifications:
   email: false
 
 stages:
-  - lint
   - name: deploy
     if: branch = master AND type = push AND fork = false
 
 jobs:
   include:
-    - stage: lint
-      install: pip install nose pylint
-      script: nosetests && pylint --rcfile=.pylintrc
-
     - stage: deploy
       install: pip install python-semantic-release
       deploy:
