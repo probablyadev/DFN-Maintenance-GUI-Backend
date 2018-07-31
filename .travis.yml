@@ -14,11 +14,16 @@ notifications:
   email: false
 
 stages:
+  - test
   - name: deploy
     if: branch = master AND type = push AND fork = false
 
 jobs:
   include:
+    - stage: test
+      install: pip install nose
+      script: nosetests
+
     - stage: deploy
       install: pip install python-semantic-release
       deploy:
