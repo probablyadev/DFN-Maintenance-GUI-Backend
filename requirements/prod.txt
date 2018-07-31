@@ -1,0 +1,12 @@
+# Everything needed in production
+
+bcrypt==3.1.0
+click==6.7
+connexion==1.5.2
+Flask==0.11.1
+Flask-Bcrypt==0.7.1
+flask-cors==3.0.3
+Flask-SQLAlchemy==2.1
+itsdangerous==0.24
+SQLAlchemy==1.0.14
+Werkzeug==0.11.15

@@ -1,22 +1,27 @@
-matrix:
-    include:
-        - language: python
-            python: 3.6
-            before_script:
-                - cd tests
-            script:
-                - python -m unittest discover
+sudo: true
 
-        - language: python
-            python: 2.7
-            before_script:
-                - cd tests
-            script:
-                - python -m unittest discover
+language: python
+
+python:
+  - 3.6
+
+os:
+  - linux
+
+cache: pip
 
 notifications:
-    email:
-        recipients:
-            - 265815F@curtin.edu.au
-        on_success: never
-        on_failure: always
+  email: false
+
+stages:
+  - name: deploy
+    if: branch = master AND type = push AND fork = false
+
+jobs:
+  include:
+    - stage: deploy
+      install: pip install python-semantic-release
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script: bash scripts/deploy.sh

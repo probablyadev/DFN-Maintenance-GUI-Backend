@@ -1,7 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="runserver &amp; serve:dev" type="CompoundRunConfigurationType" factoryName="Compound Run Configuration">
-    <toRun type="PythonConfigurationType" name="runserver" />
-    <toRun type="js.build_tools.npm" name="serve:dev" />
-    <method />
-  </configuration>
-</component>
