@@ -10,24 +10,17 @@ os:
 
 cache: pip
 
-notifications:
-  email: false
-
 stages:
   - test
   - name: deploy
     if: branch = master AND type = push AND fork = false
 
-install: pip install nose python-semantic-release
-
-
 jobs:
   include:
     - stage: test
+      install: pip install nose
       script: nosetests
 
     - stage: deploy
-      deploy:
-        provider: script
-        skip_cleanup: true
-        script: bash scripts/deploy.sh
+      install: pip install python-semantic-release
+      script: .travis/deploy.sh
