@@ -2,11 +2,9 @@ sudo: true
 
 language: python
 
-python:
-  - 3.6
+python: 3.6
 
-os:
-  - linux
+os: linux
 
 cache: pip
 
@@ -24,5 +22,5 @@ jobs:
     - stage: deploy
       install: pip install python-semantic-release
       script:
-        - .travis/deploy.sh
-        - .travis/webhook.sh
+       - .travis/deploy.sh
+       - .travis/webhook.sh
