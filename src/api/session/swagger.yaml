@@ -4,7 +4,7 @@ info:
   title: Session API Endpoint
   version: "1.0"
 
-basePath: /api
+basePath: /api/session
 
 consumes:
   - application/json

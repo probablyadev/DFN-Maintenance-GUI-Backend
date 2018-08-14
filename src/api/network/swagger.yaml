@@ -1,0 +1,47 @@
+swagger: "2.0"
+
+info:
+  title: Network API Endpoint
+  version: "1.0"
+
+basePath: /api/network
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+
+paths:
+  /internet/check:
+    get:
+      summary: Pings the internet and returns the response.
+      operationId: src.api.network.endpoints.check_internet
+      responses:
+        200:
+          description: Successfully connected to the internet.
+          schema:
+            $ref: '#/definitions/CheckInternet'
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+
+definitions:
+  CheckInternet:
+    type: object
+    properties:
+      ip:
+        type: string
+        description: Machines IP.
+
+  CommandException:
+    type: object
+    properties:
+      code:
+        type: string
+        description: The return code.
+      output:
+        type: string
+        description: Error output.

@@ -7,7 +7,7 @@ master_branch_request() {
 		"request": {
 			"branch":"master",
 			"config": {
-				"env": "REQUEST_TYPE=reset"
+				"env": "REQUEST_TYPE=release"
 			}
 		}
 	}'
@@ -28,7 +28,7 @@ develop_branch_request() {
 		"request": {
 			"branch":"develop",
 			"config": {
-				"env": "REQUEST_TYPE=increment"
+				"env": "REQUEST_TYPE=dev"
 			}
 		}
 	}'
