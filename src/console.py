@@ -1,23 +1,21 @@
 import inspect
 import os
 import sys
-from subprocess import check_output, CalledProcessError
-
-from src.command_exception import CommandError
+from subprocess import check_output, STDOUT
+from flask import jsonify
 
 
 def console(command):
-    """
-    Sends the system a console command to execute in bash.
+	"""
+	Sends the system a console command to execute in bash.
 
-    Args:
-        command (str): A console command to execute.
+	Args:
+		command (str): A console command to execute.
 
-    Returns:
-        (str): The console output.
-    """
-    try:
-        return check_output(command, shell = True, executable = '/bin/bash')
-    except CalledProcessError as error:
-        # Throws a CommandError that includes the retcode, cmd, output, and this methods calling method.
-        raise CommandError(error, inspect.stack()[1][3])
+	Returns:
+		(str): The console output.
+	"""
+	return check_output(command, shell = True, stderr = STDOUT, executable = '/bin/bash', universal_newlines = True)
+
+def toJson(error):
+	return jsonify(cmd = error.cmd, returncode = error.returncode, output = error.output)

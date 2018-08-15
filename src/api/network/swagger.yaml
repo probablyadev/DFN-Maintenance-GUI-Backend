@@ -16,12 +16,54 @@ paths:
   /internet/check:
     get:
       summary: Pings the internet and returns the response.
-      operationId: src.api.network.endpoints.check_internet
+      operationId: src.api.network.internet.check
       responses:
         200:
           description: Successfully connected to the internet.
           schema:
-            $ref: '#/definitions/CheckInternet'
+            $ref: '#/definitions/JSONResponse'
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+  /internet/restart:
+    get:
+      summary: Restarts the network interface and returns the resulting IP.
+      operationId: src.api.network.internet.restart
+      responses:
+        200:
+          description: Successfully restarted the network interface.
+          schema:
+            $ref: '#/definitions/JSONResponse'
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+  /vpn/check:
+    get:
+      summary: Pings the an internal VPN address and returns the response.
+      operationId: src.api.network.vpn.check
+      responses:
+        200:
+          description: Successfully connected to the VPN network.
+          schema:
+            $ref: '#/definitions/JSONResponse'
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+  /vpn/restart:
+    get:
+      summary: Restarts the systems VPN daemon and returns the resulting IP.
+      operationId: src.api.network.vpn.restart
+      responses:
+        200:
+          description: Successfully restarted the VPN daemon.
+          schema:
+            $ref: '#/definitions/JSONResponse'
         500:
           description: Failure while running command.
           schema:
@@ -29,19 +71,16 @@ paths:
 
 
 definitions:
-  CheckInternet:
+  JSONResponse:
     type: object
     properties:
-      ip:
+      json:
         type: string
-        description: Machines IP.
+        description: Machines IP and command output.
 
   CommandException:
     type: object
     properties:
-      code:
+      json:
         type: string
-        description: The return code.
-      output:
-        type: string
-        description: Error output.
+        description: The return code and error output.
