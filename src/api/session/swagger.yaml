@@ -62,7 +62,7 @@ parameters:
 
   User:
     name: user
-    description: Users email and password.
+    description: Users username and password.
     in: body
     required: true
     schema:
@@ -79,14 +79,12 @@ definitions:
   User:
     type: object
     properties:
-      email:
+      username:
         type: string
-        description: Users email.
-        format: email
-        example: user@server.domain
+        description: Users username.
       password:
         type: string
-        description: users password.
+        description: Users password.
 
   Hostname:
     type: object

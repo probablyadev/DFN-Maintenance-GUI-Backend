@@ -10,8 +10,8 @@ def check_token(token):
 		return 403
 
 
-def generate_token(email, password):
-	user = User.get_user(email, password)
+def generate_token(username, password):
+	user = User.get_user(username, password)
 
 	if user is User:
 		token = generate(user)

@@ -9,7 +9,7 @@ def generate(user, expiration = 2400):
 
     token = s.dumps({
         'id':    user.id,
-        'email': user.email,
+        'username': user.username,
     }).decode('utf-8')
 
     return token
