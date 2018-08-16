@@ -4,7 +4,7 @@ info:
 	title: Camera API Endpoint
 	version: "1.0"
 
-basePath: /api
+basePath: /api/camera
 x-swagger-router-controller: src.api.camera
 
 

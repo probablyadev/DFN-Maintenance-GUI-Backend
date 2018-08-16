@@ -1,27 +1,19 @@
-from src.extensions import db, bcrypt
+from werkzeug.security import generate_password_hash, check_password_hash
+
+from src.extensions import db
 
 
 class User(db.Model):
-    __tablename__ = 'user'
+	__tablename__ = 'user'
 
-    id = db.Column(db.Integer(), primary_key = True)
-    email = db.Column(db.String(255), unique = True)
-    password = db.Column(db.String(255))
+	id = db.Column(db.Integer(), primary_key = True)
+	username = db.Column(db.String(255), unique = True)
+	password = db.Column(db.String(255))
 
-    def __init__(self, email, password):
-        self.email = email
-        self.active = True
-        self.password = User.hashed_password(password)
+	def __init__(self, username, password):
+		self.username = username
+		self.active = True
+		self.password = generate_password_hash(password)
 
-    @staticmethod
-    def hashed_password(password):
-        return bcrypt.generate_password_hash(password).decode("utf-8")
-
-    @staticmethod
-    def get_user(email, password):
-        user = User.query.filter_by(email = email).first()
-
-        if user and bcrypt.check_password_hash(user.password, password):
-            return user
-        else:
-            return None
+	def check_password(self, password):
+		return check_password_hash(self.password, password)

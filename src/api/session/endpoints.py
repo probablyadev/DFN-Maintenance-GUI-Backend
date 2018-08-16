@@ -1,25 +1,18 @@
-from src.database import User
-from src.auth import verify, generate
-from src.console import console
+"""The session api module /session endpoints."""
+
+import logging
+from flask_jwt import jwt_required, current_identity
+from flask import jsonify
+
+from src.console import console, exception_json
 
 
-def check_token(token):
-	if verify(token) is User:
-		return 200
-	else:
-		return 403
-
-
-def generate_token(email, password):
-	user = User.get_user(email, password)
-
-	if user is User:
-		token = generate(user)
-
-		return token, 201
-	else:
-		return 403
-
+@jwt_required()
+def check_token():
+	logging.info('Valid token request for identity: {}'.format(current_identity))
 
 def hostname():
-	return console("hostname")
+	try:
+		return jsonify(hostname = console("hostname")), 200
+	except CalledProcessError as error:
+		return exception_json(error), 500
