@@ -1,11 +1,13 @@
 """The network api module /vpn endpoints."""
 
 from flask import jsonify
+from flask_jwt import jwt_required
 from subprocess import CalledProcessError
 
 from src.console import console, exception_json
 
 
+@jwt_required()
 def check():
 	try:
 		command = "ifconfig | grep tun0 -A 1 | grep -o '\(addr:\|inet \)[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'| cut -c6-"
@@ -20,6 +22,7 @@ def check():
 	except CalledProcessError as error:
 		return exception_json(error), 500
 
+@jwt_required()
 def restart():
 	try:
 		return jsonify(output = console("service openvpn restart && sleep 10 && ifconfig tun0")), 200
