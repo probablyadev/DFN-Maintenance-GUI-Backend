@@ -44,11 +44,26 @@ is meant to be installed and run on our cameras placed out in the field.
 You can install it on your own machine, however the backend is not
 simulated to run without the camera as of yet.
 
-# Documentation
+# Running Development
 
-See [docs/README.md](docs/README.md) for all project documentation.
+In debug mode: 'export FLASK_DEBUG=1; python3 main.py'
+
+```{r, engine='shell', count_lines}
+$ pip3 install -r requirements/dev.txt
+$ python3 db/create_db.py
+$ export FLASK_DEBUG=1
+$ python3 main.py
+```
+
+# Running Production
+
+First make sure you have auth.db in the db/ folder.
+
+```{r, engine='shell', count_lines}
+$ pip3 install -r requirements.txt
+$ python3 main.py
+```
 
 # License
 
-This project is licensed under the MIT license, Copyright (c) 2018
-Ryan Scott Day. For more information see [LICENSE.md](LICENSE.md).
+This project is licensed under the MIT license, Copyright (c) 2018 Ryan Scott Day.

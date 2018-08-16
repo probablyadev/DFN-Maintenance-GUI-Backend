@@ -1,6 +1,6 @@
 from flask import Flask
-from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash
 
 
 app = Flask(__name__)
@@ -9,35 +9,23 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///dev.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 db = SQLAlchemy(app)
-bcrypt = Bcrypt()
+
 
 class User(db.Model):
-    __tablename__ = 'user'
+	__tablename__ = 'user'
 
-    id = db.Column(db.Integer(), primary_key = True)
-    username = db.Column(db.String(255), unique = True)
-    password = db.Column(db.String(255))
+	id = db.Column(db.Integer(), primary_key = True)
+	username = db.Column(db.String(255), unique = True)
+	password = db.Column(db.String(255))
 
-    def __init__(self, username, password):
-        self.username = username
-        self.active = True
-        self.password = User.hashed_password(password)
+	def __init__(self, username, password):
+		self.username = username
+		self.active = True
+		self.password = generate_password_hash(password)
 
-    @staticmethod
-    def hashed_password(password):
-        return bcrypt.generate_password_hash(password).decode("utf-8")
+	def __repr__(self):
+		return '{} {}'.format(self.username, self.password)
 
-    @staticmethod
-    def get_user(username, password):
-        user = User.query.filter_by(username = username).first()
-
-        if user and bcrypt.check_password_hash(user.password, password):
-            return user
-        else:
-            return None
-
-    def __repr__(self):
-        return '{} {}'.format(self.username, self.password)
 
 # Create db and tables.
 db.create_all()

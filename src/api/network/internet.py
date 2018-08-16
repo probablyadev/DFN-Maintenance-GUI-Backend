@@ -3,9 +3,7 @@
 from flask import jsonify
 from subprocess import CalledProcessError
 
-from src.database import User
-from src.auth import verify, generate
-from src.console import console, toJson
+from src.console import console, exception_json
 
 
 def check():
@@ -21,10 +19,10 @@ def check():
 
 		return jsonify(ip = ip, output = output), 200
 	except CalledProcessError as error:
-		return toJson(error), 500
+		return exception_json(error), 500
 
 def restart():
 	try:
 		return jsonify(output = console("ifdown ppp0 && sleep 8 && ifup ppp0 && sleep 8 && ifconfig ppp0")), 200
 	except CalledProcessError as error:
-		return toJson(error), 500
+		return exception_json(error), 500

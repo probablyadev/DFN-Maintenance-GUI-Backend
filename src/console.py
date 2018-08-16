@@ -17,5 +17,5 @@ def console(command):
 	"""
 	return check_output(command, shell = True, stderr = STDOUT, executable = '/bin/bash', universal_newlines = True)
 
-def toJson(error):
+def exception_json(error):
 	return jsonify(cmd = error.cmd, returncode = error.returncode, output = error.output)

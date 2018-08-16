@@ -21,7 +21,7 @@ paths:
         200:
           description: Successfully connected to the internet.
           schema:
-            $ref: '#/definitions/JSONResponse'
+            $ref: '#/definitions/Json'
         500:
           description: Failure while running command.
           schema:
@@ -35,7 +35,7 @@ paths:
         200:
           description: Successfully restarted the network interface.
           schema:
-            $ref: '#/definitions/JSONResponse'
+            $ref: '#/definitions/Json'
         500:
           description: Failure while running command.
           schema:
@@ -49,7 +49,7 @@ paths:
         200:
           description: Successfully connected to the VPN network.
           schema:
-            $ref: '#/definitions/JSONResponse'
+            $ref: '#/definitions/Json'
         500:
           description: Failure while running command.
           schema:
@@ -63,7 +63,7 @@ paths:
         200:
           description: Successfully restarted the VPN daemon.
           schema:
-            $ref: '#/definitions/JSONResponse'
+            $ref: '#/definitions/Json'
         500:
           description: Failure while running command.
           schema:
@@ -71,12 +71,12 @@ paths:
 
 
 definitions:
-  JSONResponse:
+  Json:
     type: object
     properties:
       json:
         type: string
-        description: Machines IP and command output.
+        description: Resulting json object.
 
   CommandException:
     type: object

@@ -11,33 +11,21 @@ consumes:
 produces:
   - application/json
 
+securityDefinitions:
+  jwt:
+    type: apiKey
+    name: Authorization
+    in: header
+
 
 paths:
-  /token/check:
-    post:
+  /check:
+    get:
       summary: Checks that a given token is valid.
       operationId: src.api.session.endpoints.check_token
-      parameters:
-        - $ref: '#/parameters/Token'
       responses:
         200:
           description: Token is valid.
-        403:
-          description: Token is invalid.
-
-  /token/generate:
-    post:
-      summary: Generates a token for the users session if email and password is valid.
-      operationId: src.api.session.endpoints.generate_token
-      parameters:
-        - $ref: '#/parameters/User'
-      responses:
-        201:
-          description: Token is valid.
-          schema:
-            $ref: '#/definitions/Token'
-        403:
-          description: Token is invalid.
 
   /hostname:
     get:
@@ -47,48 +35,25 @@ paths:
         200:
           description: Successfully gathered machines hostname.
           schema:
-            $ref: '#/definitions/Hostname'
-        400:
+            $ref: '#/definitions/Json'
+        500:
           description: Failure while running command.
-
-
-parameters:
-  Token:
-    name: token
-    in: body
-    required: true
-    schema:
-      $ref: '#/definitions/Token'
-
-  User:
-    name: user
-    description: Users username and password.
-    in: body
-    required: true
-    schema:
-      $ref: '#/definitions/User'
+          schema:
+            $ref: '#/definitions/CommandException'
 
 
 definitions:
-  Token:
+  Json:
     type: object
     properties:
-      token:
+      json:
         type: string
+        description: Resulting json object.
 
-  User:
+  CommandException:
     type: object
     properties:
-      username:
+      json:
         type: string
-        description: Users username.
-      password:
-        type: string
-        description: Users password.
+        description: The return code and error output.
 
-  Hostname:
-    type: object
-    properties:
-      hostname:
-        type: string
-        description: Machines hostname.
