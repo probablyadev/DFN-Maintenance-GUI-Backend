@@ -61,6 +61,7 @@ First make sure you have auth.db in the db/ folder.
 
 ```{r, engine='shell', count_lines}
 $ pip3 install -r requirements.txt
+$ export FLASK_DEBUG=0
 $ python3 main.py
 ```
 
