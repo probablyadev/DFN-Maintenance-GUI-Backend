@@ -1,6 +1,6 @@
 """Create an application instance."""
 
-__version__ = '0.0.0'
+__version__ = '0.1.0'
 
 from flask import send_from_directory
 from flask.helpers import get_debug_flag
