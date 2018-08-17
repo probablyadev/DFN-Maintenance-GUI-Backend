@@ -1,6 +1,6 @@
 """Create an application instance."""
 
-__version__ = '0.1.0'
+__version__ = '1.0.0'
 
 from sys import argv
 from flask import send_from_directory
