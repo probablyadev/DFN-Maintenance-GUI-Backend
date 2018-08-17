@@ -46,22 +46,19 @@ simulated to run without the camera as of yet.
 
 # Running Development
 
-In debug mode: 'export FLASK_DEBUG=1; python3 main.py'
-
 ```{r, engine='shell', count_lines}
 $ pip3 install -r requirements/dev.txt
 $ python3 db/create_db.py
-$ export FLASK_DEBUG=1
-$ python3 main.py
+$ python3 main.py dev
 ```
 
 # Running Production
 
 First make sure you have auth.db in the db/ folder.
+main.py can optionally take the argument "prod".
 
 ```{r, engine='shell', count_lines}
 $ pip3 install -r requirements.txt
-$ export FLASK_DEBUG=0
 $ python3 main.py
 ```
 

@@ -2,6 +2,7 @@
 
 __version__ = '0.1.0'
 
+from sys import argv
 from flask import send_from_directory
 from flask.helpers import get_debug_flag
 
@@ -9,11 +10,22 @@ from src.app import create_app
 from src.settings import DevelopmentConfig, ProductionConfig
 
 
-# 'export FLASK_DEBUG=1' if you want dev config, else =0 for prod.
-# pip3 install -r requirements.txt; export FLASK_DEBUG=1; python3 main.py
-CONFIG = DevelopmentConfig if get_debug_flag() else ProductionConfig
+# DEVELOPMENT: pip3 install -r requirements.txt; python3 main.py dev
 
-app = create_app(CONFIG)
+# PRODUCTION: pip3 install -r requirements.txt; python3 main.py
+# or
+# PRODUCTION: pip3 install -r requirements.txt; python3 main.py prod
+if len(argv) > 0:
+	env = argv[1]
+
+	if env == "dev":
+		config = DevelopmentConfig
+	elif env == "prod":
+		config = ProductionConfig
+else:
+	config = ProductionConfig
+
+app = create_app(config)
 
 @app.route('/<path:filename>')
 def index(filename):
