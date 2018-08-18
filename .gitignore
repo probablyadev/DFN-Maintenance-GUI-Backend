@@ -229,4 +229,4 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-*.db
+auth.db

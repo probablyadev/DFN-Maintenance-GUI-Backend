@@ -5,7 +5,6 @@ import logging
 class Config(object):
 	"""Parent config class. Inherits from object."""
 	# Flask.
-	HOST = '0.0.0.0'
 	STATIC_FOLDER = '../dist/assets'
 	TEMPLATE_FOLDER = '../dist'
 	STATIC_URL_PATH = 'assets'

@@ -31,4 +31,4 @@ app = create_app(config)
 def index(filename):
 	return send_from_directory('../dist', 'index.html')
 
-app.run()
+app.run(host = '0.0.0.0', port = 5000)
