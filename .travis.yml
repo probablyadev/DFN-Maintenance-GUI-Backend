@@ -13,9 +13,9 @@ notifications:
 
 stages:
   - test
-  - name: deploy
+  - name: release
     if: branch = master AND type = push AND fork = false
-  - release
+  - deploy
 
 jobs:
   include:
@@ -23,9 +23,9 @@ jobs:
       install: pip install nose
       script: nosetests
 
-    - stage: deploy
-      install: pip install python-semantic-release
-      script: .travis/deploy.sh
-
     - stage: release
-      script: .travis/webhook.sh
+      install: pip install python-semantic-release
+      script: .travis/release.sh
+
+    - stage: deploy
+      script: .travis/deploy.sh
