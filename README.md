@@ -8,6 +8,13 @@
 <br />
 
 <div align="center">
+    <!-- Github Status -->
+    <a href="https://github.com/ScottDay/DFN-Maintenance-GUI-Backend/releases">
+        <img src="https://img.shields.io/github/release/ScottDay/DFN-Maintenance-GUI-Backend.svg" alt="Latest Release Tag" />
+    </a>
+	<a href="https://github.com/ScottDay/DFN-Maintenance-GUI-Backend/commits">
+        <img src="https://img.shields.io/github/commits-since/ScottDay/DFN-Maintenance-GUI-Backend/latest.svg" alt="Commit Count Since Last Release Tag" />
+    </a>
     <!-- Build Status -->
     <a href="https://travis-ci.org/ScottDay/DFN-Maintenance-GUI-Backend">
         <img src="https://img.shields.io/travis/com/ScottDay/DFN-Maintenance-GUI-Backend.svg?label=master" alt="Master Branch Build Status" />
@@ -16,9 +23,9 @@
         <img src="https://img.shields.io/travis/com/ScottDay/DFN-Maintenance-GUI-Backend/develop.svg?label=develop" alt="Develop Branch Build Status" />
     </a>
     <!-- License Scan Status -->
-    <a href="https://app.fossa.io/projects/git%2Bgithub.com%2FScottDay%2FDesert-Fireball-Maintainence-GUI?ref=badge_shield" alt="FOSSA Status">
-        <img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2FScottDay%2FDesert-Fireball-Maintainence-GUI.svg?type=shield"/>
-    </a>
+	<a href="https://app.fossa.io/projects/git%2Bgithub.com%2FScottDay%2FDFN-Maintenance-GUI-Backend?ref=badge_shield" alt="FOSSA Status">
+		<img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2FScottDay%2FDFN-Maintenance-GUI-Backend.svg?type=shield"/>
+	</a>
 </div>
 <br />
 
