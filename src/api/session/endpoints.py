@@ -3,6 +3,7 @@
 import logging
 from flask_jwt import jwt_required, current_identity
 from flask import jsonify
+from subprocess import CalledProcessError
 
 from src.console import console, exception_json
 
