@@ -27,8 +27,16 @@ else:
 
 app = create_app(config)
 
-@app.route('/<path:filename>')
-def index(filename):
+@app.route('/')
+def index():
 	return send_from_directory('../dist', 'index.html')
+
+@app.route('/<filename>')
+def page(filename):
+	return send_from_directory('../dist', 'index.html')
+
+@app.route('/assets/<filename>')
+def assets(filename):
+	return send_from_directory('../dist/assets', filename)
 
 app.run(host = '0.0.0.0', port = 5000)

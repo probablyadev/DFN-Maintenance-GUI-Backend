@@ -4,11 +4,6 @@ import logging
 
 class Config(object):
 	"""Parent config class. Inherits from object."""
-	# Flask.
-	STATIC_FOLDER = '../dist/assets'
-	TEMPLATE_FOLDER = '../dist'
-	STATIC_URL_PATH = 'assets'
-
 	# CORS.
 	HEADERS = 'Content-Type'
 	RESOURCES = {r"/api/*": {'origins': "*"}}
