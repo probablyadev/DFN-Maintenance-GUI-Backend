@@ -1,5 +1,13 @@
 {
   "npmPublish": false,
   "tarballDir": "*",
-  "getLastRelease": "last-release-git"
+  "getLastRelease": "last-release-git",
+  "verifyConditions": ["@semantic-release/changelog", "@semantic-release/git"],
+  "prepare": [
+    {
+      "path": "@semantic-release/changelog",
+      "changelogTitle": "DFN-MAINTENANCE-GUI-BACKEND"
+    },
+    "@semantic-release/git"
+  ]
 }
