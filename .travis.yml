@@ -1,8 +1,11 @@
 sudo: false
 
-language: python
+language:
+  - python
+  - node_js
 
 python: 3.6
+node_js: 10
 
 os: linux
 
@@ -24,7 +27,6 @@ jobs:
       script: nosetests
 
     - stage: release
-      install: pip install python-semantic-release
       script: .travis/release.sh
 
     - stage: deploy
