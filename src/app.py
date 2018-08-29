@@ -5,12 +5,11 @@ import connexion
 from connexion.resolver import RestyResolver
 from flask_jwt import JWT
 
-from src.settings import ProductionConfig
 from src.extensions import cors, db
 from src.auth import authenticate, identity
 
 
-def create_app(config = ProductionConfig):
+def create_app(config):
 	"""An application factory, as explained here:
 	http://flask.pocoo.org/docs/patterns/appfactories/.
 

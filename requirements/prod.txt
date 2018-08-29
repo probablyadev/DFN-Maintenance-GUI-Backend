@@ -7,3 +7,4 @@ Flask-SQLAlchemy==2.1
 Flask-JWT==0.3.2
 SQLAlchemy==1.0.14
 Werkzeug==0.11.15
+parallel-ssh==1.8.0
