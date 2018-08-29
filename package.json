@@ -3,7 +3,7 @@
     "productName": "Desert Fireball Maintenance GUI Backend",
     "description": "GUI for maintaining the camera network for the Fireballs in the Sky project.",
     "author": "Ryan Scott Day <265815F@curtin.edu.au>",
-    "version": "0.0.0",
+    "version": "1.1.0",
     "license": "MIT",
     "private": false,
     "repository": {
@@ -13,8 +13,10 @@
     "engines": {
         "node": ">=7.2.0",
         "npm": ">=4.0.2"
-	},
-	"dependencies": {
-        "@semantic-release/changelog": "3.0.0"
+    },
+    "devDependencies": {
+        "semantic-release": "15.9.12",
+        "@semantic-release/changelog": "3.0.0",
+        "@semantic-release/git": "7.0.3"
     }
 }
