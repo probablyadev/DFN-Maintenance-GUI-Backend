@@ -17,3 +17,6 @@ class Config(object):
 
 	# SQLAlchemy.
 	SQLALCHEMY_TRACK_MODIFICATIONS = True
+
+	# Console.
+	CONSOLE_TYPE = 'TERMINAL'
