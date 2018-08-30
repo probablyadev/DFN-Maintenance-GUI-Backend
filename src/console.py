@@ -1,12 +1,16 @@
 from pssh.clients.native.parallel import ParallelSSHClient
 from flask import jsonify, current_app
+from subprocess import check_output, STDOUT
 
 
 def console(command):
-	# Code for running commands on the local machine (rather than remotely)
-	# from subprocess import check_output, STDOUT
-	# return check_output(command, shell = True, stderr = STDOUT, executable = '/bin/bash', universal_newlines = True)
+	if current_app.config['CONSOLE_TYPE'] is 'SSH':
+		return ssh(command)
 
+	return terminal(command)
+
+
+def ssh(command):
 	hostname = 'localhost'
 	client = ParallelSSHClient([hostname], user = current_app.config['USER'], password = current_app.config['PASSWORD'])
 
@@ -21,6 +25,10 @@ def console(command):
 		raise CalledProcessError(cmd = command, returncode = output.exit_code, output = output.stderr)
 
 	return output.stdout
+
+
+def terminal(command):
+	return check_output(command, shell = True, stderr = STDOUT, executable = '/bin/bash', universal_newlines = True)
 
 
 def exception_json(error):

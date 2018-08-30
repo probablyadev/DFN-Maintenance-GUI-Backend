@@ -1,32 +1,27 @@
 """Create an application instance."""
 
-__version__ = '1.0.1'
-
 from sys import argv
 from flask import send_from_directory
 
 from src.app import create_app
 
 
-# DEVELOPMENT: pip3 install -r requirements.txt; python3 main.py dev
-
-# PRODUCTION: pip3 install -r requirements.txt; python3 main.py
-# or
-# PRODUCTION: pip3 install -r requirements.txt; python3 main.py prod
+# TODO: Write help documentation and help command.
 if len(argv) > 0:
 	env = argv[1]
 
-	if env == "dev":
+	if env == 'dev':
 		from config.dev_config import DevelopmentConfig
-
 		config = DevelopmentConfig
-	elif env == "prod":
-		from config.dev_config import ProductionConfig
-
-		config = ProductionConfig
+	elif env == 'prod':
+		if len(argv) >= 2 and argv[2] == 'docker':
+			from config.docker import DockerProductionConfig
+			config = DockerProductionConfig
+		else:
+			from config.base_prod_config import ProductionConfig
+			config = ProductionConfig
 else:
-	from config.dev_config import ProductionConfig
-
+	from config.base_prod_config import ProductionConfig
 	config = ProductionConfig
 
 app = create_app(config)
