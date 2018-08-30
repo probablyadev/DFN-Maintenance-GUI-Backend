@@ -14,7 +14,7 @@ if len(argv) > 0:
 		from config.dev_config import DevelopmentConfig
 		config = DevelopmentConfig
 	elif env == 'prod':
-		if len(argv) >= 2 and argv[2] == 'docker':
+		if len(argv) >= 3 and argv[2] == 'docker':
 			from config.docker import DockerProductionConfig
 			config = DockerProductionConfig
 		else:
