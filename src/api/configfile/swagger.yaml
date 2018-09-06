@@ -48,7 +48,7 @@ paths:
   /config:
     get:
       summary: Gets the config file.
-      operationId: src.api.configfile.endpoints.getConfig
+      operationId: src.api.configfile.config.get
       responses:
         200:
           description: Config file.
@@ -59,7 +59,7 @@ paths:
 
     put:
       summary: Updates a config file entry.
-      operationId: src.api.configfile.endpoints.updateConfig
+      operationId: src.api.configfile.config.put
       parameters:
         - name: row
           in: body
