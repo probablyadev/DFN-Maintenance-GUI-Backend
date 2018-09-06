@@ -88,10 +88,10 @@ def getConfig():
 
 
 @jwt_required()
-def updateConfig(json):
-	category = json['category']
-	field = json['field']
-	value = json['value']
+def updateConfig(row):
+	category = row[0]
+	field = row[1]
+	value = row[2]
 
 	try:
 		path = current_app.config['DFN_CONFIG_PATH']

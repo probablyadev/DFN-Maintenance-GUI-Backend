@@ -61,7 +61,7 @@ paths:
       summary: Updates a config file entry.
       operationId: src.api.configfile.endpoints.updateConfig
       parameters:
-        - name: row_item
+        - name: row
           in: body
           schema:
             type: array

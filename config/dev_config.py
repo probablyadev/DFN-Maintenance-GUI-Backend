@@ -25,4 +25,4 @@ class DevelopmentConfig(Config):
 	PASSWORD = 'test'
 
 	# Config file path.
-	DFN_CONFIG_PATH = '../sample/dfnstation.cfg'
+	DFN_CONFIG_PATH = 'sample/dfnstation.cfg'
