@@ -1,0 +1,6 @@
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda6       39G   512M  290G  80% /
+/dev/sda3       390G  567M  370G   1% /data0
+/dev/sdb1       3.6T  3.3T  186G  95% /data1
+/dev/sdd1       5.5T  5.1T  103G  99% /data2
+/dev/sdc1       5.5T  135G  5.1T   3% /data3

@@ -26,3 +26,5 @@ class DevelopmentConfig(Config):
 
 	# Config file path.
 	DFN_CONFIG_PATH = 'sample/dfnstation.cfg'
+
+	DFN_DISK_USAGE_PATH = 'sample/dfn_disk_usage'

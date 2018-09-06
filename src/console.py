@@ -1,5 +1,5 @@
 from pssh.clients.native.parallel import ParallelSSHClient
-from flask import jsonify, current_app
+from flask import current_app
 from subprocess import check_output, STDOUT, CalledProcessError
 
 
@@ -29,18 +29,3 @@ def ssh(command):
 
 def terminal(command):
 	return check_output(command, shell = True, stderr = STDOUT, executable = '/bin/bash', universal_newlines = True)
-
-
-def exception_json(error):
-	cmd = ''
-	returncode = 1
-	output = 'Error'
-
-	if error is CalledProcessError:
-		cmd = error.cmd
-		returncode = error.returncode
-		output = error.output
-	else:
-		output = str(error)
-
-	return jsonify(cmd = cmd, returncode = returncode, output = output)
