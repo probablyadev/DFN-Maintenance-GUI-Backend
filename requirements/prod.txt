@@ -1,11 +1,23 @@
 # Everything needed in production
 
-connexion==1.5.2
+# Flask
 Flask==0.11.1
 flask-cors==3.0.3
 Flask-SQLAlchemy==2.1
 Flask-JWT==0.3.2
+
+# SSH Console
+parallel-ssh==1.8.0
+
+# API Endpoints
+connexion==1.5.2
+
+# SQL
 SQLAlchemy==1.0.14
 Werkzeug==0.11.15
-parallel-ssh==1.8.0
+
+# HDD
 psutil==5.3.0
+
+# CLI
+argh==0.26.2
