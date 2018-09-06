@@ -24,7 +24,7 @@ def create_app(config):
 	register_logger(app, config)
 	register_routes(connexion_app)
 
-	return app
+	app.run(host = config.HOST, port = config.PORT)
 
 
 def register_extensions(app):
@@ -38,20 +38,11 @@ def register_logger(app, config):
 	"""Register logging handlers."""
 	# Set up logging to file
 	logging.basicConfig(
-		filename = 'dfn-gui-server.log',
+		filename = config.FILENAME,
 		level = config.LOGGING_LEVEL,
-		format = '[%(asctime)s] {%(filename)s:%(lineno)d} %(levelname)s - %(message)s',
+		format = '[%(asctime)s] %(levelname)s - %(message)s',
 		datefmt = '%H:%M:%S'
 	)
-
-	# Set up logging to console
-	console = logging.StreamHandler()
-
-	console.setLevel(config.LOGGING_LEVEL)
-	console.setFormatter(logging.Formatter('%(name)-12s: %(levelname)-8s %(message)s'))
-
-	logging.getLogger('').addHandler(console)
-	logging.getLogger('flask_cors').level = config.CORS_LOGGING_LEVEL
 
 
 def register_routes(app):

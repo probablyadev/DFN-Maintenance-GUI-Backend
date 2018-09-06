@@ -6,11 +6,12 @@ from config.base_config import Config
 class DevelopmentConfig(Config):
 	"""Dev config class. Inherits from the parent Config class."""
 	# Flask.
-	DEBUG = True
-	TESTING = True
+	DEBUG = False
+	TESTING = False
 
 	# Logging.
-	LOGGING_LEVEL = logging.DEBUG
+	FILENAME = ''
+	# LOGGING_LEVEL = logging.DEBUG
 
 	# SQLAlchemy.
 	SQLALCHEMY_DATABASE_URI = 'sqlite:///../db/dev.db'
