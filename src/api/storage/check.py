@@ -5,7 +5,6 @@ from flask import jsonify, current_app
 from psutil import disk_partitions, disk_usage
 from re import sub, split
 
-from src.console import exception_json
 from src.wrappers import wrap_error
 
 
@@ -28,16 +27,14 @@ def _bytes2human(n):
 	return "%sB" % n
 
 
-def _mounted_drives():
-	mounted = []
-	devices = []
-
+def _mounted_drives(partitions):
 	for part in disk_partitions(all = False):
 		if part.fstype == 'ext4':
 			usage = disk_usage(part.mountpoint)
 
-			mounted.append({
+			partitions.append({
 				'device': part.device,
+				'status': 'mounted',
 				'total': _bytes2human(usage.total),
 				'used': _bytes2human(usage.used),
 				'free': _bytes2human(usage.free),
@@ -46,14 +43,8 @@ def _mounted_drives():
 				'mount': part.mountpoint
 			})
 
-			devices.append(part.device)
 
-	return mounted, devices
-
-
-def _unmounted_drives(devices):
-	unmounted = []
-
+def _unmounted_drives(partitions):
 	with open(current_app.config['DFN_DISK_USAGE_PATH']) as f:
 		lines = f.readlines()
 
@@ -63,9 +54,10 @@ def _unmounted_drives(devices):
 		line = sub("%", "", line)
 		line = split(",", line)
 
-		if line[0] not in devices:
-			unmounted.append({
+		if not any(line[0] in sublist['device'] for sublist in partitions):
+			partitions.append({
 				'device': line[0],
+				'status': 'unmounted',
 				'total': line[1],
 				'used': line[2],
 				'free': line[3],
@@ -74,14 +66,13 @@ def _unmounted_drives(devices):
 				'mount': line[5]
 			})
 
-	return unmounted
-
 
 @jwt_required()
 @wrap_error
 def check():
-	partitions = {}
-	partitions['mounted'], devices = _mounted_drives()
-	partitions['unmounted'] = _unmounted_drives(devices)
+	partitions = []
+
+	_mounted_drives(partitions)
+	_unmounted_drives(partitions)
 
 	return jsonify(partitions = partitions), 200
