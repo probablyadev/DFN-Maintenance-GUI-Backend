@@ -4,7 +4,7 @@ from flask_jwt import jwt_required, current_identity
 from flask import jsonify, current_app
 
 from src.console import console, exception_json
-import src.imported.config_handler
+from src.imported.config_handler import load_config, save_config_file
 
 
 @jwt_required()
@@ -51,7 +51,7 @@ def whitelist():
 			"lon"
 		}
 
-		config_file = config_handler.load_config(current_app.config['DFN_CONFIG_PATH'])
+		config_file = load_config(current_app.config['DFN_CONFIG_PATH'])
 		whitelist = {}
 
 		if not config_file:
@@ -77,7 +77,7 @@ def whitelist():
 def getConfig():
 	try:
 		path = current_app.config['DFN_CONFIG_PATH']
-		config_file = config_handler.load_config(path)
+		config_file = load_config(path)
 
 		if not config_file:
 			raise IOError('Cannot load config file with path: {0}'.format(path))
@@ -95,12 +95,12 @@ def updateConfig(json):
 
 	try:
 		path = current_app.config['DFN_CONFIG_PATH']
-		updated_conf_dict = config_handler.load_config(path)
+		updated_conf_dict = load_config(path)
 
 		oldValue = updated_conf_dict[category][field]
 		updated_conf_dict[category][field] = value
 
-		if config_handler.save_config_file(path, updated_conf_dict):
+		if save_config_file(path, updated_conf_dict):
 			return jsonify('Overwritten {0}:{1}:{2} as {3}'.format(category, field, oldValue, value)), 200
 		else:
 			raise IOError('Unable to write {0}:{1}:{2} to config file'.format(category, field, value))

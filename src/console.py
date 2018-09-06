@@ -1,11 +1,11 @@
 from pssh.clients.native.parallel import ParallelSSHClient
 from flask import jsonify, current_app
-from subprocess import check_output, STDOUT
+from subprocess import check_output, STDOUT, CalledProcessError
 
 
 def console(command):
-	if current_app.config['CONSOLE_TYPE'] is 'SSH':
-		return ssh(command)
+	#if current_app.config['CONSOLE_TYPE'] is 'SSH':
+		#return ssh(command)
 
 	return terminal(command)
 
@@ -41,6 +41,6 @@ def exception_json(error):
 		returncode = error.returncode
 		output = error.output
 	else:
-		output = error.message
+		output = str(error)
 
 	return jsonify(cmd = cmd, returncode = returncode, output = output)

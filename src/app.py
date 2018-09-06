@@ -58,3 +58,4 @@ def register_routes(app):
 	"""Register swagger api endpoints."""
 	app.add_api('api/network/swagger.yaml')
 	app.add_api('api/session/swagger.yaml')
+	app.add_api('api/configfile/swagger.yaml')

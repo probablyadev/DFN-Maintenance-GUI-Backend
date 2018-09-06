@@ -57,11 +57,16 @@ paths:
           schema:
             $ref: '#/definitions/CommandException'
 
-    update:
+    put:
       summary: Updates a config file entry.
       operationId: src.api.configfile.endpoints.updateConfig
       parameters:
-        $ref: '#/definitions/Json'
+        - name: row_item
+          in: body
+          schema:
+            type: array
+            items:
+              type: string
       responses:
         204:
           description: Config file entry successfully updated.
