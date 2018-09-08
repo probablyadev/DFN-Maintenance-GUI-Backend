@@ -44,6 +44,8 @@ def register_logger(app, config):
 		datefmt = '%H:%M:%S'
 	)
 
+	logging.getLogger('flask_cors').level = logging.WARNING
+
 
 def register_routes(app):
 	"""Register swagger api endpoints."""
@@ -51,3 +53,4 @@ def register_routes(app):
 	app.add_api('api/session/swagger.yaml')
 	app.add_api('api/configfile/swagger.yaml')
 	app.add_api('api/storage/swagger.yaml')
+	app.add_api('api/location/swagger.yaml')
