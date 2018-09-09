@@ -2,6 +2,7 @@
 
 from flask_jwt import jwt_required
 from flask import jsonify
+from re import sub
 
 from src.wrappers import wrap_error
 from src.console import console
@@ -14,6 +15,7 @@ def get():
 
 	local = time[0].split('Local time: ')[1]
 	utc = time[1].split('Universal time: ')[1]
+	utc = sub('UTC', '', utc)
 	rtc = time[2].split('RTC time: ')[1]
 	timezone = time[3].split('Time zone: ')[1].split(' ')[0]
 
