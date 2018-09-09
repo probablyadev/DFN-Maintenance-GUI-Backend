@@ -49,6 +49,18 @@ paths:
           schema:
             $ref: '#/definitions/CommandException'
 
+  /gps:
+    get:
+      summary: Gets the GPS summary.
+      operationId: src.api.location.gps.get
+      responses:
+        200:
+          description: Lock status, satellites, latitude, longitude, altitude.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
 
 definitions:
   Json:

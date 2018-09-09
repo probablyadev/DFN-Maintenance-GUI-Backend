@@ -8,6 +8,9 @@ from src.wrappers import wrap_error
 from src.console import console
 
 
+__all__ = ['get', 'put']
+
+
 @jwt_required()
 @wrap_error
 def get():

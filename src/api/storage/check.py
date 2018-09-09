@@ -1,4 +1,4 @@
-"""The storage api module /session endpoints."""
+"""The storage api module /storage endpoints."""
 
 from flask_jwt import jwt_required
 from flask import jsonify, current_app
