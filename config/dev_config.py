@@ -6,7 +6,7 @@ from config.base_config import Config
 class DevelopmentConfig(Config):
 	"""Dev config class. Inherits from the parent Config class."""
 	# Flask.
-	DEBUG = False
+	DEBUG = True
 	TESTING = False
 
 	# Logging.
@@ -27,5 +27,7 @@ class DevelopmentConfig(Config):
 
 	# Config file path.
 	DFN_CONFIG_PATH = 'sample/dfnstation.cfg'
-
 	DFN_DISK_USAGE_PATH = 'sample/dfn_disk_usage'
+
+	# Console (terminal / ssh) and Command Type (prod / dev).
+	USE_PROD_COMMAND = False

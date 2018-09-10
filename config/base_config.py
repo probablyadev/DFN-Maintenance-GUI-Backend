@@ -23,5 +23,6 @@ class Config(object):
 	# SQLAlchemy.
 	SQLALCHEMY_TRACK_MODIFICATIONS = True
 
-	# Console.
-	CONSOLE_TYPE = 'TERMINAL'
+	# Console (terminal / ssh) and Command Type (prod / dev).
+	USE_CONSOLE = True
+	USE_PROD_COMMAND = True

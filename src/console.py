@@ -3,11 +3,19 @@ from flask import current_app
 from subprocess import check_output, STDOUT, CalledProcessError
 
 
-def console(command):
-	#if current_app.config['CONSOLE_TYPE'] is 'SSH':
-		#return ssh(command)
+def console(prod_command, dev_command = ''):
+	if current_app.config['USE_PROD_COMMAND'] or dev_command is '':
+		command = prod_command
+	else:
+		command = dev_command
 
-	return terminal(command)
+	if current_app.config['USE_CONSOLE']:
+		output = terminal(command)
+	else:
+		output = ssh(command)
+
+	return output
+
 
 
 def ssh(command):
