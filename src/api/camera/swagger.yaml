@@ -1,0 +1,73 @@
+swagger: "2.0"
+
+info:
+  title: Camera API Endpoint
+  version: "1.0"
+
+basePath: /api/camera
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+securityDefinitions:
+  jwt:
+    type: apiKey
+    name: Authorization
+    in: header
+
+
+paths:
+  /dslr:
+    get:
+      summary: Gets the current status of the systems DSLR camera (on / off).
+      operationId: src.api.camera.dslr.get
+      responses:
+        200:
+          description: Camera status.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+  /dslr/on:
+    get:
+      summary: Turns the systems DSLR camera on.
+      operationId: src.api.camera.dslr.on
+      responses:
+        200:
+          description: Camera status.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+  /dslr/off:
+    get:
+      summary: Turns the systems DSLR camera off.
+      operationId: src.api.camera.dslr.off
+      responses:
+        200:
+          description: Camera status.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+
+definitions:
+  Json:
+    type: object
+    properties:
+      json:
+        type: string
+        description: Resulting json object.
+
+  CommandException:
+    type: object
+    properties:
+      json:
+        type: string
+        description: The return code and error output.
+

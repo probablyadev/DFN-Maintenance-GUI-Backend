@@ -54,3 +54,4 @@ def register_routes(app):
 	app.add_api('api/configfile/swagger.yaml')
 	app.add_api('api/storage/swagger.yaml')
 	app.add_api('api/location/swagger.yaml')
+	app.add_api('api/camera/swagger.yaml')
