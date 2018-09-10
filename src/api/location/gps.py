@@ -1,7 +1,7 @@
 """The location gps api module /location/gps endpoints."""
 
 from flask_jwt import jwt_required
-from flask import jsonify
+from flask import jsonify, current_app
 from re import split
 
 from src.wrappers import wrap_error
@@ -21,7 +21,9 @@ def coordinates(initial, direction):
 @jwt_required()
 @wrap_error
 def get():
-	output = terminal('python /opt/dfn-software/leostick_get_status.py -g').split(',')
+	output = console(
+		'python /opt/dfn-software/leostick_get_status.py -g',
+		'echo GPGGA,080112.000,3346.4614,S,15106.8787,E,0,00,99.0,067.59,M,21.9,M,,,').split(',')
 
 	if len(output) is not 16:
 		raise IOError('GPS offline')
