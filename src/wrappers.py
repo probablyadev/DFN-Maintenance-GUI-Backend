@@ -21,12 +21,15 @@ def _exception_json(error):
 	return jsonify(cmd = cmd, returncode = returncode, output = output)
 
 
-def wrap_error(function):
-	@wraps(function)
-	def decorator(*args, **kwds):
-		try:
-			return function(*args, **kwds)
-		except Exception as error:
-			return _exception_json(error), 500
+def wrap_error(has_debug_cmd = False):
+	def wrap_error_decorator(function):
+		@wraps(function)
+		def decorator(*args, **kwds):
+			try:
+				return function(*args, **kwds)
+			except Exception as error:
+				return _exception_json(error), 500
 
-	return decorator
+		return decorator
+
+	return wrap_error_decorator

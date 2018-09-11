@@ -30,4 +30,4 @@ class DevelopmentConfig(Config):
 	DFN_DISK_USAGE_PATH = 'sample/dfn_disk_usage'
 
 	# Console (terminal / ssh) and Command Type (prod / dev).
-	USE_PROD_COMMAND = False
+	USE_DEV_COMMAND = True

@@ -1,7 +1,7 @@
 """The camera dslr api module /camera/dslr endpoints."""
 
 from flask_jwt import jwt_required
-from flask import jsonify
+from flask import jsonify, current_app
 
 from src.wrappers import wrap_error
 from src.console import console
@@ -11,7 +11,7 @@ __all__ = ['get', 'on', 'off']
 
 
 def _status():
-	output = console('lsusb', 'echo Nikon Corp.')
+	output = console('lsusb')
 	status = False
 
 	if 'Nikon Corp.' in output:
@@ -27,8 +27,11 @@ def get():
 
 
 @jwt_required()
-@wrap_error
+@wrap_error(has_debug_cmd = True)
 def on():
+	if current_app.config['USE_DEV_COMMAND']:
+		return jsonify(status = True), 200
+
 	console('python /opt/dfn-software/enable_camera.py')
 
 	return _status()
@@ -37,6 +40,9 @@ def on():
 @jwt_required()
 @wrap_error
 def off():
+	if current_app.config['USE_DEV_COMMAND']:
+		return jsonify(status = True), 200
+
 	console('python /opt/dfn-software/disable_camera.py')
 
 	return _status()

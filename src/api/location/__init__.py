@@ -1,1 +1,1 @@
-"""The config file api module."""
+"""The location api module."""

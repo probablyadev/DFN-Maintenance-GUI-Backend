@@ -25,4 +25,4 @@ class Config(object):
 
 	# Console (terminal / ssh) and Command Type (prod / dev).
 	USE_CONSOLE = True
-	USE_PROD_COMMAND = True
+	USE_DEV_COMMAND = False

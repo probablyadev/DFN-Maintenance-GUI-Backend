@@ -4,7 +4,7 @@ from subprocess import check_output, STDOUT, CalledProcessError
 
 
 def console(prod_command, dev_command = ''):
-	if current_app.config['USE_PROD_COMMAND'] or dev_command is '':
+	if not current_app.config['USE_DEV_COMMAND'] or dev_command is '':
 		command = prod_command
 	else:
 		command = dev_command
@@ -15,7 +15,6 @@ def console(prod_command, dev_command = ''):
 		output = ssh(command)
 
 	return output
-
 
 
 def ssh(command):
