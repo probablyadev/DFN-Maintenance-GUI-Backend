@@ -23,6 +23,10 @@ class Config(object):
 	# SQLAlchemy.
 	SQLALCHEMY_TRACK_MODIFICATIONS = True
 
+	# Paths.
+	DFN_CONFIG_PATH = '/opt/dfn-software/dfnstation.cfg'
+	DFN_DISK_USAGE_PATH = '/tmp/dfn_disk_usage'
+
 	# Console (terminal / ssh) and Command Type (prod / dev).
 	USE_CONSOLE = True
 	USE_DEV_COMMAND = False
