@@ -22,7 +22,7 @@ paths:
   /check:
     get:
       summary: Checks and returns the systems partitions disk usage.
-      operationId: src.api.storage.check.check
+      operationId: src.api.storage.check.get
       responses:
         200:
           description: Successfully gathered the disk usage.
@@ -33,6 +33,33 @@ paths:
           schema:
             $ref: '#/definitions/CommandException'
 
+  /power/on:
+    get:
+      summary: Turns on the systems external hard drives.
+      operationId: src.api.storage.power.on
+      responses:
+        200:
+          description: Successfully turned the hard drives on.
+          schema:
+            $ref: '#/definitions/Json'
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+  /power/off:
+    get:
+      summary: Turns off the systems external hard drives.
+      operationId: src.api.storage.power.off
+      responses:
+        200:
+          description: Successfully turned the hard drives off.
+          schema:
+            $ref: '#/definitions/Json'
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
 
 definitions:
   Json:

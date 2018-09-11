@@ -69,7 +69,7 @@ def _unmounted_drives(partitions):
 
 @jwt_required()
 @wrap_error()
-def check():
+def get():
 	partitions = []
 
 	_mounted_drives(partitions)
