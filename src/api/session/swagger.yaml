@@ -22,7 +22,7 @@ paths:
   /check:
     get:
       summary: Checks that a given token is valid.
-      operationId: src.api.session.endpoints.check_token
+      operationId: src.api.session.token.get
       responses:
         200:
           description: Token is valid.
@@ -30,7 +30,7 @@ paths:
   /hostname:
     get:
       summary: Gets the systems hostname.
-      operationId: src.api.session.endpoints.hostname
+      operationId: src.api.session.hostname.get
       responses:
         200:
           description: Successfully gathered machines hostname.

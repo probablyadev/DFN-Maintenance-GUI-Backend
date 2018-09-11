@@ -48,7 +48,6 @@ def _mounted_drives(partitions, drives_to_check):
 				drives_to_check.remove(drive)
 
 
-
 def _unmounted_drives(partitions, drives_to_check):
 	try:
 		if current_app.config['USE_DEV_COMMAND']:
