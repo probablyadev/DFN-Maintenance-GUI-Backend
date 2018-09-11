@@ -1,14 +1,15 @@
-"""The storage api module /storage endpoints."""
+"""The storage check api module /storage/check endpoint."""
 
 from flask_jwt import jwt_required
 from flask import jsonify, current_app
 from psutil import disk_partitions, disk_usage
 from re import sub, split
+from json import load, loads
 
 from src.wrappers import wrap_error
 
 
-__all__ = ['check']
+__all__ = ['check', 'get']
 
 
 def _bytes2human(n):
@@ -27,52 +28,102 @@ def _bytes2human(n):
 	return "%sB" % n
 
 
-def _mounted_drives(partitions):
+def _mounted_drives(partitions, drives_to_check):
 	for part in disk_partitions(all = False):
-		if part.fstype == 'ext4':
-			usage = disk_usage(part.mountpoint)
+		for drive in drives_to_check:
+			if drive['device'] in part.device or drive['mount'] in part.mountpoint:
+				usage = disk_usage(part.mountpoint)
 
-			partitions.append({
-				'device': part.device,
-				'status': 'mounted',
-				'total': _bytes2human(usage.total),
-				'used': _bytes2human(usage.used),
-				'free': _bytes2human(usage.free),
-				'percent': usage.percent,
-				'type': part.fstype,
-				'mount': part.mountpoint
-			})
+				partitions.append({
+					'device': part.device,
+					'status': 'mounted',
+					'total': _bytes2human(usage.total),
+					'used': _bytes2human(usage.used),
+					'free': _bytes2human(usage.free),
+					'percent': usage.percent,
+					'type': part.fstype,
+					'mount': part.mountpoint
+				})
+
+				drives_to_check.remove(drive)
 
 
-def _unmounted_drives(partitions):
-	with open(current_app.config['DFN_DISK_USAGE_PATH']) as f:
-		lines = f.readlines()
 
-	for line in lines[1:]:
-		line = sub("\n", "", line)
-		line = sub(" +", ",", line)
-		line = sub("%", "", line)
-		line = split(",", line)
+def _unmounted_drives(partitions, drives_to_check):
+	try:
+		if current_app.config['USE_DEV_COMMAND']:
+			with open('sample/lsblk.json') as json_data:
+				output = load(json_data)
+		else:
+			output = loads(console('lsblk -fs --json'))
 
-		if not any(line[0] in sublist['device'] for sublist in partitions):
-			partitions.append({
-				'device': line[0],
-				'status': 'unmounted',
-				'total': line[1],
-				'used': line[2],
-				'free': line[3],
-				'percent': line[4],
-				'type': '...',
-				'mount': line[5]
-			})
+		for drive in drives_to_check:
+			for sublist in output['blockdevices']:
+				if drive['device'] in sublist['name']:
+					partitions.append({
+						'device': sublist['name'],
+						'status': 'unmounted',
+						'total': sublist['size'],
+						'used': '',
+						'free': '',
+						'percent': '',
+						'type': sublist['fstype'],
+						'mount': ''
+					})
+
+					drives_to_check.remove(drive)
+	except FileNotFoundError:
+		pass
+
+
+def _off_drives(partitions, drives_to_check):
+	try:
+		with open(current_app.config['DFN_DISK_USAGE_PATH']) as file_data:
+			lines = file_data.readlines()
+
+		for line in lines[1:]:
+			line = sub("\n", "", line)
+			line = sub(" +", ",", line)
+			line = sub("%", "", line)
+			line = split(",", line)
+
+			for sublist in partitions:
+				if line[0] in sublist['device'] and sublist['status'] is 'unmounted':
+					sublist['total'] = line[1]
+					sublist['used'] = line[2]
+					sublist['free'] = line[3]
+					sublist['percent'] = line[4]
+
+			for drive in drives_to_check:
+				if line[0] in drive['device'] and line[5] in drive['mount']:
+					partitions.append({
+						'device': line[0],
+						'status': 'off',
+						'total': line[1],
+						'used': line[2],
+						'free': line[3],
+						'percent': line[4],
+						'type': '',
+						'mount': ''
+					})
+
+					drives_to_check.remove(drive)
+	except FileNotFoundError:
+		pass
+
+
+def check():
+	partitions = []
+	drives_to_check = current_app.config['DRIVES_TO_CHECK']
+
+	_mounted_drives(partitions, drives_to_check)
+	_unmounted_drives(partitions, drives_to_check)
+	_off_drives(partitions, drives_to_check)
+
+	return partitions
 
 
 @jwt_required()
 @wrap_error()
 def get():
-	partitions = []
-
-	_mounted_drives(partitions)
-	_unmounted_drives(partitions)
-
-	return jsonify(partitions = partitions), 200
+	return jsonify(partitions = check()), 200
