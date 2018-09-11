@@ -12,7 +12,7 @@ __all__ = ['get', 'put']
 
 
 @jwt_required()
-@wrap_error
+@wrap_error()
 def get():
 	time = console('timedatectl status').splitlines()
 
@@ -26,7 +26,7 @@ def get():
 
 
 @jwt_required()
-@wrap_error
+@wrap_error()
 def put(timezone):
 	console("timedatectl set-timezone {0}".format(timezone[0]))
 	return 204

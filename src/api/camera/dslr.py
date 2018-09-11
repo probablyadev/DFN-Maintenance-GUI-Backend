@@ -21,13 +21,13 @@ def _status():
 
 
 @jwt_required()
-@wrap_error
+@wrap_error()
 def get():
 	return _status()
 
 
 @jwt_required()
-@wrap_error(has_debug_cmd = True)
+@wrap_error()
 def on():
 	if current_app.config['USE_DEV_COMMAND']:
 		return jsonify(status = True), 200
@@ -38,10 +38,10 @@ def on():
 
 
 @jwt_required()
-@wrap_error
+@wrap_error()
 def off():
 	if current_app.config['USE_DEV_COMMAND']:
-		return jsonify(status = True), 200
+		return jsonify(status = False), 200
 
 	console('python /opt/dfn-software/disable_camera.py')
 

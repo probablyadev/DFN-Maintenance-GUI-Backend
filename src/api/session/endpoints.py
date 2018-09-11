@@ -12,6 +12,6 @@ from src.wrappers import wrap_error
 def check_token():
 	logging.info('Valid token request for identity: {}'.format(current_identity))
 
-@wrap_error
+@wrap_error()
 def hostname():
 	return jsonify(hostname = console("hostname")), 200

@@ -19,7 +19,7 @@ def coordinates(initial, direction):
 
 
 @jwt_required()
-@wrap_error
+@wrap_error()
 def get():
 	output = console(
 		'python /opt/dfn-software/leostick_get_status.py -g',

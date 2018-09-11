@@ -9,7 +9,7 @@ from src.wrappers import wrap_error
 
 
 @jwt_required()
-@wrap_error
+@wrap_error()
 def check():
 	output = console('python /opt/dfn-software/camera_image_count.py')
 
@@ -20,7 +20,7 @@ def check():
 
 
 @jwt_required()
-@wrap_error
+@wrap_error()
 def whitelist():
 	# Whitelist for which config variables the user can modify
 	config_whitelist = {}

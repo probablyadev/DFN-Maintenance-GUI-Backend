@@ -8,7 +8,7 @@ from src.wrappers import wrap_error
 
 
 @jwt_required()
-@wrap_error
+@wrap_error()
 def get():
 	path = current_app.config['DFN_CONFIG_PATH']
 	config_file = load_config(path)
@@ -20,7 +20,7 @@ def get():
 
 
 @jwt_required()
-@wrap_error
+@wrap_error()
 def put(row):
 	category = row[0]
 	field = row[1]

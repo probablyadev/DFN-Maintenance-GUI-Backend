@@ -9,7 +9,7 @@ from src.wrappers import wrap_error
 
 
 @jwt_required()
-@wrap_error
+@wrap_error()
 def check():
 	#ip = console("dig TXT +short o-o.myaddr.l.google.com @ns1.google.com").replace('"', '')
 	command = "ifconfig | grep eth1 -A 1 | grep -o '\(addr:\|inet \)[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' | cut -c6-"
@@ -23,6 +23,6 @@ def check():
 	return jsonify(ip = ip, output = output), 200
 
 @jwt_required()
-@wrap_error
+@wrap_error()
 def restart():
 	return jsonify(output = console("ifdown ppp0 && sleep 8 && ifup ppp0 && sleep 8 && ifconfig ppp0")), 200
