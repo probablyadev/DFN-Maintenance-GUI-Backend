@@ -27,4 +27,4 @@ def mount(check = True):
 @jwt_required
 @wrap_error()
 def get():
-	return jsonify(check = mount()), 200
+	return jsonify(partitions = mount()), 200

@@ -35,8 +35,8 @@ def _mounted_drives(partitions, drives_to_check):
 				usage = disk_usage(part.mountpoint)
 
 				partitions.append({
-					'device': part.device,
 					'status': 'mounted',
+					'device': part.device,
 					'total': _bytes2human(usage.total),
 					'used': _bytes2human(usage.used),
 					'free': _bytes2human(usage.free),
@@ -60,8 +60,8 @@ def _unmounted_drives(partitions, drives_to_check):
 			for sublist in output['blockdevices']:
 				if drive['device'] in sublist['name']:
 					partitions.append({
-						'device': sublist['name'],
 						'status': 'unmounted',
+						'device': sublist['name'],
 						'total': sublist['size'],
 						'used': '',
 						'free': '',
@@ -96,8 +96,8 @@ def _off_drives(partitions, drives_to_check):
 			for drive in drives_to_check:
 				if line[0] in drive['device'] and line[5] in drive['mount']:
 					partitions.append({
-						'device': line[0],
 						'status': 'off',
+						'device': line[0],
 						'total': line[1],
 						'used': line[2],
 						'free': line[3],
