@@ -21,7 +21,7 @@ def create_app(config):
 	app = connexion_app.app
 
 	register_extensions(app)
-	register_logger(app, config)
+	register_logger(config)
 	register_routes(connexion_app)
 
 	app.run(host = config.HOST, port = config.PORT)
@@ -34,11 +34,11 @@ def register_extensions(app):
 	JWT(app, authenticate, identity)
 
 
-def register_logger(app, config):
+# TODO: https://fangpenlin.com/posts/2012/08/26/good-logging-practice-in-python/
+def register_logger(config):
 	"""Register logging handlers."""
 	# Set up logging to file
 	logging.basicConfig(
-		filename = config.FILENAME,
 		level = config.LOGGING_LEVEL,
 		format = '[%(asctime)s] %(levelname)s - %(message)s',
 		datefmt = '%H:%M:%S'
