@@ -7,6 +7,7 @@ from re import sub, split
 from json import load, loads
 
 from src.wrappers import wrap_error
+from src.console import console
 
 
 __all__ = ['check', 'get']
@@ -75,6 +76,7 @@ def _unmounted_drives(partitions, drives_to_check):
 		pass
 
 
+# BUG: sdd1 and sdb1 are swapped in the dfn_disk_usage file (mount points), possibly causing them to not be listed.
 def _off_drives(partitions, drives_to_check):
 	try:
 		with open(current_app.config['DFN_DISK_USAGE_PATH']) as file_data:
@@ -115,6 +117,7 @@ def check():
 	partitions = []
 	drives_to_check = current_app.config['DRIVES_TO_CHECK']
 
+	# TODO: Include only drives with a specific fs (ext4, etc.).
 	_mounted_drives(partitions, drives_to_check)
 	_unmounted_drives(partitions, drives_to_check)
 	_off_drives(partitions, drives_to_check)
