@@ -7,6 +7,7 @@ from re import search, sub
 
 from src.wrappers import wrap_error
 from src.console import console
+from src.api.session.hostname import hostname
 from .check import check
 from .unmount import unmount
 
@@ -23,7 +24,7 @@ def on():
 	sleep(25)
 
     # For EXT, re-scan SATA/SCSI hotswap drives.
-    if 'EXT' in console('hostname'):
+    if 'EXT' in hostname():
         console("for i in $(find /sys/class/scsi_host/ -name host* ); do echo '- - -' > $i/scan")
         sleep(2)
 
@@ -35,7 +36,7 @@ def on():
 def off():
 	unmount(False)
 
-	ext = True if 'EXT' in console('hostname') else False
+	ext = True if 'EXT' in hostname() else False
 
     # For EXT, delete the devices ONLY if they're all not solid state devices.
     if ext:
