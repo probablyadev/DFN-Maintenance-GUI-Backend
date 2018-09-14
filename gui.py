@@ -1,35 +1,28 @@
 #!/usr/bin/python3
 
-"""Create an application instance."""
-
 from argh import ArghParser, arg, wrap_errors, expects_obj
+from connexion import FlaskApp
 
-from src.app import create_app
+from src.setup import setup_config, setup_extensions, setup_logger, setup_routes
 
 
-@arg('--docker', default = False, help = 'Use the docker config.')
-@arg('--dev', default = False, help = 'Use the development config.')
-@arg('--debug', default = False, help = 'Debug logging.')
+@arg('--config', default = 'prod', help = 'Config file to use: prod.[docker] or dev.[local|remote]')
+@arg('--debug', default = False, help = 'Debug level logging.')
 @wrap_errors([Exception])
 @expects_obj
 def run(args):
-	if args.dev:
-		from config.dev_config import DevelopmentConfig
-		config = DevelopmentConfig
-	elif args.docker:
-		from config.docker import DockerProductionConfig
-		config = DockerProductionConfig
-	else:
-		from config.base_prod_config import ProductionConfig
-		config = ProductionConfig
+	connexion_app = FlaskApp(__name__)
+	app = connexion_app.app
 
-	create_app(config, args)
+	config = setup_config(app, args)
+	setup_extensions(app)
+	setup_logger(app, args)
+	setup_routes(connexion_app)
+
+	app.run(host = config.HOST, port = config.PORT)
 
 
 if __name__ == '__main__':
-	"""
-	Entry-point function.
-	"""
 	parent_parser = ArghParser(description = 'Launches the DFN-Maintenance-GUI.')
 	parent_parser.add_commands([run])
 	parent_parser.set_default_command(run)

@@ -150,6 +150,7 @@ def _debug_output(partitions):
 
 def check():
 	partitions = []
+	# TODO: Check if this works: current_app.config.DRIVES_TO_CHECK.copy()
 	drives_to_check = current_app.config['DRIVES_TO_CHECK'].copy()
 
 	# TODO: Include only drives with a specific fs (ext4, etc.).

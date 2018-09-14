@@ -1,17 +1,13 @@
-import logging
-
-from config.base_config import Config
+from src.config import Config
 
 
-class DevelopmentConfig(Config):
-	"""Dev config class. Inherits from the parent Config class."""
+class Dev(Config):
 	# Flask.
 	DEBUG = True
 	TESTING = False
 
 	# Logging.
 	FILENAME = ''
-	# LOGGING_LEVEL = logging.DEBUG
 
 	# SQLAlchemy.
 	SQLALCHEMY_DATABASE_URI = 'sqlite:///../db/dev.db'
@@ -24,10 +20,3 @@ class DevelopmentConfig(Config):
 	# Host login.
 	USER = 'test'
 	PASSWORD = 'test'
-
-	# Paths.
-	DFN_CONFIG_PATH = 'sample/dfnstation.cfg'
-	DFN_DISK_USAGE_PATH = 'sample/dfn_disk_usage'
-
-	# Console (terminal / ssh) and Command Type (prod / dev).
-	USE_DEV_COMMAND = True

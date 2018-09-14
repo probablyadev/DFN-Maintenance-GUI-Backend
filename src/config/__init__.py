@@ -2,7 +2,6 @@ import logging
 
 
 class Config(object):
-	"""Parent config class. Inherits from object."""
 	# Flask.
 	HOST = '0.0.0.0'
 	PORT = 5000
@@ -16,7 +15,6 @@ class Config(object):
 	# TODO: Setup propper logging and seperate log dirs for each day, seperate log files for info / errors.
 	# FILENAME = '/data0/log/gui/dfn-gui-server.log'
 	LOGGING_LEVEL = logging.INFO
-	CORS_LOGGING_LEVEL = logging.INFO
 
 	# Connexion.
 	SWAGGER_JSON = False
