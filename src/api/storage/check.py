@@ -5,12 +5,14 @@ from flask import jsonify, current_app
 from psutil import disk_partitions, disk_usage
 from re import sub, split
 from json import load, loads
+from logging import getLogger, DEBUG
 
 from src.wrappers import wrap_error
 from src.console import console
 
 
 __all__ = ['check', 'get']
+log = getLogger(__name__)
 
 
 def _bytes2human(n):
@@ -113,9 +115,42 @@ def _off_drives(partitions, drives_to_check):
 		pass
 
 
+def _debug_output(partitions):
+	from pprint import pformat
+
+	mounted = []
+	unmounted = []
+	off = []
+
+	for sublist in partitions:
+		if sublist['status'] is 'mounted':
+			mounted.append({
+				'device': sublist['device'],
+				'mount': sublist['mount']
+			})
+		elif sublist['status'] is 'unmounted':
+			unmounted.append({
+				'device': sublist['device'],
+				'mount': sublist['mount']
+			})
+		else:
+			off.append({
+				'device': sublist['device'],
+				'mount': sublist['mount']
+			})
+
+	mounted = pformat(mounted)
+	unmounted = pformat(unmounted)
+	off = pformat(off)
+
+	log.debug('mounted:\n{0}'.format(mounted))
+	log.debug('unmounted:\n{0}'.format(unmounted))
+	log.debug('off:\n{0}'.format(off))
+
+
 def check():
 	partitions = []
-	drives_to_check = current_app.config['DRIVES_TO_CHECK']
+	drives_to_check = current_app.config['DRIVES_TO_CHECK'].copy()
 
 	# TODO: Include only drives with a specific fs (ext4, etc.).
 	_mounted_drives(partitions, drives_to_check)
@@ -128,4 +163,9 @@ def check():
 @jwt_required()
 @wrap_error()
 def get():
-	return jsonify(partitions = check()), 200
+	partitions = check()
+
+	if log.isEnabledFor(DEBUG):
+		_debug_output(partitions)
+
+	return jsonify(partitions = partitions), 200
