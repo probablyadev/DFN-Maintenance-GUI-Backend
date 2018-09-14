@@ -9,6 +9,7 @@ from src.app import create_app
 
 @arg('--docker', default = False, help = 'Use the docker config.')
 @arg('--dev', default = False, help = 'Use the development config.')
+@arg('--debug', default = False, help = 'Debug logging.')
 @wrap_errors([Exception])
 @expects_obj
 def run(args):
@@ -22,7 +23,7 @@ def run(args):
 		from config.base_prod_config import ProductionConfig
 		config = ProductionConfig
 
-	app = create_app(config)
+	app = create_app(config, args)
 
 
 if __name__ == '__main__':
