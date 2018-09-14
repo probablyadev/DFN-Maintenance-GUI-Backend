@@ -9,7 +9,6 @@ __all__ = ['wrap_error']
 def _exception_json(error):
 	cmd = ''
 	returncode = 1
-	output = 'Error'
 
 	if error is CalledProcessError:
 		cmd = error.cmd
