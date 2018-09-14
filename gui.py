@@ -23,7 +23,7 @@ def run(args):
 		from config.base_prod_config import ProductionConfig
 		config = ProductionConfig
 
-	app = create_app(config, args)
+	create_app(config, args)
 
 
 if __name__ == '__main__':

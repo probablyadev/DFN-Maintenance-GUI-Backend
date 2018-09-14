@@ -46,7 +46,7 @@ def register_logger(config, args):
 
 	logging.basicConfig(
 		level = level,
-		format = '[%(asctime)s] %(levelname)s : %(name)s - %(message)s',
+		format = '[%(asctime)s] [%(levelname)s:%(name)s] %(message)s',
 		datefmt = '%H:%M:%S'
 	)
 
