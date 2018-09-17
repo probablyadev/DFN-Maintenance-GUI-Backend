@@ -6,7 +6,7 @@ from subprocess import CalledProcessError
 
 from src.wrappers import wrap_error
 from src.console import console
-from .check import check
+from .partitions import check
 
 
 __all__ = ['mount', 'get']

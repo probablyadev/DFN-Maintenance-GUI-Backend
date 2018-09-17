@@ -8,7 +8,7 @@ from re import search, sub
 from src.wrappers import wrap_error
 from src.console import console
 from src.api.session.hostname import hostname
-from .check import check
+from .partitions import check
 from .unmount import unmount
 
 
