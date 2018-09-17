@@ -1,7 +1,8 @@
 from logging import basicConfig, getLogger, DEBUG, INFO, ERROR
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 
-from src.extensions import cors, db
+from .database import db
 
 
 def setup_config(app, args):
@@ -41,8 +42,9 @@ def setup_config(app, args):
 
 
 def setup_extensions(app):
-	cors.init_app(app)
 	db.init_app(app)
+
+	CORS(app)
 	JWTManager(app)
 
 
