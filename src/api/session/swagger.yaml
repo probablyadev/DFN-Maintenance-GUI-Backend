@@ -42,6 +42,14 @@ paths:
           schema:
             $ref: '#/definitions/CommandException'
 
+  /check:
+    get:
+      summary: Use on page navigation, check access token validity.
+      operationId: src.api.session.token.check
+      responses:
+        200:
+          description: Successfully checked the access token.
+
   /refresh:
     get:
       summary: Using the provided refresh token, returns a new access token.
