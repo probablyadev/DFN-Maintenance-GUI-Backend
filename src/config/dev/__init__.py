@@ -10,7 +10,7 @@ class Dev(Config):
 	FILENAME = ''
 
 	# SQLAlchemy.
-	SQLALCHEMY_DATABASE_URI = 'sqlite:///../db/dev.db'
+	SQLALCHEMY_DATABASE_URI = 'sqlite:///db/dev.db'
 
 	# import os
 	# import binascii
