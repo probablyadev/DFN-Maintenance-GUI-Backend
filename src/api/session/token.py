@@ -21,7 +21,7 @@ def auth(json):
 	if user.check_password(password):
 		return jsonify(
 			access_token = create_access_token(identity = username),
-			expires_in = current_app.config['JWT_ACCESS_TOKEN_EXPIRES'],
+			expires_in = current_app.config['JWT_ACCESS_TOKEN_EXPIRES'].total_seconds(),
 			refresh_token = create_refresh_token(identity = username)
 		), 200
 	else:
