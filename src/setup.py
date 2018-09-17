@@ -66,6 +66,7 @@ def setup_logger(app, args):
 	getLogger('flask_jwt_extended').setLevel(level)
 	getLogger('connexion').setLevel(level)
 	getLogger('connexion.operation').setLevel(INFO)
+	getLogger('connexion.decorators').setLevel(ERROR)
 	getLogger('connexion.apis').setLevel(INFO)
 	getLogger('swagger_spec_validator').setLevel(INFO)
 	getLogger('werkzeug').setLevel(ERROR)

@@ -37,7 +37,8 @@ def check():
 @jwt_refresh_token_required
 def refresh():
 	return jsonify(
-		access_token = create_access_token(identity = get_jwt_identity())
+		access_token = create_access_token(identity = get_jwt_identity()),
+		expires_in = current_app.config['JWT_ACCESS_TOKEN_EXPIRES'].total_seconds()
 	), 200
 
 
