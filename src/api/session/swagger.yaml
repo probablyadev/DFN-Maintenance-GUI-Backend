@@ -19,13 +19,46 @@ securityDefinitions:
 
 
 paths:
-  /check:
-    get:
-      summary: Checks that a given token is valid.
-      operationId: src.api.session.token.get
+  /auth:
+    post:
+      summary: Logs the user in and returns JWT access and refresh tokens.
+      operationId: src.api.session.token.auth
+      parameters:
+        - name: json
+          in: body
+          schema:
+            $ref: '#/definitions/Json'
       responses:
         200:
-          description: Token is valid.
+          description: Successfully logged in.
+          schema:
+            $ref: '#/definitions/Json'
+        401:
+          description: Bad username or password.
+          schema:
+            $ref: '#/definitions/Json'
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+  /check:
+    get:
+      summary: Use on page navigation, check access token validity.
+      operationId: src.api.session.token.check
+      responses:
+        200:
+          description: Successfully checked the access token.
+
+  /refresh:
+    get:
+      summary: Using the provided refresh token, returns a new access token.
+      operationId: src.api.session.token.refresh
+      responses:
+        200:
+          description: Successfully refreshed the access token.
+          schema:
+            $ref: '#/definitions/Json'
 
   /hostname:
     get:

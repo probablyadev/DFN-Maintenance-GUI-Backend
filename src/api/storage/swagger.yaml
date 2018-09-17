@@ -19,10 +19,10 @@ securityDefinitions:
 
 
 paths:
-  /check:
+  /partitions:
     get:
       summary: Checks and returns the systems partitions disk usage.
-      operationId: src.api.storage.check.get
+      operationId: src.api.storage.partitions.get
       responses:
         200:
           description: Successfully gathered the disk usage.
