@@ -1,6 +1,6 @@
 """The storage check api module /storage/check endpoint."""
 
-from flask_jwt import jwt_required
+from flask_jwt_extended import jwt_required
 from flask import jsonify, current_app
 from psutil import disk_partitions, disk_usage
 from re import sub, split
@@ -161,7 +161,7 @@ def check():
 	return partitions
 
 
-@jwt_required()
+@jwt_required
 @wrap_error()
 def get():
 	partitions = check()

@@ -1,11 +1,38 @@
 """The session token api module /session/token endpoints."""
 
-from flask_jwt import jwt_required
+from flask import jsonify, current_app
+from flask_jwt_extended import (
+	create_access_token, create_refresh_token,
+	jwt_refresh_token_required, get_jwt_identity
+)
+
+from src.database import User
 
 
-__all__ = ['get']
+__all__ = ['auth', 'refresh']
 
 
-@jwt_required()
-def get():
-	return 200
+def auth(json):
+	username = json.get('username', None)
+	password = json.get('password', None)
+
+	user = User.query.filter_by(username = username).one()
+
+	if user.check_password(password):
+		return jsonify(
+			access_token = create_access_token(identity = username),
+			expires_in = current_app.config['JWT_ACCESS_TOKEN_EXPIRES'],
+			refresh_token = create_refresh_token(identity = username)
+		), 200
+	else:
+		return jsonify(output = 'Bad username or password'), 401
+
+
+@jwt_refresh_token_required
+def refresh():
+	return jsonify(
+		access_token = create_access_token(identity = get_jwt_identity())
+	), 200
+
+
+# reject

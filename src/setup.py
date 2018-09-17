@@ -1,8 +1,7 @@
 from logging import basicConfig, getLogger, DEBUG, INFO, ERROR
-from flask_jwt import JWT
+from flask_jwt_extended import JWTManager
 
 from src.extensions import cors, db
-from src.auth import authenticate, identity
 
 
 def setup_config(app, args):
@@ -44,21 +43,28 @@ def setup_config(app, args):
 def setup_extensions(app):
 	cors.init_app(app)
 	db.init_app(app)
-	JWT(app, authenticate, identity)
+	JWTManager(app)
 
 
 # TODO: https://fangpenlin.com/posts/2012/08/26/good-logging-practice-in-python/
 # TODO: https://stackoverflow.com/questions/9857284/how-to-configure-all-loggers-in-an-application#answer-9859649
 def setup_logger(app, args):
+	if args.debug:
+		level = DEBUG
+	else:
+		level = app.config.LOGGING_LEVEL
+
 	basicConfig(
-		level = DEBUG if args.debug else app.config.LOGGING_LEVEL,
+		level = level,
 		format = '[%(asctime)s] [%(levelname)s:%(name)s] %(message)s',
 		datefmt = '%H:%M:%S'
 	)
 
 	getLogger('flask_cors').setLevel(INFO)
-	getLogger('flask_jwt').setLevel(INFO)
-	getLogger('connexion').setLevel(INFO)
+	getLogger('flask_jwt_extended').setLevel(level)
+	getLogger('connexion').setLevel(level)
+	getLogger('connexion.operation').setLevel(INFO)
+	getLogger('connexion.apis').setLevel(INFO)
 	getLogger('swagger_spec_validator').setLevel(INFO)
 	getLogger('werkzeug').setLevel(ERROR)
 

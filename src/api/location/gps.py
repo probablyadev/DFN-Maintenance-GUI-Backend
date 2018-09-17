@@ -1,6 +1,6 @@
 """The location gps api module /location/gps endpoints."""
 
-from flask_jwt import jwt_required
+from flask_jwt_extended import jwt_required
 from flask import jsonify, current_app
 from re import split
 
@@ -18,7 +18,7 @@ def coordinates(initial, direction):
 	return '{0}{1}.{2}'.format(coordinate, initial[:-6], initial[-6:])
 
 
-@jwt_required()
+@jwt_required
 @wrap_error()
 def get():
 	output = console(

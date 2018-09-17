@@ -1,6 +1,6 @@
 """The storage unmount api module /storage/unmount endpoint."""
 
-from flask_jwt import jwt_required
+from flask_jwt_extended import jwt_required
 from flask import jsonify, current_app
 
 from src.wrappers import wrap_error

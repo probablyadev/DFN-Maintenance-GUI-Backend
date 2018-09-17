@@ -1,6 +1,6 @@
 """The storage power api module /storage/power endpoints."""
 
-from flask_jwt import jwt_required
+from flask_jwt_extended import jwt_required
 from flask import jsonify, current_app
 from time import sleep
 from re import search, sub
@@ -15,7 +15,7 @@ from .unmount import unmount
 __all__ = ['on', 'off']
 
 
-@jwt_required()
+@jwt_required
 @wrap_error()
 def on():
 	console('python /opt/dfn-software/enable_ext-hd.py')
@@ -31,7 +31,7 @@ def on():
 	return jsonify(partitions = mount()), 200
 
 
-@jwt_required()
+@jwt_required
 @wrap_error()
 def off():
 	unmount(False)
