@@ -18,8 +18,5 @@ connexion==1.5.3
 # SQL
 SQLAlchemy==1.2.12
 
-# HDD
-psutil==5.4.7
-
 # CLI
 argh==0.26.2

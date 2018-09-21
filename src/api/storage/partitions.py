@@ -2,7 +2,6 @@
 
 from flask_jwt_extended import jwt_required
 from flask import jsonify, current_app
-from psutil import disk_partitions, disk_usage
 from re import sub, split
 from json import load, loads
 from logging import getLogger, DEBUG
@@ -15,104 +14,137 @@ __all__ = ['check', 'get']
 log = getLogger(__name__)
 
 
-def _bytes2human(n):
-	symbols = ('K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y')
-	prefix = {}
+def _list_fs_devices():
+	# Load mounted / on devices.
+	if current_app.config['USE_DEV_COMMAND']:
+		with open('sample/lsblk.json') as json_data:
+			output = load(json_data)
+	else:
+		output = loads(console('lsblk --inverse --nodeps --output NAME,LABEL,SIZE,FSTYPE,MOUNTPOINT --json'))
 
-	for i, s in enumerate(symbols):
-		prefix[s] = 1 << (i + 1) * 10
+	devices = []
 
-	for s in reversed(symbols):
-		if n >= prefix[s]:
-			value = float(n) / prefix[s]
+	# Filter out devices without a label i.e. data0 (except root '/').
+	for device in output['blockdevices']:
+		if '/dev/' not in device['name']:
+			device['name'] = '/dev/{0}'.format(device['name'])
 
-			return '%.1f%s' % (value, s)
+		if device['label'] is None and device['mountpoint'] is '/':
+			device['label'] = ''
 
-	return "%sB" % n
+		if device['label'] is not None:
+			devices.append(device)
+
+	return devices
 
 
-def _mounted_drives(partitions, drives_to_check):
-	for part in disk_partitions(all = False):
-		for drive in drives_to_check:
-			if drive['device'] in part.device or drive['mount'] in part.mountpoint:
-				usage = disk_usage(part.mountpoint)
+def _filter_df(output):
+	disk_usages = {}
 
+	for line in output[1:]:
+		line = sub("\n", "", line)
+		line = sub(" +", ",", line)
+		line = split(",", line)
+
+		if '/dev' in line[0]:
+			disk_usages[line[0]] = {
+				'size': line[1],
+				'used': line[2],
+				'free': line[3],
+				'percent': line[4],
+				'mount': line[5]
+			}
+
+	return disk_usages
+
+
+def _df_usage():
+	# Load from cli and file.
+	mounted_disk_usages = console('df -h').splitlines()
+
+	with open(current_app.config['DFN_DISK_USAGE_PATH']) as file_data:
+		off_disk_usages = file_data.readlines()
+
+	# Filter.
+	mounted_disk_usages = _filter_df(mounted_disk_usages)
+	off_disk_usages = _filter_df(off_disk_usages)
+
+	# Remove any duplicates.
+	for key in mounted_disk_usages:
+		if off_disk_usages.get(key):
+			del off_disk_usages[key]
+
+	return mounted_disk_usages, off_disk_usages
+
+
+def _mounted_drives(partitions, devices, mounted_disk_usages):
+	for device in devices:
+		if device['mountpoint'] is not None:
+			usage = mounted_disk_usages.get(device['name'])
+
+			if usage:
 				partitions.append({
 					'status': 'mounted',
-					'device': part.device,
-					'total': _bytes2human(usage.total),
-					'used': _bytes2human(usage.used),
-					'free': _bytes2human(usage.free),
-					'percent': usage.percent,
-					'type': part.fstype,
-					'mount': part.mountpoint
+					'label': device['label'],
+					'device': device['name'],
+					'size': usage['size'],
+					'used': usage['used'],
+					'free': usage['free'],
+					'percent': usage['percent'],
+					'type': device['fstype'],
+					'mount': device['mountpoint']
 				})
 
-				drives_to_check.remove(drive)
 
+def _unmounted_drives(partitions, devices, off_disk_usages):
+	for device in devices:
+		if device['mountpoint'] is None:
+			usage = off_disk_usages.get(device['name'])
 
-def _unmounted_drives(partitions, drives_to_check):
-	try:
-		if current_app.config['USE_DEV_COMMAND']:
-			with open('sample/lsblk.json') as json_data:
-				output = load(json_data)
-		else:
-			output = loads(console('lsblk -fs --json'))
+			if usage:
+				partitions.append({
+					'status': 'unmounted',
+					'label': device['label'],
+					'device': device['name'],
+					'size': usage['size'],
+					'used': usage['used'],
+					'free': usage['free'],
+					'percent': usage['percent'],
+					'type': device['fstype'],
+					'mount': ''
+				})
 
-		for drive in drives_to_check:
-			for sublist in output['blockdevices']:
-				if drive['device'] in sublist['name']:
-					partitions.append({
-						'status': 'unmounted',
-						'device': sublist['name'],
-						'total': sublist['size'],
-						'used': '',
-						'free': '',
-						'percent': '',
-						'type': sublist['fstype'],
-						'mount': ''
-					})
-
-					drives_to_check.remove(drive)
-	except FileNotFoundError:
-		pass
+				del off_disk_usages[device['name']]
+			else:
+				partitions.append({
+					'status': 'unmounted',
+					'label': device['label'],
+					'device': device['name'],
+					'size': device['size'],
+					'used': '',
+					'free': '',
+					'percent': '',
+					'type': device['fstype'],
+					'mount': ''
+				})
 
 
 # BUG: sdd1 and sdb1 are swapped in the dfn_disk_usage file (mount points), possibly causing them to not be listed.
-def _off_drives(partitions, drives_to_check):
-	try:
-		with open(current_app.config['DFN_DISK_USAGE_PATH']) as file_data:
-			lines = file_data.readlines()
+def _off_drives(partitions, off_disk_usages):
+	for key in off_disk_usages:
+		device = off_disk_usages.get(key)
 
-		for line in lines[1:]:
-			line = sub("\n", "", line)
-			line = sub(" +", ",", line)
-			line = sub("%", "", line)
-			line = split(",", line)
-
-			for sublist in partitions:
-				if line[0] in sublist['device'] and sublist['status'] is 'unmounted':
-					sublist['total'] = line[1]
-					sublist['used'] = line[2]
-					sublist['free'] = line[3]
-					sublist['percent'] = line[4]
-
-			for drive in drives_to_check:
-				if line[0] in drive['device'] and line[5] in drive['mount']:
-					partitions.append({
-						'status': 'off',
-						'device': line[0],
-						'total': line[1],
-						'used': line[2],
-						'free': line[3],
-						'percent': line[4],
-						'type': '',
-						'mount': ''
-					})
-
-					drives_to_check.remove(drive)
-	except FileNotFoundError:
-		pass
+		partitions.append({
+			'status': 'off',
+			'label': '',
+			'device': key,
+			'size': device['size'],
+			'used': device['used'],
+			'free': device['free'],
+			'percent': device['percent'],
+			'type': '',
+			'mount': ''
+		})
 
 
 def _debug_output(partitions):
@@ -148,15 +180,15 @@ def _debug_output(partitions):
 	log.debug('off:\n{0}'.format(off))
 
 
+# TODO: Debug logs to a handler for an endpoint. If debug flag is given then pass logs to frontend.
 def check():
 	partitions = []
-	# TODO: Check if this works: current_app.config.DRIVES_TO_CHECK.copy()
-	drives_to_check = current_app.config['DRIVES_TO_CHECK'].copy()
+	devices = _list_fs_devices()
+	mounted_disk_usages, off_disk_usages = _df_usage()
 
-	# TODO: Include only drives with a specific fs (ext4, etc.).
-	_mounted_drives(partitions, drives_to_check)
-	_unmounted_drives(partitions, drives_to_check)
-	_off_drives(partitions, drives_to_check)
+	_mounted_drives(partitions, devices, mounted_disk_usages)
+	_unmounted_drives(partitions, devices, off_disk_usages)
+	_off_drives(partitions, off_disk_usages)
 
 	return partitions
 

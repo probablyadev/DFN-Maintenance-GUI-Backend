@@ -1,40 +1,10 @@
 {
-	"blockdevices": [
-	   {
-			"name": "sda1", "fstype": "ext4", "label": null, "uuid": "956f7edb-eeb2-4059-a682-efd1760c88f8", "mountpoint": "/",
-			"children": [
-				{"name": "sda", "fstype": null, "label": null, "uuid": null, "mountpoint": null}
-			]
-	   },
-	   {
-			"name": "sda2", "fstype": "swap", "label": null, "uuid": "cb4350a9-2e2f-4d2e-b820-77af53a316dc", "mountpoint": "[SWAP]",
-			"children": [
-				{"name": "sda", "fstype": null, "label": null, "uuid": null, "mountpoint": null}
-			]
-	   },
-	   {
-			"name": "sda3", "fstype": "ext4", "label": "data0", "uuid": "d8d56bbb-0c83-4b47-a80e-3fdc470b0873", "mountpoint": "/data0",
-			"children": [
-				{"name": "sda", "fstype": null, "label": null, "uuid": null, "mountpoint": null}
-			]
-	   },
-	   {
-			"name": "sdb1", "fstype": "ext4", "label": "data1", "uuid": "775a5bf4-2b5a-4308-b903-44998c31ad08", "mountpoint": "/data1",
-			"children": [
-				{"name": "sdb", "fstype": null, "label": null, "uuid": null, "mountpoint": null}
-			]
-	   },
-	   {
-			"name": "sdc1", "fstype": "ext4", "label": "data2", "uuid": "702fa38a-11e5-4136-9d8f-a31a34c2af1c", "mountpoint": null,
-			"children": [
-				{"name": "sdc", "fstype": null, "label": null, "uuid": null, "mountpoint": null}
-			]
-	   },
-	   {
-			"name": "sdd1", "fstype": "ext4", "label": "data3", "uuid": "43321b07-81b6-4816-8ebd-22f7ef4e853d", "mountpoint": null,
-			"children": [
-				{"name": "sdd", "fstype": null, "label": null, "uuid": null, "mountpoint": null}
-			]
-	   }
-	]
- }
+   "blockdevices": [
+      {"name": "sda1", "label": null, "size": "31.3G", "fstype": "ext4", "mountpoint": "/"},
+      {"name": "sda2", "label": null, "size": "4G", "fstype": "swap", "mountpoint": "[SWAP]"},
+      {"name": "sda3", "label": "data0", "size": "396.3G", "fstype": "ext4", "mountpoint": "/data0"},
+      {"name": "sdb1", "label": "data1", "size": "3.7T", "fstype": "ext4", "mountpoint": null},
+      {"name": "sdc1", "label": "data2", "size": "5.5T", "fstype": "ext4", "mountpoint": null},
+      {"name": "sdd1", "label": "data3", "size": "5.5T", "fstype": "ext4", "mountpoint": null}
+   ]
+}
