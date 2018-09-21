@@ -5,6 +5,7 @@ class Dev(Config):
 	# Flask.
 	DEBUG = True
 	TESTING = False
+	ENV = 'development'
 
 	# Logging.
 	FILENAME = ''
