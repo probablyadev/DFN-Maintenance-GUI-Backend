@@ -13,12 +13,11 @@ __all__ = ['unmount', 'get']
 
 
 def unmount():
-	for drive in current_app.config['DRIVES_TO_CHECK']:
-		if drive['modify'] is True:
-			try:
-				console('umount {0}'.format(drive['mount']))
-			except CalledProcessError:
-				pass
+	for drive in current_app.config['DRIVES']:
+		try:
+			console('umount {0}'.format(drive['mount']))
+		except CalledProcessError:
+			pass
 
 
 @jwt_required

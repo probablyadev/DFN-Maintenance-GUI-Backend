@@ -41,17 +41,16 @@ def off():
 	# For EXT, delete the devices ONLY if they're all not solid state devices.
 	if ext:
 		# Used for deleting devices in EXTs before powering off.
-		drives_to_check = current_app.config['DRIVES_TO_CHECK']
+		drives = current_app.config['DRIVES']
 
-		for drive in drives_to_check:
-			if drive['modify'] is True:
-				# Check if the drive is an SSD or HDD.
-				rotation = console("smartctl -i {0} | grep 'Rotation Rate:'".format(drive['device']))
+		for drive in drives:
+			# Check if the drive is an SSD or HDD.
+			rotation = console("smartctl -i {0} | grep 'Rotation Rate:'".format(drive['device']))
 
-				if not search('[0-9]', rotation):
-					raise RuntimeError('External drive {0} is listed as an SSD, while it should be a HDD. Use the command line to resolve this.')
+			if not search('[0-9]', rotation):
+				raise RuntimeError('External drive {0} is listed as an SSD, while it should be a HDD. Use the command line to resolve this.')
 
-		for drive in drives_to_check:
+		for drive in drives:
 			device = sub('/dev/', '', drive['device'])
 			console('echo 1 > /sys/block/{0}/device/delete'.format(device))
 

@@ -31,10 +31,8 @@ class Config(object):
 	USE_DEV_COMMAND = False
 
 	# Storage Endpoint. Modify means the device can be mounted / unmounted / powered on / powered off / formatted.
-	DRIVES_TO_CHECK = [
-		{ 'device': '/dev/sda', 'mount': '/', 'modify': False },
-		{ 'device': '/dev/sda', 'mount': '/data0', 'modify': False },
-		{ 'device': '/dev/sdb1', 'mount': '/data1', 'modify': True },
-		{ 'device': '/dev/sdc1', 'mount': '/data2', 'modify': True },
-		{ 'device': '/dev/sdd1', 'mount': '/data3', 'modify': True }
+	DRIVES = [
+		{ 'device': '/dev/sdb1', 'mount': '/data1' },
+		{ 'device': '/dev/sdc1', 'mount': '/data2' },
+		{ 'device': '/dev/sdd1', 'mount': '/data3' }
 	]
