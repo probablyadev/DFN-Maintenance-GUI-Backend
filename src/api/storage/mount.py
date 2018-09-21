@@ -24,5 +24,6 @@ def mount():
 @wrap_error()
 def get():
 	mount()
+	partitions, load_error = check()
 
-	return jsonify(partitions = check()), 200
+	return jsonify(partitions = partitions, load_error = load_error), 200

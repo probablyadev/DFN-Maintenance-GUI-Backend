@@ -58,15 +58,10 @@ def _filter_df(output):
 	return disk_usages
 
 
-def _df_usage():
-	# Load from cli and file.
-	mounted_disk_usages = console('df -h').splitlines()
-
+def _df_usage(mounted_disk_usages):
 	with open(current_app.config['DFN_DISK_USAGE_PATH']) as file_data:
 		off_disk_usages = file_data.readlines()
 
-	# Filter.
-	mounted_disk_usages = _filter_df(mounted_disk_usages)
 	off_disk_usages = _filter_df(off_disk_usages)
 
 	# Remove any duplicates.
@@ -74,7 +69,7 @@ def _df_usage():
 		if off_disk_usages.get(key):
 			del off_disk_usages[key]
 
-	return mounted_disk_usages, off_disk_usages
+	return off_disk_usages
 
 
 def _mounted_drives(partitions, devices, mounted_disk_usages):
@@ -184,21 +179,29 @@ def _debug_output(partitions):
 def check():
 	partitions = []
 	devices = _list_fs_devices()
-	mounted_disk_usages, off_disk_usages = _df_usage()
+	mounted_disk_usages = _filter_df(console('df -h').splitlines())
+	load_error = False
+
+	try:
+		off_disk_usages = _df_usage(mounted_disk_usages)
+	except FileNotFoundError as error:
+		log.exception(error)
+		off_disk_usages = {}
+		load_error = True
 
 	_mounted_drives(partitions, devices, mounted_disk_usages)
 	_unmounted_drives(partitions, devices, off_disk_usages)
 	_off_drives(partitions, off_disk_usages)
 
-	return partitions
+	return partitions, load_error
 
 
 @jwt_required
 @wrap_error()
 def get():
-	partitions = check()
+	partitions, load_error = check()
 
 	if log.isEnabledFor(DEBUG):
 		_debug_output(partitions)
 
-	return jsonify(partitions = partitions), 200
+	return jsonify(partitions = partitions, load_error = load_error), 200
