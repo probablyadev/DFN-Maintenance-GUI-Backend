@@ -28,7 +28,7 @@ def on():
 		console("for i in $(find /sys/class/scsi_host/ -name host* ); do echo '- - -' > $i/scan")
 		sleep(2)
 
-	return jsonify(partitions = mount()), 200
+	return jsonify(partitions = check()), 200
 
 
 @jwt_required
@@ -62,6 +62,6 @@ def off():
 
 	# Sleep if EXT, needs time to remove drives.
 	if ext:
-		time.sleep(22)
+		sleep(22)
 
 	return jsonify(partitions = check()), 200
