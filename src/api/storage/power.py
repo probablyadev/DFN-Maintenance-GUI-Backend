@@ -21,12 +21,7 @@ def on():
 	console('python /opt/dfn-software/enable_ext-hd.py')
 
 	# Give drives time to register.
-	sleep(25)
-
-	# For EXT, re-scan SATA/SCSI hotswap drives.
-	if 'EXT' in hostname():
-		console("for i in $(find /sys/class/scsi_host/ -name host* ); do echo '- - -' > $i/scan")
-		sleep(2)
+	sleep(20)
 
 	return jsonify(partitions = check()), 200
 
