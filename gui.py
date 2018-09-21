@@ -6,6 +6,7 @@ from connexion import FlaskApp
 from src.setup import setup_config, setup_extensions, setup_logger, setup_routes
 
 
+# TODO: --level DEBUG. --debug is for displaying absolutely all logs.
 @arg('--config', default = 'prod', help = 'Config file to use: prod.[docker] or dev.[local|remote]')
 @arg('--debug', default = False, help = 'Debug level logging.')
 @wrap_errors([Exception])
