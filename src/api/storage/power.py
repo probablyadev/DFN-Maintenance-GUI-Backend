@@ -52,6 +52,8 @@ def off():
 
 		for drive in drives:
 			device = sub('/dev/', '', drive['device'])
+			device = sub('[0-9]', '', device)
+
 			console('echo 1 > /sys/block/{0}/device/delete'.format(device))
 
 		sleep(1)
