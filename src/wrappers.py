@@ -1,9 +1,11 @@
 from flask import jsonify
 from functools import wraps
 from subprocess import CalledProcessError
+from logging import getLogger
 
 
 __all__ = ['wrap_error']
+log = getLogger(__name__)
 
 
 def _exception_json(error):
@@ -27,6 +29,8 @@ def wrap_error():
 			try:
 				return function(*args, **kwds)
 			except Exception as error:
+				log.exception(error)
+
 				return _exception_json(error), 500
 
 		return decorator
