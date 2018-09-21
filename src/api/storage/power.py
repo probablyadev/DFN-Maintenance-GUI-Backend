@@ -34,7 +34,7 @@ def on():
 @jwt_required
 @wrap_error()
 def off():
-	unmount(False)
+	unmount()
 
 	ext = True if 'EXT' in hostname() else False
 

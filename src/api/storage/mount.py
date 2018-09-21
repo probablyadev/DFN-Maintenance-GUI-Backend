@@ -12,7 +12,7 @@ from .partitions import check
 __all__ = ['mount', 'get']
 
 
-def mount(check = True):
+def mount():
 	for drive in current_app.config['DRIVES_TO_CHECK']:
 		if drive['modify'] is True:
 			try:
@@ -20,11 +20,10 @@ def mount(check = True):
 			except CalledProcessError:
 				pass
 
-	if check:
-		return check()
-
 
 @jwt_required
 @wrap_error()
 def get():
-	return jsonify(partitions = mount()), 200
+	mount()
+
+	return jsonify(partitions = check()), 200
