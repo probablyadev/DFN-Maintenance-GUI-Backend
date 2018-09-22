@@ -58,18 +58,40 @@ def _filter_df(output):
 	return disk_usages
 
 
-def _df_usage(mounted_disk_usages):
-	with open(current_app.config['DFN_DISK_USAGE_PATH']) as file_data:
-		off_disk_usages = file_data.readlines()
+def _load_disk_usage():
+	load_error = False
+	off_disk_usages = {}
+	dfn_disk_usage_path = current_app.config['DFN_DISK_USAGE_PATH']
 
-	off_disk_usages = _filter_df(off_disk_usages)
+	# Load mounted disk usage.
+	raw_mounted_disk_usages = console('df -h').splitlines()
+	mounted_disk_usages = _filter_df(raw_mounted_disk_usages)
 
-	# Remove any duplicates.
-	for key in mounted_disk_usages:
-		if off_disk_usages.get(key):
-			del off_disk_usages[key]
+	try:
+		# Load unmounted / off disk usage from file.
+		with open(dfn_disk_usage_path) as file_data:
+			off_disk_usages = file_data.readlines()
 
-	return off_disk_usages
+		off_disk_usages = _filter_df(off_disk_usages)
+
+		# Remove any duplicates.
+		for key in mounted_disk_usages:
+			if off_disk_usages.get(key):
+				del off_disk_usages[key]
+	except FileNotFoundError as error:
+		log.exception(error)
+		log.info('{0} does not exist, creating file with current disk usage.'.format(dfn_disk_usage_path))
+
+		load_error = True
+
+		with open(dfn_disk_usage_path) as file_data:
+			file_data.write(raw_mounted_disk_usages[0])
+
+			for line in raw_mounted_disk_usages[1:]:
+				if '/dev/sd' in line:
+					file_data.write(line)
+
+	return mounted_disk_usages, off_disk_usages, load_error
 
 
 def _mounted_drives(partitions, devices, mounted_disk_usages):
@@ -179,15 +201,7 @@ def _debug_output(partitions):
 def check():
 	partitions = []
 	devices = _list_fs_devices()
-	mounted_disk_usages = _filter_df(console('df -h').splitlines())
-	load_error = False
-
-	try:
-		off_disk_usages = _df_usage(mounted_disk_usages)
-	except FileNotFoundError as error:
-		log.exception(error)
-		off_disk_usages = {}
-		load_error = True
+	mounted_disk_usages, off_disk_usages, load_error = _load_disk_usage()
 
 	_mounted_drives(partitions, devices, mounted_disk_usages)
 	_unmounted_drives(partitions, devices, off_disk_usages)
