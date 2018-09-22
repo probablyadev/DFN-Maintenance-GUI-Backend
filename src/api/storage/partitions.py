@@ -64,7 +64,7 @@ def _load_disk_usage():
 	dfn_disk_usage_path = current_app.config['DFN_DISK_USAGE_PATH']
 
 	# Load mounted disk usage.
-	raw_mounted_disk_usages = console('df -h').splitlines()
+	raw_mounted_disk_usages = console('df -h --sync').splitlines()
 	mounted_disk_usages = _filter_df(raw_mounted_disk_usages)
 
 	try:
