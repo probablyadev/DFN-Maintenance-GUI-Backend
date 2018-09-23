@@ -31,15 +31,25 @@ def setup_extensions(app):
 # TODO: https://fangpenlin.com/posts/2012/08/26/good-logging-practice-in-python/
 # TODO: https://stackoverflow.com/questions/9857284/how-to-configure-all-loggers-in-an-application#answer-9859649
 def setup_logger(app, args):
-	app.config['VERBOSE'] = args.verbose
-
 	if args.log_level is 'NOTSET':
 		args.log_level = app.config['LOG_LEVEL']
 	else:
 		app.config['LOG_LEVEL'] = args.log_level
 
-	if args.api_log_level is not 'NOTSET':
+	if args.api_log_level is 'NOTSET':
+		args.api_log_level = app.config['API_LOG_LEVEL']
+	else:
 		app.config['API_LOG_LEVEL'] = args.api_log_level
+
+	if args.verbose:
+		if 'DEBUG' not in (args.log_level, args.api_log_level):
+			raise ValueError("One of the log levels must be 'DEBUG' for --verbose to work.\n\n"
+							 "Current:\n"
+							 "\t--log-level={}\n"
+							 "\t--api-log-level={}"
+							 .format(args.log_level, args.api_log_level))
+
+	app.config['VERBOSE'] = args.verbose
 
 	basicConfig(
 		level = args.log_level,

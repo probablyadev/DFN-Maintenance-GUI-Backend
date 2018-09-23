@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from argh import ArghParser, arg, expects_obj
+from argh import ArghParser, arg, wrap_errors, expects_obj
 from connexion import FlaskApp
 
 from src.setup import setup_config, setup_extensions, setup_logger, setup_routes
@@ -19,6 +19,7 @@ from src.setup import setup_config, setup_extensions, setup_logger, setup_routes
 	 default = 'NOTSET',
 	 help = 'Logging level for the frontend.')
 @arg('--verbose', default = False, help = 'Enable verbose logging.')
+@wrap_errors([ValueError])
 @expects_obj
 def run(args):
 	connexion_app = FlaskApp(__name__)
