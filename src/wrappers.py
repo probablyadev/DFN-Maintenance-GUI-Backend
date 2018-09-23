@@ -1,4 +1,4 @@
-from flask import jsonify
+from flask import jsonify, current_app
 from functools import wraps
 from subprocess import CalledProcessError
 from inspect import getargspec, getmodule
@@ -15,6 +15,9 @@ def old_endpoint():
 		@wraps(function)
 		def decorator(*args, **kwargs):
 			handler = Handler(__name__)
+			current_app.handler = handler
+
+			handler.log.info('')
 
 			try:
 				argsspec = getargspec(function)
@@ -48,7 +51,9 @@ def endpoint():
 		@wraps(function)
 		def decorator(*args, **kwargs):
 			handler = Handler('{}.{}'.format(getmodule(function).__name__, function.__name__))
-			handler.log.debug('')
+			current_app.handler = handler
+
+			handler.log.info('')
 
 			try:
 				argsspec = getargspec(function)
@@ -70,6 +75,6 @@ def endpoint():
 				handler.log.exception(error)
 				handler.add_error_to_response(str(error))
 
-			return handler.toJSON()
+			return handler.to_json()
 		return decorator
 	return endpoint_decorator

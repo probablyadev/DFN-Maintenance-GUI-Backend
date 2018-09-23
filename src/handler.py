@@ -6,6 +6,11 @@ from flask import jsonify
 __all__ = ['Handler']
 
 
+class NoEmptyFilter(logging.Filter):
+	def filter(self, record):
+		return True if record.getMessage() else False
+
+
 class Handler():
 	def __init__(self, name):
 		self.log, self.stream = self.__setup_logger(name)
@@ -31,7 +36,7 @@ class Handler():
 		for key in kwargs.keys():
 			self.error[key] = kwargs[key]
 
-	def toJSON(self):
+	def to_json(self):
 		if self.error.__len__() is 0:
 			self.add_to_response(log = self.stream.getvalue())
 			result = self.response
@@ -46,6 +51,7 @@ class Handler():
 
 		handler = logging.StreamHandler(stream = stream)
 		handler.setFormatter(logging.Formatter('[%(levelname)s] %(message)s'))
+		handler.addFilter(NoEmptyFilter())
 
 		log = logging.getLogger(name)
 		log.addHandler(handler)
