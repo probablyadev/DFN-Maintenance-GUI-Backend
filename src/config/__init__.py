@@ -15,6 +15,9 @@ class Config(object):
 	# TODO: Setup propper logging and seperate log dirs for each day, seperate log files for info / errors.
 	# FILENAME = '/data0/log/gui/dfn-gui-server.log'
 	LOGGING_LEVEL = logging.INFO
+	ROOT_FORMAT = '[%(asctime)s] [%(levelname)s:%(name)s] %(message)s'
+	API_FORMAT = '[%(levelname)s] %(message)s'
+	DATE_FORMAT = '%H:%M:%S'
 
 	# Connexion.
 	SWAGGER_JSON = False

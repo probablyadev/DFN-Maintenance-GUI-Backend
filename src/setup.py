@@ -54,12 +54,12 @@ def setup_logger(app, args):
 	if args.debug:
 		level = DEBUG
 	else:
-		level = app.config.LOGGING_LEVEL
+		level = app.config['LOGGING_LEVEL']
 
 	basicConfig(
 		level = level,
-		format = '[%(asctime)s] [%(levelname)s:%(name)s] %(message)s',
-		datefmt = '%H:%M:%S'
+		format = app.config['ROOT_FORMAT'],
+		datefmt = app.config['DATE_FORMAT']
 	)
 
 	getLogger('flask_cors').setLevel(INFO)

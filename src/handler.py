@@ -1,6 +1,6 @@
 import logging
 from io import StringIO
-from flask import jsonify
+from flask import jsonify, current_app
 
 
 __all__ = ['Handler']
@@ -49,7 +49,7 @@ class Handler():
 		stream = StringIO()
 
 		handler = logging.StreamHandler(stream = stream)
-		handler.setFormatter(logging.Formatter('[%(levelname)s] %(message)s'))
+		handler.setFormatter(logging.Formatter(current_app.config['API_FORMAT']))
 		handler.addFilter(NoEmptyFilter())
 
 		log = logging.getLogger(name)
