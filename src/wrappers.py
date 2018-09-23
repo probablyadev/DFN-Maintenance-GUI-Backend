@@ -85,26 +85,37 @@ def endpoint(arg = None):
 		return endpoint_decorator
 
 
-def current_app_injecter(arg = None):
+def current_app_injecter(*args, **kwargs):
 	def current_app_injecter_decorator(function):
 		@wraps(function)
-		def decorator(*args, **kwargs):
+		def decorator(*_args, **_kwargs):
 			argsspec = getargspec(function)
 
 			if 'handler' in argsspec.args:
-				kwargs = dict(handler = current_app.handler, **kwargs)
+				_kwargs = dict(handler = current_app.handler, **_kwargs)
 
 			if 'log' in argsspec.args:
-				kwargs = dict(log = current_app.handler.log, **kwargs)
+				_kwargs = dict(log = current_app.handler.log, **_kwargs)
 
 			if 'config' in argsspec.args:
-				kwargs = dict(log = current_app.config, **kwargs)
+				if kwargs['config']:
+					class Config():
+						pass
 
-			return function(*args, **dict(kwargs))
+					config = Config()
+
+					for kwarg in kwargs['config']:
+						setattr(config, kwarg.lower(), current_app.config[kwarg])
+
+					_kwargs['config'] = config
+				else:
+					_kwargs = dict(config = current_app.config, **_kwargs)
+
+			return function(*_args, **dict(_kwargs))
 
 		return decorator
 
-	if callable(arg):
-		return current_app_injecter_decorator(arg)
+	if callable(args):
+		return current_app_injecter_decorator(args)
 	else:
 		return current_app_injecter_decorator

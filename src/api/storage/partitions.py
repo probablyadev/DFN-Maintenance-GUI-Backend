@@ -6,7 +6,7 @@ from re import sub, split
 from json import load, loads
 from logging import getLogger, DEBUG
 
-from src.wrappers import old_endpoint
+from src.wrappers import endpoint, current_app_injecter
 from src.console import console
 
 
@@ -197,7 +197,6 @@ def _debug_output(partitions):
 	log.debug('off:\n{0}'.format(off))
 
 
-# TODO: Debug logs to a handler for an endpoint. If debug flag is given then pass logs to frontend.
 def check():
 	partitions = []
 	devices = _list_fs_devices()
@@ -211,11 +210,13 @@ def check():
 
 
 @jwt_required
-@old_endpoint()
-def get():
+@endpoint
+@current_app_injecter(config = ['VERBOSE'])
+def get(handler, config):
 	partitions, load_error = check()
 
-	if log.isEnabledFor(DEBUG):
+	if config.verbose:
 		_debug_output(partitions)
 
-	return jsonify(partitions = partitions, load_error = load_error), 200
+	handler.add_to_response(partitions = partitions)
+
