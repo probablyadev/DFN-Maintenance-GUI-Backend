@@ -32,6 +32,9 @@ class Handler():
 		for key in kwargs.keys():
 			self.error[key] = kwargs[key]
 
+	def set_status(self, status):
+		self.status = status
+
 	def to_json(self):
 		if self.error.__len__() is 0:
 			self.add_to_response(log = self.stream.getvalue())
@@ -41,9 +44,6 @@ class Handler():
 			result = self.error
 
 		return jsonify(result), self.status
-
-	def set_status(self, status):
-		self.status = status
 
 	def __setup_logger(self, name):
 		stream = StringIO()

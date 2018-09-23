@@ -1,4 +1,4 @@
-from logging import basicConfig, getLogger, DEBUG, INFO, ERROR
+from logging import basicConfig, getLogger
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 
@@ -6,44 +6,24 @@ from .database import db
 
 
 def setup_config(app, args):
-	"""
-	if '_' in args.config:
-		config = ''
-
-		# E.g.: dev.local_test -> ['dev', 'local_test'] -> ['local', 'test'] -> ['Local', 'Test'] -> LocalTest
-		words = args.config.split('.')[-1:][0].split('_')
-
-		for word in words:
-			config = '{0}{1}'.format(config, word.capitalize())
-	else:
-		# E.g.: dev.remote -> ['dev', 'remote'] -> ['remote'] -> remote -> Remote
-		config = args.config.split('.')[-1:][0].capitalize()
-
-	config = getattr(import_module('src.config.{0}'.format(args.config)), config)
-	config = app.config.from_object(config)
-	"""
-
-	if 'dev.remote' in args.config:
-		from src.config.dev.remote import Remote
-		config = Remote
-	elif 'dev.local' in args.config:
-		from src.config.dev.local import Local
-		config = Local
-	elif 'prod.docker' in args.config:
-		from src.config.prod.docker import Docker
-		config = Docker
-	else:
+	if args.config == 'prod':
 		from src.config.prod import Prod
 		config = Prod
+	elif args.config == 'prod.docker':
+		from src.config.prod.docker import Docker
+		config = Docker
+	elif args.config == 'dev' or args.config == 'dev.remote':
+		from src.config.dev.remote import Remote
+		config = Remote
+	elif args.config == 'dev.local':
+		from src.config.dev.local import Local
+		config = Local
 
 	app.config.from_object(config)
-
-	return config
 
 
 def setup_extensions(app):
 	db.init_app(app)
-
 	CORS(app)
 	JWTManager(app)
 
@@ -51,25 +31,28 @@ def setup_extensions(app):
 # TODO: https://fangpenlin.com/posts/2012/08/26/good-logging-practice-in-python/
 # TODO: https://stackoverflow.com/questions/9857284/how-to-configure-all-loggers-in-an-application#answer-9859649
 def setup_logger(app, args):
-	if args.debug:
-		level = DEBUG
+	if args.log_level is 'NOTSET':
+		args.log_level = app.config['LOG_LEVEL']
 	else:
-		level = app.config['LOGGING_LEVEL']
+		app.config['LOG_LEVEL'] = args.log_level
+
+	if args.api_log_level is not 'NOTSET':
+		app.config['API_LOG_LEVEL'] = args.api_log_level
 
 	basicConfig(
-		level = level,
+		level = args.log_level,
 		format = app.config['ROOT_FORMAT'],
 		datefmt = app.config['DATE_FORMAT']
 	)
 
-	getLogger('flask_cors').setLevel(INFO)
-	getLogger('flask_jwt_extended').setLevel(level)
-	getLogger('connexion').setLevel(level)
-	getLogger('connexion.operation').setLevel(INFO)
-	getLogger('connexion.decorators').setLevel(ERROR)
-	getLogger('connexion.apis').setLevel(INFO)
-	getLogger('swagger_spec_validator').setLevel(INFO)
-	getLogger('werkzeug').setLevel(ERROR)
+	getLogger('flask_cors').setLevel('INFO')
+	getLogger('flask_jwt_extended').setLevel(args.log_level)
+	getLogger('connexion').setLevel(args.log_level)
+	getLogger('connexion.operation').setLevel('INFO')
+	getLogger('connexion.decorators').setLevel('ERROR')
+	getLogger('connexion.apis').setLevel('INFO')
+	getLogger('swagger_spec_validator').setLevel('INFO')
+	getLogger('werkzeug').setLevel('ERROR')
 
 
 def setup_routes(app):

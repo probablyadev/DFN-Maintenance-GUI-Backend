@@ -1,26 +1,34 @@
 #!/usr/bin/python3
 
-from argh import ArghParser, arg, wrap_errors, expects_obj
+from argh import ArghParser, arg, expects_obj
 from connexion import FlaskApp
 
 from src.setup import setup_config, setup_extensions, setup_logger, setup_routes
 
 
-# TODO: --level DEBUG. --debug is for displaying absolutely all logs.
-@arg('--config', default = 'prod', help = 'Config file to use: prod.[docker] or dev.[local|remote]')
-@arg('--debug', default = False, help = 'Debug level logging.')
-@wrap_errors([Exception])
+@arg('--config',
+	 choices = ['prod', 'prod.docker', 'dev', 'dev.remote', 'dev.local'],
+	 default = 'prod',
+	 help = 'Config file to use.')
+@arg('--log-level',
+	 choices = ['CRITICAL', 'FATAL', 'ERROR', 'WARN', 'WARNING', 'INFO', 'DEBUG', 'NOTSET'],
+	 default = 'NOTSET',
+	 help = 'Logging level for the while application.')
+@arg('--api-log-level',
+	 choices = ['CRITICAL', 'FATAL', 'ERROR', 'WARN', 'WARNING', 'INFO', 'DEBUG', 'NOTSET'],
+	 default = 'NOTSET',
+	 help = 'Logging level for the frontend.')
 @expects_obj
 def run(args):
 	connexion_app = FlaskApp(__name__)
 	app = connexion_app.app
 
-	config = setup_config(app, args)
+	setup_config(app, args)
 	setup_extensions(app)
 	setup_logger(app, args)
 	setup_routes(connexion_app)
 
-	app.run(host = config.HOST, port = config.PORT)
+	app.run(host = app.config['HOST'], port = app.config['PORT'])
 
 
 if __name__ == '__main__':
