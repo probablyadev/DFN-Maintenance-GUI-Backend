@@ -4,7 +4,7 @@ from flask_jwt_extended import jwt_required
 from flask import jsonify, current_app
 from subprocess import CalledProcessError
 
-from src.wrappers import wrap_error
+from src.wrappers import old_endpoint
 from src.console import console
 from .partitions import check
 
@@ -21,7 +21,7 @@ def mount():
 
 
 @jwt_required
-@wrap_error()
+@old_endpoint()
 def get():
 	mount()
 	partitions, load_error = check()

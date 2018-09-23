@@ -5,11 +5,11 @@ from flask import jsonify, current_app
 
 from src.console import console
 from src.imported.config_handler import load_config
-from src.wrappers import wrap_error
+from src.wrappers import old_endpoint
 
 
 @jwt_required
-@wrap_error()
+@old_endpoint()
 def check():
 	output = console('python /opt/dfn-software/camera_image_count.py')
 
@@ -20,7 +20,7 @@ def check():
 
 
 @jwt_required
-@wrap_error()
+@old_endpoint()
 def whitelist():
 	# Whitelist for which config variables the user can modify
 	config_whitelist = {}

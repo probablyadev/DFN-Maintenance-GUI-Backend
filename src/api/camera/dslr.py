@@ -3,7 +3,7 @@
 from flask_jwt_extended import jwt_required
 from flask import jsonify, current_app
 
-from src.wrappers import wrap_error
+from src.wrappers import old_endpoint
 from src.console import console
 
 
@@ -21,13 +21,13 @@ def _status():
 
 
 @jwt_required
-@wrap_error()
+@old_endpoint()
 def get():
 	return _status()
 
 
 @jwt_required
-@wrap_error()
+@old_endpoint()
 def on():
 	if current_app.config['USE_DEV_COMMAND']:
 		return jsonify(status = True), 200
@@ -38,7 +38,7 @@ def on():
 
 
 @jwt_required
-@wrap_error()
+@old_endpoint()
 def off():
 	if current_app.config['USE_DEV_COMMAND']:
 		return jsonify(status = False), 200

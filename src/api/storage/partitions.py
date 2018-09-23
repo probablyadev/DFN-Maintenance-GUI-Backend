@@ -6,7 +6,7 @@ from re import sub, split
 from json import load, loads
 from logging import getLogger, DEBUG
 
-from src.wrappers import wrap_error
+from src.wrappers import old_endpoint
 from src.console import console
 
 
@@ -211,7 +211,7 @@ def check():
 
 
 @jwt_required
-@wrap_error()
+@old_endpoint()
 def get():
 	partitions, load_error = check()
 

@@ -4,7 +4,7 @@ from flask_jwt_extended import jwt_required
 from flask import jsonify
 from re import sub
 
-from src.wrappers import wrap_error
+from src.wrappers import old_endpoint
 from src.console import console
 
 
@@ -12,7 +12,7 @@ __all__ = ['get', 'put']
 
 
 @jwt_required
-@wrap_error()
+@old_endpoint()
 def get():
 	time = console('timedatectl status').splitlines()
 
@@ -26,7 +26,7 @@ def get():
 
 
 @jwt_required
-@wrap_error()
+@old_endpoint()
 def put(timezone):
 	console("timedatectl set-timezone {0}".format(timezone[0]))
 	return 204

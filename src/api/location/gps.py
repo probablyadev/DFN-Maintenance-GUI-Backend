@@ -4,7 +4,7 @@ from flask_jwt_extended import jwt_required
 from flask import jsonify, current_app
 from re import split
 
-from src.wrappers import wrap_error
+from src.wrappers import old_endpoint
 from src.console import console
 
 
@@ -19,7 +19,7 @@ def coordinates(initial, direction):
 
 
 @jwt_required
-@wrap_error()
+@old_endpoint()
 def get():
 	output = console(
 		'python /opt/dfn-software/leostick_get_status.py -g',

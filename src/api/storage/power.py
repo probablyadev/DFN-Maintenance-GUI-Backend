@@ -3,20 +3,18 @@
 from flask_jwt_extended import jwt_required
 from flask import jsonify, current_app
 from time import sleep
-from logging import getLogger
 from os import walk
 
-from src.wrappers import wrap_error
+from src.wrappers import endpoint, old_endpoint
 from src.console import console
 from .partitions import check
 from .unmount import unmount
 
 
 __all__ = ['on', 'off']
-log = getLogger(__name__)
 
 
-# TODO[BUG]: Needs checks if any drives are to be powered on / off. Currently just times out and returns the same result.
+# TODO[BUG]: Need to check if any drives are to be powered on / off. Currently just times out and returns the same result.
 def _poll(check_for_increase):
 	num_to_change = len(current_app.config['DRIVES'])
 	initial = len(next(walk('/sys/block'))[1])
@@ -42,18 +40,22 @@ def _poll(check_for_increase):
 
 
 @jwt_required
-@wrap_error()
-def on():
+@endpoint()
+def on(handler):
+	handler.log.info('Turning on external drives...')
 	console('python /opt/dfn-software/enable_ext-hd.py')
+
+	handler.log.info('Polling for drive changes...')
 	_poll(check_for_increase = True)
 
+	handler.log.info('Checking disk usage...')
 	partitions, load_error = check()
 
-	return jsonify(partitions = partitions, load_error = load_error), 200
+	handler.add_to_response(partitions = partitions)
 
 
 @jwt_required
-@wrap_error()
+@old_endpoint()
 def off():
 	unmount()
 	console('python /opt/dfn-software/disable_ext-hd.py')

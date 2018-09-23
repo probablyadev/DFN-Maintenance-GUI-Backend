@@ -5,11 +5,11 @@ from flask_jwt_extended import jwt_required
 from subprocess import CalledProcessError
 
 from src.console import console
-from src.wrappers import wrap_error
+from src.wrappers import old_endpoint
 
 
 @jwt_required
-@wrap_error()
+@old_endpoint()
 def check():
 	#ip = console("dig TXT +short o-o.myaddr.l.google.com @ns1.google.com").replace('"', '')
 	command = "ifconfig | grep eth1 -A 1 | grep -o '\(addr:\|inet \)[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' | cut -c6-"
@@ -23,6 +23,6 @@ def check():
 	return jsonify(ip = ip, output = output), 200
 
 @jwt_required
-@wrap_error()
+@old_endpoint()
 def restart():
 	return jsonify(output = console("ifdown ppp0 && sleep 8 && ifup ppp0 && sleep 8 && ifconfig ppp0")), 200

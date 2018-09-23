@@ -3,7 +3,7 @@
 from flask import jsonify
 
 from src.console import console
-from src.wrappers import wrap_error
+from src.wrappers import old_endpoint
 
 
 __all__ = ['hostname', 'get']
@@ -13,6 +13,6 @@ def hostname():
 	return console('hostname')
 
 
-@wrap_error()
+@old_endpoint()
 def get():
 	return jsonify(hostname = hostname()), 200
