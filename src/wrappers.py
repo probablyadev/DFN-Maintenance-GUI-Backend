@@ -7,7 +7,7 @@ from pprint import pformat
 from src.handler import Handler
 
 
-__all__ = ['old_endpoint', 'endpoint']
+__all__ = ['old_endpoint', 'endpoint', 'current_app_injecter']
 
 
 def old_endpoint():
@@ -42,11 +42,10 @@ def old_endpoint():
 				return jsonify(cmd = cmd, returncode = returncode, output = output), 500
 
 		return decorator
-
 	return endpoint_decorator
 
 
-def endpoint():
+def endpoint(arg = None):
 	def endpoint_decorator(function):
 		@wraps(function)
 		def decorator(*args, **kwargs):
@@ -69,12 +68,43 @@ def endpoint():
 					'returncode': error.returncode
 				}
 
-				handler.add_error_to_response(exception)
 				handler.log.exception('\n{}'.format(pformat(exception)))
+				handler.add_error_to_response(exception)
+				handler.set_status(500)
 			except Exception as error:
 				handler.log.exception(error)
 				handler.add_error_to_response(str(error))
+				handler.set_status(500)
 
 			return handler.to_json()
 		return decorator
-	return endpoint_decorator
+
+	if callable(arg):
+		return endpoint_decorator(arg)
+	else:
+		return endpoint_decorator
+
+
+def current_app_injecter(arg = None):
+	def current_app_injecter_decorator(function):
+		@wraps(function)
+		def decorator(*args, **kwargs):
+			argsspec = getargspec(function)
+
+			if 'handler' in argsspec.args:
+				kwargs = dict(handler = current_app.handler, **kwargs)
+
+			if 'log' in argsspec.args:
+				kwargs = dict(log = current_app.handler.log, **kwargs)
+
+			if 'config' in argsspec.args:
+				kwargs = dict(log = current_app.config, **kwargs)
+
+			return function(*args, **dict(kwargs))
+
+		return decorator
+
+	if callable(arg):
+		return current_app_injecter_decorator(arg)
+	else:
+		return current_app_injecter_decorator

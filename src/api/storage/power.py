@@ -5,7 +5,7 @@ from flask import current_app
 from time import sleep
 from os import walk
 
-from src.wrappers import endpoint
+from src.wrappers import endpoint, current_app_injecter
 from src.console import console
 from .partitions import check
 from .unmount import unmount
@@ -40,33 +40,35 @@ def _poll(check_for_increase):
 
 
 @jwt_required
-@endpoint()
-def on():
-	current_app.handler.log.info('Turning on external drives...')
+@endpoint
+@current_app_injecter
+def on(handler, log):
+	log.info('Turning on external drives...')
 	console('python /opt/dfn-software/enable_ext-hd.py')
 
-	current_app.handler.log.info('Polling for drive changes...')
+	log.info('Polling for drive changes...')
 	_poll(check_for_increase = True)
 
-	current_app.handler.log.info('Checking disk usage...')
+	log.info('Checking disk usage...')
 	partitions, load_error = check()
 
-	current_app.handler.add_to_response(partitions = partitions)
+	handler.add_to_response(partitions = partitions)
 
 
 @jwt_required
-@endpoint()
-def off():
-	current_app.handler.log.info('Unmounting external drives...')
+@endpoint
+@current_app_injecter
+def off(handler, log):
+	log.info('Unmounting external drives...')
 	unmount()
 
-	current_app.handler.log.info('Turning off external drives...')
+	log.info('Turning off external drives...')
 	console('python /opt/dfn-software/disable_ext-hd.py')
 
-	current_app.handler.log.info('Polling for drive changes...')
+	log.info('Polling for drive changes...')
 	_poll(check_for_increase = False)
 
-	current_app.handler.log.info('Checking disk usage...')
+	log.info('Checking disk usage...')
 	partitions, load_error = check()
 
-	current_app.handler.add_to_response(partitions = partitions)
+	handler.add_to_response(partitions = partitions)

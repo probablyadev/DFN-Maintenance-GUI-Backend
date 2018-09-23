@@ -16,17 +16,13 @@ class Handler():
 		self.log, self.stream = self.__setup_logger(name)
 		self.response = {}
 		self.error = {}
-		self.statuscode = 200
+		self.status = 200
 
 	def add_to_response(self, **kwargs):
-		self.statuscode = kwargs.pop('statuscode', self.statuscode)
-
 		for key in kwargs.keys():
 			self.response[key] = kwargs[key]
 
 	def add_error_to_response(self, *args, **kwargs):
-		self.statuscode = kwargs.pop('statuscode', 500)
-
 		for arg in args:
 			if isinstance(arg, dict):
 				kwargs = dict(arg, **kwargs)
@@ -44,7 +40,10 @@ class Handler():
 			self.add_error_to_response(log = self.stream.getvalue())
 			result = self.error
 
-		return jsonify(result), self.statuscode
+		return jsonify(result), self.status
+
+	def set_status(self, status):
+		self.status = status
 
 	def __setup_logger(self, name):
 		stream = StringIO()
