@@ -31,6 +31,8 @@ def setup_extensions(app):
 # TODO: https://fangpenlin.com/posts/2012/08/26/good-logging-practice-in-python/
 # TODO: https://stackoverflow.com/questions/9857284/how-to-configure-all-loggers-in-an-application#answer-9859649
 def setup_logger(app, args):
+	app.config['VERBOSE'] = args.verbose
+
 	if args.log_level is 'NOTSET':
 		args.log_level = app.config['LOG_LEVEL']
 	else:

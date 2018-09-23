@@ -18,6 +18,7 @@ from src.setup import setup_config, setup_extensions, setup_logger, setup_routes
 	 choices = ['CRITICAL', 'FATAL', 'ERROR', 'WARN', 'WARNING', 'INFO', 'DEBUG', 'NOTSET'],
 	 default = 'NOTSET',
 	 help = 'Logging level for the frontend.')
+@arg('--verbose', default = False, help = 'Enable verbose logging.')
 @expects_obj
 def run(args):
 	connexion_app = FlaskApp(__name__)
