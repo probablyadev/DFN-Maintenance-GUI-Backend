@@ -1,22 +1,20 @@
 """The storage check api module /storage/check endpoint."""
 
 from flask_jwt_extended import jwt_required
-from flask import jsonify, current_app
 from re import sub, split
 from json import load, loads
-from logging import getLogger, DEBUG
 
-from src.wrappers import endpoint, current_app_injecter
+from src.wrappers import endpoint, current_app_injecter, log_doc
 from src.console import console
 
 
 __all__ = ['check', 'get']
-log = getLogger(__name__)
 
 
-def _list_fs_devices():
+@current_app_injecter(config = ['USE_DEV_COMMAND'])
+def _list_fs_devices(config):
 	# Load mounted / on devices.
-	if current_app.config['USE_DEV_COMMAND']:
+	if config.use_dev_command:
 		with open('sample/lsblk.json') as json_data:
 			output = load(json_data)
 	else:
@@ -58,10 +56,9 @@ def _filter_df(output):
 	return disk_usages
 
 
-def _load_disk_usage():
-	load_error = False
+@current_app_injecter(config = ['DFN_DISK_USAGE_PATH'])
+def _load_disk_usage(log, config):
 	off_disk_usages = {}
-	dfn_disk_usage_path = current_app.config['DFN_DISK_USAGE_PATH']
 
 	# Load mounted disk usage.
 	raw_mounted_disk_usages = console('df -h --sync').splitlines()
@@ -69,7 +66,7 @@ def _load_disk_usage():
 
 	try:
 		# Load unmounted / off disk usage from file.
-		with open(dfn_disk_usage_path) as file_data:
+		with open(config.dfn_disk_usage_path) as file_data:
 			off_disk_usages = file_data.readlines()
 
 		off_disk_usages = _filter_df(off_disk_usages)
@@ -80,18 +77,16 @@ def _load_disk_usage():
 				del off_disk_usages[key]
 	except FileNotFoundError as error:
 		log.exception(error)
-		log.info('{0} does not exist, creating file with current disk usage.'.format(dfn_disk_usage_path))
+		log.info('{0} does not exist, creating file with current disk usage.'.format(config.dfn_disk_usage_path))
 
-		load_error = True
-
-		with open(dfn_disk_usage_path) as file_data:
+		with open(config.dfn_disk_usage_path) as file_data:
 			file_data.write(raw_mounted_disk_usages[0])
 
 			for line in raw_mounted_disk_usages[1:]:
 				if '/dev/sd' in line:
 					file_data.write(line)
 
-	return mounted_disk_usages, off_disk_usages, load_error
+	return mounted_disk_usages, off_disk_usages
 
 
 def _mounted_drives(partitions, devices, mounted_disk_usages):
@@ -164,7 +159,9 @@ def _off_drives(partitions, off_disk_usages):
 		})
 
 
-def _debug_output(partitions):
+@log_doc('Gathering debug output...', level = 'DEBUG')
+@current_app_injecter()
+def _debug_output(partitions, log):
 	from pprint import pformat
 
 	mounted = []
@@ -197,23 +194,24 @@ def _debug_output(partitions):
 	log.debug('off:\n{0}'.format(off))
 
 
+@log_doc('Checking disk usage...')
 def check():
 	partitions = []
 	devices = _list_fs_devices()
-	mounted_disk_usages, off_disk_usages, load_error = _load_disk_usage()
+	mounted_disk_usages, off_disk_usages = _load_disk_usage()
 
 	_mounted_drives(partitions, devices, mounted_disk_usages)
 	_unmounted_drives(partitions, devices, off_disk_usages)
 	_off_drives(partitions, off_disk_usages)
 
-	return partitions, load_error
+	return partitions
 
 
 @jwt_required
 @endpoint
 @current_app_injecter(config = ['VERBOSE'])
 def get(handler, config):
-	partitions, load_error = check()
+	partitions = check()
 
 	if config.verbose:
 		_debug_output(partitions)
