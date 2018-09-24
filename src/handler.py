@@ -20,6 +20,7 @@ class Handler():
 
 	def add_to_response(self, **kwargs):
 		for key in kwargs.keys():
+			self.log.debug("Adding '{}' to response".format(key))
 			self.response[key] = kwargs[key]
 
 	def add_error_to_response(self, *args, **kwargs):
@@ -30,9 +31,11 @@ class Handler():
 				self.error['output'] = arg
 
 		for key in kwargs.keys():
+			self.log.debug("Adding '{}' to error response".format(key))
 			self.error[key] = kwargs[key]
 
 	def set_status(self, status):
+		self.log.debug("Setting response status from '{}' to '{}'".format(self.status, status))
 		self.status = status
 
 	def to_json(self):

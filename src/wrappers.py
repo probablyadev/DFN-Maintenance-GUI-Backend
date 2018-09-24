@@ -47,14 +47,14 @@ def old_endpoint():
 
 # TODO: Accept array of expected exception types (much like wrap_error in argh).
 # TODO: Accept 2 messages, one to say at the start ('storage.power on endpoint' - default is ''), and end ('sending response' - default).
-def endpoint(arg = None):
+def endpoint(start = ''):
 	def endpoint_decorator(function):
 		@wraps(function)
 		def decorator(*args, **kwargs):
 			handler = Handler('{}.{}'.format(getmodule(function).__name__, function.__name__))
 			current_app.handler = handler
 
-			handler.log.info('')
+			handler.log.info(start)
 
 			try:
 				argsspec = getargspec(function)
@@ -80,14 +80,19 @@ def endpoint(arg = None):
 
 			return handler.to_json()
 		return decorator
-
-	if callable(arg):
-		return endpoint_decorator(arg)
-	else:
-		return endpoint_decorator
+	return endpoint_decorator
 
 
 def current_app_injecter(*args, **kwargs):
+	'''
+	Injects objects from current_app into the decorated method. Must have the injected objects as params in the
+	decorated method after the methods normal parameters.
+
+	Can also inject an array of key / value pairs from config. E.g.
+
+	@current_app_injector(config = ['VERBOSE'])
+	def method(config):
+	'''
 	def current_app_injecter_decorator(function):
 		@wraps(function)
 		def decorator(*_args, **_kwargs):

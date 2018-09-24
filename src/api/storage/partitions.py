@@ -11,6 +11,7 @@ from src.console import console
 __all__ = ['check', 'get']
 
 
+@log_doc('Loading fs devices...')
 @current_app_injecter(config = ['USE_DEV_COMMAND'])
 def _list_fs_devices(config):
 	# Load mounted / on devices.
@@ -36,6 +37,7 @@ def _list_fs_devices(config):
 	return devices
 
 
+@log_doc('Filtering df output...', level = 'DEBUG')
 def _filter_df(output):
 	disk_usages = {}
 
@@ -56,6 +58,7 @@ def _filter_df(output):
 	return disk_usages
 
 
+@log_doc('Loading disk usage...')
 @current_app_injecter(config = ['DFN_DISK_USAGE_PATH'])
 def _load_disk_usage(log, config):
 	off_disk_usages = {}
@@ -89,6 +92,7 @@ def _load_disk_usage(log, config):
 	return mounted_disk_usages, off_disk_usages
 
 
+@log_doc('Checking mounted drives...')
 def _mounted_drives(partitions, devices, mounted_disk_usages):
 	for device in devices:
 		if device['mountpoint'] is not None:
@@ -108,6 +112,7 @@ def _mounted_drives(partitions, devices, mounted_disk_usages):
 				})
 
 
+@log_doc('Checking unmounted drives...')
 def _unmounted_drives(partitions, devices, off_disk_usages):
 	for device in devices:
 		if device['mountpoint'] is None:
@@ -142,6 +147,7 @@ def _unmounted_drives(partitions, devices, off_disk_usages):
 
 
 # BUG: sdd1 and sdb1 are swapped in the dfn_disk_usage file (mount points), possibly causing them to not be listed.
+@log_doc('Checking off drives...')
 def _off_drives(partitions, off_disk_usages):
 	for key in off_disk_usages:
 		device = off_disk_usages.get(key)
@@ -194,7 +200,7 @@ def _debug_output(partitions, log):
 	log.debug('off:\n{0}'.format(off))
 
 
-@log_doc('Checking disk usage...')
+@log_doc('Loading disk partitions and usage...')
 def check():
 	partitions = []
 	devices = _list_fs_devices()
@@ -208,7 +214,7 @@ def check():
 
 
 @jwt_required
-@endpoint
+@endpoint('Endpoint: api/storage/partitions')
 @current_app_injecter(config = ['VERBOSE'])
 def get(handler, config):
 	partitions = check()

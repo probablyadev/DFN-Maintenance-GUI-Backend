@@ -1,10 +1,9 @@
 """The storage unmount api module /storage/unmount endpoint."""
 
 from flask_jwt_extended import jwt_required
-from flask import jsonify, current_app
 from subprocess import CalledProcessError
 
-from src.wrappers import old_endpoint
+from src.wrappers import endpoint, current_app_injecter, log_doc
 from src.console import console
 from .partitions import check
 
@@ -12,8 +11,10 @@ from .partitions import check
 __all__ = ['unmount', 'get']
 
 
-def unmount():
-	for drive in current_app.config['DRIVES']:
+@log_doc('Unmounting external drives...')
+@current_app_injecter(config = ['DRIVES'])
+def unmount(config):
+	for drive in config.drives:
 		try:
 			console('umount {0}'.format(drive['mount']))
 		except CalledProcessError:
@@ -21,9 +22,9 @@ def unmount():
 
 
 @jwt_required
-@old_endpoint()
-def get():
+@endpoint('Endpoint: api/storage/unmount')
+@current_app_injecter
+def get(handler):
 	unmount()
-	partitions, load_error = check()
 
-	return jsonify(partitions = partitions, load_error = load_error), 200
+	handler.add_to_response(partitions = check())

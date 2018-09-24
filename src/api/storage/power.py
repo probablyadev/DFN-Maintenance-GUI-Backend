@@ -5,7 +5,7 @@ from flask import current_app
 from time import sleep
 from os import walk
 
-from src.wrappers import endpoint, current_app_injecter
+from src.wrappers import endpoint, current_app_injecter, log_doc
 from src.console import console
 from .partitions import check
 from .unmount import unmount
@@ -15,9 +15,12 @@ __all__ = ['on', 'off']
 
 
 # TODO[BUG]: Need to check if any drives are to be powered on / off. Currently just times out and returns the same result.
-def _poll(check_for_increase):
+@log_doc('Polling for drive changes...')
+@current_app_injecter
+def _poll(log, check_for_increase):
 	num_to_change = len(current_app.config['DRIVES'])
 	initial = len(next(walk('/sys/block'))[1])
+	current = len(next(walk('/sys/block'))[1])
 	time = 0
 	timeout = 30
 	change_detected = False
@@ -37,38 +40,30 @@ def _poll(check_for_increase):
 			change_detected = True
 
 	sleep(1)
+	log.info('{} drives detected.'.format(current))
 
 
 @jwt_required
-@endpoint
+@endpoint('Endpoint: api/storage/power/on')
 @current_app_injecter
 def on(handler, log):
 	log.info('Turning on external drives...')
 	console('python /opt/dfn-software/enable_ext-hd.py')
 
-	log.info('Polling for drive changes...')
 	_poll(check_for_increase = True)
 
-	log.info('Checking disk usage...')
-	partitions, load_error = check()
-
-	handler.add_to_response(partitions = partitions)
+	handler.add_to_response(partitions = check())
 
 
 @jwt_required
-@endpoint
+@endpoint('Endpoint: api/storage/power/off')
 @current_app_injecter
 def off(handler, log):
-	log.info('Unmounting external drives...')
 	unmount()
 
 	log.info('Turning off external drives...')
 	console('python /opt/dfn-software/disable_ext-hd.py')
 
-	log.info('Polling for drive changes...')
 	_poll(check_for_increase = False)
 
-	log.info('Checking disk usage...')
-	partitions, load_error = check()
-
-	handler.add_to_response(partitions = partitions)
+	handler.add_to_response(partitions = check())
