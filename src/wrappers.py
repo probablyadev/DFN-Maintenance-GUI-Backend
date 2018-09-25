@@ -46,8 +46,7 @@ def old_endpoint():
 	return endpoint_decorator
 
 
-# TODO: Accept array of expected exception types (much like wrap_error in argh).
-# TODO: Accept 2 messages, one to say at the start ('storage.power on endpoint' - default is ''), and end ('sending response' - default).
+# TODO: Accept array of expected exception types (much like wrap_error in argh). Error out badly if an unexpected exception was encountered.
 def endpoint(**_kwargs):
 	def endpoint_decorator(function):
 		@wraps(function)
@@ -61,12 +60,7 @@ def endpoint(**_kwargs):
 			current_app.handler = handler
 
 			try:
-				argsspec = getargspec(function)
-
-				if 'handler' in argsspec.args:
-					function(*args, **dict(kwargs, handler = handler))
-				else:
-					function(*args, **kwargs)
+				function(*args, **kwargs)
 			except CalledProcessError as error:
 				exception = {
 					'cmd': error.cmd,
