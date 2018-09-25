@@ -3,6 +3,8 @@ from flask import current_app
 from subprocess import check_output, STDOUT, CalledProcessError
 
 
+# TODO: Rewrite the prod / dev command usage. Maybe pass in an array of the two and have a conditional decorator to inject the command and the console type.
+# TODO: Add logs.
 def console(prod_command, dev_command = ''):
 	if not current_app.config['USE_DEV_COMMAND'] or dev_command is '':
 		command = prod_command

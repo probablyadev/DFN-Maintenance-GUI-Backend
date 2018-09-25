@@ -214,7 +214,7 @@ def check():
 
 
 @jwt_required
-@endpoint('Endpoint: api/storage/partitions')
+@endpoint(prefix = 'api/storage/partitions')
 @current_app_injecter(config = ['VERBOSE'])
 def get(handler, config):
 	partitions = check()

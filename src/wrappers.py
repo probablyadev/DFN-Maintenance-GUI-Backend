@@ -1,4 +1,5 @@
 from flask import jsonify, current_app
+from flask_jwt_extended import jwt_required as jwt
 from functools import wraps
 from subprocess import CalledProcessError
 from inspect import getargspec, getmodule
@@ -47,14 +48,17 @@ def old_endpoint():
 
 # TODO: Accept array of expected exception types (much like wrap_error in argh).
 # TODO: Accept 2 messages, one to say at the start ('storage.power on endpoint' - default is ''), and end ('sending response' - default).
-def endpoint(start = ''):
+def endpoint(**_kwargs):
 	def endpoint_decorator(function):
 		@wraps(function)
 		def decorator(*args, **kwargs):
-			handler = Handler('{}.{}'.format(getmodule(function).__name__, function.__name__))
-			current_app.handler = handler
+			prefix = '{}.{}'.format(getmodule(function).__name__, function.__name__)
+			prefix = _kwargs.pop('prefix', prefix)
 
-			handler.log.info(start)
+			logging.getLogger().debug(_kwargs.pop('start', prefix))
+
+			handler = Handler(prefix)
+			current_app.handler = handler
 
 			try:
 				argsspec = getargspec(function)
@@ -80,7 +84,10 @@ def endpoint(start = ''):
 
 			return handler.to_json()
 		return decorator
-	return endpoint_decorator
+	if callable(_kwargs):
+		return endpoint_decorator(_kwargs)
+	else:
+		return endpoint_decorator
 
 
 def current_app_injecter(*args, **kwargs):
@@ -136,11 +143,11 @@ def log_doc(*args, **kwargs):
 	or
 	@log_doc()
 
-	If using @log_doc(), in the method doc string, write:
+	If using @log_doc(), in the method doc string, write (remove the -):
 
 	"""
-	:log message: Gathering debug output...
-	:log level: DEBUG
+	- :log message: Gathering debug output...
+	- :log level: DEBUG
 	"""
 
 	Must be placed above the @current_app_injector decorator.
@@ -176,7 +183,6 @@ def log_doc(*args, **kwargs):
 		return log_doc_decorator(args)
 	else:
 		return log_doc_decorator
-
 
 # TODO: Decorator called 'conditionallly', requires a condition to be true in order to execute e.g. @conditionally(config.verbose, True).
 # https://stackoverflow.com/questions/3773555/python3-decorating-conditionally#answer-3865534

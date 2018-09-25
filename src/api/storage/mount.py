@@ -21,7 +21,7 @@ def mount(config):
 
 
 @jwt_required
-@endpoint('Endpoint: api/storage/mount')
+@endpoint(prefix = 'api/storage/mount')
 @current_app_injecter
 def get(handler):
 	mount()
