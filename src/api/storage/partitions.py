@@ -1,10 +1,9 @@
 """The storage check api module /storage/check endpoint."""
 
-from flask_jwt_extended import jwt_required
 from re import sub, split
 from json import load, loads
 
-from src.wrappers import endpoint, current_app_injecter, log_doc
+from src.wrappers import endpoint, current_app_injecter, log_doc, jwt
 from src.console import console
 
 
@@ -213,7 +212,7 @@ def check():
 	return partitions
 
 
-@jwt_required
+@jwt
 @endpoint(prefix = 'api/storage/partitions')
 @current_app_injecter(config = ['VERBOSE'])
 def get(handler, config):

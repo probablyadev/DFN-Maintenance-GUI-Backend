@@ -1,17 +1,16 @@
 """The config file config api module /configfile/config endpoints."""
 
-from flask_jwt_extended import jwt_required
 from flask import jsonify, current_app
 
 from src.imported.config_handler import load_config, save_config_file
-from src.wrappers import old_endpoint
+from src.wrappers import old_endpoint, jwt
 from logging import getLogger
 
 
 log = getLogger(__name__)
 
 
-@jwt_required
+@jwt
 @old_endpoint()
 def get():
 	path = current_app.config['DFN_CONFIG_PATH']
@@ -23,7 +22,7 @@ def get():
 	return jsonify(config = config_file), 200
 
 
-@jwt_required
+@jwt
 @old_endpoint()
 def put(row):
 	category = row[0]

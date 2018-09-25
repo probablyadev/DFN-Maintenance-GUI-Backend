@@ -1,9 +1,8 @@
 """The camera dslr api module /camera/dslr endpoints."""
 
-from flask_jwt_extended import jwt_required
 from flask import jsonify, current_app
 
-from src.wrappers import old_endpoint
+from src.wrappers import old_endpoint, jwt
 from src.console import console
 
 
@@ -20,13 +19,13 @@ def _status():
 	return jsonify(status = status), 200
 
 
-@jwt_required
+@jwt
 @old_endpoint()
 def get():
 	return _status()
 
 
-@jwt_required
+@jwt
 @old_endpoint()
 def on():
 	if current_app.config['USE_DEV_COMMAND']:
@@ -37,7 +36,7 @@ def on():
 	return _status()
 
 
-@jwt_required
+@jwt
 @old_endpoint()
 def off():
 	if current_app.config['USE_DEV_COMMAND']:

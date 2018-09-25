@@ -1,11 +1,10 @@
 """The storage power api module /storage/power endpoints."""
 
-from flask_jwt_extended import jwt_required
 from flask import current_app
 from time import sleep
 from os import walk
 
-from src.wrappers import endpoint, current_app_injecter, log_doc
+from src.wrappers import endpoint, current_app_injecter, log_doc, jwt
 from src.console import console
 from .partitions import check
 from .unmount import unmount
@@ -43,7 +42,7 @@ def _poll(log, check_for_increase):
 	log.info('{} drives detected.'.format(current))
 
 
-@jwt_required
+@jwt
 @endpoint(prefix = 'api/storage/power/on')
 @current_app_injecter
 def on(handler, log):
@@ -55,7 +54,7 @@ def on(handler, log):
 	handler.add_to_response(partitions = check())
 
 
-@jwt_required
+@jwt
 @endpoint(prefix = 'api/storage/power/off')
 @current_app_injecter
 def off(handler, log):

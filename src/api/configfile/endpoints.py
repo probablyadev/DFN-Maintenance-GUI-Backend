@@ -1,14 +1,13 @@
 """The config file api module /configfile endpoints."""
 
-from flask_jwt_extended import jwt_required
 from flask import jsonify, current_app
 
 from src.console import console
 from src.imported.config_handler import load_config
-from src.wrappers import old_endpoint
+from src.wrappers import old_endpoint, jwt
 
 
-@jwt_required
+@jwt
 @old_endpoint()
 def check():
 	output = console('python /opt/dfn-software/camera_image_count.py')
@@ -19,7 +18,7 @@ def check():
 		raise IOError('Script not found with path: {0}'.format('camera_image_count.py'))
 
 
-@jwt_required
+@jwt
 @old_endpoint()
 def whitelist():
 	# Whitelist for which config variables the user can modify

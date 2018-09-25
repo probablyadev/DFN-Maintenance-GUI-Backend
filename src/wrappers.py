@@ -1,5 +1,5 @@
 from flask import jsonify, current_app
-from flask_jwt_extended import jwt_required as jwt
+from flask_jwt_extended import jwt_optional, get_jwt_identity
 from functools import wraps
 from subprocess import CalledProcessError
 from inspect import getargspec, getmodule
@@ -9,7 +9,7 @@ import logging
 from src.handler import Handler
 
 
-__all__ = ['old_endpoint', 'endpoint', 'current_app_injecter', 'log_doc']
+__all__ = ['old_endpoint', 'endpoint', 'current_app_injecter', 'log_doc', 'jwt']
 
 
 def old_endpoint():
@@ -183,6 +183,21 @@ def log_doc(*args, **kwargs):
 		return log_doc_decorator(args)
 	else:
 		return log_doc_decorator
+
+
+def jwt(function):
+	@jwt_optional
+	@wraps(function)
+	def decorator(*args, **kwargs):
+		if current_app.config['NO_AUTH']:
+			return function(*args, **kwargs)
+		elif get_jwt_identity() is None:
+				return 403
+		else:
+			return function(*args, **kwargs)
+
+	return decorator
+
 
 # TODO: Decorator called 'conditionallly', requires a condition to be true in order to execute e.g. @conditionally(config.verbose, True).
 # https://stackoverflow.com/questions/3773555/python3-decorating-conditionally#answer-3865534

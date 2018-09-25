@@ -3,7 +3,10 @@
 from argh import ArghParser, arg, wrap_errors, expects_obj
 from connexion import FlaskApp
 
-from src.setup import setup_config, setup_extensions, setup_logger, setup_routes
+from src.setup import (
+	setup_config, setup_extensions,
+	setup_logger, setup_routes,
+	setup_additional_args)
 
 
 @arg('--config',
@@ -19,6 +22,7 @@ from src.setup import setup_config, setup_extensions, setup_logger, setup_routes
 	 default = 'NOTSET',
 	 help = 'Logging level for the frontend.')
 @arg('--verbose', default = False, help = 'Enable verbose logging.')
+@arg('--no-auth', default = False, help = 'Disables jwt authentication - for testing only.')
 @wrap_errors([ValueError])
 @expects_obj
 def run(args):
@@ -29,6 +33,7 @@ def run(args):
 	setup_extensions(app)
 	setup_logger(app, args)
 	setup_routes(connexion_app)
+	setup_additional_args(app, args)
 
 	app.run(host = app.config['HOST'], port = app.config['PORT'])
 

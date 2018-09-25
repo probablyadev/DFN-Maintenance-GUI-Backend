@@ -1,9 +1,8 @@
 """The storage mount api module /storage/mount endpoint."""
 
-from flask_jwt_extended import jwt_required
 from subprocess import CalledProcessError
 
-from src.wrappers import endpoint, current_app_injecter, log_doc
+from src.wrappers import endpoint, current_app_injecter, log_doc, jwt
 from src.console import console
 from .partitions import check
 
@@ -20,7 +19,7 @@ def mount(config):
 			pass
 
 
-@jwt_required
+@jwt
 @endpoint(prefix = 'api/storage/mount')
 @current_app_injecter
 def get(handler):

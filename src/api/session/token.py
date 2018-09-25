@@ -3,10 +3,10 @@
 from flask import jsonify, current_app
 from flask_jwt_extended import (
 	create_access_token, create_refresh_token,
-	jwt_refresh_token_required, get_jwt_identity,
-	jwt_required
+	jwt_refresh_token_required, get_jwt_identity
 )
 
+from src.wrappers import jwt
 from src.database import User
 
 
@@ -29,7 +29,7 @@ def auth(json):
 		return jsonify(output = 'Bad username or password'), 401
 
 
-@jwt_required
+@jwt
 def check():
 	return 200
 
