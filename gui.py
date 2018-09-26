@@ -13,7 +13,7 @@ from src.setup import (
 	 choices = ['prod', 'prod.docker', 'dev', 'dev.remote', 'dev.local'],
 	 default = 'prod',
 	 help = 'Config file to use.')
-@arg('--log-level',
+@arg('--backend-log-level',
 	 choices = ['CRITICAL', 'FATAL', 'ERROR', 'WARN', 'WARNING', 'INFO', 'DEBUG', 'NOTSET'],
 	 default = 'NOTSET',
 	 help = 'Logging level for the while application.')
@@ -22,6 +22,7 @@ from src.setup import (
 	 default = 'NOTSET',
 	 help = 'Logging level for the frontend.')
 @arg('--verbose', default = False, help = 'Enable verbose logging.')
+@arg('--debug', default = False, help = "Enable debug mode logging (shortcut to setting both log levels to 'DEBUG').")
 @arg('--no-auth', default = False, help = 'Disables jwt authentication - for testing only.')
 @wrap_errors([ValueError])
 @expects_obj

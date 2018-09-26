@@ -11,10 +11,10 @@ class Config(object):
 	# Logging.
 	# TODO: Setup propper logging and seperate log dirs for each day, seperate log files for info / errors.
 	# FILENAME = '/data0/log/gui/dfn-gui-server.log'
-	LOG_LEVEL = 'INFO'
+	BACKEND_LOG_LEVEL = 'INFO'
 	API_LOG_LEVEL = 'INFO'
 
-	ROOT_FORMAT = '[%(asctime)s] [%(levelname)s] [%(name)s] %(message)s'
+	ROOT_FORMAT = '[%(asctime)s] [%(levelname)-5s] [%(name)s] %(message)s'
 	API_FORMAT = '[%(levelname)s] %(message)s'
 
 	DATE_FORMAT = '%H:%M:%S'
