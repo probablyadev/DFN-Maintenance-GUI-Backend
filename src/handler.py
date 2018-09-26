@@ -10,6 +10,15 @@ class NoEmptyFilter(logging.Filter):
 	def filter(self, record):
 		return True if record.getMessage() else False
 
+class CounterFilter(logging.Filter):
+	def __init__(self):
+		self.count = 0
+
+	def filter(self, record):
+		record.count = self.count
+		self.count += 1
+
+		return True
 
 class Handler():
 	def __init__(self, name):
@@ -49,13 +58,19 @@ class Handler():
 		return jsonify(result), self.status
 
 	def __setup_logger(self, name):
-		stream = StringIO()
+		def string_handler():
+			stream = StringIO()
+			handler = logging.StreamHandler(stream = stream)
 
-		handler = logging.StreamHandler(stream = stream)
-		handler.setFormatter(logging.Formatter(current_app.config['API_FORMAT']))
-		handler.addFilter(NoEmptyFilter())
+			handler.setFormatter(logging.Formatter(current_app.config['API_FORMAT']))
+			handler.addFilter(NoEmptyFilter())
+			handler.addFilter(CounterFilter())
+
+			return handler, stream
 
 		log = logging.getLogger(name)
+
+		handler, stream = string_handler()
 		log.addHandler(handler)
 
 		return log, stream

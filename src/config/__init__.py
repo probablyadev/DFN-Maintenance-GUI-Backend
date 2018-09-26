@@ -15,7 +15,7 @@ class Config(object):
 	API_LOG_LEVEL = 'INFO'
 
 	ROOT_FORMAT = '[%(asctime)s] [%(levelname)-5s] [%(name)s] %(message)s'
-	API_FORMAT = '[%(levelname)s] %(message)s'
+	API_FORMAT = '[%(count)-2s] [%(levelname)-5s] %(message)s'
 
 	DATE_FORMAT = '%H:%M:%S'
 
