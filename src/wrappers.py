@@ -1,4 +1,4 @@
-from flask import jsonify, current_app
+from flask import current_app
 from flask_jwt_extended import jwt_optional, get_jwt_identity
 from functools import wraps
 from subprocess import CalledProcessError
@@ -9,41 +9,7 @@ import logging
 from src.handler import Handler
 
 
-__all__ = ['old_endpoint', 'endpoint', 'current_app_injecter', 'log_doc', 'jwt']
-
-
-def old_endpoint():
-	def endpoint_decorator(function):
-		@wraps(function)
-		def decorator(*args, **kwargs):
-			handler = Handler(__name__)
-			current_app.handler = handler
-
-			handler.log.info('')
-
-			try:
-				argsspec = getargspec(function)
-
-				if 'handler' in argsspec.args:
-					return function(*args, **dict(kwargs, handler = handler))
-				else:
-					return function(*args, **kwargs)
-			except Exception as error:
-				handler.log.exception(error)
-
-				cmd = ''
-				returncode = 1
-
-				if error is CalledProcessError:
-					cmd = error.cmd
-					returncode = error.returncode
-					output = error.output
-				else:
-					output = str(error)
-
-				return jsonify(cmd = cmd, returncode = returncode, output = output), 500
-		return decorator
-	return endpoint_decorator
+__all__ = ['endpoint', 'current_app_injecter', 'log_doc', 'jwt']
 
 
 # TODO: Accept array of expected exception types (much like wrap_error in argh). Error out badly if an unexpected exception was encountered.
