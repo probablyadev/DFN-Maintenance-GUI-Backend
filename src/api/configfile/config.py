@@ -1,41 +1,43 @@
 """The config file config api module /configfile/config endpoints."""
 
-from flask import jsonify, current_app
-
 from src.imported.config_handler import load_config, save_config_file
-from src.wrappers import old_endpoint, jwt
-from logging import getLogger
-
-
-log = getLogger(__name__)
+from src.wrappers import jwt, endpoint, current_app_injecter
 
 
 @jwt
-@old_endpoint()
-def get():
-	path = current_app.config['DFN_CONFIG_PATH']
-	config_file = load_config(path)
+@endpoint()
+@current_app_injecter(config = ['DFN_CONFIG_PATH'])
+def get(handler, log, config):
+	log.debug('DFN_CONFIG_PATH: {}'.format(config.dfn_config_path))
+	log.info('Loading config.')
+	config_file = load_config(config.dfn_config_path)
 
+	log.info('Checking config file.')
 	if not config_file:
-		raise IOError('Cannot load config file with path: {0}'.format(path))
+		raise IOError('Cannot load config file with path: {0}'.format(config.dfn_config_path))
 
-	return jsonify(config = config_file), 200
+	handler.add_to_response(config = config_file)
 
 
 @jwt
-@old_endpoint()
-def put(row):
+@endpoint()
+@current_app_injecter(config = ['DFN_CONFIG_PATH'])
+def put(row, handler, log, config):
+	log.info('Parsing row parameter.')
 	category = row[0]
 	field = row[1]
 	value = row[2]
 
-	path = current_app.config['DFN_CONFIG_PATH']
-	updated_conf_dict = load_config(path)
+	log.debug('DFN_CONFIG_PATH: {}'.format(config.dfn_config_path))
+	log.info('Loading config.')
+	updated_conf_dict = load_config(config.dfn_config_path)
 
 	oldValue = updated_conf_dict[category][field]
 	updated_conf_dict[category][field] = value
 
-	if save_config_file(path, updated_conf_dict):
-		return jsonify('Overwritten {0}:{1}:{2} as {3}'.format(category, field, oldValue, value)), 200
+	log.info('Saving config file.')
+	if save_config_file(config.dfn_config_path, updated_conf_dict):
+		handler.add_to_response('Overwritten {0}:{1}:{2} as {3}'.format(category, field, oldValue, value))
+		handler.set_status(204)
 	else:
 		raise IOError('Unable to write {0}:{1}:{2} to config file'.format(category, field, value))

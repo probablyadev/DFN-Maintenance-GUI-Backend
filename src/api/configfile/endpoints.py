@@ -1,26 +1,29 @@
 """The config file api module /configfile endpoints."""
 
-from flask import jsonify, current_app
+from re import search
 
 from src.console import console
 from src.imported.config_handler import load_config
-from src.wrappers import old_endpoint, jwt
+from src.wrappers import jwt, endpoint, current_app_injecter
 
 
 @jwt
-@old_endpoint()
-def check():
+@endpoint()
+@current_app_injecter()
+def check(handler, log):
 	output = console('python /opt/dfn-software/camera_image_count.py')
 
-	if re.search('[0-9]', output):
-		return jsonify(output = output), 200
+	log.info('Parsing output.')
+	if search('[0-9]', output):
+		handler.add_to_response(output)
 	else:
 		raise IOError('Script not found with path: {0}'.format('camera_image_count.py'))
 
 
 @jwt
-@old_endpoint()
-def whitelist():
+@endpoint()
+@current_app_injecter(config = ['DFN_CONFIG_PATH'])
+def whitelist(handler, log, config):
 	# Whitelist for which config variables the user can modify
 	config_whitelist = {}
 	config_whitelist["camera"] = {
@@ -49,11 +52,14 @@ def whitelist():
 		"lon"
 	}
 
-	config_file = load_config(current_app.config['DFN_CONFIG_PATH'])
+	log.debug('DFN_CONFIG_PATH: {}'.format(config.dfn_config_path))
+	log.info('Loading config.')
+	config_file = load_config(config.dfn_config_path)
 	whitelist = {}
 
+	log.info('Checking config file.')
 	if not config_file:
-		raise IOError('Cannot load config file with path: {0}'.format(path))
+		raise IOError('Cannot load config file with path: {0}'.format(config.dfn_config_path))
 
 	for whitelist_category in config_whitelist:
 		for conf_category in config_file:
@@ -66,4 +72,4 @@ def whitelist():
 
 							whitelist[conf_category][conf_field] = config_file[conf_category][conf_field]
 
-	return jsonify(whitelist = whitelist), 200
+	handler.add_to_response(whitelist = whitelist)
