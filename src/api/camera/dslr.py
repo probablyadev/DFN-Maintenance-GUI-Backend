@@ -1,47 +1,50 @@
 """The camera dslr api module /camera/dslr endpoints."""
 
-from flask import jsonify, current_app
-
-from src.wrappers import old_endpoint, jwt
+from src.wrappers import jwt, endpoint, current_app_injecter, log_doc
 from src.console import console
 
 
 __all__ = ['get', 'on', 'off']
 
 
-def _status():
-	output = console('lsusb')
+@log_doc('Checking status of DSLR camera')
+@current_app_injecter()
+def _status(log):
 	status = False
 
-	if 'Nikon Corp.' in output:
+	if 'Nikon Corp.' in console('lsusb'):
 		status = True
 
-	return jsonify(status = status), 200
+	log.debug('DSLR Camera Status: {}'.format(status))
+
+	return status
 
 
 @jwt
-@old_endpoint()
-def get():
-	return _status()
+@endpoint()
+@current_app_injecter()
+def get(handler):
+	handler.add_to_response(status = _status())
 
 
 @jwt
-@old_endpoint()
-def on():
-	if current_app.config['USE_DEV_COMMAND']:
-		return jsonify(status = True), 200
-
-	console('python /opt/dfn-software/enable_camera.py')
-
-	return _status()
+@log_doc('Enabling DSLR camera.')
+@endpoint()
+@current_app_injecter(config = ['USE_DEV_COMMAND'])
+def on(handler, config):
+	if config.use_dev_command:
+		handler.add_to_response(status = True)
+	else:
+		console('python /opt/dfn-software/enable_camera.py')
+		handler.add_to_response(status = _status())
 
 
 @jwt
-@old_endpoint()
-def off():
-	if current_app.config['USE_DEV_COMMAND']:
-		return jsonify(status = False), 200
-
-	console('python /opt/dfn-software/disable_camera.py')
-
-	return _status()
+@endpoint()
+@current_app_injecter(config = ['USE_DEV_COMMAND'])
+def off(handler):
+	if config.use_dev_command:
+		handler.add_to_response(status = False)
+	else:
+		console('python /opt/dfn-software/disable_camera.py')
+		handler.add_to_response(status = _status())
