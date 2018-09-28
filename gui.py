@@ -1,4 +1,8 @@
-#!/usr/bin/python3
+#!/bin/sh
+''''which python3.8 >/dev/null 2>&1 && exec python3.8 "$0" "$@" # '''
+''''which python3.7 >/dev/null 2>&1 && exec python3.7 "$0" "$@" # '''
+''''which python3.6 >/dev/null 2>&1 && exec python3.6 "$0" "$@" # '''
+''''exec echo "Error: I can't find python3.[6|7|8] anywhere."   # '''
 
 from argh import ArghParser, arg, wrap_errors, expects_obj
 from connexion import FlaskApp
