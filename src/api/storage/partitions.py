@@ -2,6 +2,7 @@
 
 from re import sub, split
 from json import load, loads
+from subprocess import CalledProcessError
 
 from src.wrappers import endpoint, current_app_injecter, log_doc, jwt
 from src.console import console
@@ -10,20 +11,115 @@ from src.console import console
 __all__ = ['check', 'get']
 
 
+def _filter_out_empty_entries(devices):
+	result = []
+
+	# Ignore devices without a number.
+	for line in devices:
+		split_line = line.split(' ')
+		tmp = []
+
+		if any(char.isdigit() for char in split_line[0]):
+			for col in split_line:
+				if len(col) > 0:
+					tmp.append(col)
+
+			result.append(tmp)
+
+	return result
+
+
+def _to_json(devices):
+	result = []
+
+	for line in devices:
+		if len(line) is 5:
+			entry = {
+				'name': line[0],
+				'label': line[1],
+				'size': line[2],
+				'fstype': line[3],
+				'mountpoint': line[4]
+			}
+		else:
+			entry = {
+				'name': line[0],
+				'label': '',
+				'size': '',
+				'fstype': '',
+				'mountpoint': ''
+			}
+
+			if line[1][0].isdigit() and line[1][-1].isalpha():
+				entry['size'] = line[1]
+
+				if len(line) > 3:
+					if '/' not in line[2]:
+						entry['fstype'] = line[2]
+
+						if len(line) == 4:
+							entry['mountpoint'] = line[3]
+					else:
+						entry['mountpoint'] = line[2]
+			else:
+				entry['label'] = line[1]
+
+				if line[2][0].isdigit() and line[2][-1].isalpha():
+					entry['size'] = line[2]
+
+					if '/' not in line[3]:
+						entry['fstype'] = line[3]
+
+						if len(line) == 5:
+							entry['mountpoint'] = line[4]
+					else:
+						entry['mountpoint'] = line[3]
+				elif '/' not in line[3]:
+					entry['fstype'] = line[3]
+
+					if len(line) == 5:
+						entry['mountpoint'] = line[4]
+				else:
+					entry['mountpoint'] = line[3]
+
+		result.append(entry)
+
+	return result
+
+
+@log_doc('Loading raw lsblk devices...')
+def _lsblk_no_json():
+	devices = console('lsblk --list --noheadings --output NAME,LABEL,SIZE,FSTYPE,MOUNTPOINT').splitlines()
+	devices = _filter_out_empty_entries(devices)
+
+	return _to_json(devices)
+
+
+@log_doc('Loading lsblk devices...')
+def _lsblk_with_json():
+	output = loads(console('lsblk --inverse --nodeps --json --output NAME,LABEL,SIZE,FSTYPE,MOUNTPOINT'))
+
+	return output['blockdevices']
+
+
 @log_doc('Loading fs devices...')
 @current_app_injecter(config = ['USE_DEV_COMMAND'])
-def _list_fs_devices(config):
+def _list_fs_devices(log, config):
 	# Load mounted / on devices.
 	if config.use_dev_command:
 		with open('sample/lsblk.json') as json_data:
 			output = load(json_data)
 	else:
-		output = loads(console('lsblk --inverse --nodeps --output NAME,LABEL,SIZE,FSTYPE,MOUNTPOINT --json'))
+		try:
+			output = _lsblk_with_json()
+		except CalledProcessError:
+			log.warning('This version of lsblk does not offer json output, switching to raw parsing...')
+			output = _lsblk_no_json()
 
 	devices = []
 
 	# Filter out devices without a label i.e. data0 (except root '/').
-	for device in output['blockdevices']:
+	for device in output:
 		if '/dev/' not in device['name']:
 			device['name'] = '/dev/{0}'.format(device['name'])
 
@@ -78,8 +174,7 @@ def _load_disk_usage(log, config):
 			if off_disk_usages.get(key):
 				del off_disk_usages[key]
 	except FileNotFoundError as error:
-		log.exception(error)
-		log.info('{0} does not exist, creating file with current disk usage.'.format(config.dfn_disk_usage_path))
+		log.warning('{0} does not exist, creating file with current disk usage.'.format(config.dfn_disk_usage_path))
 
 		with open(config.dfn_disk_usage_path, 'w+') as file_data:
 			file_data.write(raw_mounted_disk_usages[0])
