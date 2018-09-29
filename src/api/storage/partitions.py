@@ -81,7 +81,7 @@ def _load_disk_usage(log, config):
 		log.exception(error)
 		log.info('{0} does not exist, creating file with current disk usage.'.format(config.dfn_disk_usage_path))
 
-		with open(config.dfn_disk_usage_path) as file_data:
+		with open(config.dfn_disk_usage_path, 'w+') as file_data:
 			file_data.write(raw_mounted_disk_usages[0])
 
 			for line in raw_mounted_disk_usages[1:]:
