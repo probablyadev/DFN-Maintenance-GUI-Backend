@@ -10,7 +10,7 @@ from .partitions import check
 __all__ = ['mount', 'get']
 
 @log_doc('Mounting external drives...')
-@current_app_injecter(config = ['DRRIVES'])
+@current_app_injecter(config = ['DRIVES'])
 def mount(config):
 	for drive in config.drives:
 		try:

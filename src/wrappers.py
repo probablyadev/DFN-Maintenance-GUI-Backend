@@ -44,6 +44,7 @@ def endpoint(**_kwargs):
 
 			return handler.to_json()
 		return decorator
+
 	if callable(_kwargs):
 		return endpoint_decorator(_kwargs)
 	else:
