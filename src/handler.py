@@ -6,9 +6,26 @@ from flask import jsonify, current_app
 __all__ = ['Handler']
 
 
+class StringIOArray(StringIO):
+	def __init__(self):
+		self.msg = ''
+		self.log = []
+
+	def write(self, msg):
+		self.msg += msg
+
+	def flush(self):
+		self.log.append(self.msg)
+		self.msg = ''
+
+	def getvalue(self):
+		return self.log
+
+
 class NoEmptyFilter(logging.Filter):
 	def filter(self, record):
 		return True if record.getMessage() else False
+
 
 class CounterFilter(logging.Filter):
 	def __init__(self):
@@ -19,6 +36,7 @@ class CounterFilter(logging.Filter):
 		self.count += 1
 
 		return True
+
 
 class Handler():
 	def __init__(self, name):
@@ -59,7 +77,7 @@ class Handler():
 
 	def __setup_logger(self, name):
 		def string_handler():
-			stream = StringIO()
+			stream = StringIOArray()
 			handler = logging.StreamHandler(stream = stream)
 
 			handler.setFormatter(logging.Formatter(current_app.config['API_FORMAT']))
