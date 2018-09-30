@@ -44,10 +44,10 @@ def _to_json(devices):
 		else:
 			entry = {
 				'name': line[0],
-				'label': '',
+				'label': None,
 				'size': '',
 				'fstype': '',
-				'mountpoint': ''
+				'mountpoint': None
 			}
 
 			if line[1][0].isdigit() and line[1][-1].isalpha():
@@ -173,7 +173,7 @@ def _load_disk_usage(log, config):
 		for key in mounted_disk_usages:
 			if off_disk_usages.get(key):
 				del off_disk_usages[key]
-	except FileNotFoundError as error:
+	except FileNotFoundError:
 		log.warning('{0} does not exist, creating file with current disk usage.'.format(config.dfn_disk_usage_path))
 
 		with open(config.dfn_disk_usage_path, 'w+') as file_data:
@@ -204,6 +204,23 @@ def _mounted_drives(partitions, devices, mounted_disk_usages):
 					'type': device['fstype'],
 					'mount': device['mountpoint']
 				})
+			else:
+				# Device name could differ from df command.
+				for mounted_disk in mounted_disk_usages:
+					mounted_disk = mounted_disk_usages.get(mounted_disk)
+
+					if device['mountpoint'] == mounted_disk['mount']:
+						partitions.append({
+							'status': 'mounted',
+							'label': device['label'],
+							'device': device['name'],
+							'size': mounted_disk['size'],
+							'used': mounted_disk['used'],
+							'free': mounted_disk['free'],
+							'percent': mounted_disk['percent'],
+							'type': device['fstype'],
+							'mount': device['mountpoint']
+						})
 
 
 @log_doc('Checking unmounted drives...')
