@@ -15,7 +15,7 @@ __all__ = ['on', 'off']
 
 # TODO[BUG]: Need to check if any drives are to be powered on / off. Currently just times out and returns the same result.
 @log_doc('Polling for drive changes...')
-@current_app_injecter
+@current_app_injecter()
 def _poll(log, check_for_increase):
 	num_to_change = len(current_app.config['DRIVES'])
 	initial = len(next(walk('/sys/block'))[1])
@@ -44,7 +44,7 @@ def _poll(log, check_for_increase):
 
 @jwt
 @endpoint(prefix = 'api/storage/power/on')
-@current_app_injecter
+@current_app_injecter()
 def on(handler, log):
 	log.info('Turning on external drives...')
 	console('python /opt/dfn-software/enable_ext-hd.py')
@@ -56,7 +56,7 @@ def on(handler, log):
 
 @jwt
 @endpoint(prefix = 'api/storage/power/off')
-@current_app_injecter
+@current_app_injecter()
 def off(handler, log):
 	unmount()
 

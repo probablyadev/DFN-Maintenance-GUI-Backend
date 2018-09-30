@@ -22,7 +22,7 @@ def unmount(config):
 
 @jwt
 @endpoint(prefix = 'api/storage/unmount')
-@current_app_injecter
+@current_app_injecter()
 def get(handler):
 	unmount()
 
