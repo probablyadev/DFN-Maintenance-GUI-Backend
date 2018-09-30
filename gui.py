@@ -1,6 +1,7 @@
 #!/bin/sh
 ''''which python3.6 >/dev/null 2>&1 && exec python3.6 "$0" "$@" # '''
-''''exec echo "Error: I can't find python3.6 anywhere."   # '''
+''''which python3.5 >/dev/null 2>&1 && exec python3.5 "$0" "$@" # '''
+''''exec echo "Error: I can't find python3.[6|5] anywhere."     # '''
 
 from argh import ArghParser, arg, wrap_errors, expects_obj
 from connexion import FlaskApp
