@@ -42,7 +42,7 @@ def on(handler, config):
 @jwt
 @endpoint()
 @current_app_injecter(config = ['USE_DEV_COMMAND'])
-def off(handler):
+def off(handler, config):
 	if config.use_dev_command:
 		handler.add_to_response(status = False)
 	else:
