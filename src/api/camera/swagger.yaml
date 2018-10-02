@@ -55,6 +55,78 @@ paths:
           schema:
             $ref: '#/definitions/CommandException'
 
+  /picture/download:
+    get:
+      summary: Fetches the specified .NEF file for the user to download.
+      operationId: src.api.camera.picture.download
+      responses:
+        200:
+          description: .NEF file to download.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+  /picture/find:
+    get:
+      summary: Fetches the filenames of pictures taken on the date specified.
+      operationId: src.api.camera.picture.find
+      responses:
+        200:
+          description: Picture file creation times and paths.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+  /thumbnail/download:
+    get:
+      summary: Extracts the thumbnail of the specified .NEF.
+      operationId: src.api.camera.thumbnail.download
+      responses:
+        200:
+          description: Thumbnail.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+  /thumbnail/remove:
+    get:
+      summary: Deletes the specified thumbnail from the cameras filesystem.
+      operationId: src.api.camera.thumbnail.remove
+      responses:
+        200:
+          description: Thumbnail successfully removed.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+  /video/on:
+    get:
+      summary: Switches the video camera on.
+      operationId: src.api.camera.video.on
+      responses:
+        200:
+          description: Thumbnail successfully removed.
+        500:
+          description: Video camera status.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+  /video/off:
+    get:
+      summary: Switches the video camera off.
+      operationId: src.api.camera.video.off
+      responses:
+        200:
+          description: Video camera status.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
 
 definitions:
   Json:
