@@ -109,9 +109,9 @@ paths:
       operationId: src.api.camera.video.on
       responses:
         200:
-          description: Thumbnail successfully removed.
-        500:
           description: Video camera status.
+        500:
+          description: Failure while running command.
           schema:
             $ref: '#/definitions/CommandException'
 
