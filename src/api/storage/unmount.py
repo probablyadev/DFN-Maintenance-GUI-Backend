@@ -2,7 +2,7 @@
 
 from subprocess import CalledProcessError
 
-from src.wrappers import endpoint, current_app_injecter, log_doc, jwt
+from src.wrappers import endpoint, current_app_injecter, logger, jwt
 from src.console import console
 from .partitions import check
 
@@ -10,7 +10,7 @@ from .partitions import check
 __all__ = ['unmount', 'get']
 
 
-@log_doc('Unmounting external drives...')
+@logger('Unmounting external drives...')
 @current_app_injecter(config = ['DRIVES'])
 def unmount(config):
 	for drive in config.drives:

@@ -9,7 +9,7 @@ import logging
 from src.handler import Handler
 
 
-__all__ = ['endpoint', 'current_app_injecter', 'log_doc', 'jwt']
+__all__ = ['endpoint', 'current_app_injecter', 'logger', 'jwt']
 
 
 # TODO: Accept array of expected exception types (much like wrap_error in argh). Error out badly if an unexpected exception was encountered.
@@ -96,15 +96,15 @@ def current_app_injecter(*args, **kwargs):
 		return current_app_injecter_decorator
 
 
-def log_doc(*args, **kwargs):
+def logger(*args, **kwargs):
 	'''
-	@log_doc('Gathering debug output...', level = 'DEBUG')
+	@logger('Gathering debug output...', level = 'DEBUG')
 	or
-	@log_doc('Gathering debug output...')
+	@logger('Gathering debug output...')
 	or
-	@log_doc()
+	@logger()
 
-	If using @log_doc(), in the method doc string, write (remove the -):
+	If using @logger(), in the method doc string, write (remove the -):
 
 	"""
 	- :log message: Gathering debug output...
@@ -113,7 +113,7 @@ def log_doc(*args, **kwargs):
 
 	Must be placed above the @current_app_injector decorator.
 	'''
-	def log_doc_decorator(function):
+	def logger_decorator(function):
 		@wraps(function)
 		def decorator(*_args, **_kwargs):
 			message_prefix = '\t:log message: '
@@ -141,9 +141,9 @@ def log_doc(*args, **kwargs):
 		return decorator
 
 	if callable(args):
-		return log_doc_decorator(args)
+		return logger_decorator(args)
 	else:
-		return log_doc_decorator
+		return logger_decorator
 
 
 def jwt(function):

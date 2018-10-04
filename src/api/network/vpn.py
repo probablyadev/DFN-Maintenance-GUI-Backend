@@ -3,7 +3,7 @@
 from subprocess import CalledProcessError
 
 from src.console import console
-from src.wrappers import jwt, endpoint, current_app_injecter, log_doc
+from src.wrappers import jwt, endpoint, current_app_injecter, logger
 
 
 @jwt
@@ -27,7 +27,7 @@ def check(handler, log):
 
 
 @jwt
-@log_doc('Restarting VPN adapter.')
+@logger('Restarting VPN adapter.')
 @endpoint()
 @current_app_injecter()
 def restart(handler):

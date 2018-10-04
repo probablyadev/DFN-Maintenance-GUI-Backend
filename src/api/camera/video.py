@@ -1,6 +1,6 @@
 """The camera video api module /camera/video endpoints."""
 
-from src.wrappers import jwt, endpoint, current_app_injecter, log_doc
+from src.wrappers import jwt, endpoint, current_app_injecter, logger
 from src.console import console
 
 
@@ -8,7 +8,7 @@ __all__ = ['on', 'off']
 
 
 @jwt
-@log_doc('Enabling video camera.')
+@logger('Enabling video camera.')
 @endpoint()
 @current_app_injecter()
 def on():
@@ -16,7 +16,7 @@ def on():
 
 
 @jwt
-@log_doc('Disabling video camera.')
+@logger('Disabling video camera.')
 @endpoint()
 @current_app_injecter()
 def off():

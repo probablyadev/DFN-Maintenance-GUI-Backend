@@ -4,7 +4,7 @@ from re import sub, split
 from json import load, loads
 from subprocess import CalledProcessError
 
-from src.wrappers import endpoint, current_app_injecter, log_doc, jwt
+from src.wrappers import endpoint, current_app_injecter, logger, jwt
 from src.console import console
 
 
@@ -87,7 +87,7 @@ def _to_json(devices):
 	return result
 
 
-@log_doc('Loading raw lsblk devices...')
+@logger('Loading raw lsblk devices...')
 def _lsblk_no_json():
 	devices = console('lsblk --list --noheadings --output NAME,LABEL,SIZE,FSTYPE,MOUNTPOINT').splitlines()
 	devices = _filter_out_empty_entries(devices)
@@ -95,14 +95,14 @@ def _lsblk_no_json():
 	return _to_json(devices)
 
 
-@log_doc('Loading lsblk devices...')
+@logger('Loading lsblk devices...')
 def _lsblk_with_json():
 	output = loads(console('lsblk --inverse --nodeps --json --output NAME,LABEL,SIZE,FSTYPE,MOUNTPOINT'))
 
 	return output['blockdevices']
 
 
-@log_doc('Loading fs devices...')
+@logger('Loading fs devices...')
 @current_app_injecter(config = ['USE_DEV_COMMAND'])
 def _list_fs_devices(log, config):
 	# Load mounted / on devices.
@@ -132,7 +132,7 @@ def _list_fs_devices(log, config):
 	return devices
 
 
-@log_doc('Filtering df output...', level = 'DEBUG')
+@logger('Filtering df output...', level ='DEBUG')
 def _filter_df(output):
 	disk_usages = {}
 
@@ -153,7 +153,7 @@ def _filter_df(output):
 	return disk_usages
 
 
-@log_doc('Loading disk usage...')
+@logger('Loading disk usage...')
 @current_app_injecter(config = ['DFN_DISK_USAGE_PATH'])
 def _load_disk_usage(log, config):
 	off_disk_usages = {}
@@ -186,7 +186,7 @@ def _load_disk_usage(log, config):
 	return mounted_disk_usages, off_disk_usages
 
 
-@log_doc('Checking mounted drives...')
+@logger('Checking mounted drives...')
 def _mounted_drives(partitions, devices, mounted_disk_usages):
 	for device in devices:
 		if device['mountpoint'] is not None:
@@ -223,7 +223,7 @@ def _mounted_drives(partitions, devices, mounted_disk_usages):
 						})
 
 
-@log_doc('Checking unmounted drives...')
+@logger('Checking unmounted drives...')
 def _unmounted_drives(partitions, devices, off_disk_usages):
 	for device in devices:
 		if device['mountpoint'] is None:
@@ -258,7 +258,7 @@ def _unmounted_drives(partitions, devices, off_disk_usages):
 
 
 # BUG: sdd1 and sdb1 are swapped in the dfn_disk_usage file (mount points), possibly causing them to not be listed.
-@log_doc('Checking off drives...')
+@logger('Checking off drives...')
 def _off_drives(partitions, off_disk_usages):
 	for key in off_disk_usages:
 		device = off_disk_usages.get(key)
@@ -276,7 +276,7 @@ def _off_drives(partitions, off_disk_usages):
 		})
 
 
-@log_doc('Gathering debug output...', level = 'DEBUG')
+@logger('Gathering debug output...', level ='DEBUG')
 @current_app_injecter()
 def _debug_output(partitions, log):
 	from pprint import pformat
@@ -311,7 +311,7 @@ def _debug_output(partitions, log):
 	log.debug('off:\n{0}'.format(off))
 
 
-@log_doc('Loading disk partitions and usage...')
+@logger('Loading disk partitions and usage...')
 def check():
 	partitions = []
 	devices = _list_fs_devices()

@@ -2,7 +2,7 @@
 
 from re import sub
 
-from src.wrappers import jwt, endpoint, current_app_injecter, log_doc
+from src.wrappers import jwt, endpoint, current_app_injecter, logger
 from src.console import console
 
 
@@ -31,7 +31,7 @@ def get(handler, log):
 
 
 @jwt
-@log_doc('Setting new timezone.')
+@logger('Setting new timezone.')
 @endpoint()
 @current_app_injecter()
 def put(timezone, handler):

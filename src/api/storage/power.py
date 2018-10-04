@@ -4,7 +4,7 @@ from flask import current_app
 from time import sleep
 from os import walk
 
-from src.wrappers import endpoint, current_app_injecter, log_doc, jwt
+from src.wrappers import endpoint, current_app_injecter, logger, jwt
 from src.console import console
 from .partitions import check
 from .unmount import unmount
@@ -14,7 +14,7 @@ __all__ = ['on', 'off']
 
 
 # TODO[BUG]: Need to check if any drives are to be powered on / off. Currently just times out and returns the same result.
-@log_doc('Polling for drive changes...')
+@logger('Polling for drive changes...')
 @current_app_injecter()
 def _poll(log, check_for_increase):
 	num_to_change = len(current_app.config['DRIVES'])

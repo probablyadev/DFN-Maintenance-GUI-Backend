@@ -2,14 +2,14 @@
 
 from subprocess import CalledProcessError
 
-from src.wrappers import endpoint, current_app_injecter, log_doc, jwt
+from src.wrappers import endpoint, current_app_injecter, logger, jwt
 from src.console import console
 from .partitions import check
 
 
 __all__ = ['mount', 'get']
 
-@log_doc('Mounting external drives...')
+@logger('Mounting external drives...')
 @current_app_injecter(config = ['DRIVES'])
 def mount(config):
 	for drive in config.drives:
