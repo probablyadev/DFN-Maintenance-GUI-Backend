@@ -23,4 +23,4 @@ def mount(config):
 def get(handler):
 	mount()
 
-	handler.add_to_response(partitions = check())
+	handler.add_to_success_response(partitions = check())

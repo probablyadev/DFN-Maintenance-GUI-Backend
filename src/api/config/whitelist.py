@@ -55,4 +55,4 @@ def get(handler, log, config):
 
 							whitelist[conf_category][conf_field] = config_file[conf_category][conf_field]
 
-	handler.add_to_response(whitelist = whitelist)
+	handler.add_to_success_response(whitelist = whitelist)

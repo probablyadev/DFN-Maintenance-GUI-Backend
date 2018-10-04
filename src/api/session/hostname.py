@@ -13,4 +13,4 @@ def hostname():
 @endpoint()
 @current_app_injecter()
 def get(handler):
-	handler.add_to_response(hostname = hostname())
+	handler.add_to_success_response(hostname = hostname())

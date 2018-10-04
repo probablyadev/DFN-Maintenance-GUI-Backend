@@ -20,7 +20,7 @@ def get(handler, log):
 	rtc = time[2].split('RTC time: ')[1]
 	timezone = time[3].split('Time zone: ')[1].split(' ')[0]
 
-	handler.add_to_response(
+	handler.add_to_success_response(
 		local = local,
 		utc = utc,
 		rtc = rtc,

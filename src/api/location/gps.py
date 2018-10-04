@@ -31,7 +31,7 @@ def get(handler, log):
 	longitude = coordinates(output[4], output[5])
 	altitude = output[9].strip('0') or '0'
 
-	handler.add_to_response(
+	handler.add_to_success_response(
 		lock = lock,
 		satellites = satellites,
 		latitude = latitude,

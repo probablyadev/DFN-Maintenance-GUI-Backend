@@ -19,7 +19,7 @@ def check(handler, log):
 	log.info('Checking VPN connectivity.')
 	output = console("ping -c 1 10.1.16.1")
 
-	handler.add_to_response(
+	handler.add_to_success_response(
 		ip = ip,
 		output = output
 	)
@@ -30,4 +30,4 @@ def check(handler, log):
 @endpoint()
 @current_app_injecter()
 def restart(handler):
-	handler.add_to_response(console("service openvpn restart && sleep 10 && ifconfig tun0"))
+	handler.add_to_success_response(console("service openvpn restart && sleep 10 && ifconfig tun0"))

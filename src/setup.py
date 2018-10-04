@@ -81,4 +81,5 @@ def setup_routes(app):
 
 
 def setup_additional_args(app, args):
+	app.config['NO_STATS'] = args.no_stats
 	app.config['NO_AUTH'] = args.no_auth

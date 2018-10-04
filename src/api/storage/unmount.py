@@ -24,4 +24,4 @@ def unmount(config):
 def get(handler):
 	unmount()
 
-	handler.add_to_response(partitions = check())
+	handler.add_to_success_response(partitions = check())

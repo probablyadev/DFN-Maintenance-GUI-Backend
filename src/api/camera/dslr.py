@@ -22,7 +22,7 @@ def _status(log):
 @endpoint()
 @current_app_injecter()
 def get(handler):
-	handler.add_to_response(status = _status())
+	handler.add_to_success_response(status = _status())
 
 
 @jwt
@@ -31,7 +31,7 @@ def get(handler):
 @current_app_injecter()
 def on(handler):
 	console('python /opt/dfn-software/enable_camera.py')
-	handler.add_to_response(status = _status())
+	handler.add_to_success_response(status = _status())
 
 
 @jwt
@@ -40,4 +40,4 @@ def on(handler):
 @current_app_injecter()
 def off(handler):
 	console('python /opt/dfn-software/disable_camera.py')
-	handler.add_to_response(status = _status())
+	handler.add_to_success_response(status = _status())

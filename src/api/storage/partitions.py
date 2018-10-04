@@ -2,7 +2,7 @@ from re import sub, split
 from json import load, loads
 from subprocess import CalledProcessError
 
-from src.wrappers import endpoint, current_app_injecter, logger, jwt
+from src.wrappers import endpoint, current_app_injecter, logger, jwt, stats
 from src.console import console
 
 
@@ -274,7 +274,7 @@ def _off_drives(partitions, off_disk_usages):
 		})
 
 
-@logger('Gathering debug output...', level ='DEBUG')
+@logger('Gathering debug output...', level = 'DEBUG')
 @current_app_injecter()
 def _debug_output(partitions, log):
 	from pprint import pformat
@@ -324,6 +324,7 @@ def check():
 
 @jwt
 @endpoint()
+@stats
 @current_app_injecter(config = ['VERBOSE'])
 def get(handler, config):
 	partitions = check()
@@ -331,5 +332,5 @@ def get(handler, config):
 	if config.verbose:
 		_debug_output(partitions)
 
-	handler.add_to_response(partitions = partitions)
+	handler.add_to_success_response(partitions = partitions)
 

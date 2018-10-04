@@ -20,7 +20,7 @@ def check(handler, log):
 	log.info('Checking internet connectivity.')
 	output = console("ping -c 1 www.google.com")
 
-	handler.add_to_response(
+	handler.add_to_success_response(
 		ip = ip,
 		output = output
 	)
@@ -31,4 +31,4 @@ def check(handler, log):
 @endpoint()
 @current_app_injecter()
 def restart(handler):
-	handler.add_to_response(console("ifdown ppp0 && sleep 8 && ifup ppp0 && sleep 8 && ifconfig ppp0"))
+	handler.add_to_success_response(console("ifdown ppp0 && sleep 8 && ifup ppp0 && sleep 8 && ifconfig ppp0"))

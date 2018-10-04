@@ -17,7 +17,7 @@ def get(handler, log, config):
 	if not config_file:
 		raise IOError('Cannot load config file with path: {0}'.format(config.dfn_config_path))
 
-	handler.add_to_response(config = config_file)
+	handler.add_to_success_response(config = config_file)
 
 
 @jwt
@@ -39,7 +39,7 @@ def put(row, handler, log, config):
 
 	log.info('Saving config file.')
 	if save_config_file(config.dfn_config_path, updated_conf_dict):
-		handler.add_to_response('Overwritten {0}:{1}:{2} as {3}'.format(category, field, oldValue, value))
+		handler.add_to_success_response('Overwritten {0}:{1}:{2} as {3}'.format(category, field, oldValue, value))
 		handler.set_status(204)
 	else:
 		raise IOError('Unable to write {0}:{1}:{2} to config file'.format(category, field, value))

@@ -13,10 +13,8 @@ from src.setup import (
 
 
 # TODO: Stats flag, if True, stats will be returned to the frontend, if verbose is also true, will print stats on backend.
-# Call it --no-stats.
 # Include: Time to execute, errors / warning encountered.
 # Frontend: Log table (default), stats tab - if stats is not present in response then give user a message saving stats has been disabled on the server.
-# Make as a decorator called stats.
 @arg('--config',
 	 choices = ['prod', 'prod.docker', 'dev', 'dev.remote', 'dev.local'],
 	 default = 'prod',
@@ -29,9 +27,10 @@ from src.setup import (
 	 choices = ['CRITICAL', 'FATAL', 'ERROR', 'WARN', 'WARNING', 'INFO', 'DEBUG', 'NOTSET'],
 	 default = 'NOTSET',
 	 help = 'Logging level for the frontend.')
-@arg('--verbose', default = False, help = 'Enable verbose logging.')
-@arg('--debug', default = False, help = "Enable debug mode logging (shortcut to setting both log levels to 'DEBUG').")
-@arg('--no-auth', default = False, help = 'Disables jwt authentication - for testing only.')
+@arg('--debug',    default = False, help = "Enable debug mode logging (shortcut to setting both log levels to 'DEBUG').")
+@arg('--verbose',  default = False, help = 'Enable verbose logging.')
+@arg('--no-stats', default = False, help = 'Disables endpoint stats gathering.')
+@arg('--no-auth',  default = False, help = 'Disables jwt authentication - for testing only.')
 @wrap_errors([ValueError])
 @expects_obj
 def run(args):

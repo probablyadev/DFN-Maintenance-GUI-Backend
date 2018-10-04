@@ -49,7 +49,7 @@ def on(handler, log):
 
 	_poll(check_for_increase = True)
 
-	handler.add_to_response(partitions = check())
+	handler.add_to_success_response(partitions = check())
 
 
 @jwt
@@ -63,4 +63,4 @@ def off(handler, log):
 
 	_poll(check_for_increase = False)
 
-	handler.add_to_response(partitions = check())
+	handler.add_to_success_response(partitions = check())
