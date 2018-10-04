@@ -1,9 +1,9 @@
 from src.console import console
-from src.wrappers import endpoint, logger
+from src.wrappers import endpoint, logger, injector
 
 
-@endpoint
 @logger('Checking status of DSLR camera.')
+@injector
 def _status(log):
 	status = False
 
