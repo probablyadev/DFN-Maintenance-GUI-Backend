@@ -1,5 +1,3 @@
-"""The location time api module /location/time endpoints."""
-
 from re import sub
 
 from src.wrappers import jwt, endpoint, current_app_injecter, logger
@@ -10,9 +8,9 @@ __all__ = ['get', 'put']
 
 
 @jwt
+@logger('Getting time status.')
 @endpoint()
 def get(handler, log):
-	log.info('Getting time status.')
 	time = console('timedatectl status').splitlines()
 
 	log.info('Parsing time.')

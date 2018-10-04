@@ -1,5 +1,3 @@
-"""The camera dslr api module /camera/dslr endpoints."""
-
 from src.wrappers import jwt, endpoint, current_app_injecter, logger
 from src.console import console
 

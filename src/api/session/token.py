@@ -1,5 +1,3 @@
-"""The session token api module /session/token endpoints."""
-
 from flask import jsonify, current_app
 from flask_jwt_extended import (
 	create_access_token, create_refresh_token,

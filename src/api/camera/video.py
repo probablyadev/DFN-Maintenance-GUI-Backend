@@ -1,10 +1,9 @@
-"""The camera video api module /camera/video endpoints."""
-
 from src.wrappers import jwt, endpoint, current_app_injecter, logger
 from src.console import console
 
 
 __all__ = ['on', 'off']
+# TODO: Check if the video camera is on / off (much like camera status) as an endpoint.
 
 
 @jwt

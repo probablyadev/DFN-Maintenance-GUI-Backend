@@ -1,5 +1,3 @@
-"""The storage check api module /storage/check endpoint."""
-
 from re import sub, split
 from json import load, loads
 from subprocess import CalledProcessError

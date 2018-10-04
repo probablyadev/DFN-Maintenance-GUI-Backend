@@ -1,5 +1,3 @@
-"""The storage power api module /storage/power endpoints."""
-
 from flask import current_app
 from time import sleep
 from os import walk

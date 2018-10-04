@@ -1,5 +1,3 @@
-"""The session hostname api module /session/hostname endpoint."""
-
 from src.console import console
 from src.wrappers import endpoint, current_app_injecter, logger
 

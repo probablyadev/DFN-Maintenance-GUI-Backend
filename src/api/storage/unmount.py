@@ -1,5 +1,3 @@
-"""The storage unmount api module /storage/unmount endpoint."""
-
 from subprocess import CalledProcessError
 
 from src.wrappers import endpoint, current_app_injecter, logger, jwt

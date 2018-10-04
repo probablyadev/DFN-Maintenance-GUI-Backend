@@ -1,10 +1,9 @@
-"""The config whitelist api module /config/whitelist endpoints."""
-
 from src.imported.config_handler import load_config
-from src.wrappers import jwt, endpoint, current_app_injecter
+from src.wrappers import jwt, endpoint, current_app_injecter, logger
 
 
 @jwt
+@logger('Retrieving config file whitelist.')
 @endpoint()
 @current_app_injecter(config = ['DFN_CONFIG_PATH'])
 def get(handler, log, config):

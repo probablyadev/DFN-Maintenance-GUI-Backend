@@ -1,6 +1,4 @@
-"""The location gps api module /location/gps endpoints."""
-
-from src.wrappers import jwt, endpoint, current_app_injecter
+from src.wrappers import jwt, endpoint, current_app_injecter, logger
 from src.console import console
 
 
@@ -15,10 +13,10 @@ def coordinates(initial, direction):
 
 
 @jwt
+@logger('Getting GPS status.')
 @endpoint()
 @current_app_injecter()
 def get(handler, log):
-	log.info('Getting GPS status.')
 	output = console(
 		'python /opt/dfn-software/leostick_get_status.py -g',
 		'echo GPGGA,080112.000,3346.4614,S,15106.8787,E,0,00,99.0,067.59,M,21.9,M,,,').split(',')

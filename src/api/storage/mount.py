@@ -1,5 +1,3 @@
-"""The storage mount api module /storage/mount endpoint."""
-
 from subprocess import CalledProcessError
 
 from src.wrappers import endpoint, current_app_injecter, logger, jwt

@@ -1,5 +1,3 @@
-"""The network api module /internet endpoints."""
-
 from subprocess import CalledProcessError
 
 from src.console import console
@@ -7,6 +5,7 @@ from src.wrappers import jwt, endpoint, current_app_injecter, logger
 
 
 @jwt
+@logger('Checking internet adapter.')
 @endpoint()
 @current_app_injecter()
 def check(handler, log):
@@ -25,6 +24,7 @@ def check(handler, log):
 		ip = ip,
 		output = output
 	)
+
 
 @jwt
 @logger('Restarting internet adapter.')

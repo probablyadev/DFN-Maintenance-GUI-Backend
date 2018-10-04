@@ -1,12 +1,11 @@
-"""The config check api module /config/check endpoints."""
-
 from re import search
 
+from src.wrappers import jwt, endpoint, current_app_injecter, logger
 from src.console import console
-from src.wrappers import jwt, endpoint, current_app_injecter
 
 
 @jwt
+@logger('Checking config file is valid.')
 @endpoint()
 @current_app_injecter()
 def get(handler, log):
