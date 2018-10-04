@@ -12,7 +12,9 @@ from src.setup import (
 	setup_additional_args)
 
 
-# TODO: Stats flag, if True, stats will be returned to the frontend, if verbose is also true, will print stats on backend.
+# TODO: Clear console on dev rebuild.
+# TODO: Silent flag. If True, do not print any logs to console / file, only exceptions (also possibly errors).
+# TODO: Stats flag. If True, stats will be returned to the frontend, if verbose is also true, will print stats on backend.
 # Include: Time to execute, errors / warning encountered.
 # Frontend: Log table (default), stats tab - if stats is not present in response then give user a message saving stats has been disabled on the server.
 @arg('--config',

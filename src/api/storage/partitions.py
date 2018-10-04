@@ -2,7 +2,7 @@ from re import sub, split
 from json import load, loads
 from subprocess import CalledProcessError
 
-from src.wrappers import endpoint, current_app_injecter, logger, jwt, stats
+from src.wrappers import endpoint, current_app_injector, logger, jwt, stats
 from src.console import console
 
 
@@ -101,7 +101,7 @@ def _lsblk_with_json():
 
 
 @logger('Loading fs devices...')
-@current_app_injecter(config = ['USE_DEV_COMMAND'])
+@current_app_injector
 def _list_fs_devices(log, config):
 	# Load mounted / on devices.
 	if config.use_dev_command:
@@ -152,7 +152,7 @@ def _filter_df(output):
 
 
 @logger('Loading disk usage...')
-@current_app_injecter(config = ['DFN_DISK_USAGE_PATH'])
+@current_app_injector
 def _load_disk_usage(log, config):
 	off_disk_usages = {}
 
@@ -275,7 +275,7 @@ def _off_drives(partitions, off_disk_usages):
 
 
 @logger('Gathering debug output...', level = 'DEBUG')
-@current_app_injecter()
+@current_app_injector
 def _debug_output(partitions, log):
 	from pprint import pformat
 
@@ -323,9 +323,9 @@ def check():
 
 
 @jwt
-@endpoint()
+@endpoint
 @stats
-@current_app_injecter(config = ['VERBOSE'])
+@current_app_injector
 def get(handler, config):
 	partitions = check()
 

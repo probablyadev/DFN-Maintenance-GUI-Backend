@@ -11,10 +11,13 @@ from time import time
 from src.handler import Handler
 
 
-__all__ = ['endpoint', 'current_app_injecter', 'logger', 'jwt']
+__all__ = ['endpoint', 'current_app_injector', 'logger', 'jwt']
 
 
 def _handler_setup(function, prefix):
+	if callable(prefix):
+		prefix = None
+
 	module = getmodule(function).__name__
 	file_path = '{}.{}'.format(module, function.__name__)
 	module = module.replace('src.', '').replace('.', '/')
@@ -49,13 +52,11 @@ def jwt(function):
 	return decorator
 
 
-def endpoint(**decorator_kwargs):
+def endpoint(prefix = None):
 	def endpoint_decorator(function):
 		@wraps(function)
 		def decorator(*args, **kwargs):
-			handler = _handler_setup(
-				function,
-				decorator_kwargs.pop('prefix', None))
+			handler = _handler_setup(function, prefix)
 
 			try:
 				function(*args, **kwargs)
@@ -76,9 +77,14 @@ def endpoint(**decorator_kwargs):
 
 			return handler.to_json()
 		return decorator
-	return endpoint_decorator
+
+	if callable(prefix):
+		return endpoint_decorator(prefix)
+	else:
+		return endpoint_decorator
 
 
+# TODO: Properly format time.
 def stats(function):
 	@wraps(function)
 	def decorator(*args, **kwargs):
@@ -148,7 +154,7 @@ def logger(*decorator_args, **decorator_kwargs):
 	return logger_decorator
 
 
-def current_app_injecter(**decorator_kwargs):
+def current_app_injector(function):
 	'''
 	Injects objects from current_app into the decorated method. Must have the injected objects as params in the
 	decorated method after the methods normal parameters.
@@ -158,35 +164,30 @@ def current_app_injecter(**decorator_kwargs):
 	@current_app_injector(config = ['VERBOSE'])
 	def method(config):
 	'''
-	def current_app_injecter_decorator(function):
-		@wraps(function)
-		def decorator(*args, **kwargs):
-			argsspec = getargspec(function)
+	@wraps(function)
+	def decorator(*args, **kwargs):
+		argsspec = getargspec(function)
 
-			if 'handler' in argsspec.args:
-				kwargs['handler'] = current_app.handler
+		if 'handler' in argsspec.args:
+			kwargs['handler'] = current_app.handler
 
-			if 'log' in argsspec.args:
-				kwargs['log'] = current_app.handler.log
+		if 'log' in argsspec.args:
+			kwargs['log'] = current_app.handler.log
 
-			# TODO: Add error handling for config retrieval.
-			if 'config' in argsspec.args:
-				if decorator_kwargs['config']:
-					class Config():
-						pass
+		# TODO: Add error handling for config retrieval.
+		if 'config' in argsspec.args:
+			class Config():
+				pass
 
-					config = Config()
+			config = Config()
 
-					for kwarg in decorator_kwargs['config']:
-						setattr(config, kwarg.lower(), current_app.config[kwarg])
+			for entry in current_app.config:
+				setattr(config, entry.lower(), current_app.config[entry])
 
-					kwargs['config'] = config
-				else:
-					kwargs['config'] = current_app.config
+			kwargs['config'] = config
 
-			return function(*args, **kwargs)
-		return decorator
-	return current_app_injecter_decorator
+		return function(*args, **kwargs)
+	return decorator
 
 
 # TODO: Decorator called 'conditionallly', requires a condition to be true in order to execute e.g. @conditionally(config.verbose, True).

@@ -1,6 +1,6 @@
 from re import sub
 
-from src.wrappers import jwt, endpoint, current_app_injecter, logger
+from src.wrappers import jwt, endpoint, current_app_injector, logger
 from src.console import console
 
 
@@ -9,7 +9,7 @@ __all__ = ['get', 'put']
 
 @jwt
 @logger('Getting time status.')
-@endpoint()
+@endpoint
 def get(handler, log):
 	time = console('timedatectl status').splitlines()
 
@@ -30,8 +30,8 @@ def get(handler, log):
 
 @jwt
 @logger('Setting new timezone.')
-@endpoint()
-@current_app_injecter()
+@endpoint
+@current_app_injector
 def put(timezone, handler):
 	console("timedatectl set-timezone {0}".format(timezone[0]))
 	handler.set_status(204)
