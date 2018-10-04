@@ -1,23 +1,30 @@
 from flask import current_app
 from functools import wraps
-from time import time
+from datetime import datetime
 
 
-# TODO: Properly format time.
+def _time(start, end):
+	delta = (end - start).total_seconds()
+
+	return {
+		'start': start.strftime('%H:%M:%S'),
+		'end': end.strftime('%H:%M:%S'),
+		'time': '{} seconds'.format(format(delta, '.2f'))
+	}
+
+
 def stats(function):
 	@wraps(function)
 	def decorator(*args, **kwargs):
 		if current_app.config['NO_STATS'] is False:
-			start = time()
+			start = datetime.now()
+
 			function(*args, **kwargs)
-			end = time()
+
+			end = datetime.now()
 
 			stats = {
-				'time': {
-					'start': start,
-					'end': end,
-					'time': end - start
-				}
+				'time': _time(start, end)
 			}
 
 			current_app.handler.add_to_common_response(stats = stats)
