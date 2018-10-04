@@ -325,7 +325,7 @@ def check():
 
 
 @jwt
-@endpoint(prefix = 'check')
+@endpoint()
 @current_app_injecter(config = ['VERBOSE'])
 def get(handler, config):
 	partitions = check()

@@ -20,7 +20,7 @@ def mount(config):
 
 
 @jwt
-@endpoint(prefix = 'api/storage/mount')
+@endpoint()
 @current_app_injecter()
 def get(handler):
 	mount()

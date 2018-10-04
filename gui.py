@@ -16,6 +16,7 @@ from src.setup import (
 # Call it --no-stats.
 # Include: Time to execute, errors / warning encountered.
 # Frontend: Log table (default), stats tab - if stats is not present in response then give user a message saving stats has been disabled on the server.
+# Make as a decorator called stats.
 @arg('--config',
 	 choices = ['prod', 'prod.docker', 'dev', 'dev.remote', 'dev.local'],
 	 default = 'prod',

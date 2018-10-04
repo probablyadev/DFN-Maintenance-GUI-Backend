@@ -43,7 +43,7 @@ def _poll(log, check_for_increase):
 
 
 @jwt
-@endpoint(prefix = 'api/storage/power/on')
+@endpoint()
 @current_app_injecter()
 def on(handler, log):
 	log.info('Turning on external drives...')
@@ -55,7 +55,7 @@ def on(handler, log):
 
 
 @jwt
-@endpoint(prefix = 'api/storage/power/off')
+@endpoint()
 @current_app_injecter()
 def off(handler, log):
 	unmount()
