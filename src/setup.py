@@ -72,12 +72,12 @@ def setup_logger(app, args):
 
 
 def setup_routes(app):
+	app.add_api('src/api/camera/swagger.yaml')
+	app.add_api('src/api/config/swagger.yaml')
+	app.add_api('src/api/location/swagger.yaml')
 	app.add_api('src/api/network/swagger.yaml')
 	app.add_api('src/api/session/swagger.yaml')
-	app.add_api('src/api/config/swagger.yaml')
 	app.add_api('src/api/storage/swagger.yaml')
-	app.add_api('src/api/location/swagger.yaml')
-	app.add_api('src/api/camera/swagger.yaml')
 
 
 def setup_additional_args(app, args):

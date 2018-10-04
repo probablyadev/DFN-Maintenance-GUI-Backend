@@ -1,11 +1,8 @@
 from subprocess import CalledProcessError
 
-from src.wrappers import endpoint, injector, logger, jwt
+from src.wrappers import endpoint, logger, injector
 from src.console import console
-from .partitions import check
-
-
-__all__ = ['unmount', 'get']
+from .partitions import disk_partitions
 
 
 @logger('Unmounting external drives...')
@@ -18,10 +15,8 @@ def unmount(config):
 			pass
 
 
-@jwt
 @endpoint
-@injector
 def get(handler):
 	unmount()
 
-	handler.add_to_success_response(partitions = check())
+	handler.add_to_success_response(partitions = disk_partitions())

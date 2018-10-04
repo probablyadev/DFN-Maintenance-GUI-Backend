@@ -8,9 +8,6 @@ from src.wrappers import jwt
 from src.database import User
 
 
-__all__ = ['auth', 'refresh']
-
-
 def auth(json):
 	username = json.get('username', None)
 	password = json.get('password', None)

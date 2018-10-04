@@ -1,11 +1,9 @@
 from subprocess import CalledProcessError
 
-from src.wrappers import endpoint, injector, logger, jwt
+from src.wrappers import endpoint, logger, injector
 from src.console import console
-from .partitions import check
+from .partitions import disk_partitions
 
-
-__all__ = ['mount', 'get']
 
 @logger('Mounting external drives...')
 @injector
@@ -17,10 +15,7 @@ def mount(config):
 			pass
 
 
-@jwt
 @endpoint
-@injector
 def get(handler):
 	mount()
-
-	handler.add_to_success_response(partitions = check())
+	handler.add_to_success_response(partitions = disk_partitions())

@@ -1,11 +1,9 @@
 from src.imported.config_handler import load_config
-from src.wrappers import jwt, endpoint, injector, logger
+from src.wrappers import endpoint, logger
 
 
-@jwt
-@logger('Retrieving config file whitelist.')
 @endpoint
-@injector
+@logger('Retrieving config file whitelist.')
 def get(handler, log, config):
 	# Whitelist for which config variables the user can modify
 	config_whitelist = {}
@@ -37,10 +35,12 @@ def get(handler, log, config):
 
 	log.debug('DFN_CONFIG_PATH: {}'.format(config.dfn_config_path))
 	log.info('Loading config.')
+
 	config_file = load_config(config.dfn_config_path)
 	whitelist = {}
 
 	log.info('Checking config file.')
+
 	if not config_file:
 		raise IOError('Cannot load config file with path: {0}'.format(config.dfn_config_path))
 

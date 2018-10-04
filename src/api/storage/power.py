@@ -2,16 +2,13 @@ from flask import current_app
 from time import sleep
 from os import walk
 
-from src.wrappers import endpoint, injector, logger, jwt
+from src.wrappers import endpoint, logger, injector
 from src.console import console
-from .partitions import check
+from .partitions import disk_partitions
 from .unmount import unmount
 
 
-__all__ = ['on', 'off']
-
-
-# TODO[BUG]: Need to check if any drives are to be powered on / off. Currently just times out and returns the same result.
+# TODO[BUG]: Need to disk_partitions if any drives are to be powered on / off. Currently just times out and returns the same result.
 @logger('Polling for drive changes...')
 @injector
 def _poll(log, check_for_increase):
@@ -40,21 +37,17 @@ def _poll(log, check_for_increase):
 	log.info('{} drives detected.'.format(current))
 
 
-@jwt
 @endpoint
-@injector
 def on(handler, log):
 	log.info('Turning on external drives...')
 	console('python /opt/dfn-software/enable_ext-hd.py')
 
 	_poll(check_for_increase = True)
 
-	handler.add_to_success_response(partitions = check())
+	handler.add_to_success_response(partitions = disk_partitions())
 
 
-@jwt
 @endpoint
-@injector
 def off(handler, log):
 	unmount()
 
@@ -63,4 +56,4 @@ def off(handler, log):
 
 	_poll(check_for_increase = False)
 
-	handler.add_to_success_response(partitions = check())
+	handler.add_to_success_response(partitions = disk_partitions())

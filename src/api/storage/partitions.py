@@ -1,12 +1,9 @@
-from re import sub, split
 from json import load, loads
+from re import sub, split
 from subprocess import CalledProcessError
 
-from src.wrappers import endpoint, injector, logger, jwt, stats
 from src.console import console
-
-
-__all__ = ['check', 'get']
+from src.wrappers import endpoint, logger, injector
 
 
 def _filter_out_empty_entries(devices):
@@ -309,8 +306,8 @@ def _debug_output(partitions, log):
 	log.debug('off:\n{0}'.format(off))
 
 
-@logger('Loading disk partitions and usage...')
-def check():
+@logger('Loading disk disk partitions and usage...')
+def disk_partitions():
 	partitions = []
 	devices = _list_fs_devices()
 	mounted_disk_usages, off_disk_usages = _load_disk_usage()
@@ -322,12 +319,9 @@ def check():
 	return partitions
 
 
-@jwt
 @endpoint
-@stats
-@injector
 def get(handler, config):
-	partitions = check()
+	partitions = disk_partitions()
 
 	if config.verbose:
 		_debug_output(partitions)

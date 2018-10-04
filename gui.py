@@ -31,7 +31,7 @@ from src.setup import (
 	 help = 'Logging level for the frontend.')
 @arg('--debug',    default = False, help = "Enable debug mode logging (shortcut to setting both log levels to 'DEBUG').")
 @arg('--verbose',  default = False, help = 'Enable verbose logging.')
-@arg('--no-stats', default = False, help = 'Disables endpoint stats gathering.')
+@arg('--no-stats', default = False, help = 'Disables handler stats gathering.')
 @arg('--no-auth',  default = False, help = 'Disables jwt authentication - for testing only.')
 @wrap_errors([ValueError])
 @expects_obj

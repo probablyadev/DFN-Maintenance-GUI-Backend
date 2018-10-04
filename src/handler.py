@@ -38,6 +38,7 @@ class CounterFilter(logging.Filter):
 		return True
 
 
+# TODO: Add to response (all 3), allow for updating of dicts / create if doesnt already exist e.g. stats.time should create / update.
 class Handler():
 	def __init__(self, name):
 		self.log, self.stream = self.__setup_logger(name)

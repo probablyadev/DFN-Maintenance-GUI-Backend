@@ -44,7 +44,7 @@ paths:
 
   /check:
     get:
-      summary: Use on page navigation, check access token validity.
+      summary: Use on page navigation, disk_partitions access token validity.
       operationId: src.api.session.token.check
       responses:
         200:

@@ -1,12 +1,9 @@
-from src.wrappers import jwt, endpoint, injector, logger
 from src.console import console
+from src.wrappers import endpoint, logger
 
 
-__all__ = ['get', 'on', 'off']
-
-
+@endpoint
 @logger('Checking status of DSLR camera.')
-@injector
 def _status(log):
 	status = False
 
@@ -18,26 +15,20 @@ def _status(log):
 	return status
 
 
-@jwt
 @endpoint
-@injector
 def get(handler):
 	handler.add_to_success_response(status = _status())
 
 
-@jwt
-@logger('Enabling DSLR camera.')
 @endpoint
-@injector
+@logger('Enabling DSLR camera.')
 def on(handler):
 	console('python /opt/dfn-software/enable_camera.py')
 	handler.add_to_success_response(status = _status())
 
 
-@jwt
-@logger('Disabling DSLR camera.')
 @endpoint
-@injector
+@logger('Disabling DSLR camera.')
 def off(handler):
 	console('python /opt/dfn-software/disable_camera.py')
 	handler.add_to_success_response(status = _status())

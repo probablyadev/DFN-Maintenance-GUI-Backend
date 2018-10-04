@@ -1,8 +1,5 @@
 from src.console import console
-from src.wrappers import endpoint, injector, logger
-
-
-__all__ = ['hostname', 'get']
+from src.wrappers import handler, injector, logger
 
 
 def hostname():
@@ -10,7 +7,7 @@ def hostname():
 
 
 @logger('Getting systems hostname.')
-@endpoint
+@handler
 @injector
 def get(handler):
 	handler.add_to_success_response(hostname = hostname())

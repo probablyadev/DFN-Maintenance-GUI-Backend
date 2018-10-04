@@ -236,7 +236,7 @@ def load_config(stationfilename):
 			conf_dict['event_detect'] = {}
 			for item in def_conf_dict['event_detect']:
 				conf_dict['event_detect'][item] = def_conf_dict['event_detect'][item]
-		else: #event_detect exists, but check/copy over later added keys
+		else: #event_detect exists, but disk_partitions/copy over later added keys
 			if not 'moon_radius' in conf_dict['event_detect']:
 				conf_dict['event_detect']['moon_radius'] = def_conf_dict['event_detect']['moon_radius']
 

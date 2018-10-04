@@ -1,22 +1,15 @@
-from src.wrappers import jwt, endpoint, injector, logger
 from src.console import console
+from src.wrappers import endpoint, logger
 
 
-__all__ = ['on', 'off']
-# TODO: Check if the video camera is on / off (much like camera status) as an endpoint.
-
-
-@jwt
-@logger('Enabling video camera.')
+# TODO: Check if the video camera is on / off (much like camera status) as an handler.
 @endpoint
-@injector
+@logger('Enabling video camera.')
 def on():
 	console('python /opt/dfn-software/enable_video.py')
 
 
-@jwt
-@logger('Disabling video camera.')
 @endpoint
-@injector
+@logger('Disabling video camera.')
 def off():
 	console('python /opt/dfn-software/disable_video.py')

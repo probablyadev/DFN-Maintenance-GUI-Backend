@@ -1,13 +1,11 @@
 from subprocess import CalledProcessError
 
 from src.console import console
-from src.wrappers import jwt, endpoint, injector, logger
+from src.wrappers import endpoint, logger
 
 
-@jwt
-@logger('Checking internet adapter.')
 @endpoint
-@injector
+@logger('Checking internet adapter.')
 def check(handler, log):
 	log.info('Getting IP address.')
 	#ip = console("dig TXT +short o-o.myaddr.l.google.com @ns1.google.com").replace('"', '')
@@ -26,9 +24,7 @@ def check(handler, log):
 	)
 
 
-@jwt
-@logger('Restarting internet adapter.')
 @endpoint
-@injector
+@logger('Restarting internet adapter.')
 def restart(handler):
 	handler.add_to_success_response(console("ifdown ppp0 && sleep 8 && ifup ppp0 && sleep 8 && ifconfig ppp0"))

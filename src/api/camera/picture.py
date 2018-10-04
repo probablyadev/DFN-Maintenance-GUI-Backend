@@ -1,21 +1,13 @@
-from src.wrappers import jwt, endpoint, injector, logger
-from src.console import console
+from src.wrappers import endpoint, logger
 
 
-__all__ = ['download', 'find']
-
-
-@jwt
-@logger('TODO: Implement endpoint')
 @endpoint
-@injector
+@logger('TODO: Implement handler')
 def download(handler):
 	pass
 
 
-@jwt
-@logger('TODO: Implement endpoint')
 @endpoint
-@injector
+@logger('TODO: Implement handler')
 def find(handler):
 	pass
