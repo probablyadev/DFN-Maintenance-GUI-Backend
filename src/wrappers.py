@@ -1,10 +1,11 @@
+import logging
+
 from flask import current_app
 from flask_jwt_extended import jwt_optional, get_jwt_identity
 from functools import wraps
 from subprocess import CalledProcessError
 from inspect import getargspec, getmodule
 from pprint import pformat
-import logging
 
 from src.handler import Handler
 
@@ -12,18 +13,35 @@ from src.handler import Handler
 __all__ = ['endpoint', 'current_app_injecter', 'logger', 'jwt']
 
 
+def _handler_setup(function, prefix):
+	module = getmodule(function).__name__
+	file_path = '{}.{}'.format(module, function.__name__)
+	module = module.replace('src.', '').replace('.', '/')
+
+	if function.__name__ in ['get', 'post', 'put', 'patch', 'delete']:
+		if prefix is None:
+			network_path = module
+		else:
+			network_path = '{}/{}'.format(module, prefix)
+	else:
+		network_path = '{}/{}'.format(module, function.__name__)
+
+	logging.getLogger().debug('{} ({})'.format(network_path, file_path))
+
+	handler = Handler(network_path)
+	current_app.handler = handler
+
+	return handler
+
+
 # TODO: Accept array of expected exception types (much like wrap_error in argh). Error out badly if an unexpected exception was encountered.
 def endpoint(**_kwargs):
 	def endpoint_decorator(function):
 		@wraps(function)
 		def decorator(*args, **kwargs):
-			prefix = '{}.{}'.format(getmodule(function).__name__, function.__name__)
-			prefix = _kwargs.pop('prefix', prefix)
-
-			logging.getLogger().debug(_kwargs.pop('start', prefix))
-
-			handler = Handler(prefix)
-			current_app.handler = handler
+			handler = _handler_setup(
+				function,
+				_kwargs.pop('prefix', None))
 
 			try:
 				function(*args, **kwargs)

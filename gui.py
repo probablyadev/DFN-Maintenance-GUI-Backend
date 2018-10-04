@@ -12,6 +12,10 @@ from src.setup import (
 	setup_additional_args)
 
 
+# TODO: Stats flag, if True, stats will be returned to the frontend, if verbose is also true, will print stats on backend.
+# Call it --no-stats.
+# Include: Time to execute, errors / warning encountered.
+# Frontend: Log table (default), stats tab - if stats is not present in response then give user a message saving stats has been disabled on the server.
 @arg('--config',
 	 choices = ['prod', 'prod.docker', 'dev', 'dev.remote', 'dev.local'],
 	 default = 'prod',
