@@ -293,3 +293,5 @@ Temporary Items
 .apdisk
 
 auth.db
+
+\.idea/deployment\.xml
