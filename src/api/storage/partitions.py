@@ -108,7 +108,7 @@ def _list_fs_devices(log, config):
 	# Load mounted / on devices.
 	if config.use_dev_command:
 		with open('sample/lsblk.json') as json_data:
-			output = load(json_data)
+			output = load(json_data)['blockdevices']
 	else:
 		try:
 			output = _lsblk_with_json()
