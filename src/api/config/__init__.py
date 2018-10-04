@@ -1,4 +1,4 @@
-"""The config file config api module /configfile/config endpoints."""
+"""The config api module."""
 
 from src.imported.config_handler import load_config, save_config_file
 from src.wrappers import jwt, endpoint, current_app_injecter

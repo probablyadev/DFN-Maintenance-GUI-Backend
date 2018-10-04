@@ -4,7 +4,7 @@ info:
   title: Config File API Endpoint
   version: "1.0"
 
-basePath: /api/configfile
+basePath: /api/config
 
 consumes:
   - application/json
@@ -19,10 +19,40 @@ securityDefinitions:
 
 
 paths:
+  /:
+    get:
+      summary: Gets the config file.
+      operationId: src.api.config.get
+      responses:
+        200:
+          description: Config file.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+    put:
+      summary: Updates a config file entry.
+      operationId: src.api.config.put
+      parameters:
+      - name: row
+        in: body
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        204:
+          description: Config file entry successfully updated.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
   /check:
     get:
       summary: Checks that the config file in use is valid.
-      operationId: src.api.configfile.endpoints.check
+      operationId: src.api.config.check.get
       responses:
         200:
           description: Config file is valid.
@@ -34,42 +64,12 @@ paths:
   /whitelist:
     get:
       summary: Gets the config files whitelist (editable entries).
-      operationId: src.api.configfile.endpoints.whitelist
+      operationId: src.api.config.whitelist.get
       responses:
         200:
           description: Config file whitelist.
           schema:
             $ref: '#/definitions/Json'
-        500:
-          description: Failure while running command.
-          schema:
-            $ref: '#/definitions/CommandException'
-
-  /config:
-    get:
-      summary: Gets the config file.
-      operationId: src.api.configfile.config.get
-      responses:
-        200:
-          description: Config file.
-        500:
-          description: Failure while running command.
-          schema:
-            $ref: '#/definitions/CommandException'
-
-    put:
-      summary: Updates a config file entry.
-      operationId: src.api.configfile.config.put
-      parameters:
-        - name: row
-          in: body
-          schema:
-            type: array
-            items:
-              type: string
-      responses:
-        204:
-          description: Config file entry successfully updated.
         500:
           description: Failure while running command.
           schema:

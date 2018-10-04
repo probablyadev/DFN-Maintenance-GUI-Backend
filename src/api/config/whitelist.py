@@ -1,29 +1,13 @@
-"""The config file api module /configfile endpoints."""
+"""The config whitelist api module /config/whitelist endpoints."""
 
-from re import search
-
-from src.console import console
 from src.imported.config_handler import load_config
 from src.wrappers import jwt, endpoint, current_app_injecter
 
 
 @jwt
 @endpoint()
-@current_app_injecter()
-def check(handler, log):
-	output = console('python /opt/dfn-software/camera_image_count.py')
-
-	log.info('Parsing output.')
-	if search('[0-9]', output):
-		handler.add_to_response(output)
-	else:
-		raise IOError('Script not found with path: {0}'.format('camera_image_count.py'))
-
-
-@jwt
-@endpoint()
 @current_app_injecter(config = ['DFN_CONFIG_PATH'])
-def whitelist(handler, log, config):
+def get(handler, log, config):
 	# Whitelist for which config variables the user can modify
 	config_whitelist = {}
 	config_whitelist["camera"] = {
