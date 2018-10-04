@@ -1,11 +1,11 @@
 from src.imported.config_handler import load_config
-from src.wrappers import jwt, endpoint, current_app_injector, logger
+from src.wrappers import jwt, endpoint, injector, logger
 
 
 @jwt
 @logger('Retrieving config file whitelist.')
 @endpoint
-@current_app_injector
+@injector
 def get(handler, log, config):
 	# Whitelist for which config variables the user can modify
 	config_whitelist = {}

@@ -11,7 +11,7 @@ from time import time
 from src.handler import Handler
 
 
-__all__ = ['endpoint', 'current_app_injector', 'logger', 'jwt']
+__all__ = ['endpoint', 'injector', 'logger', 'jwt']
 
 
 def _handler_setup(function, prefix):
@@ -123,7 +123,7 @@ def logger(*decorator_args, **decorator_kwargs):
 	- :log level: DEBUG
 	"""
 
-	Must be placed above the @current_app_injector decorator.
+	Must be placed above the @injector decorator.
 	'''
 	def logger_decorator(function):
 		@wraps(function)
@@ -154,14 +154,14 @@ def logger(*decorator_args, **decorator_kwargs):
 	return logger_decorator
 
 
-def current_app_injector(function):
+def injector(function):
 	'''
 	Injects objects from current_app into the decorated method. Must have the injected objects as params in the
 	decorated method after the methods normal parameters.
 
 	Can also inject an array of key / value pairs from config. E.g.
 
-	@current_app_injector(config = ['VERBOSE'])
+	@injector(config = ['VERBOSE'])
 	def method(config):
 	'''
 	@wraps(function)

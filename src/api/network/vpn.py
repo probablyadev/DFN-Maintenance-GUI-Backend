@@ -1,13 +1,13 @@
 from subprocess import CalledProcessError
 
 from src.console import console
-from src.wrappers import jwt, endpoint, current_app_injector, logger
+from src.wrappers import jwt, endpoint, injector, logger
 
 
 @jwt
 @logger('Checking VPN adapter.')
 @endpoint
-@current_app_injector
+@injector
 def check(handler, log):
 	log.info('Getting VPN address.')
 	command = "ifconfig | grep tun0 -A 1 | grep -o '\(addr:\|inet \)[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'| cut -c6-"
@@ -28,6 +28,6 @@ def check(handler, log):
 @jwt
 @logger('Restarting VPN adapter.')
 @endpoint
-@current_app_injector
+@injector
 def restart(handler):
 	handler.add_to_success_response(console("service openvpn restart && sleep 10 && ifconfig tun0"))

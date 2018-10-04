@@ -1,13 +1,13 @@
 """The config api module."""
 
 from src.imported.config_handler import load_config, save_config_file
-from src.wrappers import jwt, endpoint, current_app_injector, logger
+from src.wrappers import jwt, endpoint, injector, logger
 
 
 @jwt
 @logger('Retrieving config file.')
 @endpoint
-@current_app_injector
+@injector
 def get(handler, log, config):
 	log.debug('DFN_CONFIG_PATH: {}'.format(config.dfn_config_path))
 	log.info('Loading config.')
@@ -23,7 +23,7 @@ def get(handler, log, config):
 @jwt
 @logger('Updating config file entry.')
 @endpoint
-@current_app_injector
+@injector
 def put(row, handler, log, config):
 	log.info('Parsing row parameter.')
 	category = row[0]

@@ -1,13 +1,13 @@
 from re import search
 
-from src.wrappers import jwt, endpoint, current_app_injector, logger
+from src.wrappers import jwt, endpoint, injector, logger
 from src.console import console
 
 
 @jwt
 @logger('Checking config file is valid.')
 @endpoint
-@current_app_injector
+@injector
 def get(handler, log):
 	output = console('python /opt/dfn-software/camera_image_count.py')
 

@@ -1,6 +1,6 @@
 from subprocess import CalledProcessError
 
-from src.wrappers import endpoint, current_app_injector, logger, jwt
+from src.wrappers import endpoint, injector, logger, jwt
 from src.console import console
 from .partitions import check
 
@@ -8,7 +8,7 @@ from .partitions import check
 __all__ = ['mount', 'get']
 
 @logger('Mounting external drives...')
-@current_app_injector
+@injector
 def mount(config):
 	for drive in config.drives:
 		try:
@@ -19,7 +19,7 @@ def mount(config):
 
 @jwt
 @endpoint
-@current_app_injector
+@injector
 def get(handler):
 	mount()
 
