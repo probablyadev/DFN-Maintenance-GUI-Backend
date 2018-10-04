@@ -7,7 +7,7 @@ from src.console import console
 __all__ = ['get', 'on', 'off']
 
 
-@log_doc('Checking status of DSLR camera')
+@log_doc('Checking status of DSLR camera.')
 @current_app_injecter()
 def _status(log):
 	status = False
@@ -30,21 +30,16 @@ def get(handler):
 @jwt
 @log_doc('Enabling DSLR camera.')
 @endpoint()
-@current_app_injecter(config = ['USE_DEV_COMMAND'])
-def on(handler, config):
-	if config.use_dev_command:
-		handler.add_to_response(status = True)
-	else:
-		console('python /opt/dfn-software/enable_camera.py')
-		handler.add_to_response(status = _status())
+@current_app_injecter()
+def on(handler):
+	console('python /opt/dfn-software/enable_camera.py')
+	handler.add_to_response(status = _status())
 
 
 @jwt
+@log_doc('Disabling DSLR camera.')
 @endpoint()
-@current_app_injecter(config = ['USE_DEV_COMMAND'])
-def off(handler, config):
-	if config.use_dev_command:
-		handler.add_to_response(status = False)
-	else:
-		console('python /opt/dfn-software/disable_camera.py')
-		handler.add_to_response(status = _status())
+@current_app_injecter()
+def off(handler):
+	console('python /opt/dfn-software/disable_camera.py')
+	handler.add_to_response(status = _status())
