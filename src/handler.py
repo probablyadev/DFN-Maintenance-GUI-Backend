@@ -43,7 +43,7 @@ class CustomJSONFormatter(JSONFormatter):
 		extra['level'] = record.__dict__['levelname']
 
 		if 'time' not in extra:
-			extra['time'] = datetime.utcnow().strftime(current_app.config['DATE_FORMAT'])
+			extra['time'] = datetime.now().strftime(current_app.config['DATE_FORMAT'])
 
 		if record.exc_info:
 			extra['exc_info'] = self.formatException(record.exc_info)

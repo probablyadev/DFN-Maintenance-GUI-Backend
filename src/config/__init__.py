@@ -19,7 +19,7 @@ class Config(object):
 	API_FORMAT = '[%(levelname)-5s] %(message)s'
 
 	DATE_FORMAT = '%H:%M:%S'
-	ERROR_LOG_FILE_DATE_FORMAT = '%Y:%M:%D %H:%M:%S'
+	ERROR_LOG_FILE_DATE_FORMAT = '%d:%m:%Y %H:%M:%S'
 
 	# Connexion.
 	SWAGGER_JSON = False
