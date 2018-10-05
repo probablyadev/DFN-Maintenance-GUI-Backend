@@ -25,3 +25,4 @@ def args(config, args):
 							 .format(args.backend_log_level, args.api_log_level))
 
 	config['VERBOSE'] = args.verbose
+	config['SILENT'] = args.silent

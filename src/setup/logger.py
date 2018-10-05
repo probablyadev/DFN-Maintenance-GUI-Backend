@@ -8,7 +8,8 @@ def logger(config):
 	logger = getLogger()
 	logger.setLevel(config['LOG_LEVEL'])
 
-	_console_handler(config, logger)
+	if not config['SILENT']:
+		_console_handler(config, logger)
 
 	if config['SHOULD_LOG_TO_FILE']:
 		_file_handlers(config, logger)

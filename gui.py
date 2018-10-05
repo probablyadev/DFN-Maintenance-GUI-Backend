@@ -9,12 +9,10 @@ from argh import ArghParser, arg, wrap_errors, expects_obj
 from connexion import FlaskApp
 
 
+# TODO: reduce use of config files (if possible).
 # TODO: Flag to not send log to frontend (--no-log).
 # TODO: Clear console on dev rebuild.
-# TODO: Silent flag. If True, do not print any logs to console / file, only exceptions (also possibly errors).
-# TODO: Stats flag. If True, stats will be returned to the frontend, if verbose is also true, will print stats on backend.
-# Include: Time to execute, errors / warning encountered.
-# Frontend: Log table (default), stats tab - if stats is not present in response then give user a message saving stats has been disabled on the server.
+# TODO: Stats (Frontend) Log table (default), stats tab - if stats is not present in response then give user a message saving stats has been disabled on the server.
 @arg('--config',
 	 choices = ['prod', 'prod.docker', 'dev', 'dev.remote', 'dev.local'],
 	 default = 'prod',
@@ -29,6 +27,7 @@ from connexion import FlaskApp
 	 help = 'Logging level for the frontend.')
 @arg('--debug',    default = False, help = "Enable debug mode logging (shortcut to setting both log levels to 'DEBUG').")
 @arg('--verbose',  default = False, help = 'Enable verbose logging.')
+@arg('--silent',   default = False, help = 'Enable silent logging. Will log only to file, not console.')
 @arg('--no-stats', default = False, help = 'Disables handler stats gathering.')
 @arg('--no-auth',  default = False, help = 'Disables jwt authentication - for testing only.')
 @wrap_errors([ValueError, OSError])
