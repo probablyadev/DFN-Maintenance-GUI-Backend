@@ -3,13 +3,10 @@
 ''''which python3.5 >/dev/null 2>&1 && exec python3.5 "$0" "$@" # '''
 ''''exec echo "Error: I can't find python3.[6|5] anywhere."     # '''
 
+import src.setup as setup
+
 from argh import ArghParser, arg, wrap_errors, expects_obj
 from connexion import FlaskApp
-
-from src.setup import (
-	setup_config, setup_extensions,
-	setup_logger, setup_routes,
-	setup_args)
 
 
 # TODO: Flag to not send log to frontend (--no-log).
@@ -34,19 +31,20 @@ from src.setup import (
 @arg('--verbose',  default = False, help = 'Enable verbose logging.')
 @arg('--no-stats', default = False, help = 'Disables handler stats gathering.')
 @arg('--no-auth',  default = False, help = 'Disables jwt authentication - for testing only.')
-@wrap_errors([ValueError])
+@wrap_errors([ValueError, OSError])
 @expects_obj
 def run(args):
 	connexion_app = FlaskApp(__name__)
-	app = connexion_app.app
+	flask_app = connexion_app.app
+	config = flask_app.config
 
-	setup_config(app, args)
-	setup_args(app, args)
-	setup_extensions(app)
-	setup_logger(app)
-	setup_routes(connexion_app)
+	setup.config(config, args)
+	setup.args(config, args)
+	setup.extensions(flask_app)
+	setup.logger(config)
+	setup.routes(connexion_app)
 
-	app.run(host = app.config['HOST'], port = app.config['PORT'])
+	flask_app.run(host = config['HOST'], port = config['PORT'])
 
 
 if __name__ == '__main__':
