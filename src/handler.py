@@ -1,36 +1,54 @@
+from datetime import datetime
 from flask import jsonify, current_app
 from io import StringIO
-from logging import Filter, Formatter, StreamHandler, getLogger
+from json_log_formatter import JSONFormatter
+from logging import StreamHandler, getLogger
 
 
-class StringIOArray(StringIO):
+class StreamArray(StringIO):
 	def __init__(self):
-		self.msg = ''
 		self.log = []
+		self.entry = {}
 
 	def write(self, msg):
-		self.msg += msg
+		self.entry = msg
 
 	def flush(self):
-		self.log.append(self.msg)
-		self.msg = ''
+		self.log.append(self.entry)
 
 	def getvalue(self):
 		return self.log
 
 
-class NoEmptyFilter(Filter):
-	def filter(self, record):
-		return True if record.getMessage() else False
+class CustomStreamHandler(StreamHandler):
+	def __init__(self, stream = None):
+		super().__init__(stream)
+
+	def emit(self, record):
+		try:
+			msg = self.format(record)
+			stream = self.stream
+			stream.write(msg)
+			self.flush()
+		except Exception:
+			self.handleError(record)
 
 
-class AdditionalFilter(Filter):
-	def __init__(self, url):
-		self.url = url.replace('/', '.')
+class CustomJSONFormatter(JSONFormatter):
+	def to_json(self, record):
+		return record
 
-	def filter(self, record):
-		record.url = self.url
-		return True
+	def json_record(self, message, extra, record):
+		extra['message'] = message
+		extra['level'] = record.__dict__['levelname']
+
+		if 'time' not in extra:
+			extra['time'] = datetime.utcnow().strftime(current_app.config['DATE_FORMAT'])
+
+		if record.exc_info:
+			extra['exc_info'] = self.formatException(record.exc_info)
+
+		return extra
 
 
 # TODO: Add to response (all 3), allow for updating of dicts / create if doesnt already exist e.g. stats.time should create / update.
@@ -79,20 +97,15 @@ class Handler():
 		return jsonify(result), self.status
 
 	def __setup_logger(self, name):
-		def _setup_stream_handler(stream):
-			handler = StreamHandler(stream = stream)
-
-			handler.setFormatter(Formatter(
-				current_app.config['API_FORMAT'],
-				datefmt = current_app.config['DATE_FORMAT']))
-			handler.addFilter(NoEmptyFilter())
-			handler.addFilter(AdditionalFilter(name))
+		def _setup_handler(stream):
+			handler = CustomStreamHandler(stream = stream)
+			handler.setFormatter(CustomJSONFormatter(current_app.config['API_FORMAT']))
 
 			return handler
 
 		log = getLogger(name)
-		stream = StringIOArray()
+		stream = StreamArray()
 
-		log.addHandler(_setup_stream_handler(stream))
+		log.addHandler(_setup_handler(stream))
 
 		return log, stream
