@@ -9,10 +9,8 @@ class Config(object):
 	SUPPORTS_CREDENTIALS = True
 
 	# Logging.
-	SHOULD_USE_FILE = True
-
-	LOG_FILE = '/data0/log/gui/normal.log'
-	ERROR_LOG_FILE = '/data0/log/gui/error.log'
+	SHOULD_LOG_TO_FILE = True
+	LOG_DIR = '/data0/log/gui/'
 
 	LOG_LEVEL = 'INFO'
 	API_LOG_LEVEL = 'INFO'

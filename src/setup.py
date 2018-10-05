@@ -1,7 +1,9 @@
+from errno import EEXIST
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from logging import Formatter, getLogger, StreamHandler
 from logging.handlers import RotatingFileHandler, TimedRotatingFileHandler
+from os import makedirs
 
 from .database import db
 
@@ -64,9 +66,15 @@ def setup_logger(app):
 	logger = getLogger()
 	logger.setLevel(config['LOG_LEVEL'])
 
-	if config['SHOULD_USE_FILE']:
+	if config['SHOULD_LOG_TO_FILE']:
+		try:
+			makedirs(config['LOG_DIR'])
+		except OSError as error:
+			if error.errno is not EEXIST:
+				raise
+
 		handler = TimedRotatingFileHandler(
-			app.config['LOG_FILE'],
+			'{}/normal.log'.format(config['LOG_DIR']),
 			when = 'midnight',
 			backupCount = 100,
 			encoding = None,
@@ -78,7 +86,7 @@ def setup_logger(app):
 		handler.setLevel('INFO')
 
 		errorHandler = RotatingFileHandler(
-			app.config['ERROR_LOG_FILE'],
+			'{}/error.log'.format(config['LOG_DIR']),
 			maxBytes = 5000,
 			backupCount = 0)
 		errorHandler.setLevel('ERROR')
