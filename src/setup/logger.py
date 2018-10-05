@@ -8,10 +8,10 @@ def logger(config):
 	logger = getLogger()
 	logger.setLevel(config['LOG_LEVEL'])
 
-	if not config['SILENT']:
+	if config['CONSOLE']:
 		_console_handler(config, logger)
 
-	if config['SHOULD_LOG_TO_FILE']:
+	if config['NO_FILE']:
 		_file_handlers(config, logger)
 
 	_lib_log_levels(config)

@@ -306,7 +306,7 @@ def _debug_output(partitions, log):
 	log.debug('off:\n{0}'.format(off))
 
 
-@logger('Loading disk disk partitions and usage...')
+@logger('Loading disk partitions and usage...')
 def disk_partitions():
 	partitions = []
 	devices = _list_fs_devices()

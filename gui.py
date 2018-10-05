@@ -17,17 +17,17 @@ from connexion import FlaskApp
 	 choices = ['prod', 'prod.docker', 'dev', 'dev.remote', 'dev.local'],
 	 default = 'prod',
 	 help = 'Config file to use.')
-@arg('--backend-log-level',
+@arg('--log-level',
 	 choices = ['CRITICAL', 'FATAL', 'ERROR', 'WARN', 'WARNING', 'INFO', 'DEBUG', 'NOTSET'],
-	 default = 'NOTSET',
-	 help = 'Logging level for the while application.')
+	 default = 'INFO',
+	 help = 'Logging level for the whole application.')
 @arg('--api-log-level',
 	 choices = ['CRITICAL', 'FATAL', 'ERROR', 'WARN', 'WARNING', 'INFO', 'DEBUG', 'NOTSET'],
-	 default = 'NOTSET',
-	 help = 'Logging level for the frontend.')
-@arg('--debug',    default = False, help = "Enable debug mode logging (shortcut to setting both log levels to 'DEBUG').")
-@arg('--verbose',  default = False, help = 'Enable verbose logging.')
-@arg('--silent',   default = False, help = 'Enable silent logging. Will log only to file, not console.')
+	 default = 'INFO',
+	 help = 'Logging level for the logs sent to the frontend.')
+@arg('--debug',    default = False, help = 'Enable Flask debug mode.')
+@arg('--console',  default = False, help = 'Enable logging to console.')
+@arg('--no-file',  default = False, help = 'Disable logging to file.')
 @arg('--no-stats', default = False, help = 'Disables handler stats gathering.')
 @arg('--no-auth',  default = False, help = 'Disables jwt authentication - for testing only.')
 @wrap_errors([ValueError, OSError])

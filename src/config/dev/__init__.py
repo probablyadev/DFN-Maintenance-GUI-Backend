@@ -2,14 +2,6 @@ from src.config import Config
 
 
 class Dev(Config):
-	# Flask.
-	DEBUG = True
-	TESTING = False
-	ENV = 'development'
-
-	# Logging.
-	FILENAME = ''
-
 	# SQLAlchemy.
 	SQLALCHEMY_DATABASE_URI = 'sqlite:///db/dev.db'
 

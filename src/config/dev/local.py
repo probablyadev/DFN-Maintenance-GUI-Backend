@@ -3,7 +3,7 @@ from . import Dev
 
 class Local(Dev):
 	# Logging.
-	SHOULD_USE_FILE = False
+	SHOULD_LOG_TO_FILE = False
 
 	# Paths.
 	DFN_CONFIG_PATH = 'sample/dfnstation.cfg'

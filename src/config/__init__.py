@@ -9,11 +9,7 @@ class Config(object):
 	SUPPORTS_CREDENTIALS = True
 
 	# Logging.
-	SHOULD_LOG_TO_FILE = True
 	LOG_DIR = '/data0/log/gui/'
-
-	LOG_LEVEL = 'INFO'
-	API_LOG_LEVEL = 'INFO'
 
 	FORMAT = '[%(asctime)s] [%(levelname)-5s] [%(name)s] %(message)s'
 	API_FORMAT = '[%(levelname)-5s] %(message)s'
