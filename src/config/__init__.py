@@ -9,15 +9,19 @@ class Config(object):
 	SUPPORTS_CREDENTIALS = True
 
 	# Logging.
-	# TODO: Setup propper logging and seperate log dirs for each day, seperate log files for info / errors.
-	# FILENAME = '/data0/log/gui/dfn-gui-server.log'
-	BACKEND_LOG_LEVEL = 'INFO'
+	SHOULD_USE_FILE = True
+
+	LOG_FILE = '/data0/log/gui/normal.log'
+	ERROR_LOG_FILE = '/data0/log/gui/error.log'
+
+	LOG_LEVEL = 'INFO'
 	API_LOG_LEVEL = 'INFO'
 
-	ROOT_FORMAT = '[%(asctime)s] [%(levelname)-7s] [%(name)s] %(message)s'
-	API_FORMAT = '[%(count)-2s] [%(levelname)-7s] %(message)s'
+	FORMAT = '[%(asctime)s] [%(levelname)-5s] [%(name)s] %(message)s'
+	API_FORMAT = '[%(levelname)-5s] %(message)s'
 
 	DATE_FORMAT = '%H:%M:%S'
+	ERROR_LOG_FILE_DATE_FORMAT = '%Y:%M:%D %H:%M:%S'
 
 	# Connexion.
 	SWAGGER_JSON = False

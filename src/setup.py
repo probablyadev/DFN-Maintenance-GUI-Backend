@@ -1,6 +1,7 @@
-from logging import basicConfig, getLogger
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
+from logging import Formatter, getLogger, StreamHandler
+from logging.handlers import RotatingFileHandler, TimedRotatingFileHandler
 
 from .database import db
 
@@ -22,15 +23,10 @@ def setup_config(app, args):
 	app.config.from_object(config)
 
 
-def setup_extensions(app):
-	db.init_app(app)
-	CORS(app)
-	JWTManager(app)
+def setup_args(app, args):
+	app.config['NO_STATS'] = args.no_stats
+	app.config['NO_AUTH'] = args.no_auth
 
-
-# TODO: https://fangpenlin.com/posts/2012/08/26/good-logging-practice-in-python/
-# TODO: https://stackoverflow.com/questions/9857284/how-to-configure-all-loggers-in-an-application#answer-9859649
-def setup_logger(app, args):
 	if args.debug:
 		args.backend_log_level = 'DEBUG'
 		args.api_log_level = 'DEBUG'
@@ -55,15 +51,55 @@ def setup_logger(app, args):
 
 	app.config['VERBOSE'] = args.verbose
 
-	basicConfig(
-		level = args.backend_log_level,
-		format = app.config['ROOT_FORMAT'],
-		datefmt = app.config['DATE_FORMAT']
-	)
+
+def setup_extensions(app):
+	db.init_app(app)
+	CORS(app)
+	JWTManager(app)
+
+
+def setup_logger(app):
+	config = app.config
+
+	logger = getLogger()
+	logger.setLevel(config['LOG_LEVEL'])
+
+	if config['SHOULD_USE_FILE']:
+		handler = TimedRotatingFileHandler(
+			app.config['LOG_FILE'],
+			when = 'midnight',
+			backupCount = 100,
+			encoding = None,
+			delay = 0,
+			utc = True)
+		handler.setFormatter(Formatter(
+			config['FORMAT'],
+			datefmt = config['DATE_FORMAT']))
+		handler.setLevel('INFO')
+
+		errorHandler = RotatingFileHandler(
+			app.config['ERROR_LOG_FILE'],
+			maxBytes = 5000,
+			backupCount = 0)
+		errorHandler.setLevel('ERROR')
+		errorHandler.setFormatter(Formatter(
+			config['FORMAT'],
+			datefmt = config['ERROR_LOG_FILE_DATE_FORMAT']))
+
+		logger.addHandler(handler)
+		logger.addHandler(errorHandler)
+
+	consoleHandler = StreamHandler()
+	consoleHandler.setLevel(config['LOG_LEVEL'])
+	consoleHandler.setFormatter(Formatter(
+		config['FORMAT'],
+		datefmt = config['DATE_FORMAT']))
+
+	logger.addHandler(consoleHandler)
 
 	getLogger('flask_cors').setLevel('INFO')
-	getLogger('flask_jwt_extended').setLevel(args.backend_log_level)
-	getLogger('connexion').setLevel(args.backend_log_level)
+	getLogger('flask_jwt_extended').setLevel(config['LOG_LEVEL'])
+	getLogger('connexion').setLevel(config['LOG_LEVEL'])
 	getLogger('connexion.operation').setLevel('INFO')
 	getLogger('connexion.decorators').setLevel('ERROR')
 	getLogger('connexion.apis').setLevel('INFO')
@@ -78,8 +114,3 @@ def setup_routes(app):
 	app.add_api('src/api/network/swagger.yaml')
 	app.add_api('src/api/session/swagger.yaml')
 	app.add_api('src/api/storage/swagger.yaml')
-
-
-def setup_additional_args(app, args):
-	app.config['NO_STATS'] = args.no_stats
-	app.config['NO_AUTH'] = args.no_auth

@@ -9,7 +9,7 @@ from connexion import FlaskApp
 from src.setup import (
 	setup_config, setup_extensions,
 	setup_logger, setup_routes,
-	setup_additional_args)
+	setup_args)
 
 
 # TODO: Flag to not send log to frontend (--no-log).
@@ -41,10 +41,10 @@ def run(args):
 	app = connexion_app.app
 
 	setup_config(app, args)
+	setup_args(app, args)
 	setup_extensions(app)
-	setup_logger(app, args)
+	setup_logger(app)
 	setup_routes(connexion_app)
-	setup_additional_args(app, args)
 
 	app.run(host = app.config['HOST'], port = app.config['PORT'])
 

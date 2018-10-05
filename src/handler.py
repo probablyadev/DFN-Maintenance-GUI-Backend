@@ -1,9 +1,6 @@
-import logging
-from io import StringIO
 from flask import jsonify, current_app
-
-
-__all__ = ['Handler']
+from io import StringIO
+from logging import Filter, Formatter, StreamHandler, getLogger
 
 
 class StringIOArray(StringIO):
@@ -22,19 +19,17 @@ class StringIOArray(StringIO):
 		return self.log
 
 
-class NoEmptyFilter(logging.Filter):
+class NoEmptyFilter(Filter):
 	def filter(self, record):
 		return True if record.getMessage() else False
 
 
-class CounterFilter(logging.Filter):
-	def __init__(self):
-		self.count = 0
+class AdditionalFilter(Filter):
+	def __init__(self, url):
+		self.url = url.replace('/', '.')
 
 	def filter(self, record):
-		record.count = self.count
-		self.count += 1
-
+		record.url = self.url
 		return True
 
 
@@ -84,19 +79,20 @@ class Handler():
 		return jsonify(result), self.status
 
 	def __setup_logger(self, name):
-		def string_handler():
-			stream = StringIOArray()
-			handler = logging.StreamHandler(stream = stream)
+		def _setup_stream_handler(stream):
+			handler = StreamHandler(stream = stream)
 
-			handler.setFormatter(logging.Formatter(current_app.config['API_FORMAT']))
+			handler.setFormatter(Formatter(
+				current_app.config['API_FORMAT'],
+				datefmt = current_app.config['DATE_FORMAT']))
 			handler.addFilter(NoEmptyFilter())
-			handler.addFilter(CounterFilter())
+			handler.addFilter(AdditionalFilter(name))
 
-			return handler, stream
+			return handler
 
-		log = logging.getLogger(name)
+		log = getLogger(name)
+		stream = StringIOArray()
 
-		handler, stream = string_handler()
-		log.addHandler(handler)
+		log.addHandler(_setup_stream_handler(stream))
 
 		return log, stream

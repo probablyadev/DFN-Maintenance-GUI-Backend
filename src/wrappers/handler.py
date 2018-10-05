@@ -1,4 +1,4 @@
-import logging
+from logging import getLogger
 
 from flask import current_app
 from functools import wraps
@@ -25,9 +25,9 @@ def _handler_setup(function, prefix):
 	else:
 		network_path = '{}/{}'.format(module, function.__name__)
 
-	logging.getLogger().debug('{} ({})'.format(network_path, file_path))
+	getLogger().debug('{} ({})'.format(network_path, file_path))
 
-	handler = Handler(network_path)
+	handler = Handler(file_path)
 	current_app.handler = handler
 
 	return handler
