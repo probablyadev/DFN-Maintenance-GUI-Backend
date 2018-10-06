@@ -11,7 +11,7 @@ def logger(config):
 	if config['CONSOLE']:
 		_console_handler(config, logger)
 
-	if config['NO_FILE']:
+	if not config['NO_FILE']:
 		_file_handlers(config, logger)
 
 	_lib_log_levels(config)

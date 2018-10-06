@@ -33,7 +33,7 @@ def get(handler, log, config):
 		"lon"
 	}
 
-	log.debug('DFN_CONFIG_PATH: {}'.format(config.dfn_config_path))
+	log.debug('CONFIG_PATH: {}'.format(config.dfn_config_path))
 	log.info('Loading config.')
 
 	config_file = load_config(config.dfn_config_path)

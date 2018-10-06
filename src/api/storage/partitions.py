@@ -1,4 +1,4 @@
-from json import load, loads
+from json import loads
 from re import sub, split
 from subprocess import CalledProcessError
 
@@ -99,17 +99,13 @@ def _lsblk_with_json():
 
 @logger('Loading fs devices...')
 @injector
-def _list_fs_devices(log, config):
+def _list_fs_devices(log):
 	# Load mounted / on devices.
-	if config.use_dev_command:
-		with open('sample/lsblk.json') as json_data:
-			output = load(json_data)['blockdevices']
-	else:
-		try:
-			output = _lsblk_with_json()
-		except CalledProcessError:
-			log.warning('This version of lsblk does not offer json output, switching to raw parsing...')
-			output = _lsblk_no_json()
+	try:
+		output = _lsblk_with_json()
+	except CalledProcessError:
+		log.warning('This version of lsblk does not offer json output, switching to raw parsing...')
+		output = _lsblk_no_json()
 
 	devices = []
 
@@ -159,7 +155,7 @@ def _load_disk_usage(log, config):
 
 	try:
 		# Load unmounted / off disk usage from file.
-		with open(config.dfn_disk_usage_path) as file_data:
+		with open(config.disk_usage_path) as file_data:
 			off_disk_usages = file_data.readlines()
 
 		off_disk_usages = _filter_df(off_disk_usages)
@@ -169,9 +165,9 @@ def _load_disk_usage(log, config):
 			if off_disk_usages.get(key):
 				del off_disk_usages[key]
 	except FileNotFoundError:
-		log.warning('{0} does not exist, creating file with current disk usage.'.format(config.dfn_disk_usage_path))
+		log.warning('{0} does not exist, creating file with current disk usage.'.format(config.disk_usage_path))
 
-		with open(config.dfn_disk_usage_path, 'w+') as file_data:
+		with open(config.disk_usage_path, 'w+') as file_data:
 			file_data.write(raw_mounted_disk_usages[0])
 
 			for line in raw_mounted_disk_usages[1:]:

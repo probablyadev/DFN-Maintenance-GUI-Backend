@@ -7,7 +7,7 @@ from src.wrappers import endpoint, logger
 @endpoint
 @logger('Retrieving config file.')
 def get(handler, log, config):
-	log.debug('DFN_CONFIG_PATH: {}'.format(config.dfn_config_path))
+	log.debug('CONFIG_PATH: {}'.format(config.dfn_config_path))
 	log.info('Loading config.')
 
 	config_file = load_config(config.dfn_config_path)
@@ -29,7 +29,7 @@ def put(row, handler, log, config):
 	field = row[1]
 	value = row[2]
 
-	log.debug('DFN_CONFIG_PATH: {}'.format(config.dfn_config_path))
+	log.debug('CONFIG_PATH: {}'.format(config.dfn_config_path))
 	log.info('Loading config.')
 
 	updated_conf_dict = load_config(config.dfn_config_path)
