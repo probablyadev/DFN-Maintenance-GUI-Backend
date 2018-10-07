@@ -123,7 +123,7 @@ def _list_fs_devices(log):
 	return devices
 
 
-@logger('Filtering df output...', level ='DEBUG')
+@logger('Filtering df output...', level = 'DEBUG')
 def _filter_df(output):
 	disk_usages = {}
 

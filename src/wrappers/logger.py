@@ -1,4 +1,4 @@
-import logging
+from logging import getLevelName
 
 from flask import current_app
 from functools import wraps
@@ -27,7 +27,7 @@ def logger(*decorator_args, **decorator_kwargs):
 			message_prefix = '\t:log message: '
 			level_prefix = '\t:log level: '
 
-			level = decorator_kwargs.pop('level', 'INFO')
+			level = decorator_kwargs.get('level', 'INFO')
 
 			if decorator_args:
 				message = decorator_args[0]
@@ -42,8 +42,7 @@ def logger(*decorator_args, **decorator_kwargs):
 						level = line.replace(level_prefix, '')
 						level = level.replace(' ', '')
 
-			level = getattr(logging, level)
-			current_app.handler.log.log(level, message)
+			current_app.handler.log.log(getLevelName(level), message)
 
 			return function(*args, **kwargs)
 		return decorator
