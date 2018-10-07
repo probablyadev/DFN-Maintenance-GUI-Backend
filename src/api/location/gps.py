@@ -12,13 +12,11 @@ def coordinates(initial, direction):
 @endpoint
 @logger('Getting GPS status.')
 def get(handler, log):
-	output = console(
-		'python /opt/dfn-software/leostick_get_status.py -g',
-		'echo GPGGA,080112.000,3346.4614,S,15106.8787,E,0,00,99.0,067.59,M,21.9,M,,,').split(',')
+	output = console('python /opt/dfn-software/leostick_get_status.py -g').split(',')
 
 	log.info('Parsing GPS output.')
 	if len(output) is not 16:
-		raise IOError('GPS offline')
+		raise IOError('GPS offline.')
 
 	lock = 'Locked' if output[6] is '1' else 'No lock'
 	satellites = output[7].strip('0') or '0'
@@ -26,10 +24,10 @@ def get(handler, log):
 	longitude = coordinates(output[4], output[5])
 	altitude = output[9].strip('0') or '0'
 
-	handler.add_to_success_response(
-		lock = lock,
-		satellites = satellites,
-		latitude = latitude,
-		longitude = longitude,
-		altitude = altitude
-	)
+	handler.add({
+		'lock': lock,
+		'satellites': satellites,
+		'latitude': latitude,
+		'longitude': longitude,
+		'altitude': altitude
+	})

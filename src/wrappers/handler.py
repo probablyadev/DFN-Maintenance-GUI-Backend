@@ -3,7 +3,6 @@ from logging import getLogger
 from flask import current_app
 from functools import wraps
 from inspect import getmodule
-from pprint import pformat
 from subprocess import CalledProcessError
 
 from src.handler import Handler
@@ -42,19 +41,15 @@ def handler(prefix = None):
 			try:
 				function(*args, **kwargs)
 			except CalledProcessError as error:
-				exception = {
+				handler.status(500)
+				handler.add({ 'error': {
 					'cmd': error.cmd,
-					'output': error.output,
-					'returncode': error.returncode
-				}
-
-				handler.log.exception('\n{}'.format(pformat(exception)))
-				handler.add_to_error_response(exception)
-				handler.set_status(500)
+					'msg': error.output,
+					'returncode': error.returncode }})
 			except Exception as error:
 				handler.log.exception(error)
-				handler.add_to_error_response(str(error))
-				handler.set_status(500)
+				handler.add({ 'error': { 'msg': str(error) }})
+				handler.status(500)
 
 			return handler.to_json()
 		return decorator

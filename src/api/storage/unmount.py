@@ -18,5 +18,4 @@ def unmount(config):
 @endpoint
 def get(handler):
 	unmount()
-
-	handler.add_to_success_response(partitions = disk_partitions())
+	handler.add({ 'partitions': disk_partitions() })

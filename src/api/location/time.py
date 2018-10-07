@@ -16,16 +16,16 @@ def get(handler, log):
 	rtc = time[2].split('RTC time: ')[1]
 	timezone = time[3].split('Time zone: ')[1].split(' ')[0]
 
-	handler.add_to_success_response(
-		local = local,
-		utc = utc,
-		rtc = rtc,
-		timezone = timezone
-	)
+	handler.add({
+		'local': local,
+		'utc': utc,
+		'rtc': rtc,
+		'timezone': timezone
+	})
 
 
 @endpoint
 @logger('Setting new timezone.')
 def put(timezone, handler):
 	console("timedatectl set-timezone {0}".format(timezone[0]))
-	handler.set_status(204)
+	handler.status(204)

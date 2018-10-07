@@ -3,31 +3,23 @@ from functools import wraps
 from datetime import datetime
 
 
-def _time(start, end):
-	delta = (end - start).total_seconds()
-
-	return {
-		'start': start.strftime('%H:%M:%S'),
-		'end': end.strftime('%H:%M:%S'),
-		'time': '{} seconds'.format(format(delta, '.2f'))
-	}
-
-
 def stats(function):
 	@wraps(function)
 	def decorator(*args, **kwargs):
 		if current_app.config['NO_STATS'] is False:
 			start = datetime.now()
-
 			function(*args, **kwargs)
-
 			end = datetime.now()
 
-			stats = {
-				'time': _time(start, end)
-			}
-
-			current_app.handler.add_to_common_response(stats = stats)
+			current_app.handler.add({
+				'stats': {
+					'time': {
+						'start': start.strftime('%H:%M:%S'),
+						'end': end.strftime('%H:%M:%S'),
+						'time': '{} seconds'.format(format((end - start).total_seconds(), '.2f'))
+					}
+				}
+			})
 		else:
 			function(*args, **kwargs)
 

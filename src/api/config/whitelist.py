@@ -33,16 +33,15 @@ def get(handler, log, config):
 		"lon"
 	}
 
-	log.debug('CONFIG_PATH: {}'.format(config.dfn_config_path))
+	log.debug('CONFIG_PATH: {}'.format(config.config_path))
 	log.info('Loading config.')
 
-	config_file = load_config(config.dfn_config_path)
+	config_file = load_config(config.config_path)
 	whitelist = {}
 
 	log.info('Checking config file.')
-
 	if not config_file:
-		raise IOError('Cannot load config file with path: {0}'.format(config.dfn_config_path))
+		raise IOError('Cannot load config file with path: {0}'.format(config.config_path))
 
 	for whitelist_category in config_whitelist:
 		for conf_category in config_file:
@@ -55,4 +54,4 @@ def get(handler, log, config):
 
 							whitelist[conf_category][conf_field] = config_file[conf_category][conf_field]
 
-	handler.add_to_success_response(whitelist = whitelist)
+	handler.add({ 'whitelist': whitelist })

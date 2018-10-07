@@ -44,7 +44,7 @@ def on(handler, log):
 
 	_poll(check_for_increase = True)
 
-	handler.add_to_success_response(partitions = disk_partitions())
+	handler.add({ 'partitions': disk_partitions() })
 
 
 @endpoint
@@ -56,4 +56,4 @@ def off(handler, log):
 
 	_poll(check_for_increase = False)
 
-	handler.add_to_success_response(partitions = disk_partitions())
+	handler.add({ 'partitions': disk_partitions() })

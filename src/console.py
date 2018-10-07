@@ -5,6 +5,7 @@ from subprocess import check_output, STDOUT, CalledProcessError
 
 # TODO: Rewrite the prod / dev command usage. Maybe pass in an array of the two and have a conditional decorator to inject the command and the console type.
 # TODO: Add logs.
+# TODO: Log exception.
 def console(command):
 	if current_app.config['SSH']:
 		return ssh(command)

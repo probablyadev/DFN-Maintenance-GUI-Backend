@@ -10,4 +10,4 @@ def hostname():
 @handler
 @injector
 def get(handler):
-	handler.add_to_success_response(hostname = hostname())
+	handler.add({ 'hostname': hostname() })

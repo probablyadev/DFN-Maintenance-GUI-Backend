@@ -92,9 +92,7 @@ def _lsblk_no_json():
 
 @logger('Loading lsblk devices...')
 def _lsblk_with_json():
-	output = loads(console('lsblk --inverse --nodeps --json --output NAME,LABEL,SIZE,FSTYPE,MOUNTPOINT'))
-
-	return output['blockdevices']
+	return loads(console('lsblk --inverse --nodeps --json --output NAME,LABEL,SIZE,FSTYPE,MOUNTPOINT'))['blockdevices']
 
 
 @logger('Loading fs devices...')
@@ -166,7 +164,6 @@ def _load_disk_usage(log, config):
 				del off_disk_usages[key]
 	except FileNotFoundError:
 		log.warning('{0} does not exist, creating file with current disk usage.'.format(config.disk_usage_path))
-
 		with open(config.disk_usage_path, 'w+') as file_data:
 			file_data.write(raw_mounted_disk_usages[0])
 
@@ -267,41 +264,6 @@ def _off_drives(partitions, off_disk_usages):
 		})
 
 
-@logger('Gathering debug output...', level = 'DEBUG')
-@injector
-def _debug_output(partitions, log):
-	from pprint import pformat
-
-	mounted = []
-	unmounted = []
-	off = []
-
-	for sublist in partitions:
-		if sublist['status'] is 'mounted':
-			mounted.append({
-				'device': sublist['device'],
-				'mount': sublist['mount']
-			})
-		elif sublist['status'] is 'unmounted':
-			unmounted.append({
-				'device': sublist['device'],
-				'mount': sublist['mount']
-			})
-		else:
-			off.append({
-				'device': sublist['device'],
-				'mount': sublist['mount']
-			})
-
-	mounted = pformat(mounted)
-	unmounted = pformat(unmounted)
-	off = pformat(off)
-
-	log.debug('mounted:\n{0}'.format(mounted))
-	log.debug('unmounted:\n{0}'.format(unmounted))
-	log.debug('off:\n{0}'.format(off))
-
-
 @logger('Loading disk partitions and usage...')
 def disk_partitions():
 	partitions = []
@@ -316,11 +278,6 @@ def disk_partitions():
 
 
 @endpoint
-def get(handler, config):
-	partitions = disk_partitions()
-
-	if config.verbose:
-		_debug_output(partitions)
-
-	handler.add_to_success_response(partitions = partitions)
+def get(handler):
+	handler.add({ 'partitions': disk_partitions() })
 
