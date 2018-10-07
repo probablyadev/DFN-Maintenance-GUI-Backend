@@ -23,6 +23,7 @@ log_levels = ['CRITICAL', 'FATAL', 'ERROR', 'WARN', 'WARNING', 'INFO', 'DEBUG', 
 @arg('--port',     default = 5000,      help = 'Port to serve on.')
 @arg('--ssh',      default = None,      help = 'Use the SSH console (rather than the local console). In the format user@host')
 @arg('--password', default = None,      help = 'Password to use with SSH console.')
+@arg('-v', '--verbose', default = False, help = 'Enable verbose logging. Sets the log levels to DEBUG and logs more in depth information.')
 @arg('--config-path',     default = '/opt/dfn-software/dfnstation.cfg', help = 'Path to the dfnstation.cfg file.')
 @arg('--disk-usage-path', default = '/tmp/dfn_disk_usage',              help = 'Path to the dfn_disk_usage file.')
 @arg('--log-level',

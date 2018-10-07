@@ -2,13 +2,6 @@ from os import environ
 
 
 def args(config, args):
-	if args.ssh:
-		config.update(
-			SSH_HOSTNAME = args.ssh.rpartition()[0],
-			SSH_USER = args.ssh.rpartition()[1],
-			SSH_PASSWORD = args.password
-		)
-
 	config.update(
 		# ARGS.
 		LOG_LEVEL = args.log_level,
@@ -20,6 +13,7 @@ def args(config, args):
 		CONFIG_PATH = args.config_path,
 		DISK_USAGE_PATH = args.disk_usage_path,
 		SSH = args.ssh,
+		VERBOSE = args.verbose,
 
 		# CORS.
 		HEADERS = 'Content-Type',
@@ -52,6 +46,19 @@ def args(config, args):
 		_dev(config)
 	else:
 		_prod(config)
+
+	if args.ssh:
+		config.update(
+			SSH_HOSTNAME = args.ssh.rpartition()[0],
+			SSH_USER = args.ssh.rpartition()[1],
+			SSH_PASSWORD = args.password
+		)
+
+	if args.verbose:
+		config.update(
+			LOG_LEVEL = 'DEBUG',
+			API_LOG_LEVEL = 'DEBUG')
+
 
 
 def _dev(config):
