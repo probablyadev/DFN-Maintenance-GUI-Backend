@@ -4,7 +4,7 @@ from flask_jwt_extended import (
 	jwt_refresh_token_required, get_jwt_identity
 )
 
-from src.wrappers import jwt
+import src.wrappers as wrappers
 from src.database import User
 
 
@@ -24,7 +24,7 @@ def auth(json):
 		return jsonify(output = 'Bad username or password'), 401
 
 
-@jwt
+@wrappers.jwt
 def check():
 	return 200
 

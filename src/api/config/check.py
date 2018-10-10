@@ -1,11 +1,14 @@
 from re import search
 
+import src.wrappers as wrappers
 from src.console import console
-from src.wrappers import endpoint, logger
 
 
-@endpoint
-@logger('Checking config file is valid.')
+@wrappers.jwt
+@wrappers.endpoint
+@wrappers.stats
+@wrappers.logger('Checking config file is valid.')
+@wrappers.injector
 def get(handler, log):
 	output = console('python /opt/dfn-software/camera_image_count.py')
 

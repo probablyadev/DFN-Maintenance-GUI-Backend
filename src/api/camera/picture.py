@@ -1,13 +1,19 @@
-from src.wrappers import endpoint, logger
+import src.wrappers as wrappers
 
 
-@endpoint
-@logger('TODO: Implement handler')
+@wrappers.jwt
+@wrappers.endpoint
+@wrappers.stats
+@wrappers.logger('TODO: Implement endpoint')
+@wrappers.injector
 def download(handler):
 	pass
 
 
-@endpoint
-@logger('TODO: Implement handler')
+@wrappers.jwt
+@wrappers.endpoint
+@wrappers.stats
+@wrappers.logger('TODO: Implement endpoint')
+@wrappers.injector
 def find(handler):
 	pass

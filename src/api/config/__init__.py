@@ -1,11 +1,14 @@
 """The config api module."""
 
+import src.wrappers as wrappers
 from src.imported.config_handler import load_config, save_config_file
-from src.wrappers import endpoint, logger
 
 
-@endpoint
-@logger('Retrieving config file.')
+@wrappers.jwt
+@wrappers.endpoint
+@wrappers.stats
+@wrappers.logger('Retrieving config file.')
+@wrappers.injector
 def get(handler, log, config):
 	log.debug('CONFIG_PATH: {}'.format(config.dfn_config_path))
 	log.info('Loading config.')
@@ -19,8 +22,11 @@ def get(handler, log, config):
 	handler.add({ 'config': config_file })
 
 
-@endpoint
-@logger('Updating config file entry.')
+@wrappers.jwt
+@wrappers.endpoint
+@wrappers.stats
+@wrappers.logger('Updating config file entry.')
+@wrappers.injector
 def put(row, handler, log, config):
 	log.info('Parsing row parameter.')
 

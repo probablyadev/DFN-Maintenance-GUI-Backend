@@ -1,28 +1,37 @@
+import src.wrappers as wrappers
 from src.console import console
-from src.wrappers import endpoint, logger, injector
 
 
-@endpoint
+@wrappers.jwt
+@wrappers.endpoint
+@wrappers.stats
+@wrappers.injector
 def get(handler):
 	handler.add({ 'status': _status() })
 
 
-@endpoint
-@logger('Enabling DSLR camera.')
+@wrappers.jwt
+@wrappers.endpoint
+@wrappers.stats
+@wrappers.logger('Enabling DSLR camera.')
+@wrappers.injector
 def on(handler):
 	console('python /opt/dfn-software/enable_camera.py')
 	handler.add({ 'status': _status() })
 
 
-@endpoint
-@logger('Disabling DSLR camera.')
+@wrappers.jwt
+@wrappers.endpoint
+@wrappers.stats
+@wrappers.logger('Disabling DSLR camera.')
+@wrappers.injector
 def off(handler):
 	console('python /opt/dfn-software/disable_camera.py')
 	handler.add({ 'status': _status() })
 
 
-@logger('Checking status of DSLR camera.')
-@injector
+@wrappers.logger('Checking status of DSLR camera.')
+@wrappers.injector
 def _status(log):
 	status = False
 

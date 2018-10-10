@@ -8,7 +8,7 @@ from subprocess import CalledProcessError
 from src.handler import Handler
 
 
-def _handler_setup(function, prefix):
+def _endpoint_setup(function, prefix):
 	if callable(prefix):
 		prefix = None
 
@@ -32,11 +32,11 @@ def _handler_setup(function, prefix):
 	return handler
 
 
-def handler(prefix = None):
+def endpoint(prefix = None):
 	def endpoint_decorator(function):
 		@wraps(function)
 		def decorator(*args, **kwargs):
-			handler = _handler_setup(function, prefix)
+			handler = _endpoint_setup(function, prefix)
 
 			try:
 				function(*args, **kwargs)
@@ -51,6 +51,7 @@ def handler(prefix = None):
 				handler.add({ 'error': { 'msg': str(error) }})
 				handler.status(500)
 
+			handler.log.info('Sending response.')
 			return handler.to_json()
 		return decorator
 

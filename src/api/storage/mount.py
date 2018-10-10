@@ -1,12 +1,12 @@
 from subprocess import CalledProcessError
 
-from src.wrappers import endpoint, logger, injector
+import src.wrappers as wrappers
 from src.console import console
 from .partitions import disk_partitions
 
 
-@logger('Mounting external drives...')
-@injector
+@wrappers.logger('Mounting external drives.')
+@wrappers.injector
 def mount(config):
 	for drive in config.drives:
 		try:
@@ -15,7 +15,10 @@ def mount(config):
 			pass
 
 
-@endpoint
+@wrappers.jwt
+@wrappers.endpoint
+@wrappers.stats
+@wrappers.injector
 def get(handler):
 	mount()
 	handler.add({ 'partitions': disk_partitions() })

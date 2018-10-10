@@ -1,5 +1,5 @@
+import src.wrappers as wrappers
 from src.console import console
-from src.wrappers import endpoint, logger
 
 
 def coordinates(initial, direction):
@@ -9,8 +9,11 @@ def coordinates(initial, direction):
 	return '{0}{1}.{2}'.format(coordinate, initial[:-6], initial[-6:])
 
 
-@endpoint
-@logger('Getting GPS status.')
+@wrappers.jwt
+@wrappers.endpoint
+@wrappers.stats
+@wrappers.logger('Getting GPS status.')
+@wrappers.injector
 def get(handler, log):
 	output = console('python /opt/dfn-software/leostick_get_status.py -g').split(',')
 

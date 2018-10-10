@@ -17,7 +17,7 @@ log_levels = ['CRITICAL', 'FATAL', 'ERROR', 'WARN', 'WARNING', 'INFO', 'DEBUG', 
 @arg('--dev',      default = False,     help = 'Enable Flask development mode.')
 @arg('--console',  default = False,     help = 'Enable logging to console.')
 @arg('--no-file',  default = False,     help = 'Disable logging to file.')
-@arg('--no-stats', default = False,     help = 'Disables handler stats gathering.')
+@arg('--no-stats', default = False,     help = 'Disables endpoint stats gathering.')
 @arg('--no-auth',  default = False,     help = 'Disables jwt authentication.')
 @arg('--host',     default = '0.0.0.0', help = 'IP to serve on.')
 @arg('--port',     default = 5000,      help = 'Port to serve on.')

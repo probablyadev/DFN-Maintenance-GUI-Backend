@@ -1,13 +1,12 @@
+import src.wrappers as wrappers
 from src.console import console
-from src.wrappers import handler, injector, logger
 
 
+@wrappers.logger('Getting systems hostname.')
 def hostname():
-	return console('hostname')
+	return console('hostname').strip('\n')
 
 
-@logger('Getting systems hostname.')
-@handler
-@injector
+@wrappers.injector
 def get(handler):
 	handler.add({ 'hostname': hostname() })

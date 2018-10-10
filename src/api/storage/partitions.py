@@ -2,8 +2,8 @@ from json import loads
 from re import sub, split
 from subprocess import CalledProcessError
 
+import src.wrappers as wrappers
 from src.console import console
-from src.wrappers import endpoint, logger, injector
 
 
 def _filter_out_empty_entries(devices):
@@ -82,7 +82,7 @@ def _to_json(devices):
 	return result
 
 
-@logger('Loading raw lsblk devices...')
+@wrappers.logger('Loading raw lsblk devices.')
 def _lsblk_no_json():
 	devices = console('lsblk --list --noheadings --output NAME,LABEL,SIZE,FSTYPE,MOUNTPOINT').splitlines()
 	devices = _filter_out_empty_entries(devices)
@@ -90,19 +90,19 @@ def _lsblk_no_json():
 	return _to_json(devices)
 
 
-@logger('Loading lsblk devices...')
+@wrappers.logger('Loading lsblk devices.')
 def _lsblk_with_json():
 	return loads(console('lsblk --inverse --nodeps --json --output NAME,LABEL,SIZE,FSTYPE,MOUNTPOINT'))['blockdevices']
 
 
-@logger('Loading fs devices...')
-@injector
+@wrappers.logger('Loading fs devices.')
+@wrappers.injector
 def _list_fs_devices(log):
 	# Load mounted / on devices.
 	try:
 		output = _lsblk_with_json()
 	except CalledProcessError:
-		log.warning('This version of lsblk does not offer json output, switching to raw parsing...')
+		log.warning('This version of lsblk does not offer json output, switching to raw parsing.')
 		output = _lsblk_no_json()
 
 	devices = []
@@ -121,7 +121,7 @@ def _list_fs_devices(log):
 	return devices
 
 
-@logger('Filtering df output...', level = 'DEBUG')
+@wrappers.logger('Filtering df output.', level = 'DEBUG')
 def _filter_df(output):
 	disk_usages = {}
 
@@ -142,8 +142,8 @@ def _filter_df(output):
 	return disk_usages
 
 
-@logger('Loading disk usage...')
-@injector
+@wrappers.logger('Loading disk usage.')
+@wrappers.injector
 def _load_disk_usage(log, config):
 	off_disk_usages = {}
 
@@ -174,7 +174,7 @@ def _load_disk_usage(log, config):
 	return mounted_disk_usages, off_disk_usages
 
 
-@logger('Checking mounted drives...')
+@wrappers.logger('Checking mounted drives.')
 def _mounted_drives(partitions, devices, mounted_disk_usages):
 	for device in devices:
 		if device['mountpoint'] is not None:
@@ -211,7 +211,7 @@ def _mounted_drives(partitions, devices, mounted_disk_usages):
 						})
 
 
-@logger('Checking unmounted drives...')
+@wrappers.logger('Checking unmounted drives.')
 def _unmounted_drives(partitions, devices, off_disk_usages):
 	for device in devices:
 		if device['mountpoint'] is None:
@@ -246,7 +246,7 @@ def _unmounted_drives(partitions, devices, off_disk_usages):
 
 
 # BUG: sdd1 and sdb1 are swapped in the dfn_disk_usage file (mount points), possibly causing them to not be listed.
-@logger('Checking off drives...')
+@wrappers.logger('Checking off drives.')
 def _off_drives(partitions, off_disk_usages):
 	for key in off_disk_usages:
 		device = off_disk_usages.get(key)
@@ -264,7 +264,7 @@ def _off_drives(partitions, off_disk_usages):
 		})
 
 
-@logger('Loading disk partitions and usage...')
+@wrappers.logger('Loading disk partitions and usage.')
 def disk_partitions():
 	partitions = []
 	devices = _list_fs_devices()
@@ -277,7 +277,10 @@ def disk_partitions():
 	return partitions
 
 
-@endpoint
+@wrappers.jwt
+@wrappers.endpoint
+@wrappers.stats
+@wrappers.injector
 def get(handler):
 	handler.add({ 'partitions': disk_partitions() })
 

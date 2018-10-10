@@ -1,11 +1,14 @@
 from re import sub
 
+import src.wrappers as wrappers
 from src.console import console
-from src.wrappers import endpoint, logger
 
 
-@endpoint
-@logger('Getting time status.')
+@wrappers.jwt
+@wrappers.endpoint
+@wrappers.stats
+@wrappers.logger('Getting time status.')
+@wrappers.injector
 def get(handler, log):
 	time = console('timedatectl status').splitlines()
 
@@ -24,8 +27,11 @@ def get(handler, log):
 	})
 
 
-@endpoint
-@logger('Setting new timezone.')
+@wrappers.jwt
+@wrappers.endpoint
+@wrappers.stats
+@wrappers.logger('Setting new timezone.')
+@wrappers.injector
 def put(timezone, handler):
 	console("timedatectl set-timezone {0}".format(timezone[0]))
 	handler.status(204)

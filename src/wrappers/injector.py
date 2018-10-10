@@ -16,9 +16,10 @@ def injector(function):
 	@wraps(function)
 	def decorator(*args, **kwargs):
 		argsspec = getargspec(function)
+		print(argsspec)
 
-		if 'handler' in argsspec.args:
-			kwargs['handler'] = current_app.handler
+		if 'endpoint' in argsspec.args:
+			kwargs['endpoint'] = current_app.handler
 
 		if 'log' in argsspec.args:
 			kwargs['log'] = current_app.handler.log

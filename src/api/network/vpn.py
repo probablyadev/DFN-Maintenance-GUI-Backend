@@ -1,11 +1,14 @@
 from subprocess import CalledProcessError
 
+import src.wrappers as wrappers
 from src.console import console
-from src.wrappers import endpoint, logger
 
 
-@endpoint
-@logger('Checking VPN adapter.')
+@wrappers.jwt
+@wrappers.endpoint
+@wrappers.stats
+@wrappers.logger('Checking VPN adapter.')
+@wrappers.injector
 def check(handler, log):
 	log.info('Getting VPN address.')
 	command = "ifconfig | grep tun0 -A 1 | grep -o '\(addr:\|inet \)[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'| cut -c6-"
@@ -23,9 +26,11 @@ def check(handler, log):
 	handler.add({ 'ip': ip, 'output': output })
 
 
-@endpoint
-@logger('Restarting VPN adapter.')
+@wrappers.jwt
+@wrappers.endpoint
+@wrappers.stats
+@wrappers.logger('Restarting VPN adapter.')
+@wrappers.injector
 def restart(handler):
 	output = console("service openvpn restart && sleep 10 && ifconfig tun0")
-
 	handler.add({ 'output': output })
