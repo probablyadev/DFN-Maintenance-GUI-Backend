@@ -7,6 +7,7 @@ def hostname():
 	return console('hostname').strip('\n')
 
 
+@wrappers.endpoint
 @wrappers.injector
 def get(handler):
 	handler.add({ 'hostname': hostname() })
