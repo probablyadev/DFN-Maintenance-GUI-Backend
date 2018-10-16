@@ -190,7 +190,8 @@ def _mounted_drives(partitions, devices, mounted_disk_usages):
 					'free': usage['free'],
 					'percent': usage['percent'],
 					'type': device['fstype'],
-					'mount': device['mountpoint']
+					'mount': device['mountpoint'],
+					'smart': ''
 				})
 			else:
 				# Device name could differ from df command.
@@ -207,7 +208,8 @@ def _mounted_drives(partitions, devices, mounted_disk_usages):
 							'free': mounted_disk['free'],
 							'percent': mounted_disk['percent'],
 							'type': device['fstype'],
-							'mount': device['mountpoint']
+							'mount': device['mountpoint'],
+							'smart': ''
 						})
 
 
@@ -227,7 +229,8 @@ def _unmounted_drives(partitions, devices, off_disk_usages):
 					'free': usage['free'],
 					'percent': usage['percent'],
 					'type': device['fstype'],
-					'mount': ''
+					'mount': '',
+					'smart': ''
 				})
 
 				del off_disk_usages[device['name']]
@@ -241,7 +244,8 @@ def _unmounted_drives(partitions, devices, off_disk_usages):
 					'free': '',
 					'percent': '',
 					'type': device['fstype'],
-					'mount': ''
+					'mount': '',
+					'smart': ''
 				})
 
 
@@ -260,7 +264,8 @@ def _off_drives(partitions, off_disk_usages):
 			'free': device['free'],
 			'percent': device['percent'],
 			'type': '',
-			'mount': ''
+			'mount': '',
+			'smart': ''
 		})
 
 

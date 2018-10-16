@@ -89,6 +89,20 @@ paths:
           schema:
             $ref: '#/definitions/CommandException'
 
+  /smart:
+    get:
+      summary: Performs a smart test.
+      operationId: src.api.storage.smart.get
+      responses:
+        200:
+          description: Successfully performed the smart test.
+          schema:
+            $ref: '#/definitions/Json'
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
 
 definitions:
   Json:
