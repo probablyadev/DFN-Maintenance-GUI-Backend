@@ -16,9 +16,15 @@ def args(config, args):
 		VERBOSE = args.verbose,
 
 		# CORS.
-		HEADERS = 'Content-Type',
-		RESOURCES = {r"/api/*": {'origins': "*"}},
-		SUPPORTS_CREDENTIALS = True,
+		CORS_METHODS = ['GET', 'POST', 'PUT', 'OPTIONS'],
+		CORS_ALLOW_HEADERS = ['Access-Control-Allow-Credentials',
+							  'Access-Control-Allow-Headers',
+							  'Access-Control-Allow-Methods',
+							  'Access-Control-Allow-Origin',
+							  'Authorization',
+							  'Content-Type',
+							  'Accept'],
+		CORS_ORIGINS = '*',
 
 		# Logging.
 		LOG_DIR = '/data0/log/gui/',
