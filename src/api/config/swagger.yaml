@@ -4,7 +4,7 @@ info:
   title: Config File API Endpoint
   version: "1.0"
 
-basePath: /api/config
+basePath: /api
 
 consumes:
   - application/json
@@ -19,7 +19,7 @@ securityDefinitions:
 
 
 paths:
-  /:
+  /config:
     get:
       summary: Gets the config file.
       operationId: src.api.config.get
@@ -49,7 +49,7 @@ paths:
           schema:
             $ref: '#/definitions/CommandException'
 
-  /check:
+  /config/check:
     get:
       summary: Checks that the config file in use is valid.
       operationId: src.api.config.check.get
@@ -61,7 +61,7 @@ paths:
           schema:
             $ref: '#/definitions/CommandException'
 
-  /whitelist:
+  /config/whitelist:
     get:
       summary: Gets the config files whitelist (editable entries).
       operationId: src.api.config.whitelist.get
