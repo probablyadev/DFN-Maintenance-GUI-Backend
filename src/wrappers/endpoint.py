@@ -41,11 +41,12 @@ def endpoint(prefix = None):
 			try:
 				function(*args, **kwargs)
 			except CalledProcessError as error:
-				handler.set_status(500)
+				handler.log.exception(error.output)
 				handler.add({ 'error': {
 					'cmd': error.cmd,
 					'msg': error.output,
 					'returncode': error.returncode }})
+				handler.set_status(500)
 			except Exception as error:
 				handler.log.exception(error)
 				handler.add({ 'error': { 'msg': str(error) }})
