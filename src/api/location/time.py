@@ -1,4 +1,5 @@
 from re import sub
+from subprocess import CalledProcessError
 
 import src.wrappers as wrappers
 from src.console import console
@@ -33,5 +34,15 @@ def get(handler, log):
 @wrappers.logger('Setting new timezone.')
 @wrappers.injector
 def put(timezone, handler):
-	console("timedatectl set-timezone {0}".format(timezone[0]))
+	command = "timedatectl set-timezone {0}".format(timezone[0])
+
+	try:
+		console(command)
+	except CalledProcessError as error:
+		# Sometimes running the command again fixes the privilege issue.
+		if 'Access denied' in error.output:
+			console(command)
+		else:
+			raise error
+
 	handler.set_status(204)
