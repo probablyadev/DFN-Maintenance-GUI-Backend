@@ -26,7 +26,7 @@ def auth(json):
 
 @wrappers.jwt
 def check():
-	return 200
+	pass
 
 
 @jwt_refresh_token_required
