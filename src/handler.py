@@ -66,7 +66,7 @@ class Handler():
 	def add(self, entry):
 		deepupdate(self.response, entry)
 
-	def status(self, status):
+	def set_status(self, status):
 		self.status = status
 
 	def to_json(self):

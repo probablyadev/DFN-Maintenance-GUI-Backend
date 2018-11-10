@@ -34,4 +34,4 @@ def get(handler, log):
 @wrappers.injector
 def put(timezone, handler):
 	console("timedatectl set-timezone {0}".format(timezone[0]))
-	handler.status(204)
+	handler.set_status(204)

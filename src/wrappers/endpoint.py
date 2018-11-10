@@ -41,7 +41,7 @@ def endpoint(prefix = None):
 			try:
 				function(*args, **kwargs)
 			except CalledProcessError as error:
-				handler.status(500)
+				handler.set_status(500)
 				handler.add({ 'error': {
 					'cmd': error.cmd,
 					'msg': error.output,
@@ -49,9 +49,10 @@ def endpoint(prefix = None):
 			except Exception as error:
 				handler.log.exception(error)
 				handler.add({ 'error': { 'msg': str(error) }})
-				handler.status(500)
+				handler.set_status(500)
 
 			handler.log.info('Sending response.')
+
 			return handler.to_json()
 		return decorator
 

@@ -45,6 +45,6 @@ def put(row, handler, log, config):
 	log.info('Saving config file.')
 	if save_config_file(config.dfn_config_path, updated_conf_dict):
 		handler.add({ 'output': 'Overwritten {0}:{1}:{2} as {3}'.format(category, field, oldValue, value) })
-		handler.status(204)
+		handler.set_status(204)
 	else:
 		raise IOError('Unable to write {0}:{1}:{2} to config file'.format(category, field, value))
