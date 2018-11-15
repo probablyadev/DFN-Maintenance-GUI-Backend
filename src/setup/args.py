@@ -84,4 +84,4 @@ def _prod(config):
 
 	config.update(
 		JWT_SECRET_KEY = secret,
-		SQLALCHEMY_DATABASE_URI = 'sqlite:///db/prod.db')
+		SQLALCHEMY_DATABASE_URI = 'sqlite:///db/auth.db')
