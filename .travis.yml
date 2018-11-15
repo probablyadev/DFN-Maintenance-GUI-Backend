@@ -15,16 +15,16 @@ notifications:
   email: false
 
 stages:
-  - test
+#  - test
   - name: release
     if: branch = master AND type = push AND fork = false
   - deploy
 
 jobs:
   include:
-    - stage: test
-      install: pip install nose
-      script: nosetests
+#    - stage: test
+#      install: pip install -r requirements/dev.txt
+#      script: nosetests
 
     - stage: release
       script: .travis/release.sh
