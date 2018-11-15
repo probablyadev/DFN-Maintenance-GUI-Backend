@@ -1,0 +1,61 @@
+swagger: "2.0"
+
+info:
+  title: Power API Endpoint
+  version: "1.0"
+
+basePath: /api/power
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+securityDefinitions:
+  jwt:
+    type: apiKey
+    name: Authorization
+    in: header
+
+
+paths:
+  /shutdown:
+    get:
+      summary: Shutdown the server.
+      operationId: src.api.power.power.shutdown
+      responses:
+        200:
+          description: Server commencing shutdown.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+  /restart:
+    get:
+      summary: Restarts the server.
+      operationId: src.api.power.power.restart
+      responses:
+        200:
+          description: Server commencing restart.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+
+definitions:
+  Json:
+    type: object
+    properties:
+      json:
+        type: string
+        description: Resulting json object.
+
+  CommandException:
+    type: object
+    properties:
+      json:
+        type: string
+        description: The return code and error output.
+

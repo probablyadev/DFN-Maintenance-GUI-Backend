@@ -1,0 +1,121 @@
+swagger: "2.0"
+
+info:
+  title: Storage API Endpoint
+  version: "1.0"
+
+basePath: /api/storage
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+securityDefinitions:
+  jwt:
+    type: apiKey
+    name: Authorization
+    in: header
+
+
+paths:
+  /partitions:
+    get:
+      summary: Checks and returns the systems partitions disk usage.
+      operationId: src.api.storage.partitions.get
+      responses:
+        200:
+          description: Successfully gathered the disk usage.
+          schema:
+            $ref: '#/definitions/Json'
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+  /power/on:
+    get:
+      summary: Turns on the systems external drives.
+      operationId: src.api.storage.power.on
+      responses:
+        200:
+          description: Successfully turned the drives on.
+          schema:
+            $ref: '#/definitions/Json'
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+  /power/off:
+    get:
+      summary: Turns off the systems external drives.
+      operationId: src.api.storage.power.off
+      responses:
+        200:
+          description: Successfully turned the drives off.
+          schema:
+            $ref: '#/definitions/Json'
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+  /mount:
+    get:
+      summary: Mounts the systems external drives.
+      operationId: src.api.storage.mount.get
+      responses:
+        200:
+          description: Successfully mounted the drives.
+          schema:
+            $ref: '#/definitions/Json'
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+  /unmount:
+    get:
+      summary: Unmounts the systems external drives.
+      operationId: src.api.storage.unmount.get
+      responses:
+        200:
+          description: Successfully unmounted the drives.
+          schema:
+            $ref: '#/definitions/Json'
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+  /smart:
+    get:
+      summary: Performs a smart test.
+      operationId: src.api.storage.smart.get
+      responses:
+        200:
+          description: Successfully performed the smart test.
+          schema:
+            $ref: '#/definitions/Json'
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+
+definitions:
+  Json:
+    type: object
+    properties:
+      json:
+        type: string
+        description: Resulting json object.
+
+  CommandException:
+    type: object
+    properties:
+      json:
+        type: string
+        description: The return code and error output.
+

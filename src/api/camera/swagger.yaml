@@ -1,54 +1,145 @@
 swagger: "2.0"
 
 info:
-	title: Camera API Endpoint
-	version: "1.0"
+  title: Camera API Endpoint
+  version: "1.0"
 
 basePath: /api/camera
-x-swagger-router-controller: src.api.camera
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+securityDefinitions:
+  jwt:
+    type: apiKey
+    name: Authorization
+    in: header
 
 
 paths:
-	/dslr-camera/on:
-		get:
-			summary: Turns the dslr camera on.
-			operationId: dslr_camera.on
+  /dslr:
+    get:
+      summary: Gets the current status of the systems DSLR camera (on / off).
+      operationId: src.api.camera.dslr.get
+      responses:
+        200:
+          description: Camera status.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
 
-	/dslr-camera/off:
-		get:
-			summary: Turns the dslr camera off.
-			operationId: dslr_camera.off
+  /dslr/on:
+    get:
+      summary: Turns the systems DSLR camera on.
+      operationId: src.api.camera.dslr.on
+      responses:
+        200:
+          description: Camera status.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
 
-	/dslr-camera/status:
-		get:
-			summary: Retrieves a summary of the DSLR's status.
-			operationId: dslr_camera.status
+  /dslr/off:
+    get:
+      summary: Turns the systems DSLR camera off.
+      operationId: src.api.camera.dslr.off
+      responses:
+        200:
+          description: Camera status.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
 
-	/video-camera/on:
-		get:
-			summary: Turns the video camera on.
-			operationId: video_camera.on
+  /picture/download:
+    get:
+      summary: Fetches the specified .NEF file for the user to download.
+      operationId: src.api.camera.picture.download
+      responses:
+        200:
+          description: .NEF file to download.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
 
-	/video-camera/off:
-		get:
-			summary: Turns the video camera off.
-			operationId: video_camera.off
+  /picture/find:
+    get:
+      summary: Fetches the filenames of pictures taken on the date specified.
+      operationId: src.api.camera.picture.find
+      responses:
+        200:
+          description: Picture file creation times and paths.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
 
-	/picture/{date}:
-		get:
-			summary: Retrieve pictures taken on the date specified.
-			operationId: picture.date
+  /thumbnail/download:
+    get:
+      summary: Extracts the thumbnail of the specified .NEF.
+      operationId: src.api.camera.thumbnail.download
+      responses:
+        200:
+          description: Thumbnail.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
 
-	/picture/{id}:
-		get:
-			summary: Download a picture by its id.
-			operationId: picture.id
+  /thumbnail/remove:
+    get:
+      summary: Deletes the specified thumbnail from the cameras filesystem.
+      operationId: src.api.camera.thumbnail.remove
+      responses:
+        200:
+          description: Thumbnail successfully removed.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
 
-	/thumbnail/{id}:
-		get:
-			summary: Download a thumbnail by the pictures id.
-			operationId: thumbnail.get
+  /video/on:
+    get:
+      summary: Switches the video camera on.
+      operationId: src.api.camera.video.on
+      responses:
+        200:
+          description: Video camera status.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
 
-		delete:
-			summary: Delete a thumbnail by the pictures id.
-			operationId: thumbnail.delete
+  /video/off:
+    get:
+      summary: Switches the video camera off.
+      operationId: src.api.camera.video.off
+      responses:
+        200:
+          description: Video camera status.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+
+definitions:
+  Json:
+    type: object
+    properties:
+      json:
+        type: string
+        description: Resulting json object.
+
+  CommandException:
+    type: object
+    properties:
+      json:
+        type: string
+        description: The return code and error output.
+

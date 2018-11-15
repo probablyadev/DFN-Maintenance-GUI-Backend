@@ -4,7 +4,7 @@ info:
   title: Config File API Endpoint
   version: "1.0"
 
-basePath: /api/configfile
+basePath: /api
 
 consumes:
   - application/json
@@ -19,36 +19,10 @@ securityDefinitions:
 
 
 paths:
-  /check:
-    get:
-      summary: Checks that the config file in use is valid.
-      operationId: src.api.configfile.endpoints.check
-      responses:
-        200:
-          description: Config file is valid.
-        500:
-          description: Failure while running command.
-          schema:
-            $ref: '#/definitions/CommandException'
-
-  /whitelist:
-    get:
-      summary: Gets the config files whitelist (editable entries).
-      operationId: src.api.configfile.endpoints.whitelist
-      responses:
-        200:
-          description: Config file whitelist.
-          schema:
-            $ref: '#/definitions/Json'
-        500:
-          description: Failure while running command.
-          schema:
-            $ref: '#/definitions/CommandException'
-
   /config:
     get:
       summary: Gets the config file.
-      operationId: src.api.configfile.endpoints.getConfig
+      operationId: src.api.config.get
       responses:
         200:
           description: Config file.
@@ -57,14 +31,45 @@ paths:
           schema:
             $ref: '#/definitions/CommandException'
 
-    update:
+    put:
       summary: Updates a config file entry.
-      operationId: src.api.configfile.endpoints.updateConfig
+      operationId: src.api.config.put
       parameters:
-        $ref: '#/definitions/Json'
+      - name: row
+        in: body
+        schema:
+          type: array
+          items:
+            type: string
       responses:
         204:
           description: Config file entry successfully updated.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+  /config/check:
+    get:
+      summary: Checks that the config file in use is valid.
+      operationId: src.api.config.check.get
+      responses:
+        200:
+          description: Config file is valid.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+  /config/whitelist:
+    get:
+      summary: Gets the config files whitelist (editable entries).
+      operationId: src.api.config.whitelist.get
+      responses:
+        200:
+          description: Config file whitelist.
+          schema:
+            $ref: '#/definitions/Json'
         500:
           description: Failure while running command.
           schema:

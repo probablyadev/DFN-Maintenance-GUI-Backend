@@ -1,0 +1,79 @@
+swagger: "2.0"
+
+info:
+  title: Location API Endpoint
+  version: "1.0"
+
+basePath: /api/location
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+securityDefinitions:
+  jwt:
+    type: apiKey
+    name: Authorization
+    in: header
+
+
+paths:
+  /time:
+    get:
+      summary: Gets the local time, current timezone, and list of all timezones.
+      operationId: src.api.location.time.get
+      responses:
+        200:
+          description: Local time, timezone, and all timezones.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+    put:
+      summary: Updates the systems timezone.
+      operationId: src.api.location.time.put
+      parameters:
+        - name: timezone
+          in: body
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        204:
+          description: System timezone successfully updated.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+  /gps:
+    get:
+      summary: Gets the GPS summary.
+      operationId: src.api.location.gps.get
+      responses:
+        200:
+          description: Lock status, satellites, latitude, longitude, altitude.
+        500:
+          description: Failure while running command.
+          schema:
+            $ref: '#/definitions/CommandException'
+
+
+definitions:
+  Json:
+    type: object
+    properties:
+      json:
+        type: string
+        description: Resulting json object.
+
+  CommandException:
+    type: object
+    properties:
+      json:
+        type: string
+        description: The return code and error output.
+
