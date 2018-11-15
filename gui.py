@@ -44,7 +44,7 @@ def run(args):
 	setup.args(config, args)
 	setup.extensions(flask_app)
 	setup.logger(config)
-	setup.routes(connexion_app)
+	setup.routes(connexion_app, args)
 
 	flask_app.run(
 		host = args.host,
